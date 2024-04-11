@@ -6,18 +6,28 @@
 
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.guest.explore.ExploreFragment">
+        tools:context=".feature.guest.explore.ExploreFragment"
+        android:background="@color/general_background">
 
-        <!-- TODO: Update blank fragment layout -->
+        <Button
+            style="@style/Widget.Material3.Button.TextButton"
+            android:id="@+id/change_to_host_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modo anfitrion"
+            android:layout_alignParentEnd="true"
+            android:paddingEnd="30dp"
+            android:textColor="@color/black"/>
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"
-            android:background="@color/general_background"
-            android:gravity="center" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hola, bienvenido a Hosted In"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
 
-    </FrameLayout>
+    </RelativeLayout>
 </layout>

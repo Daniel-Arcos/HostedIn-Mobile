@@ -1,5 +1,6 @@
 package com.sdi.hostedin.feature.guest.explore;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.databinding.FragmentExploreBinding;
+import com.sdi.hostedin.feature.guest.GuestMainActivity;
+import com.sdi.hostedin.feature.host.HostMainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +26,7 @@ public class ExploreFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private FragmentExploreBinding binding;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,6 +70,14 @@ public class ExploreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_explore, container, false);
+        binding = FragmentExploreBinding.inflate(inflater, container, false);
+        binding.changeToHostBtn.setOnClickListener(v -> changeToHostMenu());
+        return binding.getRoot();
+    }
+
+    private void changeToHostMenu() {
+        Intent intent = new Intent(getContext(), HostMainActivity.class);
+        startActivity(intent);
+        this.requireActivity().finish();
     }
 }

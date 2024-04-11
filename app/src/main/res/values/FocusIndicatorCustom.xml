@@ -4,4 +4,9 @@
         <item name="android:color">@color/mi_color_seleccionado</item>
         <item name="android:height">35dp</item>
     </style>
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/icon_app</item>
+        <item name="windowSplashScreenBackground">@color/mi_color_seleccionado</item>
+        <item name="postSplashScreenTheme">@style/Theme.HostedIn</item>
+    </style>
 </resources>
