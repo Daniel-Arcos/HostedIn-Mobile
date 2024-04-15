@@ -1,33 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:id="@+id/change_to_host_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Modo anfitrion"
+                    android:layout_toStartOf="@id/profile_btn"
+                    android:layout_marginEnd="15dp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".feature.guest.explore.ExploreFragment"
-        android:background="@color/general_background">
+                <Button
+                    style="?attr/materialIconButtonFilledStyle"
+                    android:id="@+id/profile_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/profile_icon"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="5dp"/>
 
-        <Button
-            style="@style/Widget.Material3.Button.TextButton"
-            android:id="@+id/change_to_host_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Modo anfitrion"
-            android:layout_alignParentEnd="true"
-            android:paddingEnd="30dp"
-            android:textColor="@color/black"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¡Hola, vamos a planear el viaje de tus sueños!"
+                    android:textSize="18sp"
+                    android:layout_below="@id/change_to_host_btn"
+                    android:layout_marginStart="20dp"
+                    android:layout_toStartOf="@id/filter_btn"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hola, bienvenido a Hosted In"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
+                <Button
+                    style="?attr/materialIconButtonOutlinedStyle"
+                    android:id="@+id/filter_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/settings_icon"
+                    android:layout_below="@id/change_to_host_btn"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp"
+                    />
 
-    </RelativeLayout>
+
+                <com.google.android.material.search.SearchBar
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Busca lugares"
+                    android:layout_toStartOf="@id/delete_results_btn"
+                    android:layout_below="@id/filter_btn"/>
+
+                <Button
+                    style="?attr/materialIconButtonFilledTonalStyle"
+                    android:id="@+id/delete_results_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/delete_icon"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_below="@id/filter_btn"/>
+
+                <com.google.android.material.search.SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Busca lugares"
+                    app:layout_anchor="@id/search_bar">
+                </com.google.android.material.search.SearchView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/results_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/search_bar"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"/>
+
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/rec_example"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="300sp"-->
+<!--                    android:layout_below="@id/search_bar"-->
+<!--                    app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>-->
+            </RelativeLayout>
 </layout>

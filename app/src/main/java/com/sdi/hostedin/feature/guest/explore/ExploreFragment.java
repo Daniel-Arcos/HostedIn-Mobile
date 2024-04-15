@@ -3,6 +3,7 @@ package com.sdi.hostedin.feature.guest.explore;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.transition.TransitionInflater;
@@ -14,6 +15,8 @@ import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.FragmentExploreBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.host.HostMainActivity;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,7 +74,24 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentExploreBinding.inflate(inflater, container, false);
+        binding.searchView.setupWithSearchBar(binding.searchBar);
+        binding.searchView
+                .getEditText()
+                .setOnEditorActionListener(
+                        (v, actionId, event) -> {
+                            binding.searchBar.setText(binding.searchView.getText());
+                             binding.searchView.hide();
+                            return false;
+                        });
         binding.changeToHostBtn.setOnClickListener(v -> changeToHostMenu());
+
+//        ArrayList<String> imageUrls = new ArrayList<>();
+//        imageUrls.add("https://rickandmortyapi.com/api/character/avatar/353.jpeg");
+//        imageUrls.add("https://rickandmortyapi.com/api/character/avatar/353.jpeg");
+//        imageUrls.add("https://rickandmortyapi.com/api/character/avatar/353.jpeg");
+//
+//        ImageAdapter adapter = new ImageAdapter(getContext(), imageUrls);
+//        binding.recExample.setAdapter(adapter);
         return binding.getRoot();
     }
 
@@ -80,4 +100,6 @@ public class ExploreFragment extends Fragment {
         startActivity(intent);
         this.requireActivity().finish();
     }
+
+
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
+import com.google.android.material.search.SearchView;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
@@ -39,16 +40,7 @@ public class GuestMainActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-                if (fragment instanceof ExploreFragment) {
-                    finish();
-                } else {
-                    getSupportFragmentManager().beginTransaction()
-                            .setReorderingAllowed(true)
-                            .replace(binding.fragmentContainer.getId(), ExploreFragment.class, null)
-                            .commit();
-                    binding.bottomNavigationView.setSelectedItemId(R.id.explore);
-                }
+                handleOnPressedButton();
             }
         });
 
@@ -77,5 +69,23 @@ public class GuestMainActivity extends AppCompatActivity {
             }
             return  true;
         });
+    }
+
+    private void handleOnPressedButton() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragment instanceof ExploreFragment) {
+            SearchView searchView = findViewById(R.id.search_view);
+            if (searchView.isShowing()) {
+                searchView.hide();
+            } else {
+                finish();
+            }
+        } else {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .replace(binding.fragmentContainer.getId(), ExploreFragment.class, null)
+                    .commit();
+            binding.bottomNavigationView.setSelectedItemId(R.id.explore);
+        }
     }
 }

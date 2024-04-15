@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rec_example"
+        android:layout_width="match_parent"
+        android:layout_height="300sp"
+        app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>
+
+        <TextView
+            android:id="@+id/address_txv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xalapa, Veracruz"
+            android:layout_below="@id/rec_example"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@id/address_txv"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="4.25"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/rec_example"
+            android:layout_alignParentEnd="true"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/sharp_auto_awesome_24"
+            android:drawablePadding="5dp"/>
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="$5000 MXN por noche"
+            android:layout_below="@id/address_txv"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/night_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="por noche"
+            android:layout_below="@id/address_txv"
+            android:layout_toRightOf="@id/price"
+            android:layout_marginLeft="10dp"/>
+
+    </RelativeLayout>
+</layout>
