@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +15,15 @@
         android:theme="@style/Theme.HostedIn"
         tools:targetApi="31">
         <activity
+            android:name=".feature.user.DeleteAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.user.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.user.ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.host.HostMainActivity"
             android:exported="false"
             android:label="@string/title_activity_host_main"
@@ -22,7 +31,7 @@
         <activity
             android:name=".feature.guest.GuestMainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -33,6 +42,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
     </application>
 
 </manifest>
