@@ -15,6 +15,9 @@
         android:theme="@style/Theme.HostedIn"
         tools:targetApi="31">
         <activity
+            android:name=".feature.password.RecoverPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.user.DeleteAccountActivity"
             android:exported="false" />
         <activity
@@ -42,8 +45,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
     </application>
 
 </manifest>

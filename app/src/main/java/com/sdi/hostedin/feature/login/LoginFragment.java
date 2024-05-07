@@ -19,6 +19,7 @@ import com.sdi.hostedin.databinding.FragmentExploreBinding;
 import com.sdi.hostedin.databinding.FragmentLoginBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.host.HostMainActivity;
+import com.sdi.hostedin.feature.password.RecoverPasswordActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +79,7 @@ public class LoginFragment extends Fragment {
         binding.btnLogin.setOnClickListener(v -> {
             Login();
         });
+        binding.btnForgotPassword.setOnClickListener(v -> recoverPassword());
         return  binding.getRoot();
     }
 
@@ -109,4 +111,11 @@ public class LoginFragment extends Fragment {
         startActivity(intent);
         this.getActivity().finish();
     }
+
+    private void recoverPassword(){
+        Intent intent = new Intent(this.getActivity(), RecoverPasswordActivity.class);
+        startActivity(intent);
+        this.getActivity().finish();
+    }
+
 }

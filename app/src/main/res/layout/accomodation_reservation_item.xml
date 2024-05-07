@@ -55,7 +55,7 @@
             android:layout_below="@id/imgAccommodation"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="22dp"
-            android:background="null"
+            android:background="#00FFFFFF"
             android:contentDescription="Reservaciones"
             android:src="@drawable/reservation_icon"
             tools:ignore="TouchTargetSizeCheck" />
