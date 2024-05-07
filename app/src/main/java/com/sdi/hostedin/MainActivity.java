@@ -14,42 +14,30 @@ import androidx.core.splashscreen.SplashScreen;
 
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
+import com.sdi.hostedin.databinding.ActivityMainBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
+import com.sdi.hostedin.feature.guest.explore.ExploreFragment;
 import com.sdi.hostedin.feature.host.HostMainActivity;
+import com.sdi.hostedin.feature.login.LoginFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    ActivityMainBinding binding;
     RxDataStore<Preferences> dataStoreRX;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         super.onCreate(savedInstanceState);
-        DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
-        if (dataStoreSingleton.getDataStore() == null) {
-            dataStoreRX = new RxPreferenceDataStoreBuilder(this,"USER_DATASTORE" ).build();
-        } else {
-            dataStoreRX = dataStoreSingleton.getDataStore();
-        }
-        dataStoreSingleton.setDataStore(dataStoreRX);
-        DataStoreHelper dataStoreHelper = new DataStoreHelper(this, dataStoreRX);
-        boolean isHostEstablished = dataStoreHelper.getBoolValue("START_HOST");
-        if (isHostEstablished) {
-            goToHostMenu();
-        } else {
-            goToGuestMenu();
-        }
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(binding.fragmentMainContainer.getId(), LoginFragment.class, null)
+                .commit();
+
+
+
     }
 
-    private void goToGuestMenu() {
-        Intent intent = new Intent(this, GuestMainActivity.class);
-        startActivity(intent);
-        this.finish();
-    }
 
-    private void goToHostMenu() {
-        Intent intent = new Intent(this, HostMainActivity.class);
-        startActivity(intent);
-        this.finish();
-    }
 }
