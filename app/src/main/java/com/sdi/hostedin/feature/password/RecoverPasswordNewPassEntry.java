@@ -40,7 +40,7 @@ public class RecoverPasswordNewPassEntry extends Fragment {
     }
 
     public boolean validatePassword(){
-        String password = binding.edtxNewPassword.toString();
+        String password = binding.etxNewpassword.getEditText().getText().toString();
         return password.isEmpty();
     }
 

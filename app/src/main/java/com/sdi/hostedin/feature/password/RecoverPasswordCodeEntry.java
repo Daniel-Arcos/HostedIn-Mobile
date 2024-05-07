@@ -39,11 +39,11 @@ public class RecoverPasswordCodeEntry extends Fragment {
     }
 
     public boolean validarCodigo(){
-        String code1 = binding.txtCode1.toString();
-        String code2 = binding.txtCode2.toString();
-        String code3 = binding.txtCode3.toString();
-        String code4 = binding.txtCode4.toString();
-        String code5 = binding.txtCode5.toString();
+        String code1 = binding.txtCode1.getText().toString();
+        String code2 = binding.txtCode2.getText().toString();
+        String code3 = binding.txtCode3.getText().toString();
+        String code4 = binding.txtCode4.getText().toString();
+        String code5 = binding.txtCode5.getText().toString();
         if(!code1.isEmpty() && !code2.isEmpty() && !code3.isEmpty() && !code4.isEmpty() && !code5.isEmpty()){
             return true;
         }

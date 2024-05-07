@@ -115,7 +115,6 @@ public class LoginFragment extends Fragment {
     private void recoverPassword(){
         Intent intent = new Intent(this.getActivity(), RecoverPasswordActivity.class);
         startActivity(intent);
-        this.getActivity().finish();
     }
 
 }

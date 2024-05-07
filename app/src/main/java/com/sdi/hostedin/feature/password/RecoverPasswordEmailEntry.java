@@ -16,7 +16,7 @@ import com.sdi.hostedin.databinding.FragmentRecoverPasswordEmailEntryBinding;
 public class RecoverPasswordEmailEntry extends Fragment {
 
     private FragmentRecoverPasswordEmailEntryBinding binding;
-    String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$";
+    String regex = "^(?=.{1,50}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 
     public RecoverPasswordEmailEntry() {
         // Required empty public constructor
@@ -40,7 +40,7 @@ public class RecoverPasswordEmailEntry extends Fragment {
 
     public int validateEmail(){
         int isValid = 0;
-        String email = binding.textinlayEmail.toString();
+        String email = binding.textinlayEmail.getEditText().getText().toString();
         if(!email.isEmpty()){
             if(email.matches(regex)){
                 isValid = 1;
