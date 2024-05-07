@@ -72,7 +72,7 @@ public class ExploreFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentExploreBinding.inflate(inflater, container, false);
 
-        Places.initialize(this.getContext(), "AIzaSyBMCpitlSaWhnRQ5LNuOeUchSDi9sCO364");
+        Places.initialize(this.getContext(), getString(R.string.google_maps_key));
         placesClient = Places.createClient(this.getContext());
 
         binding.searchView.setupWithSearchBar(binding.searchBar);
