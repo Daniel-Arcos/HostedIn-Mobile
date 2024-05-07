@@ -15,6 +15,7 @@ import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.FragmentExploreBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.host.HostMainActivity;
+import com.sdi.hostedin.feature.user.ProfileActivity;
 
 import java.util.ArrayList;
 
@@ -85,6 +86,8 @@ public class ExploreFragment extends Fragment {
                         });
         binding.changeToHostBtn.setOnClickListener(v -> changeToHostMenu());
 
+        binding.profileBtn.setOnClickListener(v -> changeToUserProfile());
+
 //        ArrayList<String> imageUrls = new ArrayList<>();
 //        imageUrls.add("https://rickandmortyapi.com/api/character/avatar/353.jpeg");
 //        imageUrls.add("https://rickandmortyapi.com/api/character/avatar/353.jpeg");
@@ -101,5 +104,9 @@ public class ExploreFragment extends Fragment {
         this.requireActivity().finish();
     }
 
+    private void changeToUserProfile() {
+        Intent intent = new Intent(getContext(), ProfileActivity.class);
+        startActivity(intent);
+    }
 
 }
