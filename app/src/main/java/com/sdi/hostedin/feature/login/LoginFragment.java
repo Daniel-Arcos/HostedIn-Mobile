@@ -1,6 +1,8 @@
 package com.sdi.hostedin.feature.login;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.datastore.preferences.core.Preferences;
@@ -12,13 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sdi.hostedin.MainActivity;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.databinding.FragmentExploreBinding;
 import com.sdi.hostedin.databinding.FragmentLoginBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
+import com.sdi.hostedin.feature.guest.explore.ExploreFragment;
 import com.sdi.hostedin.feature.host.HostMainActivity;
+import com.sdi.hostedin.feature.signup.SignupFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,10 +68,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -74,11 +76,21 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false);
-
         binding.btnLogin.setOnClickListener(v -> {
             Login();
         });
+        binding.btnSignup.setOnClickListener(v -> {
+            GoToSignUp();
+        });
         return  binding.getRoot();
+    }
+
+    private void GoToSignUp() {
+        getParentFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragment_main_container, SignupFragment.class, null)
+                .commit();
     }
 
     private void Login() {
