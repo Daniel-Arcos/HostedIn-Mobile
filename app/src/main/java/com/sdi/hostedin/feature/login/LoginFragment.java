@@ -95,7 +95,7 @@ public class LoginFragment extends Fragment {
     private void Login() {
         DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
         if (dataStoreSingleton.getDataStore() == null) {
-            dataStoreRX = new RxPreferenceDataStoreBuilder(this.requireActivity(),"USER_DATASTORE" ).build();
+            dataStoreRX = new RxPreferenceDataStoreBuilder(this.getContext(),"USER_DATASTORE" ).build();
         } else {
             dataStoreRX = dataStoreSingleton.getDataStore();
         }
@@ -106,7 +106,6 @@ public class LoginFragment extends Fragment {
             goToHostMenu();
         } else {
             goToGuestMenu();
-            Log.d("loginTest", "Login: I pass here");
         }
     }
 

@@ -45,10 +45,9 @@ dependencies {
     implementation 'androidx.core:core-splashscreen:1.0.1'
 
     //DataStore Preferences
-    implementation "androidx.datastore:datastore-preferences:1.1.1"
-
-    // optional - RxJava2 support
-    implementation "androidx.datastore:datastore-preferences-rxjava2:1.1.1"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation "androidx.datastore:datastore-preferences-rxjava2:1.0.0"
+    implementation 'androidx.datastore:datastore-preferences-rxjava2:1.0.0'
 
     //Material 3
     implementation 'com.google.android.material:material:1.12.0'
