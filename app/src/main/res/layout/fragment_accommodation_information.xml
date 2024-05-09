@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.host.accommodations.AccommodationInformationFragment">
+
+        <TextView
+            android:id="@+id/information_instruction_tvw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:text="Ponle un título y descripción a tu\nalojamiento"
+            android:textColor="#5280DB"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/information_instruction_tvw"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Título"
+                        android:inputType="textAutoComplete"
+                        android:contentDescription="Titulo de tu publicación del alojamiento"
+                        android:text="" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Descripcion"
+                        android:inputType="textMultiLine|textAutoComplete"
+                        android:maxLines="8"
+                        android:contentDescription="Descripción de tu alojamiento"
+                        android:text="" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="¿Deseas agregar alguna regla para tu alojamiento?"
+                    android:textColor="#5280DB"
+                    android:textStyle="normal"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Reglas"
+                        android:inputType="textMultiLine|textAutoComplete"
+                        android:maxLines="8"
+                        android:contentDescription="Reglas que deben cumplir los huéspedes en tu alojamiento"
+                        android:text="" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:text="Ahora, establece el precio\npor noche de tu alojamiento"
+                    android:textColor="#5280DB"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/money_symbol_tvw"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$"
+                                android:textSize="60sp"
+                                android:textStyle="bold"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentStart="true"
+                                />
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/night_price_edtx"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_toStartOf="@+id/money_type_tvw"
+                                android:layout_toEndOf="@+id/money_symbol_tvw"
+                                android:contentDescription="Reglas que deben cumplir los huéspedes en tu alojamiento"
+                                android:hint="Precio"
+                                android:inputType="numberDecimal"
+                                android:text=""
+                                android:textSize="60sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/money_type_tvw"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="-10dp"
+                                android:text="MXN"
+                                android:textSize="45sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+</layout>
