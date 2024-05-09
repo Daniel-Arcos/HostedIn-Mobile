@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.host.EditAccommodationActivity">
+
+        <TextView
+            android:id="@+id/txv_editHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Hi, select the accommodation's section you want to edit."
+            android:textSize="20sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txv_editHeader"
+            android:layout_above="@id/lin_lay_accommodation_sections"
+            />
+
+        <LinearLayout
+            android:id="@+id/lin_lay_accommodation_sections"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/top_rouded_backgorund"
+            android:elevation="10dp"
+            android:orientation="vertical">
+
+
+            <View
+                android:id="@+id/viewHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/black" />
+
+            <include
+                android:id="@+id/optAccommodationType"
+                layout="@layout/horizontal_button_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="2dp"
+                app:customImage="@drawable/delete_icon"
+                app:customText="Accommodation Type" />
+
+            <include
+                android:id="@+id/optUbication"
+                layout="@layout/horizontal_button_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="2dp"
+                app:customImage="@drawable/map_icon"
+                app:customText="Ubication" />
+
+            <include
+                android:id="@+id/optNumberOfGuest"
+                layout="@layout/horizontal_button_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="2dp"
+                app:customImage="@drawable/map_icon"
+                app:customText="Rooms and guests" />
+
+            <include
+                android:id="@+id/optServices"
+                layout="@layout/horizontal_button_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="2dp"
+                app:customImage="@drawable/map_icon"
+                app:customText="Services" />
+
+            <include
+                android:id="@+id/optMedia"
+                layout="@layout/horizontal_button_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="2dp"
+                app:customImage="@drawable/map_icon"
+                app:customText="Pictures and videos" />
+
+            <include
+                android:id="@+id/optInforPublication"
+                layout="@layout/horizontal_button_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="2dp"
+                app:customImage="@drawable/map_icon"
+                app:customText="Title, description, cost..." />
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

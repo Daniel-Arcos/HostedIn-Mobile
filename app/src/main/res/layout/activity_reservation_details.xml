@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.guest.bookings.ReservationDetailsActivity">
+
+        <TextView
+            android:id="@+id/txv_reservationDetailsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Cuentanos tu experiencia en Casa Komalli"
+            android:textSize="24dp" />
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/txv_reservationDetailsHeader">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_accommodationMedia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp" />
+
+                <TextView
+                    android:id="@+id/txv_startDateTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/view"
+                    android:layout_below="@+id/recycler_accommodationMedia"
+                    android:layout_alignParentStart="true"
+                    android:layout_toEndOf="@+id/view"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Starting date"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txv_starDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txv_startDateTag"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/view"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="10dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text=" Miercoles 27 de mayo del 2024"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/viewHorizontal1"
+                    android:layout_below="@+id/recycler_accommodationMedia"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="5dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/txv_endDateTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recycler_accommodationMedia"
+                    android:layout_toEndOf="@id/view"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Starting date"
+                    android:textAlignment="center"
+                android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txv_endDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txv_endDateTag"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/view"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="10dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text=" Miercoles 27 de mayo del 2024"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/viewHorizontal1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/black"
+                    android:layout_below="@+id/txv_starDate"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true" />
+
+                <ImageView
+                    android:id="@+id/imv_mapIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewHorizontal1"
+                    android:src="@drawable/map_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewHorizontal1"
+                    android:layout_alignBaseline="@+id/imv_mapIcon"
+                    android:layout_toEndOf="@+id/imv_mapIcon"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Watch map"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:layout_alignTop="@id/imv_mapIcon"
+                    android:layout_alignBottom="@id/imv_mapIcon"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:srcCompat="@drawable/go_ahead_icon"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@id/imv_mapIcon"
+                    android:layout_alignBottom="@id/imv_mapIcon"
+                    android:layout_marginRight="15dp"/>
+
+                <View
+                    android:id="@+id/viewHorizontal2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/black"
+                    android:layout_below="@+id/imv_mapIcon"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true" />
+
+
+                <LinearLayout
+                    android:id="@+id/linear_lay_rateSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewHorizontal2">
+
+                    <ImageView
+                        android:id="@+id/imv_rateIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/rate_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:text="Rate your stancy"
+                        android:textSize="20dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="15dp"
+                        tools:srcCompat="@drawable/go_ahead_icon" />
+
+                </LinearLayout>
+                <View
+                    android:id="@+id/viewHorizontal3"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/black"
+                    android:layout_below="@+id/linear_lay_rateSection"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:id="@+id/txv_infoHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewHorizontal3"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="Reservation stancy details"
+                    android:textSize="20dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"/>
+
+                <TextView
+                    android:id="@+id/txv_totalGuestTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txv_infoHeader"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Total Guest"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/txv_totalGuest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txv_totalGuestTag"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="2dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="6 huespedes"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/viewHorizontal4"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/black"
+                    android:layout_below="@+id/txv_totalGuest"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:id="@+id/txv_totalCostTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewHorizontal4"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Cost"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/txv_totalCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txv_totalCostTag"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="2dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="$ 155.68"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/viewHorizontal5"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/black"
+                    android:layout_below="@+id/txv_totalCost"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true" />
+
+
+                <TextView
+                    android:id="@+id/txv_hostTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewHorizontal5"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Cost"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/txv_hsotName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txv_hostTag"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="2dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="$ 155.68"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/viewHorizontal6"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/black"
+                    android:layout_below="@+id/txv_hsotName"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="100dp"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_lay_cancellSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewHorizontal6"
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/imv_cancellIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/cancell_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:text="Cancell reservation"
+                        android:textSize="20dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="15dp"
+                        tools:srcCompat="@drawable/go_ahead_icon" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

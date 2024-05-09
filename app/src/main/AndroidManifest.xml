@@ -15,6 +15,12 @@
         android:theme="@style/Theme.HostedIn"
         tools:targetApi="31">
         <activity
+            android:name=".feature.host.EditAccommodationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.guest.bookings.ReservationDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.password.RecoverPasswordActivity"
             android:exported="false" />
         <activity
