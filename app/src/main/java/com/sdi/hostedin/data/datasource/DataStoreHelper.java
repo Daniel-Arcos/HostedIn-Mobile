@@ -1,6 +1,7 @@
 package com.sdi.hostedin.data.datasource;
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,6 +49,7 @@ public class DataStoreHelper {
             mutablePreferences.set(PREF_KEY, value);
             return Single.just(mutablePreferences);
         }).onErrorReturnItem(pref_error);
+
         returnvalue = updateResult.blockingGet() != pref_error;
         return returnvalue;
     }

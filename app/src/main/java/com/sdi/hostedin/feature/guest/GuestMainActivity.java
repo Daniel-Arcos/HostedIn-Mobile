@@ -8,6 +8,7 @@ import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.material.search.SearchView;
 import com.sdi.hostedin.R;
@@ -16,7 +17,7 @@ import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.databinding.ActivityGuestMainActiviyBinding;
 import com.sdi.hostedin.feature.guest.bookings.BookingsFragment;
 import com.sdi.hostedin.feature.guest.explore.ExploreFragment;
-import com.sdi.hostedin.feature.guest.statistics.StatisticsFragment;
+import com.sdi.hostedin.feature.statistics.StatisticsFragment;
 
 public class GuestMainActivity extends AppCompatActivity {
     ActivityGuestMainActiviyBinding binding;
@@ -35,7 +36,6 @@ public class GuestMainActivity extends AppCompatActivity {
         dataStoreSingleton.setDataStore(dataStoreRX);
         DataStoreHelper dataStoreHelper = new DataStoreHelper(this, dataStoreRX);
         dataStoreHelper.putBoolValue("START_HOST", false);
-
 
         getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override

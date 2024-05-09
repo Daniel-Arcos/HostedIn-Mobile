@@ -80,68 +80,64 @@
             android:text="Mi Cuenta"
             android:textAlignment="textStart" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_below="@+id/my_account_btn"
+            android:layout_height="0dp"
+           android:layout_alignTop="@+id/my_account_btn"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:gravity="bottom"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="-2dp">
+            android:layout_alignParentEnd="true">
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/white"
-                android:drawableTint="@color/white"
-                android:text="Cambiar contraseña"
-                android:textAlignment="center"
-                android:textColor="#5280DB" />
-
-            <Button
-                android:id="@+id/button3"
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:id="@+id/change_password_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="7dp"
-                android:backgroundTint="@color/white"
-                android:drawableTint="@color/white"
+                android:text="Cambiar contraseña"
+                app:strokeColor="#5280DB"
+                android:layout_above="@id/logout_btn"
+                android:textAlignment="center"/>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:id="@+id/logout_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="30dp"
                 android:text="Cerrar sesión"
                 android:textAlignment="center"
-                android:textColor="#DB5283" />
+                android:textColor="#DB5283"
+                app:strokeColor="#DB5283"
+                android:layout_above="@+id/danger_zone_txv"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/danger_zone_txv"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="7dp"
-                android:gravity="center">
+                android:layout_above="@id/delete_account_btn"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="15dp"
+                android:text="Zona de peligro"
+                android:textColor="#D95353"
+                android:textStyle="bold"
+                android:layout_marginBottom="15dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:text="Zona de peligro"
-                    android:textColor="#D95353"
-                    android:textStyle="bold" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D95353"
+                android:layout_above="@+id/delete_account_btn"
+                android:layout_toEndOf="@id/danger_zone_txv"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="10dp"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="#D95353"
-                    android:textAlignment="center" />
-            </LinearLayout>
-
-            <Button
+            <com.google.android.material.button.MaterialButton
+                style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
                 android:id="@+id/delete_account_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -149,13 +145,136 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="#F8EEEE"
-                android:drawableTint="@color/white"
                 android:text="Eliminar cuenta"
-                android:textAlignment="center"
+                app:strokeColor="#F8EEEE"
+                android:layout_alignParentBottom="true"
                 android:textColor="#D95353" />
 
-        </LinearLayout>
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:background="#00FFFFFF">
+
+                <RelativeLayout
+                    android:id="@+id/standard_bottom_sheet"
+                    style="@style/Widget.Material3.BottomSheet"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#00BFBFBF"
+                    android:clickable="true"
+                    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cambiar contraseña"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginStart="15dp"
+                        android:textSize="17sp"
+                        android:textStyle="bold"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/cancel_change_password_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:text="Cancelar"
+                        android:layout_alignParentEnd="true"
+                        android:textSize="17sp"
+                        android:layout_marginRight="5dp"/>
 
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/current_password_etx"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Contraseña actual"
+                        android:layout_below="@id/cancel_change_password_btn"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:endIconMode="password_toggle"
+                        app:boxCornerRadiusTopStart="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:id="@+id/forgot_password_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="¿Olvidaste tu contraseña?"
+                        android:layout_below="@+id/current_password_etx"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"/>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/new_password_etx"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Contraseña nueva"
+                        android:layout_below="@id/forgot_password_btn"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:endIconMode="password_toggle"
+                        app:boxCornerRadiusTopStart="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/new_password_confirmation_etx"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Confirmar contraseña nueva"
+                        android:layout_below="@id/new_password_etx"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:endIconMode="password_toggle"
+                        app:boxCornerRadiusTopStart="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <android.widget.Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Guardar contraseña nueva"
+                        android:background="@drawable/gradient_color"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_below="@id/new_password_confirmation_etx"/>
+
+                </RelativeLayout>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

@@ -35,3 +35,4 @@ google-services.json
 #Extras
 .DS_STORE
 app/src/main/res/values/gogle_maps_key.xml
+app/src/main/res/values/google_maps_key.xml
