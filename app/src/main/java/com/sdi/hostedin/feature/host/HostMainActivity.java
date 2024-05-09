@@ -7,13 +7,14 @@ import androidx.datastore.rxjava2.RxDataStore;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
-import com.sdi.hostedin.databinding.ActivityGuestMainActiviyBinding;
 import com.sdi.hostedin.databinding.ActivityHostMainBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
+import com.sdi.hostedin.feature.statistics.StatisticsFragment;
 
 public class HostMainActivity extends AppCompatActivity {
 
@@ -34,6 +35,21 @@ public class HostMainActivity extends AppCompatActivity {
         DataStoreHelper dataStoreHelper = new DataStoreHelper(this, dataStoreRX);
         dataStoreHelper.putBoolValue("START_HOST", true);
         binding.changeToGuestBtn.setOnClickListener(v -> changeToGuestMenu());
+
+        binding.bottomNavigationViewHost.setOnItemSelectedListener(item ->{
+            int itemId = item.getItemId();
+            if (itemId == R.id.bookings_host) {
+                //Mostrar fragmento de reservaciones
+            } else if (itemId == R.id.publications) {
+
+            } else {
+                getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(binding.fragmentHostContainer.getId(), StatisticsFragment.class, null)
+                        .commit();
+            }
+            return  true;
+        });
     }
 
     private void changeToGuestMenu() {

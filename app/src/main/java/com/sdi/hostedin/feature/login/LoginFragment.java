@@ -1,8 +1,6 @@
 package com.sdi.hostedin.feature.login;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.datastore.preferences.core.Preferences;
@@ -10,18 +8,17 @@ import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.sdi.hostedin.MainActivity;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
-import com.sdi.hostedin.databinding.FragmentExploreBinding;
 import com.sdi.hostedin.databinding.FragmentLoginBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
-import com.sdi.hostedin.feature.guest.explore.ExploreFragment;
 import com.sdi.hostedin.feature.host.HostMainActivity;
 import com.sdi.hostedin.feature.signup.SignupFragment;
 import com.sdi.hostedin.feature.password.RecoverPasswordActivity;
@@ -98,7 +95,7 @@ public class LoginFragment extends Fragment {
     private void Login() {
         DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
         if (dataStoreSingleton.getDataStore() == null) {
-            dataStoreRX = new RxPreferenceDataStoreBuilder(this.getContext(),"USER_DATASTORE" ).build();
+            dataStoreRX = new RxPreferenceDataStoreBuilder(this.requireActivity(),"USER_DATASTORE" ).build();
         } else {
             dataStoreRX = dataStoreSingleton.getDataStore();
         }
@@ -109,6 +106,7 @@ public class LoginFragment extends Fragment {
             goToHostMenu();
         } else {
             goToGuestMenu();
+            Log.d("loginTest", "Login: I pass here");
         }
     }
 
