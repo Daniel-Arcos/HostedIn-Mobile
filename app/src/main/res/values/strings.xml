@@ -47,7 +47,11 @@
     </string>
 
     <string name="accommodation_publishing_message">
-    <![CDATA[<b><font color="#5280DB">¡Hola, </font></b>vamos a preparar<br>"tu publicación!]]>
-</string>
+        <![CDATA[<b><font color="#5280DB">¡Hola, </font></b>vamos a preparar<br>"tu publicación!]]>
+    </string>
+
+    <string name="accommodation_booking_message">
+        <![CDATA[<b>¡Preparemos tu<br><font color="#5280DB">reservación!</font></b>]]>
+    </string>
 
 </resources>

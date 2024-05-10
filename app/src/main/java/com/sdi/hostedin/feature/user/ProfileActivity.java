@@ -30,10 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void openDeleteAccountActivity() {
-//        Intent intent = new Intent(this, DeleteAccountActivity.class);
-//        startActivity(intent);
-
-        Intent intent = new Intent(this, AccommodationFormActivity.class);
+        Intent intent = new Intent(this, DeleteAccountActivity.class);
         startActivity(intent);
     }
 }
