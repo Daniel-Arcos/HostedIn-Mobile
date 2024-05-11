@@ -31,27 +31,27 @@
                     android:layout_marginTop="5dp"/>
 
                 <TextView
+                    android:id="@+id/txv_explore_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="¡Hola, vamos a planear el viaje de tus sueños!"
                     android:textSize="18sp"
                     android:layout_below="@id/change_to_host_btn"
                     android:layout_marginStart="20dp"
-                    android:layout_toStartOf="@id/filter_btn"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="10dp"/>
 
-                <Button
-                    style="?attr/materialIconButtonOutlinedStyle"
-                    android:id="@+id/filter_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/settings_icon"
-                    android:layout_below="@id/change_to_host_btn"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    />
+<!--                <Button-->
+<!--                    style="?attr/materialIconButtonOutlinedStyle"-->
+<!--                    android:id="@+id/filter_btn"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:icon="@drawable/settings_icon"-->
+<!--                    android:layout_below="@id/change_to_host_btn"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    />-->
 
 
                 <com.google.android.material.search.SearchBar
@@ -59,19 +59,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Busca lugares"
-                    android:layout_toStartOf="@id/delete_results_btn"
-                    android:layout_below="@id/filter_btn"/>
+                    android:layout_below="@id/txv_explore_title"/>
 
-                <Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
-                    android:id="@+id/delete_results_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/delete_icon"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_below="@id/filter_btn"/>
+<!--                <Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:id="@+id/delete_results_btn"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:icon="@drawable/delete_icon"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:layout_marginTop="12dp"-->
+<!--                    android:layout_below="@id/filter_btn"/>-->
 
                 <com.google.android.material.search.SearchView
                     android:id="@+id/search_view"
@@ -79,6 +78,16 @@
                     android:layout_height="match_parent"
                     android:hint="Busca lugares"
                     app:layout_anchor="@id/search_bar">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rcyv_places_results"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </FrameLayout>
                 </com.google.android.material.search.SearchView>
 
                 <androidx.recyclerview.widget.RecyclerView
