@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.guest.bookings.AccommodationDetailsActivity">
+
+        <TextView
+            android:id="@+id/aad_accommodation_name_tvw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:textAlignment="center"
+            android:layout_marginTop="14dp"
+            android:text="Casa Komalli"
+            android:textColor="#113E96"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/aad_accommodation_name_tvw"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <com.google.android.material.carousel.MaskableFrameLayout
+                    android:id="@+id/aad_carousel_item_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp">
+                    <ImageView
+                        android:id="@+id/aad_carousel_image_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"/>
+                </com.google.android.material.carousel.MaskableFrameLayout>
+
+                <ImageSwitcher
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:background="@color/design_default_color_error"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bacalar, Quintana Roo"
+                    android:maxLines="1"
+                    android:textColor="#333333"
+                    android:layout_marginTop="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="$350.00 MXN por noche"
+                    android:textColor="#333333"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:maxLines="2"
+                    android:text="La casa ideal para pasar tus vacaciones cerca de la Riviera Maya, no te arrepentirás."/>
+
+                <android.widget.Button
+                    style="@style/Widget.Material3.FloatingActionButton.Secondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:text="Mostrar más >"
+                    android:textColor="#333333"
+                    android:textStyle="bold"
+                    android:layout_gravity="end"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Casa"
+                    android:textColor="#333333"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="6 Huéspedes · 3 Habitaciones · 3 Camas · 2 Baños"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="6dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Servicios"
+                        android:textColor="#333333"
+                        android:layout_weight="1"
+                        android:textStyle="bold"/>
+
+                    <android.widget.Button
+                        style="@style/Widget.Material3.FloatingActionButton.Secondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:text="Mostrar más >"
+                        android:textColor="#333333"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:text="Servicios, servicios, servicios"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="6dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Reglas"
+                        android:textColor="#333333"
+                        android:layout_weight="1"
+                        android:textStyle="bold"/>
+
+                    <android.widget.Button
+                        style="@style/Widget.Material3.FloatingActionButton.Secondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:text="Mostrar más >"
+                        android:textColor="#333333"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="No se permiten mascotas grandes."/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#ACAAAA"
+                    android:layout_marginTop="6dp"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Calificación"
+                    android:textColor="#333333"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4.0"
+                    android:textColor="#5280DB"
+                    android:textStyle="bold"
+                    android:textSize="50dp"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reseñas"
+                    android:textColor="#333333"
+                    android:layout_weight="1"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:text="Reseñas, reseñas, reseñas"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dónde vas a estar"
+                    android:textColor="#333333"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:text="Mapa, mapa, mapa"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Anfitrión"
+                    android:textColor="#333333"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:text="Anfitrión, anfitrión, anfitrión"/>
+
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</layout>

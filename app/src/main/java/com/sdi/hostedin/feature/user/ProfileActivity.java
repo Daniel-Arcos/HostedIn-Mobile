@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.ActivityProfileBinding;
+import com.sdi.hostedin.feature.host.accommodations.AccommodationFormActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -29,6 +30,8 @@ public class ProfileActivity extends AppCompatActivity {
         binding.cancelChangePasswordBtn.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
         binding.myAccountBtn.setOnClickListener( v -> openEditProfileActivity());
         binding.deleteAccountBtn.setOnClickListener( v -> openDeleteAccountActivity());
+
+
     }
     private void openEditProfileActivity() {
         Intent intent = new Intent(this, EditProfileActivity.class);

@@ -25,6 +25,15 @@
             android:name=".feature.password.RecoverPasswordActivity"
             android:exported="false" />
         <activity
+            android:name=".feature.guest.bookings.AccommodationBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.guest.bookings.AccommodationDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.host.accommodations.AccommodationFormActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.user.DeleteAccountActivity"
             android:exported="false" />
         <activity
