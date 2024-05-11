@@ -89,7 +89,7 @@
             android:layout_marginBottom="0dp"
             android:elevation="10dp"
             android:fillViewport="true"
-            android:background="@drawable/rectangle_rounded_shape">
+            android:background="@drawable/rectangle_upper_rounded_shape">
 
             <RelativeLayout
                 android:layout_width="match_parent"
