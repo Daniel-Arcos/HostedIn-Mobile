@@ -1,16 +1,16 @@
 package com.sdi.hostedin.feature.guest.bookings;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sdi.hostedin.R;
 
-public class ReservationDetailsActivity extends AppCompatActivity {
+public class BookingDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservation_details);
+        setContentView(R.layout.activity_booking_details);
     }
 }

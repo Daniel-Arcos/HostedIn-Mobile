@@ -53,5 +53,7 @@
     <string name="accommodation_booking_message">
         <![CDATA[<b>¡Preparemos tu<br><font color="#5280DB">reservación!</font></b>]]>
     </string>
+    <string name="per_night_tag">per night</string>
+    <string name="accommodation_edition_header">Hi, select the accommodation\'s section you want to edit.</string>
 
 </resources>

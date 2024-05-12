@@ -9,10 +9,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.reservations.ViewReservationsFragment">
+        tools:context=".feature.host.bookings.ViewBookingsForPublicationFragment">
 
         <TextView
-            android:id="@+id/txv_ReservationsHeader"
+            android:id="@+id/txv_books_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
@@ -22,32 +22,32 @@
             android:layout_marginStart="16dp"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/bttCloseReservations"
+            android:id="@+id/btt_close_books"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/txv_ReservationsHeader"
+            android:layout_alignBaseline="@+id/txv_books_header"
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="16dp"
             android:text="cerrar"
             android:textSize="16dp" />
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/vw_horizontal_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="16dp"
             android:background="@color/black"
-            android:layout_below="@+id/txv_ReservationsHeader"
+            android:layout_below="@+id/txv_books_header"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_reservations"
+            android:id="@+id/rcyv_books_items"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/view"
+            android:layout_below="@+id/vw_horizontal_line"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"

@@ -1,21 +1,12 @@
 package com.sdi.hostedin.feature.password;
 
-import static java.security.AccessController.getContext;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainer;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.content.ContentUris;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.sdi.hostedin.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.sdi.hostedin.databinding.ActivityRecoverPasswordBinding;
-import com.sdi.hostedin.feature.host.HostMainActivity;
 
 public class RecoverPasswordActivity extends AppCompatActivity {
 
@@ -28,18 +19,17 @@ public class RecoverPasswordActivity extends AppCompatActivity {
         binding = ActivityRecoverPasswordBinding.inflate(getLayoutInflater());
         fragmentNumber = 1;
         setContentView(binding.getRoot());
-        binding.bttConfirmEmail.setOnClickListener(v -> clicButtonConfirm());
-        binding.imgbttGoBack.setOnClickListener(v -> onBackPressed());
+        binding.bttConfirmAction.setOnClickListener(v -> clicButtonConfirm());
     }
 
     private void clicButtonConfirm(){
         switch (fragmentNumber){
             case 1:
-                RecoverPasswordEmailEntry fragment = (RecoverPasswordEmailEntry) getSupportFragmentManager().findFragmentById(binding.fragContainerRecoverPass.getId());
+                RecoverPasswordEmailEntryFragment fragment = (RecoverPasswordEmailEntryFragment) getSupportFragmentManager().findFragmentById(binding.fgcvRecoverPasswordFragmentContainer.getId());
                 int isValid = fragment.validateEmail();
                 if(isValid == 1) {
-                    ChangeFragment(binding.fragContainerRecoverPass.getId(), new RecoverPasswordCodeEntry(), 2);
-                    binding.bttConfirmEmail.setText("Confirm code");
+                    ChangeFragment(binding.fgcvRecoverPasswordFragmentContainer.getId(), new RecoverPasswordCodeEntryFragment(), 2);
+                    binding.bttConfirmAction.setText("Confirm code");
                 }else if (isValid == 2){
                     Toast.makeText(this, "Formato incorrecto", Toast.LENGTH_SHORT).show();
                 }
@@ -48,17 +38,17 @@ public class RecoverPasswordActivity extends AppCompatActivity {
                 }
                 break;
             case 2:
-                RecoverPasswordCodeEntry fragment1 = (RecoverPasswordCodeEntry) getSupportFragmentManager().findFragmentById(binding.fragContainerRecoverPass.getId());
-                if(fragment1.validarCodigo()) {
-                    ChangeFragment(binding.fragContainerRecoverPass.getId(), new RecoverPasswordNewPassEntry(), 3);
-                    binding.bttConfirmEmail.setText("Confirm password");
+                RecoverPasswordCodeEntryFragment fragment1 = (RecoverPasswordCodeEntryFragment) getSupportFragmentManager().findFragmentById(binding.fgcvRecoverPasswordFragmentContainer.getId());
+                if(fragment1.validateCode()) {
+                    ChangeFragment(binding.fgcvRecoverPasswordFragmentContainer.getId(), new RecoverPasswordNewPassEntryFragment(), 3);
+                    binding.bttConfirmAction.setText("Confirm password");
                 }
                 else{
                     Toast.makeText(this, "Codigo incorrecto", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case 3:
-                RecoverPasswordNewPassEntry fragment2 = (RecoverPasswordNewPassEntry) getSupportFragmentManager().findFragmentById(binding.fragContainerRecoverPass.getId());
+                RecoverPasswordNewPassEntryFragment fragment2 = (RecoverPasswordNewPassEntryFragment) getSupportFragmentManager().findFragmentById(binding.fgcvRecoverPasswordFragmentContainer.getId());
                 if(fragment2.validatePassword()){
                     Toast.makeText(this, "Cambio de contraseña correcta", Toast.LENGTH_SHORT).show();
                 }
@@ -84,11 +74,11 @@ public class RecoverPasswordActivity extends AppCompatActivity {
             switch (fragmentNumber) {
                 case 3:
                     fragmentNumber = 2;
-                    binding.bttConfirmEmail.setText("Confirm code");
+                    binding.bttConfirmAction.setText("Confirm code");
                     break;
                 case 2:
                     fragmentNumber = 1;
-                    binding.bttConfirmEmail.setText("Confirm email");
+                    binding.bttConfirmAction.setText("Confirm email");
                     break;
             }
         } else {

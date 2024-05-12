@@ -1,24 +1,21 @@
 package com.sdi.hostedin.feature.guest.bookings;
 
 import android.os.Bundle;
-
-import androidx.activity.OnBackPressedCallback;
-import androidx.fragment.app.Fragment;
-
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.sdi.hostedin.R;
-import com.sdi.hostedin.feature.guest.explore.ExploreFragment;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link BookingsFragment#newInstance} factory method to
+ * Use the {@link BookingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BookingsFragment extends Fragment {
+public class BookingFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +26,7 @@ public class BookingsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public BookingsFragment() {
+    public BookingFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +36,11 @@ public class BookingsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BookingsFragment.
+     * @return A new instance of fragment BookingFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BookingsFragment newInstance(String param1, String param2) {
-        BookingsFragment fragment = new BookingsFragment();
+    public static BookingFragment newInstance(String param1, String param2) {
+        BookingFragment fragment = new BookingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,6 +64,6 @@ public class BookingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bookings, container, false);
+        return inflater.inflate(R.layout.fragment_booking, container, false);
     }
 }

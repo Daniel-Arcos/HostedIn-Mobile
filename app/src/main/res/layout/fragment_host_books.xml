@@ -10,10 +10,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.reservations.HostBookssFragment">
+        tools:context=".feature.host.bookings.HostBookingsFragment">
 
     <TextView
-        android:id="@+id/txvGretting"
+        android:id="@+id/txv_fragment_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
@@ -26,10 +26,10 @@
         />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerPublicationView"
+            android:id="@+id/rcyv_booked_publications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txvGretting"
+            android:layout_below="@id/txv_fragment_header"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"

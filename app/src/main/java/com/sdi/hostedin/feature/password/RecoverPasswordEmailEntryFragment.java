@@ -1,24 +1,23 @@
 package com.sdi.hostedin.feature.password;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.FragmentRecoverPasswordEmailEntryBinding;
 
 
-public class RecoverPasswordEmailEntry extends Fragment {
+public class RecoverPasswordEmailEntryFragment extends Fragment {
 
     private FragmentRecoverPasswordEmailEntryBinding binding;
     String regex = "^(?=.{1,50}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 
-    public RecoverPasswordEmailEntry() {
+    public RecoverPasswordEmailEntryFragment() {
         // Required empty public constructor
     }
 
@@ -40,7 +39,7 @@ public class RecoverPasswordEmailEntry extends Fragment {
 
     public int validateEmail(){
         int isValid = 0;
-        String email = binding.textinlayEmail.getEditText().getText().toString();
+        String email = binding.etxEmail.getEditText().getText().toString();
         if(!email.isEmpty()){
             if(email.matches(regex)){
                 isValid = 1;

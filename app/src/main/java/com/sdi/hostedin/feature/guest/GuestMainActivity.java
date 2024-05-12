@@ -8,14 +8,13 @@ import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.android.material.search.SearchView;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.databinding.ActivityGuestMainActiviyBinding;
-import com.sdi.hostedin.feature.guest.bookings.BookingsFragment;
+import com.sdi.hostedin.feature.guest.bookings.BookingFragment;
 import com.sdi.hostedin.feature.guest.explore.ExploreFragment;
 import com.sdi.hostedin.feature.statistics.StatisticsFragment;
 
@@ -59,7 +58,7 @@ public class GuestMainActivity extends AppCompatActivity {
             } else if (itemId == R.id.bookings) {
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(binding.fragmentContainer.getId(), BookingsFragment.class, null)
+                        .replace(binding.fragmentContainer.getId(), BookingFragment.class, null)
                         .commit();
             } else {
                 getSupportFragmentManager().beginTransaction()

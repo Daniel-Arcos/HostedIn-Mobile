@@ -7,9 +7,8 @@
 
     </data>
 
-    <FrameLayout
-        android:id="@+id/fmly_main_edit_accomm_fragment_container"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fgcv_book_details_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </layout>

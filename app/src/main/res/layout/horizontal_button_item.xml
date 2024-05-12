@@ -3,7 +3,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/customLayout"
+    android:id="@+id/rtly_horizontal_button_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -13,11 +13,10 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:src="@drawable/rate_icon"
-        app:customImage="@drawable/default_image"/>
+        android:src="@drawable/rate_icon"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txv_generic_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/imageView"
@@ -27,11 +26,10 @@
         android:fontFamily="sans-serif-medium"
         android:text="Default Text"
         android:textSize="16sp"
-        android:layout_marginEnd="16dp"
-        app:customText="Default Text" />
+        android:layout_marginEnd="16dp"/>
 
     <ImageButton
-        android:id="@+id/button"
+        android:id="@+id/btt_generic_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/imageView"
@@ -41,7 +39,7 @@
         android:src="@drawable/go_ahead_icon" />
 
     <View
-        android:id="@+id/viewHorizontal"
+        android:id="@+id/vw_horizontal_generic_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="16dp"

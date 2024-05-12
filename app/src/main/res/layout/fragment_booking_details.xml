@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,10 +9,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.guest.bookings.ReservationDetailsActivity">
+        tools:context=".feature.guest.bookings.BookingDetailsActivity">
 
         <TextView
-            android:id="@+id/txv_reservationDetailsHeader"
+            android:id="@+id/txv_book_details_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -27,28 +26,28 @@
             android:textSize="24dp" />
 
         <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/txv_reservationDetailsHeader">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/txv_book_details_header">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_accommodationMedia"
+                    android:id="@+id/rcyv_accommodation_media"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp" />
 
                 <TextView
-                    android:id="@+id/txv_startDateTag"
+                    android:id="@+id/txv_starting_date_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/view"
-                    android:layout_below="@+id/recycler_accommodationMedia"
+                    android:layout_toStartOf="@+id/vw_vertical_line"
+                    android:layout_below="@+id/rcyv_accommodation_media"
                     android:layout_alignParentStart="true"
-                    android:layout_toEndOf="@+id/view"
+                    android:layout_toEndOf="@+id/vw_vertical_line"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="10dp"
                     android:fontFamily="sans-serif-medium"
@@ -57,12 +56,12 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/txv_starDate"
+                    android:id="@+id/txv_starting_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txv_startDateTag"
+                    android:layout_below="@+id/txv_starting_date_tag"
                     android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/view"
+                    android:layout_toStartOf="@+id/vw_vertical_line"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="10dp"
                     android:fontFamily="sans-serif-light"
@@ -71,36 +70,36 @@
                     android:textSize="16sp" />
 
                 <View
-                    android:id="@+id/view"
+                    android:id="@+id/vw_vertical_line"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/viewHorizontal1"
-                    android:layout_below="@+id/recycler_accommodationMedia"
+                    android:layout_above="@+id/vw_horizontal_line_1"
+                    android:layout_below="@+id/rcyv_accommodation_media"
                     android:layout_centerHorizontal="true"
                     android:layout_marginVertical="5dp"
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/txv_endDateTag"
+                    android:id="@+id/txv_ending_date_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/recycler_accommodationMedia"
-                    android:layout_toEndOf="@id/view"
+                    android:layout_below="@+id/rcyv_accommodation_media"
+                    android:layout_toEndOf="@id/vw_vertical_line"
                     android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="10dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Starting date"
                     android:textAlignment="center"
-                android:textSize="20sp" />
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/txv_endDate"
+                    android:id="@+id/txv_ending_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txv_endDateTag"
+                    android:layout_below="@+id/txv_ending_date_tag"
                     android:layout_alignParentEnd="true"
-                    android:layout_toEndOf="@id/view"
+                    android:layout_toEndOf="@id/vw_vertical_line"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="10dp"
                     android:fontFamily="sans-serif-light"
@@ -109,101 +108,38 @@
                     android:textSize="16sp" />
 
                 <View
-                    android:id="@+id/viewHorizontal1"
+                    android:id="@+id/vw_horizontal_line_1"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/black"
-                    android:layout_below="@+id/txv_starDate"
+                    android:layout_below="@+id/txv_starting_date"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true" />
 
-                <ImageView
-                    android:id="@+id/imv_mapIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/viewHorizontal1"
-                    android:src="@drawable/map_icon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/viewHorizontal1"
-                    android:layout_alignBaseline="@+id/imv_mapIcon"
-                    android:layout_toEndOf="@+id/imv_mapIcon"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Watch map"
-                    android:gravity="center"
-                    android:textSize="20dp"
-                    android:layout_alignTop="@id/imv_mapIcon"
-                    android:layout_alignBottom="@id/imv_mapIcon"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:srcCompat="@drawable/go_ahead_icon"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignTop="@id/imv_mapIcon"
-                    android:layout_alignBottom="@id/imv_mapIcon"
-                    android:layout_marginRight="15dp"/>
-
-                <View
-                    android:id="@+id/viewHorizontal2"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@color/black"
-                    android:layout_below="@+id/imv_mapIcon"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true" />
-
-
-                <LinearLayout
-                    android:id="@+id/linear_lay_rateSection"
+                <include
+                    android:id="@+id/incl_watch_map"
+                    layout="@layout/horizontal_button_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/viewHorizontal2">
+                    android:layout_marginVertical="2dp"
+                    android:layout_below="@id/vw_horizontal_line_1"/>
 
-                    <ImageView
-                        android:id="@+id/imv_rateIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/rate_icon" />
+                <include
+                    android:id="@+id/incl_rate_publication"
+                    layout="@layout/horizontal_button_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
+                    android:layout_below="@id/incl_watch_map"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center_vertical"
-                        android:text="Rate your stancy"
-                        android:textSize="20dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="15dp"
-                        tools:srcCompat="@drawable/go_ahead_icon" />
-
-                </LinearLayout>
-                <View
-                    android:id="@+id/viewHorizontal3"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@color/black"
-                    android:layout_below="@+id/linear_lay_rateSection"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true" />
 
                 <TextView
-                    android:id="@+id/txv_infoHeader"
+                    android:id="@+id/txv_info_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/viewHorizontal3"
+                    android:layout_below="@+id/incl_rate_publication"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
                     android:text="Reservation stancy details"
@@ -212,10 +148,10 @@
                     android:layout_marginTop="16dp"/>
 
                 <TextView
-                    android:id="@+id/txv_totalGuestTag"
+                    android:id="@+id/txv_total_guest_Tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txv_infoHeader"
+                    android:layout_below="@+id/txv_info_header"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-medium"
@@ -223,10 +159,10 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/txv_totalGuest"
+                    android:id="@+id/txv_total_guest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txv_totalGuestTag"
+                    android:layout_below="@+id/txv_total_guest_Tag"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="2dp"
                     android:fontFamily="sans-serif-light"
@@ -234,21 +170,21 @@
                     android:textSize="16sp" />
 
                 <View
-                    android:id="@+id/viewHorizontal4"
+                    android:id="@+id/vw_horizontal_line_2"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/black"
-                    android:layout_below="@+id/txv_totalGuest"
+                    android:layout_below="@+id/txv_total_guest"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true" />
 
                 <TextView
-                    android:id="@+id/txv_totalCostTag"
+                    android:id="@+id/txv_total_cost_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/viewHorizontal4"
+                    android:layout_below="@+id/vw_horizontal_line_2"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-medium"
@@ -256,10 +192,10 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/txv_totalCost"
+                    android:id="@+id/txv_total_cost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txv_totalCostTag"
+                    android:layout_below="@+id/txv_total_cost_tag"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="2dp"
                     android:fontFamily="sans-serif-light"
@@ -267,22 +203,22 @@
                     android:textSize="16sp" />
 
                 <View
-                    android:id="@+id/viewHorizontal5"
+                    android:id="@+id/vw_horizontal_line_3"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/black"
-                    android:layout_below="@+id/txv_totalCost"
+                    android:layout_below="@+id/txv_total_cost"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true" />
 
 
                 <TextView
-                    android:id="@+id/txv_hostTag"
+                    android:id="@+id/txv_host_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/viewHorizontal5"
+                    android:layout_below="@+id/vw_horizontal_line_3"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-medium"
@@ -290,10 +226,10 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/txv_hsotName"
+                    android:id="@+id/txv_host_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txv_hostTag"
+                    android:layout_below="@+id/txv_host_tag"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="2dp"
                     android:fontFamily="sans-serif-light"
@@ -301,46 +237,26 @@
                     android:textSize="16sp" />
 
                 <View
-                    android:id="@+id/viewHorizontal6"
+                    android:id="@+id/vw_horizontal_line_4"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/black"
-                    android:layout_below="@+id/txv_hsotName"
+                    android:layout_below="@+id/txv_host_name"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="100dp"/>
 
-                <LinearLayout
-                    android:id="@+id/linear_lay_cancellSection"
+                <include
+                    android:id="@+id/incl_cancell_book"
+                    layout="@layout/horizontal_button_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/viewHorizontal6"
-                    android:layout_marginBottom="5dp">
+                    android:layout_marginVertical="2dp"
+                    android:layout_below="@id/vw_horizontal_line_4"/>
 
-                    <ImageView
-                        android:id="@+id/imv_cancellIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/cancell_icon" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center_vertical"
-                        android:text="Cancell reservation"
-                        android:textSize="20dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="15dp"
-                        tools:srcCompat="@drawable/go_ahead_icon" />
-
-                </LinearLayout>
 
             </RelativeLayout>
 

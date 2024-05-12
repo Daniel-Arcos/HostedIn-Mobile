@@ -1,24 +1,22 @@
 package com.sdi.hostedin.feature.password;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.FragmentRecoverPasswordCodeEntryBinding;
-import com.sdi.hostedin.databinding.FragmentRecoverPasswordEmailEntryBinding;
 
 
-public class RecoverPasswordCodeEntry extends Fragment {
+public class RecoverPasswordCodeEntryFragment extends Fragment {
 
     FragmentRecoverPasswordCodeEntryBinding binding;
 
-    public RecoverPasswordCodeEntry() {
+    public RecoverPasswordCodeEntryFragment() {
         // Required empty public constructor
     }
 
@@ -38,12 +36,12 @@ public class RecoverPasswordCodeEntry extends Fragment {
         return  binding.getRoot();
     }
 
-    public boolean validarCodigo(){
-        String code1 = binding.txtCode1.getText().toString();
-        String code2 = binding.txtCode2.getText().toString();
-        String code3 = binding.txtCode3.getText().toString();
-        String code4 = binding.txtCode4.getText().toString();
-        String code5 = binding.txtCode5.getText().toString();
+    public boolean validateCode(){
+        String code1 = binding.etxFirstNumber.getText().toString();
+        String code2 = binding.etxSecondNumber.getText().toString();
+        String code3 = binding.etxThirdNumber.getText().toString();
+        String code4 = binding.etxForthNumber.getText().toString();
+        String code5 = binding.etxFifthNumber.getText().toString();
         if(!code1.isEmpty() && !code2.isEmpty() && !code3.isEmpty() && !code4.isEmpty() && !code5.isEmpty()){
             return true;
         }

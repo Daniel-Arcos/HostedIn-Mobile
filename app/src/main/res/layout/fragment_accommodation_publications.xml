@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.reservations.AccommodationPublicationsFragment">
+        tools:context=".feature.host.bookings.AccommodationPublicationsFragment">
 
         <TextView
             android:id="@+id/txvGretting"

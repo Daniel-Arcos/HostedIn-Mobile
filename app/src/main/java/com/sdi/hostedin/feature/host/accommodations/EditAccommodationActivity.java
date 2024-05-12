@@ -1,4 +1,4 @@
-package com.sdi.hostedin.feature.host;
+package com.sdi.hostedin.feature.host.accommodations;
 
 import androidx.appcompat.app.AppCompatActivity;
 

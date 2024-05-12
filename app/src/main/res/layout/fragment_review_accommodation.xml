@@ -22,16 +22,20 @@
             android:text="Your Reviews help other users to choose the best accommodation, remeber, all Reviews are public."/>
 
         <ImageButton
+            android:id="@+id/imb_close_rate_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:background="#00FFFFFF"
-            android:layout_margin="5dp"
             tools:src="@android:drawable/ic_notification_clear_all" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_lay_review"
+            android:id="@+id/etx_guest_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txv_description">
@@ -46,19 +50,20 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <RatingBar
-            android:id="@+id/rat_bar_score"
+            android:id="@+id/rtb_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_lay_review"
+            android:layout_below="@+id/etx_guest_review"
             android:layout_centerHorizontal="true" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
+            android:id="@+id/btt_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rat_bar_score"
+            android:layout_below="@+id/rtb_score"
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="15dp"
-            android:text="Rate"/>
+            android:text="Rate" />
 
     </RelativeLayout>
 </layout>

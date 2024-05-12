@@ -1,25 +1,22 @@
 package com.sdi.hostedin.feature.password;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.FragmentRecoverPasswordNewPassEntryBinding;
 
-import kotlin.contracts.Returns;
 
-
-public class RecoverPasswordNewPassEntry extends Fragment {
+public class RecoverPasswordNewPassEntryFragment extends Fragment {
 
 
     private FragmentRecoverPasswordNewPassEntryBinding binding;
-    public RecoverPasswordNewPassEntry() {
+    public RecoverPasswordNewPassEntryFragment() {
         // Required empty public constructor
     }
 
@@ -40,7 +37,7 @@ public class RecoverPasswordNewPassEntry extends Fragment {
     }
 
     public boolean validatePassword(){
-        String password = binding.etxNewpassword.getEditText().getText().toString();
+        String password = binding.etxNewPassword.getEditText().getText().toString();
         return password.isEmpty();
     }
 
