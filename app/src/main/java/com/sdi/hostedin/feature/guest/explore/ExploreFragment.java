@@ -33,10 +33,6 @@ import java.util.List;
 
 public class ExploreFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private FragmentExploreBinding binding;
     private PlacesClient placesClient;
 
@@ -49,10 +45,6 @@ public class ExploreFragment extends Fragment {
 
     public static ExploreFragment newInstance(String param1, String param2) {
         ExploreFragment fragment = new ExploreFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -63,7 +55,7 @@ public class ExploreFragment extends Fragment {
         setEnterTransition(inflater.inflateTransition(R.transition.fade));
         setExitTransition(inflater.inflateTransition(R.transition.fade));
         exploreViewModel =
-                new ViewModelProvider(this, new ViewModelFactory(requireActivity().getApplication())).get(ExploreViewModel.class);
+                new ViewModelProvider(requireActivity(), new ViewModelFactory(getActivity().getApplication())).get(ExploreViewModel.class);
     }
 
     @Override
@@ -75,8 +67,10 @@ public class ExploreFragment extends Fragment {
         placesClient = Places.createClient(this.getContext());
 
         binding.rcyvPlacesResults.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
         String lugar = exploreViewModel.getPlaceToSearch().getValue();
         binding.searchBar.setText(exploreViewModel.getPlaceToSearch().getValue());
+
         placeAdapter = new ResultSearchingPlaceAdapter(this.getContext());
         placeAdapter.setOnItemClickListener(placeResult -> {
             exploreViewModel.setPlaceToSearch(placeResult.getName());

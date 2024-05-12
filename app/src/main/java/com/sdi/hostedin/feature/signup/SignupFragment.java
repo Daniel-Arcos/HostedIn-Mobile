@@ -56,7 +56,7 @@ public class SignupFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentSignupBinding.inflate(getLayoutInflater());
         signupViewModel =
-                new ViewModelProvider(this, new ViewModelFactory(requireActivity().getApplication())).get(SignupViewModel.class);
+                new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication())).get(SignupViewModel.class);
 
 
         DatePickerConfigurator.configureDatePicker(binding.etxBirthDate.getEditText());
