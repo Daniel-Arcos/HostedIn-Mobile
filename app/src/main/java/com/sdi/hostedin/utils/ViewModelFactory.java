@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.sdi.hostedin.feature.guest.explore.ExploreViewModel;
 import com.sdi.hostedin.feature.signup.SignupViewModel;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
@@ -13,9 +14,15 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     public ViewModelFactory(Application application) {
         this.application = application;
     }
+
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new SignupViewModel(application);
+        if (modelClass.equals(ExploreViewModel.class)) {
+            return (T) new ExploreViewModel(application);
+        } else if (modelClass.equals(SignupViewModel.class)) {
+            return (T) new SignupViewModel(application);
+        }
+        return null;
     }
 }
