@@ -1,6 +1,7 @@
 package com.sdi.hostedin.data.datasource.apiclient;
 
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseSignupObject;
+import com.sdi.hostedin.data.model.EmailRequest;
 import com.sdi.hostedin.data.model.User;
 
 import retrofit2.Call;
@@ -16,11 +17,16 @@ public class ApiClient {
         @POST("auth/signup")
         Call<ResponseSignupObject> signUp(@Body User user);
 
+        @POST("passwords/sendEmailCode")
+        Call<Void> sendEmailCode(@Body EmailRequest email);
+
+
+
     }
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.50.7:3000/api/v1/")
+            .baseUrl("http://192.168.1.75:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 

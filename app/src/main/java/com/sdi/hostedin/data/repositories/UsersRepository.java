@@ -1,5 +1,6 @@
 package com.sdi.hostedin.data.repositories;
 
+import com.sdi.hostedin.data.datasource.remote.RemotePasswordCodeDataSource;
 import com.sdi.hostedin.data.datasource.remote.RemoteUsersDataSource;
 import com.sdi.hostedin.data.model.User;
 
@@ -9,6 +10,11 @@ public class UsersRepository {
 
     public interface SignupCallback {
         void onSuccess(User user, String token);
+        void onError(String errorMessage);
+    }
+
+    public interface SendVerificationCodeCallback{
+        void onSucces(String message);
         void onError(String errorMessage);
     }
 
@@ -24,6 +30,22 @@ public class UsersRepository {
                 signupCallback.onError(errorMessage);
             }
         });
+
+    }
+
+    public void sendEmailPasswordCode(String email, SendVerificationCodeCallback sendVerificationCodeCallback){
+        RemotePasswordCodeDataSource remotePasswordCodeDataSource = new RemotePasswordCodeDataSource();
+         remotePasswordCodeDataSource.sendEmailPasswordCode(email, new RemotePasswordCodeDataSource.SendPasswordCodeCallback() {
+             @Override
+             public void onSucces(String message) {
+                 sendVerificationCodeCallback.onSucces("Succes");
+             }
+
+             @Override
+             public void onError(String errorMessage) {
+                sendVerificationCodeCallback.onError(errorMessage);
+             }
+         });
 
     }
 

@@ -28,6 +28,7 @@ public class RecoverPasswordActivity extends AppCompatActivity {
                 RecoverPasswordEmailEntryFragment fragment = (RecoverPasswordEmailEntryFragment) getSupportFragmentManager().findFragmentById(binding.fgcvRecoverPasswordFragmentContainer.getId());
                 int isValid = fragment.validateEmail();
                 if(isValid == 1) {
+                    fragment.trySendEmailCode();
                     ChangeFragment(binding.fgcvRecoverPasswordFragmentContainer.getId(), new RecoverPasswordCodeEntryFragment(), 2);
                     binding.bttConfirmAction.setText("Confirm code");
                 }else if (isValid == 2){
