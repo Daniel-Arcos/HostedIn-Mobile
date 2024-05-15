@@ -15,9 +15,15 @@ import com.sdi.hostedin.databinding.FragmentRecoverPasswordCodeEntryBinding;
 public class RecoverPasswordCodeEntryFragment extends Fragment {
 
     FragmentRecoverPasswordCodeEntryBinding binding;
+    RecoverPasswordViewModel recoverPasswordViewModel;
+    private static String tokenCode;
 
     public RecoverPasswordCodeEntryFragment() {
         // Required empty public constructor
+    }
+
+    public RecoverPasswordCodeEntryFragment(RecoverPasswordViewModel recoverPasswordViewModel) {
+        this.recoverPasswordViewModel = recoverPasswordViewModel;
     }
 
 
@@ -36,7 +42,7 @@ public class RecoverPasswordCodeEntryFragment extends Fragment {
         return  binding.getRoot();
     }
 
-    public boolean validateCode(){
+    public boolean codeIsEmpty(){
         String code1 = binding.etxFirstNumber.getText().toString();
         String code2 = binding.etxSecondNumber.getText().toString();
         String code3 = binding.etxThirdNumber.getText().toString();
@@ -49,4 +55,26 @@ public class RecoverPasswordCodeEntryFragment extends Fragment {
             return false;
         }
     }
+
+    public void verifyCode(){
+        String code = binding.etxFirstNumber.getText().toString()
+                    +binding.etxSecondNumber.getText().toString()
+                    +binding.etxThirdNumber.getText().toString()
+                    +binding.etxForthNumber.getText().toString()
+                    +binding.etxFifthNumber.getText().toString();
+        recoverPasswordViewModel.verifyCode(code, new RecoverPasswordViewModel.TokenPasswordCallBack() {
+            @Override
+            public void onSucces(String token) {
+                 RecoverPasswordActivity activity = (RecoverPasswordActivity) getActivity();
+                 activity.setToken(token);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+
 }

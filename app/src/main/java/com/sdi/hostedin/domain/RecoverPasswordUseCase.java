@@ -1,6 +1,6 @@
 package com.sdi.hostedin.domain;
 
-import com.sdi.hostedin.data.repositories.UsersRepository;
+import com.sdi.hostedin.data.repositories.PasswordRepository;
 
 public class RecoverPasswordUseCase {
     public interface RecoverPasswordCallback{
@@ -8,13 +8,13 @@ public class RecoverPasswordUseCase {
         void onError(String errorMessage);
     }
 
-    UsersRepository usersRepository = new UsersRepository();
+    PasswordRepository passwordRepository = new PasswordRepository();
 
     public void sendEmailCode(String email, RecoverPasswordCallback recoverPasswordCallback){
-        usersRepository.sendEmailPasswordCode(email, new UsersRepository.SendVerificationCodeCallback() {
+        passwordRepository.sendEmailPasswordCode(email, new PasswordRepository.PasswordVerificationCodeCallback() {
             @Override
             public void onSucces(String message) {
-                recoverPasswordCallback.onSucces("Success");
+                recoverPasswordCallback.onSucces(message);
             }
 
             @Override
@@ -25,5 +25,33 @@ public class RecoverPasswordUseCase {
 
     }
 
+    public void verifyPasswordCode(String code, RecoverPasswordCallback recoverPasswordCallback){
+        passwordRepository.verifyPasswordCode(code, new PasswordRepository.PasswordVerificationCodeCallback() {
+
+            @Override
+            public void onSucces(String message) {
+                recoverPasswordCallback.onSucces(message);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                recoverPasswordCallback.onError(errorMessage);
+            }
+        });
+    }
+
+    public void changePasswordWithCode(String token, String newPassword, String email,  RecoverPasswordCallback recoverPasswordCallback){
+        passwordRepository.changePasswordWithCode(token, newPassword, email, new PasswordRepository.PasswordVerificationCodeCallback() {
+            @Override
+            public void onSucces(String message) {
+                recoverPasswordCallback.onSucces(message);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                recoverPasswordCallback.onError(errorMessage);
+            }
+        });
+    }
 
 }

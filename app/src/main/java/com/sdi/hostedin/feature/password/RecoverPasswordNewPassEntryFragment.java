@@ -15,9 +15,15 @@ import com.sdi.hostedin.databinding.FragmentRecoverPasswordNewPassEntryBinding;
 public class RecoverPasswordNewPassEntryFragment extends Fragment {
 
 
+    private RecoverPasswordViewModel recoverPasswordViewModel;
+
     private FragmentRecoverPasswordNewPassEntryBinding binding;
     public RecoverPasswordNewPassEntryFragment() {
         // Required empty public constructor
+    }
+
+    public RecoverPasswordNewPassEntryFragment(RecoverPasswordViewModel recoverPasswordViewModel) {
+        this.recoverPasswordViewModel = recoverPasswordViewModel;
     }
 
 
@@ -38,7 +44,15 @@ public class RecoverPasswordNewPassEntryFragment extends Fragment {
 
     public boolean validatePassword(){
         String password = binding.etxNewPassword.getEditText().getText().toString();
-        return password.isEmpty();
+        return !password.isEmpty();
     }
+
+    public void changePassword(String email, String token){
+        String password = binding.etxNewPassword.getEditText().getText().toString();
+        recoverPasswordViewModel.changePassswordWitCodeRecovery(token,password,email);
+    }
+
+
+
 
 }
