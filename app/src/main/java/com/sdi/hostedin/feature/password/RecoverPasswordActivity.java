@@ -21,11 +21,8 @@ public class RecoverPasswordActivity extends AppCompatActivity {
     private int fragmentNumber;
     private String email;
 
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     private String token;
+    private String errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +47,9 @@ public class RecoverPasswordActivity extends AppCompatActivity {
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
                     Log.e("testTris", status.getMessage());
             }
+        });
+        recoverPasswordViewModel.getToken().observe(this, tokenGenerated ->{
+            this.token = tokenGenerated;
         });
         RecoverPasswordEmailEntryFragment fragment = (RecoverPasswordEmailEntryFragment) getSupportFragmentManager().findFragmentById(binding.fgcvRecoverPasswordFragmentContainer.getId());
         fragment.setRecoverPasswordViewModel(recoverPasswordViewModel);

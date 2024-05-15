@@ -31,7 +31,7 @@ public class ApiClient {
         Call<Void> verifyEmailCode(@Body GenericSingleString code);
 
         @POST("passwords/changepasswithcode")
-        Call<Void> changePasswordByCode(@Header("authorization")GenericSingleString token, @Body NewPasswordRecovery newPassword);
+        Call<Void> changePasswordByCode(@Header("authorization")String token, @Body NewPasswordRecovery newPassword);
 
     }
 

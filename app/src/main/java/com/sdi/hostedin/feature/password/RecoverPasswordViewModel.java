@@ -12,16 +12,18 @@ import com.sdi.hostedin.ui.RequestStatusValues;
 
 public class RecoverPasswordViewModel extends AndroidViewModel {
 
-    public interface TokenPasswordCallBack {
-        void onSucces(String token);
-        void onError(String errorMessage);
-    }
     MutableLiveData<RequestStatus> requestStatusMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<String> token = new MutableLiveData<>();
+
 
     public RecoverPasswordViewModel(@NonNull Application application) { super(application); }
 
     public MutableLiveData<RequestStatus> getRequestStatusMutableLiveData() {
         return requestStatusMutableLiveData;
+    }
+
+    public MutableLiveData<String> getToken(){
+        return token;
     }
 
     public void sendEmailCode(String email){
@@ -36,25 +38,24 @@ public class RecoverPasswordViewModel extends AndroidViewModel {
 
             @Override
             public void onError(String errorMessage) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, errorMessage));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });
     }
 
-    public void verifyCode(String code, TokenPasswordCallBack tokenPassword){
+    public void verifyCode(String code){
         RecoverPasswordUseCase recoverPasswordUseCase = new RecoverPasswordUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
         recoverPasswordUseCase.verifyPasswordCode(code, new RecoverPasswordUseCase.RecoverPasswordCallback() {
             @Override
             public void onSucces(String message) {
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE,message));
-                tokenPassword.onSucces(message);
+                token.setValue(message);
             }
 
             @Override
             public void onError(String errorMessage) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, errorMessage));
-                tokenPassword.onError(errorMessage);
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });
     }
@@ -70,7 +71,7 @@ public class RecoverPasswordViewModel extends AndroidViewModel {
 
             @Override
             public void onError(String errorMessage) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, errorMessage));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });
     }

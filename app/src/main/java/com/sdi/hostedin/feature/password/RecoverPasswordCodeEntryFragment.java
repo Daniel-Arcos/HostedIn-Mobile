@@ -62,18 +62,7 @@ public class RecoverPasswordCodeEntryFragment extends Fragment {
                     +binding.etxThirdNumber.getText().toString()
                     +binding.etxForthNumber.getText().toString()
                     +binding.etxFifthNumber.getText().toString();
-        recoverPasswordViewModel.verifyCode(code, new RecoverPasswordViewModel.TokenPasswordCallBack() {
-            @Override
-            public void onSucces(String token) {
-                 RecoverPasswordActivity activity = (RecoverPasswordActivity) getActivity();
-                 activity.setToken(token);
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-
-            }
-        });
+        recoverPasswordViewModel.verifyCode(code);
     }
 
 
