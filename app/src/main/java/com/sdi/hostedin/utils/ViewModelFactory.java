@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.sdi.hostedin.feature.guest.explore.ExploreViewModel;
 import com.sdi.hostedin.feature.signup.SignupViewModel;
+import com.sdi.hostedin.feature.user.EditProfileViewModel;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
     private final Application application;
@@ -22,6 +23,8 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new ExploreViewModel(application);
         } else if (modelClass.equals(SignupViewModel.class)) {
             return (T) new SignupViewModel(application);
+        } else if (modelClass.equals(EditProfileViewModel.class)) {
+            return (T) new EditProfileViewModel(application);
         }
         return null;
     }

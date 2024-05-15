@@ -15,7 +15,10 @@ public class User {
     private String password;
 
     private String occupation;
-    private Byte profilePhoto;
+
+    private String residence;
+
+    private  ProfilePhoto profilePhoto;
 
     public User() {
 
@@ -77,11 +80,19 @@ public class User {
         this.occupation = occupation;
     }
 
-    public Byte getProfilePhoto() {
+    public String getResidence() {
+        return residence;
+    }
+
+    public void setResidence(String residence) {
+        this.residence = residence;
+    }
+
+    public ProfilePhoto getProfilePhoto() {
         return profilePhoto;
     }
 
-    public void setProfilePhoto(Byte profilePhoto) {
+    public void setProfilePhoto(ProfilePhoto profilePhoto) {
         this.profilePhoto = profilePhoto;
     }
 }
