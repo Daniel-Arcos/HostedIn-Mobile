@@ -1,4 +1,4 @@
-package com.sdi.hostedin.feature.signup;
+package com.sdi.hostedin.feature.login;
 
 import android.app.Application;
 
@@ -8,14 +8,16 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.domain.CreateAccountUseCase;
+import com.sdi.hostedin.domain.LogInUseCase;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
 
-public class SignupViewModel extends AndroidViewModel {
+public class SigninViewModel extends AndroidViewModel {
+
 
     MutableLiveData<RequestStatus> requestStatusMutableLiveData = new MutableLiveData<>();
-
-    public SignupViewModel(@NonNull Application application) {
+    MutableLiveData<Boolean> fullFields = new MutableLiveData<>();
+    public SigninViewModel(@NonNull Application application) {
         super(application);
     }
 
@@ -23,11 +25,22 @@ public class SignupViewModel extends AndroidViewModel {
         return requestStatusMutableLiveData;
     }
 
-    public void signUp(User user) {
-        CreateAccountUseCase createAccountUseCase = new CreateAccountUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
 
-        createAccountUseCase.createAccount(user, new CreateAccountUseCase.CreateAccountCallback() {
+    public MutableLiveData<Boolean> getFullFields() {
+        return fullFields;
+    }
+
+    public void setFullFields(boolean fullFields) {
+        this.fullFields.setValue(fullFields);
+    }
+
+    public void signIn(String email, String password) {
+        LogInUseCase logInUseCase = new LogInUseCase();
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        logInUseCase.LogIn(user, new LogInUseCase.LoginCallback() {
             @Override
             public void onSuccess(User user, String token) {
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Account created"));
@@ -39,4 +52,5 @@ public class SignupViewModel extends AndroidViewModel {
             }
         });
     }
+
 }
