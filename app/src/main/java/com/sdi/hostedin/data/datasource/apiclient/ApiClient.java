@@ -5,6 +5,9 @@ package com.sdi.hostedin.data.datasource.apiclient;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
 import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseSignupObject;
 import com.sdi.hostedin.data.model.User;
 
 import retrofit2.Call;
@@ -12,11 +15,17 @@ import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public class ApiClient {
 
     public interface  Service {
+
+        @GET("users/{userId}")
+        Call<ResponseGetUserObject> getUserById(@Path("userId") String userId);
 
         @POST("auth/signup")
         Call<ResponseAuthObject> signUp(@Body User user);
@@ -32,12 +41,14 @@ public class ApiClient {
 
         @POST("passwords/changepasswithcode")
         Call<Void> changePasswordByCode(@Header("authorization")String token, @Body NewPasswordRecovery newPassword);
+        @PUT("users/{userId}")
+        Call<ResponseEditAccountObject> updateUserById(@Path("userId") String userId, @Body User user);
 
     }
 
     Retrofit retrofit = new Retrofit.Builder()
-            //Modificar con la URL de su computadora - red 192.168.50.7
-            .baseUrl("http://192.168.1.75:3000/api/v1/")
+            //Modificar con la URL de su computadora - red
+            .baseUrl("http://192.168.100.9:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 

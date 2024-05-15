@@ -1,4 +1,4 @@
-package com.sdi.hostedin.feature.guest.bookings;
+package com.sdi.hostedin.feature.guest.explore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
