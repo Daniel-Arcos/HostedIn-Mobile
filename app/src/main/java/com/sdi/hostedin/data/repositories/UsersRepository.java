@@ -7,24 +7,39 @@ public class UsersRepository {
 
     private RemoteUsersDataSource remoteUsersDataSource = new RemoteUsersDataSource();
 
-    public interface SignupCallback {
+    public interface AuthCallback {
         void onSuccess(User user, String token);
         void onError(String errorMessage);
     }
 
-    public void signUp(User user, SignupCallback signupCallback) {
-        remoteUsersDataSource.createUserAccount(user, new RemoteUsersDataSource.CreateUserCallback() {
+    public void signUp(User user, AuthCallback authCallback) {
+        remoteUsersDataSource.createUserAccount(user, new RemoteUsersDataSource.AuthCallback() {
             @Override
             public void onSuccess(User user, String token) {
-                signupCallback.onSuccess(user, token);
+                authCallback.onSuccess(user, token);
             }
 
             @Override
             public void onError(String errorMessage) {
-                signupCallback.onError(errorMessage);
+                authCallback.onError(errorMessage);
             }
         });
 
     }
+
+    public void signIn(User user, UsersRepository.AuthCallback authCallback) {
+        remoteUsersDataSource.login(user, new RemoteUsersDataSource.AuthCallback() {
+            @Override
+            public void onSuccess(User user, String token) {
+                authCallback.onSuccess(user, token);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                authCallback.onError(errorMessage);
+            }
+        });
+    }
+
 
 }

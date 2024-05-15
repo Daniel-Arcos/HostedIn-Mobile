@@ -1,14 +1,12 @@
 package com.sdi.hostedin.feature.signup;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentSignupBinding;
@@ -71,23 +68,22 @@ public class SignupFragment extends Fragment {
         });
         binding.btnSignup.setOnClickListener(v -> {
             if (validateFields()) {
-                signup();
+                signUp();
             }
         });
 
         signupViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), status -> {
             switch (status.getRequestStatus()) {
                 case LOADING:
-                    binding.loadingWheel.setVisibility(View.VISIBLE);
+                    binding.pgbSignup.setVisibility(View.VISIBLE);
                     break;
                 case DONE:
-                    binding.loadingWheel.setVisibility(View.GONE);
+                    binding.pgbSignup.setVisibility(View.GONE);
                     goToGuestMenu();
                     break;
                 case ERROR:
                     Toast.makeText(this.getContext(),status.getMessage(), Toast.LENGTH_SHORT).show();
-                    binding.loadingWheel.setVisibility(View.GONE);
-                    Log.e("testDaniel", status.getMessage());
+                    binding.pgbSignup.setVisibility(View.GONE);
             }
         });
 
@@ -100,14 +96,14 @@ public class SignupFragment extends Fragment {
         this.getActivity().finish();
     }
 
-    private void signup() {
+    private void signUp() {
         User user = new User();
         user.setFullName(binding.etxFullName.getEditText().getText().toString());
         user.setBirthDate(binding.etxBirthDate.getEditText().getText().toString());
         user.setPhoneNumber(binding.etxPhoneNumber.getEditText().getText().toString());
         user.setEmail(binding.etxEmail.getEditText().getText().toString());
         user.setPassword(binding.etxPassword.getEditText().getText().toString());
-        signupViewModel.SignUp(user);
+        signupViewModel.signUp(user);
     }
 
     private void goToSignUp() {

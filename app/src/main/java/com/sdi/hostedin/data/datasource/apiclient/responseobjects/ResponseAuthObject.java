@@ -2,7 +2,7 @@ package com.sdi.hostedin.data.datasource.apiclient.responseobjects;
 
 import com.sdi.hostedin.data.model.User;
 
-public class ResponseSignupObject {
+public class ResponseAuthObject {
     private String message;
     private User user;
 

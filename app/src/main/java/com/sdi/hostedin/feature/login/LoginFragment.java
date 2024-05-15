@@ -7,21 +7,28 @@ import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
+import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentLoginBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.host.HostMainActivity;
 import com.sdi.hostedin.feature.signup.SignupFragment;
 import com.sdi.hostedin.feature.password.RecoverPasswordActivity;
+import com.sdi.hostedin.feature.signup.SignupViewModel;
+import com.sdi.hostedin.utils.TextChangedListener;
+import com.sdi.hostedin.utils.ViewModelFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,37 +36,16 @@ import com.sdi.hostedin.feature.password.RecoverPasswordActivity;
  * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private FragmentLoginBinding binding;
     RxDataStore<Preferences> dataStoreRX;
+    SigninViewModel signinViewModel;
 
     public LoginFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static LoginFragment newInstance(String param1, String param2) {
         LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -72,16 +58,49 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false);
+        signinViewModel =
+                new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication())).get(SigninViewModel.class);
         binding.btnLogin.setOnClickListener(v -> {
-            Login();
+            if (validateFields()) {
+                Login();
+            }
         });
-        binding.btnSignup.setOnClickListener(v -> {
-            GoToSignUp();
-        });
+        binding.btnSignup.setOnClickListener(v -> {GoToSignUp();});
         binding.btnForgotPassword.setOnClickListener(v -> recoverPassword());
+        signinViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), status -> {
+            switch (status.getRequestStatus()) {
+                case LOADING:
+                    binding.pgbSignin.setVisibility(View.VISIBLE);
+                    binding.vwLoading.setVisibility(View.VISIBLE);
+                    break;
+                case DONE:
+                    binding.pgbSignin.setVisibility(View.GONE);
+                    binding.vwLoading.setVisibility(View.GONE);
+                    enterToApp();
+                    break;
+                case ERROR:
+                    Toast.makeText(this.getContext(),status.getMessage(), Toast.LENGTH_SHORT).show();
+                    binding.pgbSignin.setVisibility(View.GONE);
+                    binding.vwLoading.setVisibility(View.GONE);
+            }
+        });
         return  binding.getRoot();
+    }
+
+    private boolean validateFields() {
+        boolean valid = true;
+        String email = binding.etxEmail.getEditText().getText().toString();
+        String password = binding.etxPassword.getEditText().getText().toString();
+        if (email.equals("")) {
+            valid = false;
+            binding.txvEmailError.setText("Requerido");
+        }
+        if (password.equals("")) {
+            valid = false;
+            binding.txvPasswordError.setText("Requerido");
+        }
+        return valid;
     }
 
     private void GoToSignUp() {
@@ -93,6 +112,12 @@ public class LoginFragment extends Fragment {
     }
 
     private void Login() {
+        String email = binding.etxEmail.getEditText().getText().toString();
+        String password = binding.etxPassword.getEditText().getText().toString();
+        signinViewModel.signIn(email, password);
+    }
+
+    private void enterToApp() {
         DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
         if (dataStoreSingleton.getDataStore() == null) {
             dataStoreRX = new RxPreferenceDataStoreBuilder(this.getContext(),"USER_DATASTORE" ).build();
