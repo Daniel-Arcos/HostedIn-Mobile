@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -30,9 +31,8 @@ public class ProfileActivity extends AppCompatActivity {
         binding.cancelChangePasswordBtn.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
         binding.myAccountBtn.setOnClickListener( v -> openEditProfileActivity());
         binding.deleteAccountBtn.setOnClickListener( v -> openDeleteAccountActivity());
-
-
     }
+
     private void openEditProfileActivity() {
         Intent intent = new Intent(this, EditProfileActivity.class);
         startActivity(intent);

@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.guest.bookings.AccommodationDetailsActivity">
+        tools:context=".feature.guest.explore.AccommodationDetailsActivity">
 
         <TextView
             android:id="@+id/aad_accommodation_name_tvw"

@@ -43,7 +43,7 @@
             android:src="@drawable/circle_shape"/>
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imv_profile_photo"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_below="@+id/textView2"
@@ -83,7 +83,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-           android:layout_alignTop="@+id/my_account_btn"
+            android:layout_alignTop="@+id/my_account_btn"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true">
@@ -137,7 +137,7 @@
                 android:layout_marginEnd="10dp"/>
 
             <com.google.android.material.button.MaterialButton
-                style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:id="@+id/delete_account_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,8 +145,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="#F8EEEE"
+                app:strokeColor="#D95353"
                 android:text="Eliminar cuenta"
-                app:strokeColor="#F8EEEE"
                 android:layout_alignParentBottom="true"
                 android:textColor="#D95353" />
 
@@ -274,7 +274,6 @@
                 </RelativeLayout>
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
         </RelativeLayout>
     </RelativeLayout>
 </layout>
