@@ -37,14 +37,17 @@ public class RecoverPasswordActivity extends AppCompatActivity {
             switch (status.getRequestStatus()) {
                 case LOADING:
                     binding.pgbLoadingWheel.setVisibility(View.VISIBLE);
+                    binding.bttConfirmAction.setEnabled(false);
                     break;
                 case DONE:
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
+                    binding.bttConfirmAction.setEnabled(true);
                     changeFragment();
                     break;
                 case ERROR:
                     Toast.makeText(this,status.getMessage(), Toast.LENGTH_SHORT).show();
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
+                    binding.bttConfirmAction.setEnabled(true);
                     Log.e("testTris", status.getMessage());
             }
         });
@@ -103,7 +106,7 @@ public class RecoverPasswordActivity extends AppCompatActivity {
                 binding.bttConfirmAction.setText("Confirm password");
                 break;
             case 3:
-                Toast.makeText(this, "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Contraseña actualizada correctamente", Toast.LENGTH_LONG).show();
                 goToLogin();
                 break;
             default:

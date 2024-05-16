@@ -10,8 +10,8 @@ public class RecoverPasswordUseCase {
 
     PasswordRepository passwordRepository = new PasswordRepository();
 
-    public void sendEmailCode(String email, RecoverPasswordCallback recoverPasswordCallback){
-        passwordRepository.sendEmailPasswordCode(email, new PasswordRepository.PasswordVerificationCodeCallback() {
+    public void confirmEmail(String email, RecoverPasswordCallback recoverPasswordCallback){
+        passwordRepository.confirmEmail(email, new PasswordRepository.PasswordRecoveryCallBack() {
             @Override
             public void onSucces(String message) {
                 recoverPasswordCallback.onSucces(message);
@@ -26,7 +26,7 @@ public class RecoverPasswordUseCase {
     }
 
     public void verifyPasswordCode(String code, RecoverPasswordCallback recoverPasswordCallback){
-        passwordRepository.verifyPasswordCode(code, new PasswordRepository.PasswordVerificationCodeCallback() {
+        passwordRepository.verifyPasswordCode(code, new PasswordRepository.PasswordRecoveryCallBack() {
 
             @Override
             public void onSucces(String message) {
@@ -40,8 +40,8 @@ public class RecoverPasswordUseCase {
         });
     }
 
-    public void changePasswordWithCode(String token, String newPassword, String email,  RecoverPasswordCallback recoverPasswordCallback){
-        passwordRepository.changePasswordWithCode(token, newPassword, email, new PasswordRepository.PasswordVerificationCodeCallback() {
+    public void updatePassword(String token, String newPassword, String email, RecoverPasswordCallback recoverPasswordCallback){
+        passwordRepository.updatePassword(token, newPassword, email, new PasswordRepository.PasswordRecoveryCallBack() {
             @Override
             public void onSucces(String message) {
                 recoverPasswordCallback.onSucces(message);

@@ -1,14 +1,11 @@
 package com.sdi.hostedin.data.datasource.remote;
 
-import android.util.Log;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
-import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseSignupObject;
 import com.sdi.hostedin.data.model.User;
 
 import retrofit2.Call;

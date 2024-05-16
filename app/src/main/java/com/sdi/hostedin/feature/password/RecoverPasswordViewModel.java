@@ -26,11 +26,11 @@ public class RecoverPasswordViewModel extends AndroidViewModel {
         return token;
     }
 
-    public void sendEmailCode(String email){
+    public void confirmEmail(String email){
         RecoverPasswordUseCase recoverPasswordUseCase = new RecoverPasswordUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
 
-        recoverPasswordUseCase.sendEmailCode(email, new RecoverPasswordUseCase.RecoverPasswordCallback() {
+        recoverPasswordUseCase.confirmEmail(email, new RecoverPasswordUseCase.RecoverPasswordCallback() {
             @Override
             public void onSucces(String message) {
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE,message));
@@ -60,10 +60,10 @@ public class RecoverPasswordViewModel extends AndroidViewModel {
         });
     }
 
-    public void changePassswordWitCodeRecovery(String token, String newPassword, String email){
+    public void changePasswordWitCodeRecovery(String token, String newPassword, String email){
         RecoverPasswordUseCase recoverPasswordUseCase = new RecoverPasswordUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
-        recoverPasswordUseCase.changePasswordWithCode(token, newPassword, email, new RecoverPasswordUseCase.RecoverPasswordCallback() {
+        recoverPasswordUseCase.updatePassword(token, newPassword, email, new RecoverPasswordUseCase.RecoverPasswordCallback() {
             @Override
             public void onSucces(String message) {
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE,message));

@@ -4,13 +4,13 @@ import com.sdi.hostedin.data.datasource.remote.RemotePasswordCodeDataSource;
 
 public class PasswordRepository {
 
-    public interface PasswordVerificationCodeCallback {
+    public interface PasswordRecoveryCallBack {
         void onSucces(String message);
         void onError(String errorMessage);
     }
 
 
-    public void sendEmailPasswordCode(String email, PasswordVerificationCodeCallback sendVerificationCodeCallback){
+    public void confirmEmail(String email, PasswordRecoveryCallBack sendVerificationCodeCallback){
         RemotePasswordCodeDataSource remotePasswordCodeDataSource = new RemotePasswordCodeDataSource();
         remotePasswordCodeDataSource.sendEmailPasswordCode(email, new RemotePasswordCodeDataSource.PasswordCodeCallback() {
             @Override
@@ -26,7 +26,7 @@ public class PasswordRepository {
 
     }
 
-    public void verifyPasswordCode(String code, PasswordVerificationCodeCallback passwordCodeCallback){
+    public void verifyPasswordCode(String code, PasswordRecoveryCallBack passwordCodeCallback){
         RemotePasswordCodeDataSource remotePasswordCodeDataSource = new RemotePasswordCodeDataSource();
         remotePasswordCodeDataSource.verifyPasswordCode(code, new RemotePasswordCodeDataSource.PasswordCodeCallback() {
             @Override
@@ -41,9 +41,9 @@ public class PasswordRepository {
         });
     }
 
-    public void changePasswordWithCode(String token, String newPassword, String email, PasswordVerificationCodeCallback passwordVerificationCodeCallback){
+    public void updatePassword(String token, String newPassword, String email, PasswordRecoveryCallBack passwordVerificationCodeCallback){
         RemotePasswordCodeDataSource remotePasswordCodeDataSource = new RemotePasswordCodeDataSource();
-        remotePasswordCodeDataSource.changePasswordWithCode(token, newPassword, email, new RemotePasswordCodeDataSource.PasswordCodeCallback() {
+        remotePasswordCodeDataSource.changePassword(token, newPassword, email, new RemotePasswordCodeDataSource.PasswordCodeCallback() {
             @Override
             public void onSucces(String message) {
                 passwordVerificationCodeCallback.onSucces(message);

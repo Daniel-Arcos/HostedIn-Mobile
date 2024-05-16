@@ -22,7 +22,7 @@ public class RemotePasswordCodeDataSource {
     public RemotePasswordCodeDataSource(){}
 
     public void sendEmailPasswordCode(String email, PasswordCodeCallback sendPasswordCodeCallback){
-        Call<Void> call = service.sendEmailCode(new GenericSingleString(email));
+        Call<Void> call = service.createPasswordCode(new GenericSingleString(email));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -52,7 +52,7 @@ public class RemotePasswordCodeDataSource {
     }
 
     public void verifyPasswordCode(String code, PasswordCodeCallback verifyPasswordCode){
-        Call<Void> call =  service.verifyEmailCode(new GenericSingleString(code));
+        Call<Void> call =  service.createCodeToken(new GenericSingleString(code));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -85,8 +85,8 @@ public class RemotePasswordCodeDataSource {
         });
     }
 
-    public void changePasswordWithCode(String token, String newPassword,String email, PasswordCodeCallback newPassWordCallBack){
-        Call<Void> call = service.changePasswordByCode(token, new NewPasswordRecovery(newPassword, email));
+    public void changePassword(String token, String newPassword, String email, PasswordCodeCallback newPassWordCallBack){
+        Call<Void> call = service.updateUserPassword(token, new NewPasswordRecovery(newPassword, email));
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -107,7 +107,6 @@ public class RemotePasswordCodeDataSource {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 newPassWordCallBack.onError(t.getMessage());

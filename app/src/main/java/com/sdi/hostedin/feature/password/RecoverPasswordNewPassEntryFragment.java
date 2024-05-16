@@ -49,7 +49,7 @@ public class RecoverPasswordNewPassEntryFragment extends Fragment {
 
     public void changePassword(String email, String token){
         String password = binding.etxNewPassword.getEditText().getText().toString();
-        recoverPasswordViewModel.changePassswordWitCodeRecovery(token,password,email);
+        recoverPasswordViewModel.changePasswordWitCodeRecovery(token,password,email);
     }
 
 

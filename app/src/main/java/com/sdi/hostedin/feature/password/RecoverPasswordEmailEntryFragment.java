@@ -61,7 +61,7 @@ public class RecoverPasswordEmailEntryFragment extends Fragment {
 
     public void trySendEmailCode(){
         String email = binding.etxEmail.getEditText().getText().toString();
-        recoverPasswordViewModel.sendEmailCode(email);
+        recoverPasswordViewModel.confirmEmail(email);
     }
 
     public String getEmail(){
