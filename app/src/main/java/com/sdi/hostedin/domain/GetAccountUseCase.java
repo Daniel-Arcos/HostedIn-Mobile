@@ -3,25 +3,25 @@ package com.sdi.hostedin.domain;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.data.repositories.UsersRepository;
 
-public class EditProfileUseCase {
+public class GetAccountUseCase {
 
-    public interface EditProfileCallback {
+    public interface GetAccountCallback {
         void onSuccess(User user, String token);
         void onError(String errorMessage);
     }
 
     UsersRepository usersRepository = new UsersRepository();
 
-    public void editProfile(User user, EditProfileCallback editProfileCallback) {
-        usersRepository.editProfile(user, new UsersRepository.EditProfileCallback() {
+    public void getUserById(String userId, GetAccountUseCase.GetAccountCallback getAccountCallback) {
+        usersRepository.getUserById(userId, new UsersRepository.GetAccountCallback() {
             @Override
             public void onSuccess(User user, String token) {
-                editProfileCallback.onSuccess(user, token);
+                getAccountCallback.onSuccess(user, token);
             }
 
             @Override
             public void onError(String errorMessage) {
-                editProfileCallback.onError(errorMessage);
+                getAccountCallback.onError(errorMessage);
             }
         });
     }

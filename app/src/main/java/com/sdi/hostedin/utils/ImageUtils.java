@@ -7,6 +7,10 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.ImageView;
+
+import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.model.User;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -50,5 +54,24 @@ public class ImageUtils {
         }
 
         return bitmap;
+    }
+
+    public static byte[] loadProfilePhoto(User user, ImageView imvProfilePhoto) {
+        byte[] imageData = null;
+
+        if (user.getProfilePhoto() != null) {
+            imageData = user.getProfilePhoto().getData();
+            Bitmap profilePhoto = ImageUtils.bytesToBitmap(imageData);
+
+            if (profilePhoto != null) {
+                imvProfilePhoto.setImageBitmap(profilePhoto);
+            } else {
+                imvProfilePhoto.setImageResource(R.drawable.profile_icon);
+            }
+        } else {
+            imvProfilePhoto.setImageResource(R.drawable.profile_icon);
+        }
+
+        return imageData;
     }
 }

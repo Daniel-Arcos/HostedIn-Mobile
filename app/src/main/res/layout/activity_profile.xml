@@ -12,17 +12,8 @@
         android:layout_height="match_parent"
         tools:context=".feature.user.ProfileActivity">
 
-        <Button
-            android:id="@+id/imageButton"
-            style="?attr/materialIconButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            app:icon="@drawable/go_back_icon" />
-
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txv_my_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -35,10 +26,10 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/iv_profile_photo"
+            android:id="@+id/imv_profile_photo_circle"
             android:layout_width="140dp"
             android:layout_height="140dp"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/txv_my_profile"
             android:layout_centerHorizontal="true"
             android:src="@drawable/circle_shape"/>
 
@@ -46,18 +37,18 @@
             android:id="@+id/imv_profile_photo"
             android:layout_width="140dp"
             android:layout_height="140dp"
-            android:layout_below="@+id/textView2"
-            android:layout_alignStart="@+id/iv_profile_photo"
-            android:layout_alignEnd="@+id/iv_profile_photo"
-            android:layout_alignBottom="@+id/iv_profile_photo"
+            android:layout_below="@+id/txv_my_profile"
+            android:layout_alignStart="@+id/imv_profile_photo_circle"
+            android:layout_alignEnd="@+id/imv_profile_photo_circle"
+            android:layout_alignBottom="@+id/imv_profile_photo_circle"
             android:src="@drawable/profile_icon"
             app:shapeAppearanceOverlay="@style/roundedImageView" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txv_full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_profile_photo"
+            android:layout_below="@+id/imv_profile_photo_circle"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:text="Fullname"
@@ -66,10 +57,10 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/my_account_btn"
+            android:id="@+id/btn_my_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView3"
+            android:layout_below="@+id/txv_full_name"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="10dp"
@@ -83,14 +74,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_alignTop="@+id/my_account_btn"
+            android:layout_alignTop="@+id/btn_my_account"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true">
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.Material3.Button.OutlinedButton"
-                android:id="@+id/change_password_btn"
+                android:id="@+id/btn_change_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -119,7 +110,7 @@
                 android:id="@+id/danger_zone_txv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/delete_account_btn"
+                android:layout_above="@id/btn_delete_account"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="15dp"
                 android:text="Zona de peligro"
@@ -131,14 +122,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#D95353"
-                android:layout_above="@+id/delete_account_btn"
+                android:layout_above="@+id/btn_delete_account"
                 android:layout_toEndOf="@id/danger_zone_txv"
                 android:layout_marginBottom="20dp"
                 android:layout_marginEnd="10dp"/>
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.Material3.Button.OutlinedButton"
-                android:id="@+id/delete_account_btn"
+                android:id="@+id/btn_delete_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -275,5 +266,14 @@
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/pgb_profile"
+            style="@android:style/Widget.Material.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </RelativeLayout>
 </layout>

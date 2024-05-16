@@ -10,7 +10,9 @@ import com.sdi.hostedin.feature.guest.explore.ExploreViewModel;
 import com.sdi.hostedin.feature.password.RecoverPasswordViewModel;
 import com.sdi.hostedin.feature.login.SigninViewModel;
 import com.sdi.hostedin.feature.signup.SignupViewModel;
+import com.sdi.hostedin.feature.user.DeleteAccountViewModel;
 import com.sdi.hostedin.feature.user.EditProfileViewModel;
+import com.sdi.hostedin.feature.user.ProfileViewModel;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
     private final Application application;
@@ -31,7 +33,12 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new SigninViewModel(application);
         } else if (modelClass.equals(EditProfileViewModel.class)) {
             return (T) new EditProfileViewModel(application);
+        } else if (modelClass.equals(DeleteAccountViewModel.class)) {
+            return (T) new DeleteAccountViewModel(application);
+        } else if (modelClass.equals(ProfileViewModel.class)) {
+            return (T) new ProfileViewModel(application);
         }
+
         return null;
     }
 }

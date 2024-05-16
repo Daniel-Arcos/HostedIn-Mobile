@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
@@ -45,11 +46,14 @@ public class ApiClient {
         @PUT("users/{userId}")
         Call<ResponseEditAccountObject> updateUserById(@Path("userId") String userId, @Body User user);
 
+        @DELETE("users/{userId}")
+        Call<ResponseEditAccountObject> deleteUserById(@Path("userId") String userId);
+
     }
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.100.9:3000/api/v1/")
+            .baseUrl("http://192.168.100.7:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 

@@ -25,6 +25,16 @@ public class RemoteUsersDataSource {
         void onError(String errorMessage);
     }
 
+    public interface GetAccountCallback {
+        void onSuccess(User user, String token);
+        void onError(String errorMessage);
+    }
+
+    public interface DeleteAccountCallback {
+        void onSuccess(String userId);
+        void onError(String errorMessage);
+    }
+
     public RemoteUsersDataSource() {
 
     }
@@ -107,7 +117,28 @@ public class RemoteUsersDataSource {
                 if (response.isSuccessful()) {
                     ResponseEditAccountObject responseEditAccountObject = response.body();
                     User editedUser = new User();
-                    editAccountCallback.onSuccess(editedUser, "");
+                    String token = response.headers().get("Authorization");
+                    if (token != null && token.startsWith("Bearer ")) {
+                        token = token.substring(7);
+                    }
+
+                    editAccountCallback.onSuccess(editedUser, token);
+                } else {
+                    String message = "Ocurrio un error al actualizar";
+
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorString = response.errorBody().string();
+                            JsonParser jsonParser = new JsonParser();
+                            JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
+                            message = jsonObject.get("message").getAsString();
+                            editAccountCallback.onError(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    editAccountCallback.onError(message);
                 }
             }
 
@@ -118,7 +149,7 @@ public class RemoteUsersDataSource {
         });
     }
 
-    public void getUserById(String userId, EditAccountCallback editAccountCallback) {
+    public void getUserById(String userId, GetAccountCallback getAccountCallback) {
         Call<ResponseGetUserObject> call = service.getUserById(userId);
 
         call.enqueue(new Callback<ResponseGetUserObject>() {
@@ -127,14 +158,71 @@ public class RemoteUsersDataSource {
                 if (response.isSuccessful()) {
                     ResponseGetUserObject responseGetUserObject = response.body();
                     User userFound = responseGetUserObject.getUser();
+                    String token = response.headers().get("Authorization");
+                    if (token != null && token.startsWith("Bearer ")) {
+                        token = token.substring(7);
+                    }
 
-                    editAccountCallback.onSuccess(userFound, "");
+                    getAccountCallback.onSuccess(userFound, token);
+                } else {
+                    String message = "Ocurrio un error";
+
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorString = response.errorBody().string();
+                            JsonParser jsonParser = new JsonParser();
+                            JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
+                            message = jsonObject.get("message").getAsString();
+                            getAccountCallback.onError(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    getAccountCallback.onError(message);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseGetUserObject> call, Throwable t) {
-                editAccountCallback.onError(t.getMessage());
+                getAccountCallback.onError(t.getMessage());
+            }
+        });
+    }
+
+    public void deleteAccount(String userId, DeleteAccountCallback deleteAccountCallback) {
+        Call<ResponseEditAccountObject> call = service.deleteUserById(userId);
+
+        call.enqueue(new Callback<ResponseEditAccountObject>() {
+            @Override
+            public void onResponse(Call<ResponseEditAccountObject> call, Response<ResponseEditAccountObject> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ResponseEditAccountObject responseObject = response.body();
+                    String userId = responseObject.getUserId();
+
+                    deleteAccountCallback.onSuccess(userId);
+                } else {
+                    String message = "Ocurrio un error";
+
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorString = response.errorBody().string();
+                            JsonParser jsonParser = new JsonParser();
+                            JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
+                            message = jsonObject.get("message").getAsString();
+                            deleteAccountCallback.onError(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    deleteAccountCallback.onError(message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseEditAccountObject> call, Throwable t) {
+                deleteAccountCallback.onError(t.getMessage());
             }
         });
     }
