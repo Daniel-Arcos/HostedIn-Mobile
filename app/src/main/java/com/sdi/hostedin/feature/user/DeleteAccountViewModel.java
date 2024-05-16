@@ -1,7 +1,6 @@
 package com.sdi.hostedin.feature.user;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -9,16 +8,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.data.model.User;
-import com.sdi.hostedin.domain.EditProfileUseCase;
+import com.sdi.hostedin.domain.DeleteAccountUseCase;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
 
-import java.util.List;
+public class DeleteAccountViewModel extends AndroidViewModel {
 
-public class EditProfileViewModel extends AndroidViewModel {
-    public static final String ON_SUCCESS_EDIT_MESSAGE = "edited account";
+    public static final String ON_SUCCESS_DELETION_MESSAGE = "deleted account";
     private MutableLiveData<RequestStatus> requestStatusMutableLiveData = new MutableLiveData<>();
-    public EditProfileViewModel(@NonNull Application application) {
+
+    public DeleteAccountViewModel(@NonNull Application application) {
         super(application);
     }
 
@@ -26,14 +25,14 @@ public class EditProfileViewModel extends AndroidViewModel {
         return requestStatusMutableLiveData;
     }
 
-    public void editProfile(User user) {
-        EditProfileUseCase editProfileUseCase = new EditProfileUseCase();
+    public void deleteAccount(String userId) {
+        DeleteAccountUseCase deleteAccountUseCase = new DeleteAccountUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
 
-        editProfileUseCase.editProfile(user, new EditProfileUseCase.EditProfileCallback() {
+        deleteAccountUseCase.deleteAccount(userId, new DeleteAccountUseCase.DeleteAccountCallback() {
             @Override
-            public void onSuccess(User user, String token) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, ON_SUCCESS_EDIT_MESSAGE));
+            public void onSuccess(String userId) {
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, ON_SUCCESS_DELETION_MESSAGE));
             }
 
             @Override

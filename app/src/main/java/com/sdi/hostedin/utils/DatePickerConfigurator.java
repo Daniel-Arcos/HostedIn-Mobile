@@ -42,7 +42,7 @@ public class DatePickerConfigurator {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(editTextDate.getContext(), (view, selectedYear, selectedMonth, selectedDayOfMonth) -> {
-            String selectedDate = selectedDayOfMonth + "/" + (selectedMonth + 1) + "/" + selectedYear;
+            String selectedDate = String.format("%02d/%02d/%04d", selectedDayOfMonth, selectedMonth + 1, selectedYear);
             editTextDate.setText(selectedDate);
         }, year, month, day);
 

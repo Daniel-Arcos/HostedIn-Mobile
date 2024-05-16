@@ -6,14 +6,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.sdi.hostedin.R;
+import com.sdi.hostedin.MainActivity;
 import com.sdi.hostedin.data.model.ProfilePhoto;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityEditProfileBinding;
@@ -30,8 +30,8 @@ import java.time.format.DateTimeParseException;
 
 public class EditProfileActivity extends AppCompatActivity {
 
+    public static final String USER_KEY = "user_key";
     private static final String DEFAULT_TYPE_PHOTO = "Buffer";
-    private static final String ON_SUCCESS_EDIT_MESSAGE = "edited account";
     private ActivityEditProfileBinding binding;
     private EditProfileViewModel editProfileViewModel;
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
@@ -44,29 +44,35 @@ public class EditProfileActivity extends AppCompatActivity {
         binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Bundle extras = getIntent().getExtras();
+        binding.setUserData(extras.getParcelable(USER_KEY));
+
         editProfileViewModel = new ViewModelProvider(this, new ViewModelFactory(getApplication())).get(EditProfileViewModel.class);
 
-        editProfileViewModel.getRequestStatusMutableLiveData().observe(this, status -> {
-            switch (status.getRequestStatus()) {
-                case LOADING:
-                    binding.loadingWheel.setVisibility(View.VISIBLE);
-                    break;
-                case DONE:
-                    binding.loadingWheel.setVisibility(View.GONE);
-                    if (status.getMessage().equals(ON_SUCCESS_EDIT_MESSAGE)) {
-                        manageSuccessUpdate();
-                    }
-                    break;
-                case ERROR:
-                    binding.loadingWheel.setVisibility(View.GONE);
-                    ToastUtils.showShortInformationMessage(this, status.getMessage());
-            }
-        });
-
+        manageProgressBarCircle();
         configureBottomSheet();
         loadUserData();
         DatePickerConfigurator.configureDatePicker(binding.etxBirthdate);
         configureButtons();
+    }
+
+    private void manageProgressBarCircle() {
+        editProfileViewModel.getRequestStatusMutableLiveData().observe(this, status -> {
+            switch (status.getRequestStatus()) {
+                case LOADING:
+                    binding.pgbEditProfile.setVisibility(View.VISIBLE);
+                    break;
+                case DONE:
+                    binding.pgbEditProfile.setVisibility(View.GONE);
+                    if (status.getMessage().equals(EditProfileViewModel.ON_SUCCESS_EDIT_MESSAGE)) {
+                        manageSuccessUpdate();
+                    }
+                    break;
+                case ERROR:
+                    binding.pgbEditProfile.setVisibility(View.GONE);
+                    ToastUtils.showShortInformationMessage(this, status.getMessage());
+            }
+        });
     }
 
     private void configureBottomSheet() {
@@ -76,43 +82,12 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void loadUserData() {
-        // TODO: Get the ID from Singleton
-        String userId = "6643c7274ce07d500e558960";
-        editProfileViewModel.getUserById(userId);
-
-        editProfileViewModel.getUserMutableLiveData().observe(this, user -> {
-            if (user != null) {
-                String birthdate = DateFormatterUtils.parseMongoDateToLocal(user.getBirthDate());
-                binding.txvFullName.setText(user.getFullName());
-                binding.etxEmail.setText(user.getEmail());
-                binding.etxFullName.setText(user.getFullName());
-                if (birthdate != null) {
-                    binding.etxBirthdate.setText(birthdate);
-                }
-                binding.etxPhoneNumber.setText(user.getPhoneNumber());
-                binding.etxResidence.setText(user.getResidence());
-                binding.etxOccupation.setText(user.getOccupation());
-
-                loadProfilePhoto(user);
-            }
-        });
-    }
-
-    private void loadProfilePhoto(User user) {
-        if (user.getProfilePhoto() != null) {
-            byte[] imageData = user.getProfilePhoto().getData();
-            Bitmap profilePhoto = ImageUtils.bytesToBitmap(imageData);
-
-            if (profilePhoto != null) {
-                binding.imvPhotoProfile.setImageBitmap(profilePhoto);
-            } else {
-                binding.imvPhotoProfile.setImageResource(R.drawable.profile_icon);
-            }
-
-            this.profilePhotoLoaded = imageData;
-        } else {
-            binding.imvPhotoProfile.setImageResource(R.drawable.profile_icon);
+        String birthdate = DateFormatterUtils.parseMongoDateToLocal(binding.getUserData().getBirthDate());
+        if (birthdate != null) {
+            binding.etxBirthdate.setText(birthdate);
         }
+
+        this.profilePhotoLoaded = ImageUtils.loadProfilePhoto(binding.getUserData(), binding.imvProfilePhoto);
     }
 
     private void configureButtons() {
@@ -137,7 +112,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void setPhotoProfile(Uri uriPhoto) {
         if (uriPhoto != null) {
             selectedImageUri = uriPhoto;
-            binding.imvPhotoProfile.setImageURI(uriPhoto);
+            binding.imvProfilePhoto.setImageURI(uriPhoto);
         }
     }
 
@@ -150,10 +125,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private User createUser() {
         User editedUser = new User();
-        // TODO: Get ID from SINGLETON
-        editedUser.setId("6643c7274ce07d500e558960");
-
+        String userId = binding.getUserData().getId();
         String birthdateMongoDb = DateFormatterUtils.parseDateForMongoDB(String.valueOf(binding.etxBirthdate.getText()).trim());
+
+        editedUser.setId(userId);
         editedUser.setEmail(String.valueOf(binding.etxEmail.getText()).trim());
         editedUser.setFullName(String.valueOf(binding.etxFullName.getText()).trim());
         if (birthdateMongoDb != null) {

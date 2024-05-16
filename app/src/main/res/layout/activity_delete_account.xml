@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable name="user_data" type="com.sdi.hostedin.data.model.User"/>
     </data>
 
     <RelativeLayout
@@ -43,7 +43,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
-            android:text="Fullname"
+            android:text="@{user_data.fullName}"
             android:textAlignment="center"
             android:textStyle="bold" />
 
@@ -85,7 +85,9 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginEnd="20dp"
+            app:endIconMode="password_toggle"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etx_confirm_password"
@@ -94,7 +96,9 @@
                 android:autofillHints="password"
                 android:hint="Confirma tu contraseña"
                 android:inputType="textPassword"
-                android:text="" />
+                android:text=""
+                android:maxLength="100"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -112,6 +116,15 @@
             android:text="Eliminar cuenta"
             android:textAlignment="center"
             android:textColor="#FF0000" />
+
+        <ProgressBar
+            android:id="@+id/pgb_delete_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 </layout>

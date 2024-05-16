@@ -43,11 +43,13 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp">
+                app:boxCornerRadiusTopStart="10dp"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:maxLength="200"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +70,8 @@
                 android:hint="Fecha de nacimiento"
                 android:layout_below="@id/txv_name"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp">
+                android:layout_marginEnd="15dp"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -96,12 +99,14 @@
                 android:hint="Numero de telefono"
                 android:layout_below="@id/txv_date_birth"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp">
+                android:layout_marginEnd="15dp"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
+                    android:maxLength="10"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -123,12 +128,14 @@
                 android:hint="Correo electronico"
                 android:layout_below="@id/txv_phone_number"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp">
+                android:layout_marginEnd="15dp"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
+                    android:maxLength="150"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -150,12 +157,14 @@
                 android:layout_below="@id/txv_email"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                app:endIconMode="password_toggle">
+                app:endIconMode="password_toggle"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
+                    android:maxLength="100"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -180,12 +189,14 @@
                 android:layout_marginEnd="15dp"
                 app:boxCornerRadiusBottomStart="10dp"
                 app:boxCornerRadiusBottomEnd="10dp"
-                app:endIconMode="password_toggle">
+                app:endIconMode="password_toggle"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
+                    android:maxLength="100"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
