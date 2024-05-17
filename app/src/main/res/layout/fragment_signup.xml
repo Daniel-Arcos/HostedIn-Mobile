@@ -32,7 +32,8 @@
                 android:textSize="20sp"
                 android:textAlignment="center"
                 android:layout_below="@id/img_start"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etx_full_name"
@@ -42,9 +43,9 @@
                 android:layout_below="@id/title"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginBottom="7dp"
                 app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
-                >
+                app:boxCornerRadiusTopStart="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -61,7 +62,8 @@
                 android:textColor="@color/design_default_color_error"
                 android:layout_below="@id/etx_full_name"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etx_birth_date"
@@ -71,7 +73,7 @@
                 android:layout_below="@id/txv_name"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                >
+                android:layout_marginBottom="5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -90,7 +92,8 @@
                 android:textColor="@color/design_default_color_error"
                 android:layout_below="@id/etx_birth_date"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etx_phone_number"
@@ -100,14 +103,13 @@
                 android:layout_below="@id/txv_date_birth"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                >
+                android:layout_marginBottom="7dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:maxLength="10"
-                    />
+                    android:inputType="number"
+                    android:maxLength="10"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +121,8 @@
                 android:textColor="@color/design_default_color_error"
                 android:layout_below="@id/etx_phone_number"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etx_email"
@@ -129,7 +132,7 @@
                 android:layout_below="@id/txv_phone_number"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                >
+                android:layout_marginBottom="7dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -147,7 +150,8 @@
                 android:textColor="@color/design_default_color_error"
                 android:layout_below="@id/etx_email"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etx_password"
@@ -157,8 +161,8 @@
                 android:layout_below="@id/txv_email"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                app:endIconMode="password_toggle"
-                >
+                android:layout_marginBottom="7dp"
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -177,7 +181,8 @@
                 android:textColor="@color/design_default_color_error"
                 android:layout_below="@id/etx_password"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etx_confirm_password"
@@ -187,17 +192,16 @@
                 android:layout_below="@id/txv_password"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginBottom="7dp"
                 app:boxCornerRadiusBottomStart="10dp"
                 app:boxCornerRadiusBottomEnd="10dp"
-                app:endIconMode="password_toggle"
-                >
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:maxLength="100"
-                    />
+                    android:maxLength="100" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -209,9 +213,10 @@
                 android:textColor="@color/design_default_color_error"
                 android:layout_below="@id/etx_confirm_password"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"/>
 
-            <android.widget.Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -220,7 +225,6 @@
                 android:layout_below="@id/txv_confirm_password"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:background="@drawable/gradient_color"
                 android:textColor="@color/white"/>
 
             <TextView
@@ -242,6 +246,14 @@
                 android:layout_below="@id/etx_o"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"/>
+
+            <View
+                android:id="@+id/vw_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#9FFFFFFF"
+                android:visibility="gone"
+                android:clickable="true"/>
 
             <ProgressBar
                 android:id="@+id/pgb_signup"

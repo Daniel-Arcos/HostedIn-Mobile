@@ -62,12 +62,24 @@ public class LoginFragment extends Fragment {
         signinViewModel =
                 new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication())).get(SigninViewModel.class);
         binding.btnLogin.setOnClickListener(v -> {
-            if (validateFields()) {
-                Login();
-            }
+            if (validateFields()) {Login();}
         });
         binding.btnSignup.setOnClickListener(v -> {GoToSignUp();});
         binding.btnForgotPassword.setOnClickListener(v -> recoverPassword());
+        binding.etxEmail.getEditText().addTextChangedListener(
+                new TextChangedListener<EditText>(binding.etxEmail.getEditText()) {
+                    @Override
+                    public void onTextChanged(EditText target, Editable s) {
+                        binding.txvEmailError.setVisibility(View.GONE);
+                    }
+        });
+        binding.etxPassword.getEditText().addTextChangedListener(
+                new TextChangedListener<EditText>(binding.etxPassword.getEditText()) {
+                    @Override
+                    public void onTextChanged(EditText target, Editable s) {
+                        binding.txvPasswordError.setVisibility(View.GONE);
+                    }
+                });
         signinViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), status -> {
             switch (status.getRequestStatus()) {
                 case LOADING:
@@ -94,11 +106,11 @@ public class LoginFragment extends Fragment {
         String password = binding.etxPassword.getEditText().getText().toString();
         if (email.equals("")) {
             valid = false;
-            binding.txvEmailError.setText("Requerido");
+            binding.txvEmailError.setVisibility(View.VISIBLE);
         }
         if (password.equals("")) {
             valid = false;
-            binding.txvPasswordError.setText("Requerido");
+            binding.txvPasswordError.setVisibility(View.VISIBLE);
         }
         return valid;
     }

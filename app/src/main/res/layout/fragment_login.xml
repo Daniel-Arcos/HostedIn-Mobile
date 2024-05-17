@@ -25,11 +25,14 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="¡Ingresa a Hosted In!"
+            android:text="¡Te damos la bienvenida a Hosted In!"
             android:textSize="20sp"
             android:textAlignment="center"
             android:layout_below="@id/img_start"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
+            android:textStyle="bold"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etx_email"
@@ -39,11 +42,11 @@
             android:layout_below="@id/title"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginBottom="7dp"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            >
+            app:boxCornerRadiusTopStart="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -58,11 +61,13 @@
             android:id="@+id/txv_email_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="Este campo es obligatorio"
             android:textColor="@color/design_default_color_error"
             android:layout_below="@id/etx_email"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etx_password"
@@ -91,11 +96,12 @@
             android:id="@+id/txv_password_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="Este campo es obligatorio"
             android:textColor="@color/design_default_color_error"
             android:layout_below="@id/etx_password"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"/>
 
         <Button
             style="@style/Widget.Material3.Button.TextButton"
@@ -116,8 +122,7 @@
             android:layout_below="@id/btn_forgot_password"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:textColor="@color/white"
-            android:background="@drawable/gradient_color"/>
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/etx_o"
@@ -155,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:visibility="gone"
-            tools:visibility="visible" />
+            tools:visibility="visible"/>
 
     </RelativeLayout>
 </layout>

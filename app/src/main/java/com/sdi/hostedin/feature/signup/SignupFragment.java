@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,11 @@ import com.sdi.hostedin.utils.DatePickerConfigurator;
 import com.sdi.hostedin.utils.TextChangedListener;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SignupFragment#newInstance} factory method to
@@ -39,6 +43,7 @@ public class SignupFragment extends Fragment {
     FragmentSignupBinding binding;
     SignupViewModel signupViewModel;
     RxDataStore<Preferences> dataStoreRX;
+    String REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$";
 
     public SignupFragment() {
         // Required empty public constructor
@@ -61,18 +66,57 @@ public class SignupFragment extends Fragment {
         binding = FragmentSignupBinding.inflate(getLayoutInflater());
         signupViewModel =
                 new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication())).get(SignupViewModel.class);
-
-
         DatePickerConfigurator.configureDatePicker(binding.etxBirthDate.getEditText());
         binding.btnLogin.setOnClickListener(v -> {
             goToSignUp();
         });
-        binding.etxPassword.getEditText().addTextChangedListener(new TextChangedListener<EditText>(binding.etxPassword.getEditText()) {
-            @Override
-            public void onTextChanged(EditText target, Editable s) {
-                validatePassword(binding.etxPassword.getEditText().getText().toString());
-            }
-        });
+        binding.etxFullName.getEditText().addTextChangedListener(
+                new TextChangedListener<EditText>(binding.etxFullName.getEditText()) {
+                    @Override
+                    public void onTextChanged(EditText target, Editable s) {
+                        binding.txvName.setVisibility(View.GONE);
+                    }
+                }
+        );
+        binding.etxBirthDate.getEditText().addTextChangedListener(
+                new TextChangedListener<EditText>(binding.etxBirthDate.getEditText()) {
+                    @Override
+                    public void onTextChanged(EditText target, Editable s) {
+                        binding.txvDateBirth.setVisibility(View.GONE);
+                    }
+                }
+        );
+        binding.etxPhoneNumber.getEditText().addTextChangedListener(
+                new TextChangedListener<EditText>(binding.etxPhoneNumber.getEditText()) {
+                    @Override
+                    public void onTextChanged(EditText target, Editable s) {
+                        binding.txvPhoneNumber.setVisibility(View.GONE);
+                    }
+                }
+        );
+        binding.etxEmail.getEditText().addTextChangedListener(
+                new TextChangedListener<EditText>(binding.etxEmail.getEditText()) {
+                    @Override
+                    public void onTextChanged(EditText target, Editable s) {
+                        binding.txvEmail.setVisibility(View.GONE);
+                    }
+                }
+        );
+        binding.etxPassword.getEditText().addTextChangedListener(
+            new TextChangedListener<EditText>(binding.etxPassword.getEditText()) {
+                @Override
+                public void onTextChanged(EditText target, Editable s) {
+                    validatePassword(binding.etxPassword.getEditText().getText().toString());
+                }
+            });
+        binding.etxConfirmPassword.getEditText().addTextChangedListener(
+                new TextChangedListener<EditText>(binding.etxConfirmPassword.getEditText()) {
+                    @Override
+                    public void onTextChanged(EditText target, Editable s) {
+                        validatePasswordsMatches();
+                    }
+                }
+        );
         binding.btnSignup.setOnClickListener(v -> {
             if (validateFields()) {
                 signUp();
@@ -95,6 +139,20 @@ public class SignupFragment extends Fragment {
         });
 
         return  binding.getRoot();
+    }
+
+    private boolean validatePasswordsMatches() {
+        boolean validPasswords = true;
+        String password = binding.etxPassword.getEditText().getText().toString();
+        String passwordConfirmation = binding.etxConfirmPassword.getEditText().getText().toString();
+        if (!passwordConfirmation.equals(password)) {
+            validPasswords = false;
+            binding.txvConfirmPassword.setText("La contraseñas no coinciden");
+            binding.txvConfirmPassword.setVisibility(View.VISIBLE);
+        } else {
+            binding.txvConfirmPassword.setVisibility(View.GONE);
+        }
+        return validPasswords;
     }
 
     private void goToGuestMenu() {
@@ -131,41 +189,99 @@ public class SignupFragment extends Fragment {
                 .commit();
     }
 
-    private void validatePassword(String password) {
-        if (password.length() > 0 && password.length() < 8) {
-            binding.txvPassword.setText("Password debe tener al menos 8 caracteres");
+    private boolean validatePassword(String password) {
+        boolean validPassword = true;
+        Pattern pattern = Pattern.compile(REGEX);
+        Matcher matcher = pattern.matcher(password);
+
+        if (!matcher.matches()) {
+            validPassword = false;
+            binding.txvPassword.setText("Minimo 8 caracteres, una letra minúscula, mayúscula y un número.");
+            binding.txvPassword.setVisibility(View.VISIBLE);
+        } else {
+            binding.txvPassword.setVisibility(View.GONE);
         }
-        else {
-            binding.txvPassword.setText("");
-        }
+        return validPassword;
     }
 
     private boolean validateFields() {
-        boolean full = true;
+        boolean valid = true;
+        if (!validateNotEmptyFields()) {
+            valid = false;
+        }
+        if (!validateNumberPhone()) {
+            valid = false;
+        }
+        if (!validateIsEmail()) {
+            valid = false;
+        }
+        if (!validatePassword(binding.etxPassword.getEditText().getText().toString())) {
+            valid = false;
+        }
+        if (!validatePasswordsMatches()) {
+            valid = false;
+        }
+        return valid;
+    }
+
+    private boolean validateNotEmptyFields() {
+        boolean notEmpty = true;
         if (binding.etxFullName.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvName.setText("Requerido");
-            full = false;
+            binding.txvName.setText("Este campo es requerido.");
+            binding.txvName.setVisibility(View.VISIBLE);
+            notEmpty = false;
         }
         if (binding.etxBirthDate.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvDateBirth.setText("Requerido");
-            full = false;
+            binding.txvDateBirth.setText("Este campo es requerido.");
+            binding.txvDateBirth.setVisibility(View.VISIBLE);
+            notEmpty = false;
         }
         if (binding.etxPhoneNumber.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvPhoneNumber.setText("Requerido");
-            full = false;
+            binding.txvPhoneNumber.setText("Este campo es requerido.");
+            binding.txvPhoneNumber.setVisibility(View.VISIBLE);
+            notEmpty = false;
         }
         if (binding.etxEmail.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvEmail.setText("Requerido");
-            full = false;
+            binding.txvEmail.setText("Este campo es requerido.");
+            binding.txvEmail.setVisibility(View.VISIBLE);
+            notEmpty = false;
         }
         if (binding.etxPassword.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvPassword.setText("Requerido");
-            full = false;
+            binding.txvPassword.setText("Este campo es requerido.");
+            binding.txvPassword.setVisibility(View.VISIBLE);
+            notEmpty = false;
         }
         if (binding.etxConfirmPassword.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvConfirmPassword.setText("Requerido");
-            full = false;
+            binding.txvConfirmPassword.setText("Este campo es requerido.");
+            binding.txvConfirmPassword.setVisibility(View.VISIBLE);
+            notEmpty = false;
         }
-        return full;
+        return notEmpty;
+    }
+
+    private boolean validateIsEmail() {
+        boolean isEmail = true;
+        String email = binding.etxEmail.getEditText().getText().toString();
+        EmailValidator emailValidator = EmailValidator.getInstance();
+        if (!emailValidator.isValid(email)) {
+            isEmail = false;
+            binding.txvEmail.setText("El correo electronico ingresado no tiene el formato correcto");
+            binding.txvEmail.setVisibility(View.VISIBLE);
+        } else {
+            binding.txvEmail.setVisibility(View.GONE);
+        }
+        return isEmail;
+    }
+
+    private boolean validateNumberPhone() {
+        boolean isPhoneNumber = true;
+        if (!(binding.etxPhoneNumber.getEditText().getText().toString().length() == 10)) {
+            isPhoneNumber = false;
+            binding.txvPhoneNumber.setText("El numero de telefono debe tener exactamente 10 numeros.");
+            binding.txvPhoneNumber.setVisibility(View.VISIBLE);
+        } else {
+            binding.txvPhoneNumber.setVisibility(View.GONE);
+        }
+        return validateNumberPhone();
     }
 }
