@@ -209,17 +209,20 @@ public class SignupFragment extends Fragment {
         if (!validateNotEmptyFields()) {
             valid = false;
         }
-        if (!validateNumberPhone()) {
+        if (binding.etxPhoneNumber.getEditText().getText().toString().isEmpty() || !validateNumberPhone()) {
             valid = false;
         }
-        if (!validateIsEmail()) {
+        if (binding.etxEmail.getEditText().getText().toString().isEmpty() || !validateIsEmail()) {
             valid = false;
         }
-        if (!validatePassword(binding.etxPassword.getEditText().getText().toString())) {
-            valid = false;
-        }
-        if (!validatePasswordsMatches()) {
-            valid = false;
+        if (!binding.etxPassword.getEditText().getText().toString().isEmpty() &&
+                !binding.etxConfirmPassword.getEditText().getText().toString().isEmpty()) {
+            if (!validatePassword(binding.etxPassword.getEditText().getText().toString())) {
+                valid = false;
+            }
+            if (!validatePasswordsMatches()) {
+                valid = false;
+            }
         }
         return valid;
     }
@@ -282,6 +285,6 @@ public class SignupFragment extends Fragment {
         } else {
             binding.txvPhoneNumber.setVisibility(View.GONE);
         }
-        return validateNumberPhone();
+        return isPhoneNumber;
     }
 }
