@@ -50,15 +50,24 @@ public class RemoteUsersDataSource {
                     userSaved.setEmail(responseAuthObject.getUser().getEmail());
                     userSaved.setFullName(responseAuthObject.getUser().getFullName());
                     userSaved.setPhoneNumber(responseAuthObject.getUser().getPhoneNumber());
-                    userSaved.setId(responseAuthObject.getUser().getPhoneNumber());
+                    userSaved.setId(responseAuthObject.getUser().getId());
                     String token = response.headers().get("Authorization");
                     if (token != null && token.startsWith("Bearer ")) {
                         token = token.substring(7);
                     }
                     authCallback.onSuccess(userSaved, token);
                 } else {
-                    String message = response != null ? response.body().getMessage() : "Ocurrio un error";
-                    authCallback.onError(message);
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorString = response.errorBody().string();
+                            JsonParser jsonParser = new JsonParser();
+                            JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
+                            String message = jsonObject.get("message").getAsString();
+                            authCallback.onError(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
 
@@ -80,7 +89,7 @@ public class RemoteUsersDataSource {
                     userLogged.setEmail(responseAuthObject.getUser().getEmail());
                     userLogged.setFullName(responseAuthObject.getUser().getFullName());
                     userLogged.setPhoneNumber(responseAuthObject.getUser().getPhoneNumber());
-                    userLogged.setId(responseAuthObject.getUser().getPhoneNumber());
+                    userLogged.setId(responseAuthObject.getUser().getId());
                     String token = response.headers().get("Authorization");
                     if (token != null && token.startsWith("Bearer ")) {
                         token = token.substring(7);

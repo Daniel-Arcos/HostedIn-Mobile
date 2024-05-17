@@ -14,6 +14,7 @@ import com.sdi.hostedin.ui.RequestStatusValues;
 public class SignupViewModel extends AndroidViewModel {
 
     MutableLiveData<RequestStatus> requestStatusMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<String> userId = new MutableLiveData<>();
 
     public SignupViewModel(@NonNull Application application) {
         super(application);
@@ -23,6 +24,10 @@ public class SignupViewModel extends AndroidViewModel {
         return requestStatusMutableLiveData;
     }
 
+    public MutableLiveData<String> getUserId() {
+        return userId;
+    }
+
     public void signUp(User user) {
         CreateAccountUseCase createAccountUseCase = new CreateAccountUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
@@ -30,6 +35,7 @@ public class SignupViewModel extends AndroidViewModel {
         createAccountUseCase.createAccount(user, new CreateAccountUseCase.CreateAccountCallback() {
             @Override
             public void onSuccess(User user, String token) {
+                userId.setValue(user.getId());
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Account created"));
             }
 

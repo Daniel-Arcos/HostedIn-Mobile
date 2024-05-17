@@ -126,6 +126,7 @@ public class LoginFragment extends Fragment {
         }
         dataStoreSingleton.setDataStore(dataStoreRX);
         DataStoreHelper dataStoreHelper = new DataStoreHelper(this.getActivity(), dataStoreRX);
+        dataStoreHelper.putStringValue("USER_ID", signinViewModel.getUserId().getValue());
         boolean isHostEstablished = dataStoreHelper.getBoolValue("START_HOST");
         if (isHostEstablished) {
             goToHostMenu();

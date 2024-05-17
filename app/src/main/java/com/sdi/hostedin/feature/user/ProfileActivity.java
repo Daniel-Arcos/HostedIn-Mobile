@@ -1,6 +1,9 @@
 package com.sdi.hostedin.feature.user;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava2.RxDataStore;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -11,6 +14,8 @@ import android.widget.RelativeLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.sdi.hostedin.MainActivity;
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.datasource.DataStoreHelper;
+import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityProfileBinding;
 import com.sdi.hostedin.utils.ImageUtils;
@@ -24,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ProfileViewModel profileViewModel;
     private User user;
     private BottomSheetBehavior bottomSheetBehavior;
+    RxDataStore<Preferences> dataStoreRX;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         profileViewModel = new ViewModelProvider(this, new ViewModelFactory(getApplication())).get(ProfileViewModel.class);
         manageProgressBarCircle();
-        //loadUserAccountData();
+        loadUserAccountData();
     }
 
     @Override
@@ -68,8 +74,15 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void loadUserAccountData() {
-        // TODO: Get user id from DataStorage
-        String userId = "66467c2bdc480001e4adc8bb";
+        DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
+        if (dataStoreSingleton.getDataStore() == null) {
+            dataStoreRX = new RxPreferenceDataStoreBuilder(this,"USER_DATASTORE" ).build();
+        } else {
+            dataStoreRX = dataStoreSingleton.getDataStore();
+        }
+        dataStoreSingleton.setDataStore(dataStoreRX);
+        DataStoreHelper dataStoreHelper = new DataStoreHelper(this, dataStoreRX);
+        String userId = dataStoreHelper.getStringValue("USER_ID");
 
         profileViewModel.getUserById(userId);
         profileViewModel.getUserMutableLiveData().observe(this, user -> {

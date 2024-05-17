@@ -16,7 +16,7 @@ public class SigninViewModel extends AndroidViewModel {
 
 
     MutableLiveData<RequestStatus> requestStatusMutableLiveData = new MutableLiveData<>();
-    MutableLiveData<Boolean> fullFields = new MutableLiveData<>();
+    MutableLiveData<String> userId = new MutableLiveData<>();
     public SigninViewModel(@NonNull Application application) {
         super(application);
     }
@@ -25,13 +25,8 @@ public class SigninViewModel extends AndroidViewModel {
         return requestStatusMutableLiveData;
     }
 
-
-    public MutableLiveData<Boolean> getFullFields() {
-        return fullFields;
-    }
-
-    public void setFullFields(boolean fullFields) {
-        this.fullFields.setValue(fullFields);
+    public MutableLiveData<String> getUserId() {
+        return userId;
     }
 
     public void signIn(String email, String password) {
@@ -43,6 +38,7 @@ public class SigninViewModel extends AndroidViewModel {
         logInUseCase.LogIn(user, new LogInUseCase.LoginCallback() {
             @Override
             public void onSuccess(User user, String token) {
+                userId.setValue(user.getId());
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Account created"));
             }
 

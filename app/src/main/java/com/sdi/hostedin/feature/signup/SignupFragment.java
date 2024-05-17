@@ -3,6 +3,9 @@ package com.sdi.hostedin.feature.signup;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -15,10 +18,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.datasource.DataStoreHelper;
+import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentSignupBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.login.LoginFragment;
+import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.DatePickerConfigurator;
 import com.sdi.hostedin.utils.TextChangedListener;
 import com.sdi.hostedin.utils.ViewModelFactory;
@@ -32,6 +38,7 @@ public class SignupFragment extends Fragment {
 
     FragmentSignupBinding binding;
     SignupViewModel signupViewModel;
+    RxDataStore<Preferences> dataStoreRX;
 
     public SignupFragment() {
         // Required empty public constructor
@@ -91,6 +98,15 @@ public class SignupFragment extends Fragment {
     }
 
     private void goToGuestMenu() {
+        DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
+        if (dataStoreSingleton.getDataStore() == null) {
+            dataStoreRX = new RxPreferenceDataStoreBuilder(this.getContext(),"USER_DATASTORE" ).build();
+        } else {
+            dataStoreRX = dataStoreSingleton.getDataStore();
+        }
+        dataStoreSingleton.setDataStore(dataStoreRX);
+        DataStoreHelper dataStoreHelper = new DataStoreHelper(this.getActivity(), dataStoreRX);
+        dataStoreHelper.putStringValue("USER_ID", signupViewModel.getUserId().getValue());
         Intent intent = new Intent(this.getActivity(), GuestMainActivity.class);
         startActivity(intent);
         this.getActivity().finish();
@@ -99,7 +115,8 @@ public class SignupFragment extends Fragment {
     private void signUp() {
         User user = new User();
         user.setFullName(binding.etxFullName.getEditText().getText().toString());
-        user.setBirthDate(binding.etxBirthDate.getEditText().getText().toString());
+        String birthdateMongoDb = DateFormatterUtils.parseDateForMongoDB(binding.etxBirthDate.getEditText().getText().toString().trim());
+        user.setBirthDate(birthdateMongoDb);
         user.setPhoneNumber(binding.etxPhoneNumber.getEditText().getText().toString());
         user.setEmail(binding.etxEmail.getEditText().getText().toString());
         user.setPassword(binding.etxPassword.getEditText().getText().toString());
