@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.sdi.hostedin.feature.guest.explore.ExploreViewModel;
+import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationFormViewModel;
 import com.sdi.hostedin.feature.password.RecoverPasswordViewModel;
 import com.sdi.hostedin.feature.login.SigninViewModel;
 import com.sdi.hostedin.feature.signup.SignupViewModel;
@@ -37,6 +38,8 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new DeleteAccountViewModel(application);
         } else if (modelClass.equals(ProfileViewModel.class)) {
             return (T) new ProfileViewModel(application);
+        } else if (modelClass.equals(AccommodationFormViewModel.class)) {
+            return (T) new AccommodationFormViewModel(application);
         }
 
         return null;

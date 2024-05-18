@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.accommodations.AccommodationBasicsFragment">
+        tools:context=".feature.host.accommodations.accommodationform.AccommodationBasicsFragment">
 
         <TextView
             android:id="@+id/basics_instruction_tvw"
@@ -44,206 +44,236 @@
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <include
+                        android:id="@+id/incl_guests"
                         android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        layout="@layout/item_accommodation_basic"
+                        />
 
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Huéspedes"/>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/decrement_guest_btn"
-                                style="?attr/materialIconButtonFilledStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
-                                android:text="-"
-                                android:contentDescription="decrement guests number"/>
-
-                            <EditText
-                                android:id="@+id/number_guest_etx"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:inputType="number"
-                                android:text="5"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"/>
-
-                            <Button
-                                android:id="@+id/increment_guest_btn"
-                                style="?attr/materialIconButtonFilledStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="+"
-                                android:contentDescription="increment guests number"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <include
+                        android:id="@+id/incl_rooms"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Habitaciones"/>
+                        android:layout_width="wrap_content"
+                        layout="@layout/item_accommodation_basic"
+                        />
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/decrement_room_btn"
-                                style="?attr/materialIconButtonFilledStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
-                                android:text="-"
-                                android:contentDescription="decrement rooms number"/>
-
-                            <EditText
-                                android:id="@+id/number_room_etx"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:inputType="number"
-                                android:text="5"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"/>
-
-                            <Button
-                                android:id="@+id/increment_room_btn"
-                                style="?attr/materialIconButtonFilledStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="+"
-                                android:contentDescription="increment rooms number"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <include
+                        android:id="@+id/incl_beds"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Camas"/>
+                        android:layout_width="wrap_content"
+                        layout="@layout/item_accommodation_basic"
+                        />
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/decrement_bed_btn"
-                                style="?attr/materialIconButtonFilledStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
-                                android:text="-"
-                                android:contentDescription="decrement beds number"/>
-
-                            <EditText
-                                android:id="@+id/number_bed_etx"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:inputType="number"
-                                android:text="5"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"/>
-
-                            <Button
-                                android:id="@+id/increment_bed_btn"
-                                style="?attr/materialIconButtonFilledStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="+"
-                                android:contentDescription="increment beds number"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <include
+                        android:id="@+id/incl_bathrooms"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Baños"/>
+                        android:layout_width="wrap_content"
+                        layout="@layout/item_accommodation_basic"
+                        />
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:orientation="horizontal">
 
-                            <Button
-                                android:id="@+id/decrement_bathroom_btn"
-                                style="?attr/materialIconButtonFilledStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
-                                android:text="-"
-                                android:contentDescription="decrement bathrooms number"/>
 
-                            <EditText
-                                android:id="@+id/number_bathroom_etx"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:inputType="number"
-                                android:text="5"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"/>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
 
-                            <Button
-                                android:id="@+id/increment_bathroom_btn"
-                                style="?attr/materialIconButtonFilledStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="+"
-                                android:contentDescription="increment bathrooms number"/>
-                        </LinearLayout>
-                    </LinearLayout>
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:orientation="horizontal">-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:text="Huéspedes"/>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="end"-->
+<!--                            android:orientation="horizontal">-->
+
+<!--                            <Button-->
+<!--                                android:id="@+id/decrement_guest_btn"-->
+<!--                                style="?attr/materialIconButtonFilledStyle"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:paddingStart="16dp"-->
+<!--                                android:paddingEnd="16dp"-->
+<!--                                android:text="-"-->
+<!--                                android:contentDescription="decrement guests number"/>-->
+
+<!--                            <EditText-->
+<!--                                android:id="@+id/number_guest_etx"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:inputType="number"-->
+<!--                                android:text="5"-->
+<!--                                android:focusable="false"-->
+<!--                                android:focusableInTouchMode="false"/>-->
+
+<!--                            <Button-->
+<!--                                android:id="@+id/increment_guest_btn"-->
+<!--                                style="?attr/materialIconButtonFilledStyle"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:paddingStart="16dp"-->
+<!--                                android:paddingEnd="16dp"-->
+<!--                                android:layout_marginEnd="20dp"-->
+<!--                                android:text="+"-->
+<!--                                android:contentDescription="increment guests number"/>-->
+<!--                        </LinearLayout>-->
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:orientation="horizontal">-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:text="Habitaciones"/>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="end"-->
+<!--                            android:orientation="horizontal">-->
+
+<!--                            <Button-->
+<!--                                android:id="@+id/decrement_room_btn"-->
+<!--                                style="?attr/materialIconButtonFilledStyle"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:paddingStart="16dp"-->
+<!--                                android:paddingEnd="16dp"-->
+<!--                                android:text="-"-->
+<!--                                android:contentDescription="decrement rooms number"/>-->
+
+<!--                            <EditText-->
+<!--                                android:id="@+id/number_room_etx"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:inputType="number"-->
+<!--                                android:text="5"-->
+<!--                                android:focusable="false"-->
+<!--                                android:focusableInTouchMode="false"/>-->
+
+<!--                            <Button-->
+<!--                                android:id="@+id/increment_room_btn"-->
+<!--                                style="?attr/materialIconButtonFilledStyle"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:paddingStart="16dp"-->
+<!--                                android:paddingEnd="16dp"-->
+<!--                                android:layout_marginEnd="20dp"-->
+<!--                                android:text="+"-->
+<!--                                android:contentDescription="increment rooms number"/>-->
+<!--                        </LinearLayout>-->
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:orientation="horizontal">-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:text="Camas"/>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="end"-->
+<!--                            android:orientation="horizontal">-->
+
+<!--                            <Button-->
+<!--                                android:id="@+id/decrement_bed_btn"-->
+<!--                                style="?attr/materialIconButtonFilledStyle"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:paddingStart="16dp"-->
+<!--                                android:paddingEnd="16dp"-->
+<!--                                android:text="-"-->
+<!--                                android:contentDescription="decrement beds number"/>-->
+
+<!--                            <EditText-->
+<!--                                android:id="@+id/number_bed_etx"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:inputType="number"-->
+<!--                                android:text="5"-->
+<!--                                android:focusable="false"-->
+<!--                                android:focusableInTouchMode="false"/>-->
+
+<!--                            <Button-->
+<!--                                android:id="@+id/increment_bed_btn"-->
+<!--                                style="?attr/materialIconButtonFilledStyle"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:paddingStart="16dp"-->
+<!--                                android:paddingEnd="16dp"-->
+<!--                                android:layout_marginEnd="20dp"-->
+<!--                                android:text="+"-->
+<!--                                android:contentDescription="increment beds number"/>-->
+<!--                        </LinearLayout>-->
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:orientation="horizontal">-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:text="Baños"/>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="end"-->
+<!--                            android:orientation="horizontal">-->
+
+<!--                            <Button-->
+<!--                                android:id="@+id/decrement_bathroom_btn"-->
+<!--                                style="?attr/materialIconButtonFilledStyle"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:paddingStart="16dp"-->
+<!--                                android:paddingEnd="16dp"-->
+<!--                                android:text="-"-->
+<!--                                android:contentDescription="decrement bathrooms number"/>-->
+
+<!--                            <EditText-->
+<!--                                android:id="@+id/number_bathroom_etx"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:inputType="number"-->
+<!--                                android:text="5"-->
+<!--                                android:focusable="false"-->
+<!--                                android:focusableInTouchMode="false"/>-->
+
+<!--                            <Button-->
+<!--                                android:id="@+id/increment_bathroom_btn"-->
+<!--                                style="?attr/materialIconButtonFilledStyle"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:paddingStart="16dp"-->
+<!--                                android:paddingEnd="16dp"-->
+<!--                                android:layout_marginEnd="20dp"-->
+<!--                                android:text="+"-->
+<!--                                android:contentDescription="increment bathrooms number"/>-->
+<!--                        </LinearLayout>-->
+<!--                    </LinearLayout>-->
 
                 </LinearLayout>
         </ScrollView>

@@ -9,10 +9,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.accommodations.AccommodationInformationFragment">
+        tools:context=".feature.host.accommodations.accommodationform.AccommodationInformationFragment">
 
         <TextView
-            android:id="@+id/information_instruction_tvw"
+            android:id="@+id/txv_information_instruction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -25,7 +25,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/information_instruction_tvw"
+            android:layout_below="@+id/txv_information_instruction"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
@@ -44,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etx_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Título"
@@ -58,6 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp">
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etx_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Descripcion"
@@ -82,6 +84,7 @@
                     android:layout_height="wrap_content"
                     >
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etx_rules"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Reglas"
@@ -123,7 +126,7 @@
                                 />
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/night_price_edtx"
+                                android:id="@+id/etx_night_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -134,10 +137,10 @@
                                 android:hint="Precio"
                                 android:inputType="numberDecimal"
                                 android:text=""
-                                android:textSize="60sp"
+                                android:textSize="55sp"
                                 android:textStyle="bold" />
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/money_type_tvw"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -145,7 +148,6 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="-10dp"
                                 android:text="MXN"
                                 android:textSize="45sp"
                                 android:textStyle="bold" />

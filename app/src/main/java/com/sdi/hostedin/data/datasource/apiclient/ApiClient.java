@@ -2,9 +2,11 @@ package com.sdi.hostedin.data.datasource.apiclient;
 
 //import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseSignupObject;
 
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
+import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
 import com.sdi.hostedin.data.model.User;
@@ -23,8 +25,9 @@ import retrofit2.http.Path;
 
 public class ApiClient {
 
-    public interface  Service {
+    public interface Service {
 
+        // Users
         @GET("users/{userId}")
         Call<ResponseGetUserObject> getUserById(@Path("userId") String userId);
 
@@ -48,6 +51,10 @@ public class ApiClient {
 
         @DELETE("users/{userId}")
         Call<ResponseEditAccountObject> deleteUserById(@Path("userId") String userId);
+
+        // Accommodations
+        @POST("accommodations")
+        Call<ResponseAccommodationObject> createAccommodation(@Body Accommodation accommodation);
 
     }
 
