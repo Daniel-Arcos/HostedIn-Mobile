@@ -4,6 +4,9 @@ import java.util.Arrays;
 
 public class Accommodation {
     private String _id;
+    private String title;
+    private String description;
+    private String rules;
     private String accommodationType;
     private double nightPrice;
     private int guestsNumber;
@@ -11,18 +14,50 @@ public class Accommodation {
     private int bedsNumber;
     private int bathroomsNumber;
     private String[] accommodationServices;
-    private String rules;
     private Location location;
+    private String userId;
 
     public Accommodation() {
     }
 
-    public String get_id() {
+    public String getId() {
         return _id;
     }
 
-    public void set_id(String _id) {
+    public void setId(String _id) {
         this._id = _id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getRules() {
+        return rules;
+    }
+
+    public void setRules(String rules) {
+        this.rules = rules;
+    }
+
+    public String getAccommodationType() {
+        return accommodationType;
+    }
+
+    public void setAccommodationType(String accommodationType) {
+        this.accommodationType = accommodationType;
     }
 
     public double getNightPrice() {
@@ -65,20 +100,12 @@ public class Accommodation {
         this.bathroomsNumber = bathroomsNumber;
     }
 
-    public String getRules() {
-        return rules;
+    public String[] getAccommodationServices() {
+        return accommodationServices;
     }
 
-    public void setRules(String rules) {
-        this.rules = rules;
-    }
-
-    public String getAccommodationType() {
-        return accommodationType;
-    }
-
-    public void setAccommodationType(String accommodationType) {
-        this.accommodationType = accommodationType;
+    public void setAccommodationServices(String[] accommodationServices) {
+        this.accommodationServices = accommodationServices;
     }
 
     public Location getLocation() {
@@ -89,18 +116,20 @@ public class Accommodation {
         this.location = location;
     }
 
-    public String[] getAccommodationServices() {
-        return accommodationServices;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setAccommodationServices(String[] accommodationServices) {
-        this.accommodationServices = accommodationServices;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "Accommodation{" +
                 "_id='" + _id + '\'' +
+                ", title=" + title +
+                ", description=" + description +
                 ", nightPrice=" + nightPrice +
                 ", guestsNumber=" + guestsNumber +
                 ", roomsNumber=" + roomsNumber +
@@ -110,6 +139,7 @@ public class Accommodation {
                 ", accommodationType='" + accommodationType + '\'' +
                 ", location=" + (location != null ? location.toString() : "null") +
                 ", accommodationServices=" + (accommodationServices != null ? String.join(", ", accommodationServices) : "null") +
+                ", userId=" + userId +
                 '}';
     }
 }

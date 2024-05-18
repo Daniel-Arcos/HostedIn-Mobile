@@ -3,6 +3,9 @@ package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava2.RxDataStore;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -10,10 +13,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.sdi.hostedin.R;
-import com.sdi.hostedin.data.model.Publication;
+import com.sdi.hostedin.data.datasource.DataStoreHelper;
+import com.sdi.hostedin.data.datasource.DataStoreManager;
+import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.ActivityAccommodationFormBinding;
-import com.sdi.hostedin.feature.user.EditProfileViewModel;
-import com.sdi.hostedin.feature.user.ProfileViewModel;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
@@ -31,28 +34,28 @@ public class AccommodationFormActivity extends AppCompatActivity {
 
         accommodationFormViewModel = new ViewModelProvider(this, new ViewModelFactory(getApplication())).get(AccommodationFormViewModel.class);
 
-        accommodationFormViewModel.getPublicationMutableLiveData().observe(this, publication -> {
-            // TODO:
+        accommodationFormViewModel.getAccommodationMutableLiveData().observe(this, accommodation -> {
             controlClickNext(accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue());
         });
 
-        // TODO: Progress bar
         accommodationFormViewModel.getRequestStatusMutableLiveData().observe(this, status -> {
             switch (status.getRequestStatus()) {
                 case LOADING:
-                    //binding.pgbEditProfile.setVisibility(View.VISIBLE);
+                    binding.pgbCreateAccommodation.setVisibility(View.VISIBLE);
                     break;
                 case DONE:
-                    //binding.pgbEditProfile.setVisibility(View.GONE);
+                    binding.pgbCreateAccommodation.setVisibility(View.GONE);
+                    ToastUtils.showShortInformationMessage(this, "Alojamiento creado con éxito");
+                    finish();
                     break;
                 case ERROR:
-                    //binding.pgbEditProfile.setVisibility(View.GONE);
+                    binding.pgbCreateAccommodation.setVisibility(View.GONE);
                     ToastUtils.showShortInformationMessage(this, status.getMessage());
             }
         });
 
         fragmentNumber = 1;
-        getSupportFragmentManager().popBackStack();    // REVIEW
+        getSupportFragmentManager().popBackStack();
 
         showAccommodationPublishingMessage();
         //showAccommodationTypeFragment();
@@ -110,6 +113,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
                 finishPublication();
                 break;
             default:
+                // TODO:
                 ToastUtils.showShortInformationMessage(this, "Entró al BREAK: " + fragmentNumber);
                 break;
         }
@@ -170,9 +174,11 @@ public class AccommodationFormActivity extends AppCompatActivity {
     }
 
     private void finishPublication() {
-        // TODO
-        Publication newAccommodationPublication = accommodationFormViewModel.getPublicationMutableLiveData().getValue();
-        Log.d("PRUEBA", "finishPublication: \n" + newAccommodationPublication);
+        Accommodation newAccommodation = accommodationFormViewModel.getAccommodationMutableLiveData().getValue();
+
+        if (newAccommodation.getTitle() != null && !newAccommodation.getTitle().isEmpty()) {
+            accommodationFormViewModel.createAccommodation(newAccommodation);
+        }
     }
 
 }
