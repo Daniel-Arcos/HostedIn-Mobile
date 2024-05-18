@@ -10,40 +10,32 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.accommodations.AccommodationFormActivity">
+        tools:context=".feature.host.accommodations.accommodationform.AccommodationFormActivity">
+
+        <TextView
+            android:id="@+id/txv_accommodation_publishing_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="40dp"
+            android:text="!Hi, let's prepare\n your publication"
+            android:layout_marginTop="5dp"
+            android:textSize="25sp" />
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/next_btn"
-            android:layout_below="@+id/accommodation_publishing_message_txv"
+            android:layout_above="@+id/btn_next"
+            android:layout_below="@+id/txv_accommodation_publishing_message"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp" />
 
         <Button
-            android:id="@+id/imageButton"
-            style="?attr/materialIconButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            app:icon="@drawable/go_back_icon" />
-
-        <TextView
-            android:id="@+id/accommodation_publishing_message_txv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/imageButton"
-            android:text="!Hi, let's prepare\n your publication"
-            android:layout_marginTop="5dp"
-            android:textSize="25sp" />
-
-        <Button
-            android:id="@+id/next_btn"
+            android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"

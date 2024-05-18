@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.accommodations.AccommodationServicesFragment">
+        tools:context=".feature.host.accommodations.accommodationform.AccommodationServicesFragment">
 
         <TextView
             android:id="@+id/services_instruction_tvw"
@@ -35,8 +35,9 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp">
 
-                <android.widget.Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
+                <include
+                    android:id="@+id/incl_internet"
+                    layout="@layout/item_accommodation_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -44,18 +45,11 @@
                     android:layout_row="0"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    android:background="@drawable/rectangle_rounded_shape"
-                    android:elevation="10dp"
-                    android:text="Internet"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textAlignment="textStart"
-                    android:paddingHorizontal="35dp"
-                    android:paddingTop="50dp"
                     />
 
-                <android.widget.Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
+                <include
+                    android:id="@+id/incl_tv"
+                    layout="@layout/item_accommodation_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -63,19 +57,11 @@
                     android:layout_row="0"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    android:background="@drawable/rectangle_rounded_shape"
-                    android:elevation="10dp"
-                    android:text="TV"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textAlignment="textStart"
-                    android:paddingHorizontal="35dp"
-                    android:paddingTop="50dp"
-
                     />
 
-                <android.widget.Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
+                <include
+                    android:id="@+id/incl_kitchen"
+                    layout="@layout/item_accommodation_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -83,18 +69,11 @@
                     android:layout_row="1"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    android:background="@drawable/rectangle_rounded_shape"
-                    android:elevation="10dp"
-                    android:text="Cocina"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textAlignment="textStart"
-                    android:paddingHorizontal="35dp"
-                    android:paddingTop="50dp"
                     />
 
-                <android.widget.Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
+                <include
+                    android:id="@+id/incl_washing_machine"
+                    layout="@layout/item_accommodation_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -102,18 +81,11 @@
                     android:layout_row="1"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    android:background="@drawable/rectangle_rounded_shape"
-                    android:elevation="10dp"
-                    android:text="Lavadora"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textAlignment="textStart"
-                    android:paddingHorizontal="35dp"
-                    android:paddingTop="50dp"
                     />
 
-                <android.widget.Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
+                <include
+                    android:id="@+id/incl_parking"
+                    layout="@layout/item_accommodation_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -121,18 +93,11 @@
                     android:layout_row="2"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    android:background="@drawable/rectangle_rounded_shape"
-                    android:elevation="10dp"
-                    android:text="Estacionamiento"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textAlignment="textStart"
-                    android:paddingHorizontal="35dp"
-                    android:paddingTop="50dp"
                     />
 
-                <android.widget.Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
+                <include
+                    android:id="@+id/incl_air_conditioning"
+                    layout="@layout/item_accommodation_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -140,18 +105,11 @@
                     android:layout_row="2"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    android:background="@drawable/rectangle_rounded_shape"
-                    android:elevation="10dp"
-                    android:text="Aire acondicionado"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textAlignment="textStart"
-                    android:paddingHorizontal="35dp"
-                    android:paddingTop="50dp"
                     />
 
-                <android.widget.Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
+                <include
+                    android:id="@+id/incl_pool"
+                    layout="@layout/item_accommodation_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -159,18 +117,11 @@
                     android:layout_row="3"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    android:background="@drawable/rectangle_rounded_shape"
-                    android:elevation="10dp"
-                    android:text="Alberca"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textAlignment="textStart"
-                    android:paddingHorizontal="35dp"
-                    android:paddingTop="50dp"
                     />
 
-                <android.widget.Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
+                <include
+                    android:id="@+id/incl_garden"
+                    layout="@layout/item_accommodation_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -178,18 +129,11 @@
                     android:layout_row="3"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    android:background="@drawable/rectangle_rounded_shape"
-                    android:elevation="10dp"
-                    android:text="Patio"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textAlignment="textStart"
-                    android:paddingHorizontal="35dp"
-                    android:paddingTop="50dp"
                     />
 
-                <android.widget.Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
+                <include
+                    android:id="@+id/incl_light"
+                    layout="@layout/item_accommodation_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -197,18 +141,11 @@
                     android:layout_row="4"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    android:background="@drawable/rectangle_rounded_shape"
-                    android:elevation="10dp"
-                    android:text="Luz"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textAlignment="textStart"
-                    android:paddingHorizontal="35dp"
-                    android:paddingTop="50dp"
                     />
 
-                <android.widget.Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
+                <include
+                    android:id="@+id/incl_water"
+                    layout="@layout/item_accommodation_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -216,15 +153,197 @@
                     android:layout_row="4"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
-                    android:background="@drawable/rectangle_rounded_shape"
-                    android:elevation="10dp"
-                    android:text="Agua"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textAlignment="textStart"
-                    android:paddingHorizontal="35dp"
-                    android:paddingTop="50dp"
                     />
+<!--                <android.widget.Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_column="0"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:background="@drawable/rectangle_rounded_shape"-->
+<!--                    android:elevation="10dp"-->
+<!--                    android:text="Internet"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:paddingHorizontal="35dp"-->
+
+<!--                    />-->
+
+<!--                <android.widget.Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:background="@drawable/rectangle_rounded_shape"-->
+<!--                    android:elevation="10dp"-->
+<!--                    android:text="TV"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:paddingHorizontal="35dp"-->
+<!--                    android:paddingTop="50dp"-->
+
+<!--                    />-->
+
+<!--                <android.widget.Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_column="0"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:background="@drawable/rectangle_rounded_shape"-->
+<!--                    android:elevation="10dp"-->
+<!--                    android:text="Cocina"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:paddingHorizontal="35dp"-->
+<!--                    android:paddingTop="50dp"-->
+<!--                    />-->
+
+<!--                <android.widget.Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:background="@drawable/rectangle_rounded_shape"-->
+<!--                    android:elevation="10dp"-->
+<!--                    android:text="Lavadora"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:paddingHorizontal="35dp"-->
+<!--                    android:paddingTop="50dp"-->
+<!--                    />-->
+
+<!--                <android.widget.Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_column="0"-->
+<!--                    android:layout_row="2"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:background="@drawable/rectangle_rounded_shape"-->
+<!--                    android:elevation="10dp"-->
+<!--                    android:text="Estacionamiento"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:paddingHorizontal="35dp"-->
+<!--                    android:paddingTop="50dp"-->
+<!--                    />-->
+
+<!--                <android.widget.Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_row="2"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:background="@drawable/rectangle_rounded_shape"-->
+<!--                    android:elevation="10dp"-->
+<!--                    android:text="Aire acondicionado"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:paddingHorizontal="35dp"-->
+<!--                    android:paddingTop="50dp"-->
+<!--                    />-->
+
+<!--                <android.widget.Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_column="0"-->
+<!--                    android:layout_row="3"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:background="@drawable/rectangle_rounded_shape"-->
+<!--                    android:elevation="10dp"-->
+<!--                    android:text="Alberca"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:paddingHorizontal="35dp"-->
+<!--                    android:paddingTop="50dp"-->
+<!--                    />-->
+
+<!--                <android.widget.Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_row="3"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:background="@drawable/rectangle_rounded_shape"-->
+<!--                    android:elevation="10dp"-->
+<!--                    android:text="Patio"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:paddingHorizontal="35dp"-->
+<!--                    android:paddingTop="50dp"-->
+<!--                    />-->
+
+<!--                <android.widget.Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_column="0"-->
+<!--                    android:layout_row="4"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:background="@drawable/rectangle_rounded_shape"-->
+<!--                    android:elevation="10dp"-->
+<!--                    android:text="Luz"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:paddingHorizontal="35dp"-->
+<!--                    android:paddingTop="50dp"-->
+<!--                    />-->
+
+<!--                <android.widget.Button-->
+<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_row="4"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:background="@drawable/rectangle_rounded_shape"-->
+<!--                    android:elevation="10dp"-->
+<!--                    android:text="Agua"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:paddingHorizontal="35dp"-->
+<!--                    android:paddingTop="50dp"-->
+<!--                    />-->
 
             </GridLayout>
 
