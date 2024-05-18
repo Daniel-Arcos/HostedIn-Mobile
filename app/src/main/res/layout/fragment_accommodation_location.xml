@@ -9,10 +9,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.accommodations.AccommodationLocationFragment">
+        tools:context=".feature.host.accommodations.accommodationform.AccommodationLocationFragment">
 
         <TextView
-            android:id="@+id/location_instruction_txv"
+            android:id="@+id/txv_location_instruction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -21,6 +21,38 @@
             android:textColor="#5280DB"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Busca lugar"
+            android:layout_below="@id/txv_location_instruction"/>
+
+        <EditText
+            android:id="@+id/temp_search"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_bar"
+            />
+
+        <Button
+            android:id="@+id/btn_searchh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/mpv_accommodation_location"
+            android:layout_below="@+id/search_bar"
+            android:layout_toEndOf="@id/temp_search"
+            android:text="SSQ" />
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mpv_accommodation_location"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@+id/temp_search"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"/>
+
 
     </RelativeLayout>
 

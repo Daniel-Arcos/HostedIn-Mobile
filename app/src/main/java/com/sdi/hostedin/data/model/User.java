@@ -142,4 +142,18 @@ public class User implements Parcelable {
         dest.writeString(residence);
         dest.writeParcelable(profilePhoto, flags);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "_id='" + _id + '\'' +
+                ", email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", occupation='" + occupation + '\'' +
+                ", residence='" + residence + '\'' +
+                '}';
+    }
 }

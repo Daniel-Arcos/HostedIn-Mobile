@@ -22,6 +22,7 @@ import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityProfileBinding;
+import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationFormActivity;
 import com.sdi.hostedin.utils.ImageUtils;
 import com.sdi.hostedin.utils.ProgressBarUtils;
 import com.sdi.hostedin.utils.TextChangedListener;
@@ -84,6 +85,13 @@ public class ProfileActivity extends AppCompatActivity {
         binding.btnMyAccount.setOnClickListener( v -> openEditProfileActivity());
         binding.btnDeleteAccount.setOnClickListener( v -> openDeleteAccountActivity());
         binding.btnSavePassword.setOnClickListener(v -> changeUserPassword());
+        binding.btnLogout.setOnClickListener( v -> /*goToLogin()*/ goToAccommodationForm() );
+    }
+
+    //TODO: DELETE THIS METHOD
+    private void goToAccommodationForm() {
+        Intent intent = new Intent(this, AccommodationFormActivity.class);
+        startActivity(intent);
     }
 
     private void closeChangePasswordSheet() {

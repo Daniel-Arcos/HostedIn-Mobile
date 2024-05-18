@@ -89,12 +89,12 @@
                 android:layout_marginBottom="7dp"
                 android:text="Cambiar contraseña"
                 app:strokeColor="#5280DB"
-                android:layout_above="@id/logout_btn"
+                android:layout_above="@id/btn_logout"
                 android:textAlignment="center"/>
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.Material3.Button.OutlinedButton"
-                android:id="@+id/logout_btn"
+                android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

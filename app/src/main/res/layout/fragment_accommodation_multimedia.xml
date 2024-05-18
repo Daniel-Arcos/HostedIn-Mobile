@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.accommodations.AccommodationMultimediaFragment">
+        tools:context=".feature.host.accommodations.accommodationform.AccommodationMultimediaFragment">
 
         <TextView
             android:id="@+id/multimedia_instruction_tvw"
@@ -123,6 +123,7 @@
                         />
 
                     <Button
+                        android:id="@+id/btn_take_photo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Tomar foto"
