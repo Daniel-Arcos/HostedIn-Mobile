@@ -15,6 +15,7 @@ import com.sdi.hostedin.ui.RequestStatusValues;
 public class ProfileViewModel extends AndroidViewModel {
 
     private MutableLiveData<RequestStatus> requestStatusMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<RequestStatus> requestChangePasswordStatusMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
 
     public ProfileViewModel(@NonNull Application application) {
@@ -27,6 +28,10 @@ public class ProfileViewModel extends AndroidViewModel {
 
     public MutableLiveData<User> getUserMutableLiveData() {
         return userMutableLiveData;
+    }
+
+    public MutableLiveData<RequestStatus> getRequestChangePasswordStatusMutableLiveData() {
+        return requestChangePasswordStatusMutableLiveData;
     }
 
     public void getUserById(String userId) {
@@ -44,6 +49,24 @@ public class ProfileViewModel extends AndroidViewModel {
             @Override
             public void onError(String errorMessage) {
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
+            }
+        });
+    }
+
+    public void changeUserPassword(User user) {
+        EditProfileUseCase editProfileUseCase = new EditProfileUseCase();
+        requestChangePasswordStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+
+        editProfileUseCase.editProfile(user, new EditProfileUseCase.EditProfileCallback() {
+            @Override
+            public void onSuccess(User user, String token) {
+                userMutableLiveData.setValue(user);
+                requestChangePasswordStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Contraseña actualizada con éxito."));
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                requestChangePasswordStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });
     }

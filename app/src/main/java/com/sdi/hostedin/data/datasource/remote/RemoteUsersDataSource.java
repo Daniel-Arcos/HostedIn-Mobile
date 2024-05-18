@@ -125,7 +125,7 @@ public class RemoteUsersDataSource {
             public void onResponse(Call<ResponseEditAccountObject> call, Response<ResponseEditAccountObject> response) {
                 if (response.isSuccessful()) {
                     ResponseEditAccountObject responseEditAccountObject = response.body();
-                    User editedUser = new User();
+                    User editedUser = responseEditAccountObject.getUser();
                     String token = response.headers().get("Authorization");
                     if (token != null && token.startsWith("Bearer ")) {
                         token = token.substring(7);
@@ -207,7 +207,7 @@ public class RemoteUsersDataSource {
             public void onResponse(Call<ResponseEditAccountObject> call, Response<ResponseEditAccountObject> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     ResponseEditAccountObject responseObject = response.body();
-                    String userId = responseObject.getUserId();
+                    String userId = responseObject.getUser().getId();
 
                     deleteAccountCallback.onSuccess(userId);
                 } else {

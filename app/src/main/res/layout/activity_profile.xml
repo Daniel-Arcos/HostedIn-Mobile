@@ -177,7 +177,7 @@
 
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/current_password_etx"
+                        android:id="@+id/etx_current_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Contraseña actual"
@@ -197,26 +197,37 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <TextView
+                        android:id="@+id/txv_current_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_below="@id/etx_current_password"
+                        android:text="Las contraseñas no coinciden."
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/design_default_color_error"/>
+
                     <Button
                         style="@style/Widget.Material3.Button.TextButton"
-                        android:id="@+id/forgot_password_btn"
+                        android:id="@+id/btn_forgot_password"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:text="¿Olvidaste tu contraseña?"
-                        android:layout_below="@+id/current_password_etx"
+                        android:layout_below="@+id/txv_current_password"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"/>
 
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/new_password_etx"
+                        android:id="@+id/etx_new_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Contraseña nueva"
-                        android:layout_below="@id/forgot_password_btn"
+                        android:layout_below="@id/btn_forgot_password"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
                         app:boxCornerRadiusBottomEnd="10dp"
                         app:boxCornerRadiusBottomStart="10dp"
                         app:boxCornerRadiusTopEnd="10dp"
@@ -230,15 +241,28 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <TextView
+                        android:id="@+id/txv_new_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/etx_new_password"
+                        android:text=""
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/design_default_color_error"
+                        android:visibility="gone"/>
+
+
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/new_password_confirmation_etx"
+                        android:id="@+id/etx_new_password_confirmation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Confirmar contraseña nueva"
-                        android:layout_below="@id/new_password_etx"
+                        android:layout_below="@id/txv_new_password"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="7dp"
                         app:boxCornerRadiusBottomEnd="10dp"
                         app:boxCornerRadiusBottomStart="10dp"
                         app:boxCornerRadiusTopEnd="10dp"
@@ -252,15 +276,28 @@
                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <android.widget.Button
+                    <TextView
+                        android:id="@+id/txv_new_password_confirmation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/etx_new_password_confirmation"
+                        android:text="Las contraseñas no coinciden."
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/design_default_color_error"
+                        android:visibility="gone"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_save_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Guardar contraseña nueva"
-                        android:background="@drawable/gradient_color"
                         android:textColor="@color/white"
                         android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginEnd="15dp"
-                        android:layout_below="@id/new_password_confirmation_etx"/>
+                        android:layout_below="@id/txv_new_password_confirmation"/>
 
                 </RelativeLayout>
 

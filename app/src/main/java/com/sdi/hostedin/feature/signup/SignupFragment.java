@@ -40,10 +40,10 @@ import java.util.regex.Pattern;
  */
 public class SignupFragment extends Fragment {
 
-    FragmentSignupBinding binding;
-    SignupViewModel signupViewModel;
-    RxDataStore<Preferences> dataStoreRX;
-    String REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$";
+    private FragmentSignupBinding binding;
+    private SignupViewModel signupViewModel;
+    private RxDataStore<Preferences> dataStoreRX;
+    private String REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$";
 
     public SignupFragment() {
         // Required empty public constructor

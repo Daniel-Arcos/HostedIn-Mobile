@@ -1,17 +1,11 @@
 package com.sdi.hostedin.data.datasource.apiclient.responseobjects;
 
+import com.sdi.hostedin.data.model.User;
+
 public class ResponseEditAccountObject {
 
-    private String userId;
     private String message;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    private User user;
 
     public String getMessage() {
         return message;
@@ -19,5 +13,13 @@ public class ResponseEditAccountObject {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
