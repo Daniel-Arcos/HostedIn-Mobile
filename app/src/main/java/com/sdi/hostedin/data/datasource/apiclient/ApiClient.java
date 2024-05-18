@@ -37,13 +37,13 @@ public class ApiClient {
         @POST("auth/signin")
         Call<ResponseAuthObject> signIn(@Body User user);
 
-        @POST("users/password")
+        @POST("users/passwords")
         Call<Void> createPasswordCode(@Body GenericSingleString email);
 
-        @POST("users/password/code")
+        @POST("users/passwords/code")
         Call<Void> createCodeToken(@Body GenericSingleString code);
 
-        @PATCH("users/password")
+        @PATCH("users/passwords")
         Call<Void> updateUserPassword(@Header("authorization")String token, @Body NewPasswordRecovery newPassword);
 
         @PUT("users/{userId}")
