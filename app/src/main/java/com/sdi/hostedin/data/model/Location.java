@@ -1,10 +1,39 @@
 package com.sdi.hostedin.data.model;
 
-public class Location {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Location implements Parcelable {
 
     private String _id;
     private double latitude;
     private double longitude;
+    private String addressName;
+
+    public Location() {
+
+    }
+
+    protected Location(Parcel in) {
+        _id = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        addressName = in.readString();
+    }
+
+    public static final Creator<Location> CREATOR = new Creator<Location>() {
+        @Override
+        public Location createFromParcel(Parcel in) {
+            return new Location(in);
+        }
+
+        @Override
+        public Location[] newArray(int size) {
+            return new Location[size];
+        }
+    };
 
     public String get_id() {
         return _id;
@@ -36,5 +65,26 @@ public class Location {
                 "latitude=" + latitude +
                 ", longitude=" + longitude +
                 '}';
+    }
+
+    public String getAddressName() {
+        return addressName;
+    }
+
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(_id);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeString(addressName);
     }
 }
