@@ -1,6 +1,11 @@
 package com.sdi.hostedin.data.model;
 
-public class Booking {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Booking implements Parcelable {
 
     private String _id;
     private String accommodationId;
@@ -17,9 +22,9 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(String accommodationId,String id, String beginningDate, String endingDate, int numberOfGuest, double totalCost, String bookingStatus, String guestUserId, String guestName, String hostName) {
+    public Booking(String _id,String accommodationId, String beginningDate, String endingDate, int numberOfGuest, double totalCost, String bookingStatus, String guestUserId, String guestName, String hostName) {
         this.accommodationId = accommodationId;
-        this._id = id;
+        this._id = _id;
         this.beginningDate = beginningDate;
         this.endingDate = endingDate;
         this.numberOfGuests = numberOfGuest;
@@ -29,6 +34,31 @@ public class Booking {
         this.guestName = guestName;
         this.hostName = hostName;
     }
+
+    protected Booking(Parcel in) {
+        _id = in.readString();
+        accommodationId = in.readString();
+        beginningDate = in.readString();
+        endingDate = in.readString();
+        numberOfGuests = in.readInt();
+        totalCost = in.readDouble();
+        bookingStatus = in.readString();
+        guestUserId = in.readString();
+        guestName = in.readString();
+        hostName = in.readString();
+    }
+
+    public static final Creator<Booking> CREATOR = new Creator<Booking>() {
+        @Override
+        public Booking createFromParcel(Parcel in) {
+            return new Booking(in);
+        }
+
+        @Override
+        public Booking[] newArray(int size) {
+            return new Booking[size];
+        }
+    };
 
     public String getAccommodationId() {
         return accommodationId;
@@ -108,6 +138,25 @@ public class Booking {
 
     public void setHostName(String hostName) {
         this.hostName = hostName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(_id);
+        dest.writeString(accommodationId);
+        dest.writeString(beginningDate);
+        dest.writeString(endingDate);
+        dest.writeInt(numberOfGuests);
+        dest.writeDouble(totalCost);
+        dest.writeString(bookingStatus);
+        dest.writeString(guestUserId);
+        dest.writeString(guestName);
+        dest.writeString(hostName);
     }
 }
 

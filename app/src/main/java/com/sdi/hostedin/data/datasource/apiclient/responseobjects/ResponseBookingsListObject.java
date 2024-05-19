@@ -5,22 +5,22 @@ import com.sdi.hostedin.data.model.Booking;
 import java.util.List;
 
 public class ResponseBookingsListObject {
-    private List<Booking> bookingsList;
+    private String message;
+    private List<Booking> bookings;
 
-    public ResponseBookingsListObject() {
+    public String getMessage() {
+        return message;
     }
 
-    public ResponseBookingsListObject(List<Booking> bookingsList) {
-
-        this.bookingsList = bookingsList;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-
-    public List<Booking> getBookingsList() {
-        return bookingsList;
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setBookingsList(List<Booking> bookingsList) {
-        this.bookingsList = bookingsList;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }

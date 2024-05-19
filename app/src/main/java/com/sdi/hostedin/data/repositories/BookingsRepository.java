@@ -1,6 +1,6 @@
 package com.sdi.hostedin.data.repositories;
 
-import com.sdi.hostedin.data.callbacks.BookingCallBackStore;
+import com.sdi.hostedin.data.callbacks.BookingsCallback;
 import com.sdi.hostedin.data.datasource.remote.RemoteBookingsDataSource;
 import com.sdi.hostedin.data.model.Booking;
 
@@ -9,8 +9,8 @@ import java.util.List;
 public class BookingsRepository {
     RemoteBookingsDataSource remoteBookingsDataSource = new RemoteBookingsDataSource();
 
-    public void getBookingsOfSpecificAccommodation(String accommodationId, BookingCallBackStore.BookingsListCallback bookingsListCallback){
-        remoteBookingsDataSource.getBookingsListOfSpecificAccommodation(accommodationId, new BookingCallBackStore.BookingsListCallback() {
+    public void getBookingsOfSpecificAccommodation(String accommodationId, BookingsCallback bookingsListCallback){
+        remoteBookingsDataSource.getBookingsListOfSpecificAccommodation(accommodationId, new BookingsCallback() {
             @Override
             public void onSuccess(List<Booking> bookingList, String message) {
                 bookingsListCallback.onSuccess(bookingList, message);

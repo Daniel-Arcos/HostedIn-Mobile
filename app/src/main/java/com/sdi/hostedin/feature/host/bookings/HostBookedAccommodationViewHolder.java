@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.ItemHostBookedAccommodationBinding;
-import com.sdi.hostedin.feature.guest.explore.ImageAdapter;
+import com.sdi.hostedin.feature.guest.explore.accommodations.ImageAdapter;
 
 public class HostBookedAccommodationViewHolder extends ImageAdapter.ViewHolder {
     private ItemHostBookedAccommodationBinding binding;
