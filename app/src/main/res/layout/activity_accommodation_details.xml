@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable name="accommodation_data" type="com.sdi.hostedin.data.model.Accommodation"/>
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.guest.explore.AccommodationDetailsActivity">
+        tools:context=".feature.guest.explore.accommodationdetails.AccommodationDetailsActivity">
 
         <TextView
-            android:id="@+id/aad_accommodation_name_tvw"
+            android:id="@+id/txv_accommodation_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -21,15 +21,16 @@
             android:layout_alignParentTop="true"
             android:textAlignment="center"
             android:layout_marginTop="14dp"
-            android:text="Casa Komalli"
+            android:text="@{accommodation_data.title}"
             android:textColor="#113E96"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/aad_accommodation_name_tvw"
+            android:layout_below="@+id/txv_accommodation_name"
+            android:layout_above="@id/btn_booking"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true">
 
@@ -56,35 +57,43 @@
                         android:scaleType="centerCrop"/>
                 </com.google.android.material.carousel.MaskableFrameLayout>
 
-                <ImageSwitcher
+                <ViewSwitcher
+                    android:id="@+id/vswch_accommodation_multimedia"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/design_default_color_error"
-                    android:layout_marginTop="10dp"/>
+                    >
+
+                </ViewSwitcher>
 
                 <TextView
+                    android:id="@+id/txv_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Bacalar, Quintana Roo"
+                    android:text="@{accommodation_data.location.addressName}"
                     android:maxLines="1"
                     android:textColor="#333333"
                     android:layout_marginTop="6dp"/>
 
                 <TextView
+                    android:id="@+id/txv_night_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="$350.00 MXN por noche"
+                    android:text=""
                     android:textColor="#333333"
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/txv_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:maxLines="2"
-                    android:text="La casa ideal para pasar tus vacaciones cerca de la Riviera Maya, no te arrepentirás."/>
+                    android:text="@{accommodation_data.description}" />
 
                 <android.widget.Button
+                    android:id="@+id/btn_show_more_description"
                     style="@style/Widget.Material3.FloatingActionButton.Secondary"
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
@@ -95,23 +104,25 @@
                     />
 
                 <TextView
+                    android:id="@+id/txv_accommodation_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Casa"
+                    android:text=""
                     android:textColor="#333333"
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/txv_basics"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="2"
-                    android:text="6 Huéspedes · 3 Habitaciones · 3 Camas · 2 Baños"/>
+                    android:text=""/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     >
 
                     <TextView
@@ -123,6 +134,7 @@
                         android:textStyle="bold"/>
 
                     <android.widget.Button
+                        android:id="@+id/btn_show_more_services"
                         style="@style/Widget.Material3.FloatingActionButton.Secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="15dp"
@@ -133,10 +145,11 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/txv_accommodations_services"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="3"
-                    android:text="Servicios, servicios, servicios"/>
+                    android:text=""/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,6 +167,7 @@
                         android:textStyle="bold"/>
 
                     <android.widget.Button
+                        android:id="@+id/btn_show_more_rules"
                         style="@style/Widget.Material3.FloatingActionButton.Secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="15dp"
@@ -164,10 +178,11 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/txv_accommodation_rules"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="2"
-                    android:text="No se permiten mascotas grandes."/>
+                    android:text="@{accommodation_data.rules}"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -185,6 +200,7 @@
                     android:gravity="center"/>
 
                 <TextView
+                    android:id="@+id/txv_rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="4.0"
@@ -216,11 +232,11 @@
                     android:layout_marginTop="6dp"
                     />
 
-                <TextView
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mpv_accommodation_location"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="3"
-                    android:text="Mapa, mapa, mapa"/>
+                    android:layout_height="190dp"/>
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -231,14 +247,85 @@
                     android:layout_marginTop="6dp"
                     />
 
-                <TextView
+                <include
+                    android:id="@+id/incl_host_data"
+                    layout="@layout/item_host_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="3"
-                    android:text="Anfitrión, anfitrión, anfitrión"/>
 
+                    />
 
             </LinearLayout>
         </ScrollView>
+
+<!--        bottom sheet-->
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="#00FFFFFF">
+
+            <RelativeLayout
+                android:id="@+id/btmsh_more_details"
+                style="@style/Widget.Material3.BottomSheet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00BFBFBF"
+                android:clickable="true"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+                <TextView
+                    android:id="@+id/txv_more_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Detalles"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginStart="15dp"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_close_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:text="Cerrar"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="17sp"
+                    android:layout_marginRight="5dp"/>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txv_more_details_title"
+                    >
+
+                    <TextView
+                        android:id="@+id/txv_more_details_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="detalles..."
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:textSize="18sp"
+                        />
+
+                </ScrollView>
+
+            </RelativeLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <Button
+            android:id="@+id/btn_booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="2dp"
+            android:text="Reservar" />
     </RelativeLayout>
 </layout>

@@ -1,8 +1,11 @@
 package com.sdi.hostedin.data.model;
 
-import java.util.Arrays;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Accommodation {
+import androidx.annotation.NonNull;
+
+public class Accommodation implements Parcelable {
     private String _id;
     private String title;
     private String description;
@@ -19,6 +22,34 @@ public class Accommodation {
 
     public Accommodation() {
     }
+
+    protected Accommodation(Parcel in) {
+        _id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        rules = in.readString();
+        accommodationType = in.readString();
+        nightPrice = in.readDouble();
+        guestsNumber = in.readInt();
+        roomsNumber = in.readInt();
+        bedsNumber = in.readInt();
+        bathroomsNumber = in.readInt();
+        accommodationServices = in.createStringArray();
+        location = in.readParcelable(Location.class.getClassLoader());
+        userId = in.readString();
+    }
+
+    public static final Creator<Accommodation> CREATOR = new Creator<Accommodation>() {
+        @Override
+        public Accommodation createFromParcel(Parcel in) {
+            return new Accommodation(in);
+        }
+
+        @Override
+        public Accommodation[] newArray(int size) {
+            return new Accommodation[size];
+        }
+    };
 
     public String getId() {
         return _id;
@@ -141,5 +172,27 @@ public class Accommodation {
                 ", accommodationServices=" + (accommodationServices != null ? String.join(", ", accommodationServices) : "null") +
                 ", userId=" + userId +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(_id);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(rules);
+        dest.writeString(accommodationType);
+        dest.writeDouble(nightPrice);
+        dest.writeInt(guestsNumber);
+        dest.writeInt(roomsNumber);
+        dest.writeInt(bedsNumber);
+        dest.writeInt(bathroomsNumber);
+        dest.writeStringArray(accommodationServices);
+        dest.writeParcelable(location, flags);
+        dest.writeString(userId);
     }
 }

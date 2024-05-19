@@ -20,8 +20,11 @@ import com.sdi.hostedin.MainActivity;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
+import com.sdi.hostedin.data.model.Accommodation;
+import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityProfileBinding;
+import com.sdi.hostedin.feature.guest.explore.accommodationdetails.AccommodationDetailsActivity;
 import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationFormActivity;
 import com.sdi.hostedin.utils.ImageUtils;
 import com.sdi.hostedin.utils.ProgressBarUtils;
@@ -85,12 +88,37 @@ public class ProfileActivity extends AppCompatActivity {
         binding.btnMyAccount.setOnClickListener( v -> openEditProfileActivity());
         binding.btnDeleteAccount.setOnClickListener( v -> openDeleteAccountActivity());
         binding.btnSavePassword.setOnClickListener(v -> changeUserPassword());
-        binding.btnLogout.setOnClickListener( v -> /*goToLogin()*/ goToAccommodationForm() );
+        binding.btnLogout.setOnClickListener( v -> /*goToLogin()*/ goToAccommodationDetails() );
     }
 
     //TODO: DELETE THIS METHOD
     private void goToAccommodationForm() {
         Intent intent = new Intent(this, AccommodationFormActivity.class);
+        startActivity(intent);
+    }
+
+    // TODO: DELETE THIS METHOD TOO
+    private void goToAccommodationDetails() {
+        Intent intent = new Intent(this, AccommodationDetailsActivity.class);
+        Accommodation accommodation = new Accommodation();
+        accommodation.setTitle("Casa Komalli");
+        accommodation.setDescription("Asombrosa casa con vista a el mar " + R.string.lorem_ipsum);
+        accommodation.setRules("No BEBER. " +  R.string.lorem_ipsum);
+        accommodation.setAccommodationType("house");
+        accommodation.setNightPrice(1350);
+        accommodation.setGuestsNumber(5);
+        accommodation.setRoomsNumber(3);
+        accommodation.setBedsNumber(4);
+        accommodation.setBathroomsNumber(2);
+        accommodation.setAccommodationServices(new String[]{"internet","pool","garden","parking","tv","water"});
+        Location location = new Location();
+        location.setLatitude(18.5267737);
+        location.setLongitude(-88.3506384);
+        location.setAddressName("Chetumal, Quintana Roo");
+        accommodation.setLocation(location);
+        accommodation.setUserId("null temporally");
+
+        intent.putExtra(AccommodationDetailsActivity.ACCOMMODATION_KEY, accommodation);
         startActivity(intent);
     }
 
