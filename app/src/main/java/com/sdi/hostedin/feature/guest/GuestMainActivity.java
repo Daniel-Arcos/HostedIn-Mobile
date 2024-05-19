@@ -15,7 +15,7 @@ import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.databinding.ActivityGuestMainActiviyBinding;
 import com.sdi.hostedin.feature.guest.bookings.BookingFragment;
-import com.sdi.hostedin.feature.guest.explore.ExploreFragment;
+import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreFragment;
 import com.sdi.hostedin.feature.statistics.StatisticsFragment;
 
 public class GuestMainActivity extends AppCompatActivity {

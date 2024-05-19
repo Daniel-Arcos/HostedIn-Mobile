@@ -104,15 +104,14 @@
                             android:textStyle="bold"
                             android:maxLines="2"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <include
+                            android:id="@+id/incl_host_data"
+                            layout="@layout/item_host_details"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:text="DETALLES DEL ANFITRIÓN"
-                            android:textColor="#113E96"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:maxLines="2"/>
+                            android:layout_marginTop="10dp"
+                            />
+
                     </LinearLayout>
                 </LinearLayout>
 
@@ -156,11 +155,15 @@
                                 android:layout_marginStart="20dp"
                                 android:maxLines="1"/>
 
-                            <EditText
-                                android:layout_width="match_parent"
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_start_date"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:text="DATEPICKER"
+                                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                                android:text=""
+                                android:hint="      dd/mm/yyyy      "
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="14dp"
                                 />
                         </LinearLayout>
 
@@ -179,11 +182,15 @@
                                 android:layout_marginStart="20dp"
                                 android:maxLines="1"/>
 
-                            <EditText
-                                android:layout_width="match_parent"
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_end_date"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:text="DATEPICKER"
+                                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                                android:text=""
+                                android:hint="      dd/mm/yyyy      "
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="15dp"
                                 />
                         </LinearLayout>
                     </LinearLayout>
@@ -193,7 +200,7 @@
                         android:layout_height="wrap_content"
                         android:text="Huéspedes"
                         android:textStyle="bold"
-                        android:layout_marginTop="0dp"
+                        android:layout_marginTop="6dp"
                         android:layout_marginStart="20dp"
                         />
                     <LinearLayout
@@ -251,7 +258,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Solo permite hasta\n6 huespedes"
+                        android:text="Solo permite hasta\n5 huespedes"
                         android:layout_marginTop="2dp"
                         android:layout_gravity="end"
                         android:layout_marginEnd="20dp"

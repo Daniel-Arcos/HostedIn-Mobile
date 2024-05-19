@@ -14,6 +14,7 @@ import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.databinding.ActivityHostMainBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.host.bookings.HostBookedAccommodationsFragment;
+import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationFormActivity;
 import com.sdi.hostedin.feature.statistics.StatisticsFragment;
 
 public class HostMainActivity extends AppCompatActivity {
@@ -35,7 +36,7 @@ public class HostMainActivity extends AppCompatActivity {
         DataStoreHelper dataStoreHelper = new DataStoreHelper(this, dataStoreRX);
         dataStoreHelper.putBoolValue("START_HOST", true);
         binding.changeToGuestBtn.setOnClickListener(v -> changeToGuestMenu());
-
+        binding.btnCreateAccommodation.setOnClickListener(v -> goToAccommodationForm());
         binding.bottomNavigationViewHost.setOnItemSelectedListener(item ->{
             int itemId = item.getItemId();
             if (itemId == R.id.bookings_host) {
@@ -59,5 +60,10 @@ public class HostMainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GuestMainActivity.class);
         startActivity(intent);
         this.finish();
+    }
+
+    private void goToAccommodationForm() {
+        Intent intent = new Intent(this, AccommodationFormActivity.class);
+        startActivity(intent);
     }
 }

@@ -48,8 +48,9 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         dataStoreSingleton.setDataStore(dataStoreRX);
         DataStoreHelper dataStoreHelper = new DataStoreHelper(new AccommodationFormActivity(), dataStoreRX);
         String userId = dataStoreHelper.getStringValue("USER_ID");
-
-        accommodationMutableLiveData.getValue().setUserId(userId);
+        User user = new User();
+        user.setId(userId);
+        accommodationMutableLiveData.getValue().setUser(user);
     }
 
     public MutableLiveData<RequestStatus> getRequestStatusMutableLiveData() {

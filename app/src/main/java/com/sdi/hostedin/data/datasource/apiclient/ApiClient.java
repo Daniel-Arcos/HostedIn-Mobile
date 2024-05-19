@@ -6,6 +6,7 @@ import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccomm
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingsListObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetAccommodationsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.GenericSingleString;
@@ -59,6 +60,8 @@ public class ApiClient {
 
         @GET("accommodations/{accommodationId}/bookings")
         Call<ResponseBookingsListObject> getBookingsOfSpecificAccommodation(@Path("accommodationId") String accommodationId);
+        @GET("accommodations")
+        Call<ResponseGetAccommodationsObject> getAllAccommodations();
 
     }
 

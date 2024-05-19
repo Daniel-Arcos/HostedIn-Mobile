@@ -96,13 +96,17 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/search_bar"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    tools:visibility="invisible"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcyv_accommodations_explore"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/search_bar"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"/>
 
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/rec_example"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="300sp"-->
-<!--                    android:layout_below="@id/search_bar"-->
-<!--                    app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>-->
+
             </RelativeLayout>
 </layout>

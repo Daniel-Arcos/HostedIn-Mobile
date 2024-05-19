@@ -1,8 +1,14 @@
 package com.sdi.hostedin.data.model;
 
-import java.util.Arrays;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Accommodation {
+import androidx.annotation.NonNull;
+
+import java.util.Arrays;
+import java.util.Objects;
+
+public class Accommodation implements Parcelable {
     private String _id;
     private String title;
     private String description;
@@ -15,10 +21,39 @@ public class Accommodation {
     private int bathroomsNumber;
     private String[] accommodationServices;
     private Location location;
-    private String userId;
+
+    private User user;
 
     public Accommodation() {
     }
+
+    protected Accommodation(Parcel in) {
+        _id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        rules = in.readString();
+        accommodationType = in.readString();
+        nightPrice = in.readDouble();
+        guestsNumber = in.readInt();
+        roomsNumber = in.readInt();
+        bedsNumber = in.readInt();
+        bathroomsNumber = in.readInt();
+        accommodationServices = in.createStringArray();
+        location = in.readParcelable(Location.class.getClassLoader());
+        user = in.readParcelable(User.class.getClassLoader());
+    }
+
+    public static final Creator<Accommodation> CREATOR = new Creator<Accommodation>() {
+        @Override
+        public Accommodation createFromParcel(Parcel in) {
+            return new Accommodation(in);
+        }
+
+        @Override
+        public Accommodation[] newArray(int size) {
+            return new Accommodation[size];
+        }
+    };
 
     public String getId() {
         return _id;
@@ -116,12 +151,12 @@ public class Accommodation {
         this.location = location;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -139,7 +174,44 @@ public class Accommodation {
                 ", accommodationType='" + accommodationType + '\'' +
                 ", location=" + (location != null ? location.toString() : "null") +
                 ", accommodationServices=" + (accommodationServices != null ? String.join(", ", accommodationServices) : "null") +
-                ", userId=" + userId +
+                ", userId=" + user.getId() +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(_id);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(rules);
+        dest.writeString(accommodationType);
+        dest.writeDouble(nightPrice);
+        dest.writeInt(guestsNumber);
+        dest.writeInt(roomsNumber);
+        dest.writeInt(bedsNumber);
+        dest.writeInt(bathroomsNumber);
+        dest.writeStringArray(accommodationServices);
+        dest.writeParcelable(location, flags);
+        dest.writeParcelable(user, flags);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Accommodation that = (Accommodation) o;
+        return Double.compare(that.nightPrice, nightPrice) == 0 && guestsNumber == that.guestsNumber && roomsNumber == that.roomsNumber && bedsNumber == that.bedsNumber && bathroomsNumber == that.bathroomsNumber && Objects.equals(_id, that._id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(rules, that.rules) && Objects.equals(accommodationType, that.accommodationType) && Arrays.equals(accommodationServices, that.accommodationServices) && Objects.equals(location, that.location) && Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(_id, title, description, rules, accommodationType, nightPrice, guestsNumber, roomsNumber, bedsNumber, bathroomsNumber, location, user);
+        result = 31 * result + Arrays.hashCode(accommodationServices);
+        return result;
     }
 }
