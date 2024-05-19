@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_package = "io.grpc.examples";
+
+message UploadProfilePhotoRequest {
+  string userId = 1;
+  bytes data = 2;
+}
+
+message UploadMultimediaResponse {
+  string description = 1;
+}
+
+message DownloadProfilePhotoRequest {
+  string userId = 1;
+}
+
+message DownloadMultimediaResponse {
+  bytes data = 1;
+}
+
+service MultimediaService {
+  rpc uploadPhotoProfile (stream UploadProfilePhotoRequest) returns (UploadMultimediaResponse);
+  rpc downloadProfilePhoto (DownloadProfilePhotoRequest) returns (stream DownloadMultimediaResponse);
+}

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.guest.explore.ExploreFragment">
+        tools:context=".feature.guest.explore.accommodations.ExploreFragment">
 
         <TextView
             android:id="@+id/txvGretting"

@@ -1,4 +1,4 @@
-package com.sdi.hostedin.feature.guest.explore;
+package com.sdi.hostedin.feature.guest.explore.accommodations;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +8,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -26,8 +24,6 @@ import com.sdi.hostedin.utils.ViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -61,26 +57,19 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentExploreBinding.inflate(inflater, container, false);
         Places.initialize(this.getContext(), getString(R.string.google_maps_key));
         placesClient = Places.createClient(this.getContext());
-
         binding.rcyvPlacesResults.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
-        String lugar = exploreViewModel.getPlaceToSearch().getValue();
         binding.searchBar.setText(exploreViewModel.getPlaceToSearch().getValue());
-
         placeAdapter = new ResultSearchingPlaceAdapter(this.getContext());
         placeAdapter.setOnItemClickListener(placeResult -> {
             exploreViewModel.setPlaceToSearch(placeResult.getName());
             binding.searchView.hide();
         });
-
         exploreViewModel.getPlaceToSearch().observe(getViewLifecycleOwner(), s -> {
             binding.searchBar.setText(s);
         });
-
         binding.rcyvPlacesResults.setAdapter(placeAdapter);
         binding.searchView.setupWithSearchBar(binding.searchBar);
         binding.searchView

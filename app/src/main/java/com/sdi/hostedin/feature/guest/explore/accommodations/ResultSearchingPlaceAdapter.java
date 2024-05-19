@@ -1,8 +1,7 @@
-package com.sdi.hostedin.feature.guest.explore;
+package com.sdi.hostedin.feature.guest.explore.accommodations;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
