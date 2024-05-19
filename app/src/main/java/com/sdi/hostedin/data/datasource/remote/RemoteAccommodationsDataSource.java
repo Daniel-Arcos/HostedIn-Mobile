@@ -5,9 +5,7 @@ import com.google.gson.JsonParser;
 import com.sdi.hostedin.data.callbacks.AccommodationCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
-import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
 import com.sdi.hostedin.data.model.Accommodation;
-import com.sdi.hostedin.data.model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;

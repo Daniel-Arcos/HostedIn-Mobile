@@ -1,21 +1,21 @@
 package com.sdi.hostedin.feature.host.bookings;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sdi.hostedin.R;
+import androidx.fragment.app.Fragment;
+
+import com.sdi.hostedin.databinding.FragmentHostBookedAccommodationsBinding;
+import com.sdi.hostedin.feature.host.bookings.list.HostAccommodationBookingsListFragment;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AccommodationPublicationsFragment#newInstance} factory method to
+ * Use the {@link HostBookedAccommodationsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccommodationPublicationsFragment extends Fragment {
+public class HostBookedAccommodationsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,21 +26,14 @@ public class AccommodationPublicationsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AccommodationPublicationsFragment() {
-        // Required empty public constructor
+    private FragmentHostBookedAccommodationsBinding binding;
+
+
+    public HostBookedAccommodationsFragment() {
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AccommodationPublicationsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AccommodationPublicationsFragment newInstance(String param1, String param2) {
-        AccommodationPublicationsFragment fragment = new AccommodationPublicationsFragment();
+    public static HostBookedAccommodationsFragment newInstance(String param1, String param2) {
+        HostBookedAccommodationsFragment fragment = new HostBookedAccommodationsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,7 +53,11 @@ public class AccommodationPublicationsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_accommodation_publications, container, false);
+        binding =  FragmentHostBookedAccommodationsBinding.inflate(getLayoutInflater());
+        binding.bttPrueba.setOnClickListener(v->{
+            HostAccommodationBookingsListFragment hostAccommodationBookingsListFragment =  new HostAccommodationBookingsListFragment("60f8d6e999b8d019545a4f78");
+            hostAccommodationBookingsListFragment.show(getChildFragmentManager(),"BookingList");
+        });
+        return binding.getRoot();
     }
 }

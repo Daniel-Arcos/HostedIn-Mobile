@@ -1,4 +1,4 @@
-package com.sdi.hostedin.feature.host.bookings;
+package com.sdi.hostedin.feature.host.accommodations;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.sdi.hostedin.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HostBookingsFragment#newInstance} factory method to
+ * Use the {@link AccommodationPublicationsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HostBookingsFragment extends Fragment {
+public class AccommodationPublicationsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class HostBookingsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public HostBookingsFragment() {
+    public AccommodationPublicationsFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class HostBookingsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HostBookingsFragment.
+     * @return A new instance of fragment AccommodationPublicationsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HostBookingsFragment newInstance(String param1, String param2) {
-        HostBookingsFragment fragment = new HostBookingsFragment();
+    public static AccommodationPublicationsFragment newInstance(String param1, String param2) {
+        AccommodationPublicationsFragment fragment = new AccommodationPublicationsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class HostBookingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_host_books, container, false);
+        return inflater.inflate(R.layout.fragment_accommodation_publications, container, false);
     }
 }

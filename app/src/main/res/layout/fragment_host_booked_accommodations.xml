@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.bookings.HostBookingsFragment">
+        tools:context=".feature.host.bookings.HostBookedAccommodationsFragment">
 
     <TextView
         android:id="@+id/txv_fragment_header"
@@ -35,6 +35,15 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/bttPrueba"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Prueab reservaciones" />
 
     </RelativeLayout>
 
