@@ -116,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
         location.setLongitude(-88.3506384);
         location.setAddressName("Chetumal, Quintana Roo");
         accommodation.setLocation(location);
-        accommodation.setUserId("null temporally");
+        accommodation.setUser(null);
 
         intent.putExtra(AccommodationDetailsActivity.ACCOMMODATION_KEY, accommodation);
         startActivity(intent);

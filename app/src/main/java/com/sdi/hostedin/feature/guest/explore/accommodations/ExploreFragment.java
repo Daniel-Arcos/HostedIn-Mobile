@@ -17,7 +17,10 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.api.net.SearchByTextRequest;
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.model.Accommodation;
+import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.databinding.FragmentExploreBinding;
+import com.sdi.hostedin.feature.guest.explore.accommodationdetails.AccommodationDetailsActivity;
 import com.sdi.hostedin.feature.host.HostMainActivity;
 import com.sdi.hostedin.feature.user.ProfileActivity;
 import com.sdi.hostedin.utils.ViewModelFactory;
@@ -52,6 +55,7 @@ public class ExploreFragment extends Fragment {
         setExitTransition(inflater.inflateTransition(R.transition.fade));
         exploreViewModel =
                 new ViewModelProvider(requireActivity(), new ViewModelFactory(getActivity().getApplication())).get(ExploreViewModel.class);
+        exploreViewModel.getAllAccommodations();
     }
 
     @Override
@@ -60,6 +64,7 @@ public class ExploreFragment extends Fragment {
         binding = FragmentExploreBinding.inflate(inflater, container, false);
         Places.initialize(this.getContext(), getString(R.string.google_maps_key));
         placesClient = Places.createClient(this.getContext());
+
         binding.rcyvPlacesResults.setLayoutManager(new LinearLayoutManager(this.getContext()));
         binding.searchBar.setText(exploreViewModel.getPlaceToSearch().getValue());
         placeAdapter = new ResultSearchingPlaceAdapter(this.getContext());
@@ -80,14 +85,12 @@ public class ExploreFragment extends Fragment {
                         });
         binding.changeToHostBtn.setOnClickListener(v -> changeToHostMenu());
         binding.profileBtn.setOnClickListener(v -> changeToUserProfile());
+        binding.rcyvAccommodationsExplore.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        AccommodationAdapter adapter = new AccommodationAdapter(this.getContext());
+        adapter.setOnItemClickListener(this::goToAccommodationDetails);
+        binding.rcyvAccommodationsExplore.setAdapter(adapter);
+        exploreViewModel.getAccommodationsLiveData().observe(getViewLifecycleOwner(), adapter::submitList);
 
-//        ArrayList<String> imageUrls = new ArrayList<>();
-//        imageUrls.add("https://rickandmortyapi.com/api/character/avatar/353.jpeg");
-//        imageUrls.add("https://rickandmortyapi.com/api/character/avatar/353.jpeg");
-//        imageUrls.add("https://rickandmortyapi.com/api/character/avatar/353.jpeg");
-//
-//        ImageAdapter adapter = new ImageAdapter(getContext(), imageUrls);
-//        binding.recExample.setAdapter(adapter);
         return binding.getRoot();
     }
 
@@ -121,6 +124,12 @@ public class ExploreFragment extends Fragment {
                 .addOnFailureListener(command -> {
 
                 });
+    }
+
+    private void goToAccommodationDetails(Accommodation accommodation) {
+        Intent intent = new Intent(this.getContext(), AccommodationDetailsActivity.class);
+        intent.putExtra(AccommodationDetailsActivity.ACCOMMODATION_KEY, accommodation);
+        startActivity(intent);
     }
 
 }

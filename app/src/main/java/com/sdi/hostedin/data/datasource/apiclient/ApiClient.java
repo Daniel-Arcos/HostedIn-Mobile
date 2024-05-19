@@ -5,6 +5,7 @@ package com.sdi.hostedin.data.datasource.apiclient;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetAccommodationsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.GenericSingleString;
@@ -56,11 +57,14 @@ public class ApiClient {
         @POST("accommodations")
         Call<ResponseAccommodationObject> createAccommodation(@Body Accommodation accommodation);
 
+        @GET("accommodations")
+        Call<ResponseGetAccommodationsObject> getAllAccommodations();
+
     }
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.100.7:3000/api/v1/")
+            .baseUrl("http://192.168.50.7:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 

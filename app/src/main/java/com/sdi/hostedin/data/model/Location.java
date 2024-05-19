@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 public class Location implements Parcelable {
 
     private String _id;
+    private String type;
+    private Double[] coordinates;
     private double latitude;
     private double longitude;
     private String addressName;
@@ -57,6 +59,22 @@ public class Location implements Parcelable {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Double[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Double[] coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override

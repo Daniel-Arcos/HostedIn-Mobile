@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.core.splashscreen.SplashScreen;
 
+import com.sdi.hostedin.databinding.ActivityMainBinding;
 import com.sdi.hostedin.feature.login.LoginFragment;
 
 public class MainActivity extends AppCompatActivity {

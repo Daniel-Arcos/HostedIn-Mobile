@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -166,7 +167,6 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         if (location != null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
-
             if (gMap != null) {
                 LatLng loc = new LatLng(latitude, longitude);
 

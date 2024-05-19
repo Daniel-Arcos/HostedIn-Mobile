@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Accommodation implements Parcelable {
     private String _id;
     private String title;
@@ -18,7 +21,8 @@ public class Accommodation implements Parcelable {
     private int bathroomsNumber;
     private String[] accommodationServices;
     private Location location;
-    private String userId;
+
+    private User user;
 
     public Accommodation() {
     }
@@ -36,7 +40,7 @@ public class Accommodation implements Parcelable {
         bathroomsNumber = in.readInt();
         accommodationServices = in.createStringArray();
         location = in.readParcelable(Location.class.getClassLoader());
-        userId = in.readString();
+        user = in.readParcelable(User.class.getClassLoader());
     }
 
     public static final Creator<Accommodation> CREATOR = new Creator<Accommodation>() {
@@ -147,12 +151,12 @@ public class Accommodation implements Parcelable {
         this.location = location;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -170,7 +174,7 @@ public class Accommodation implements Parcelable {
                 ", accommodationType='" + accommodationType + '\'' +
                 ", location=" + (location != null ? location.toString() : "null") +
                 ", accommodationServices=" + (accommodationServices != null ? String.join(", ", accommodationServices) : "null") +
-                ", userId=" + userId +
+                ", userId=" + user.getId() +
                 '}';
     }
 
@@ -193,6 +197,21 @@ public class Accommodation implements Parcelable {
         dest.writeInt(bathroomsNumber);
         dest.writeStringArray(accommodationServices);
         dest.writeParcelable(location, flags);
-        dest.writeString(userId);
+        dest.writeParcelable(user, flags);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Accommodation that = (Accommodation) o;
+        return Double.compare(that.nightPrice, nightPrice) == 0 && guestsNumber == that.guestsNumber && roomsNumber == that.roomsNumber && bedsNumber == that.bedsNumber && bathroomsNumber == that.bathroomsNumber && Objects.equals(_id, that._id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(rules, that.rules) && Objects.equals(accommodationType, that.accommodationType) && Arrays.equals(accommodationServices, that.accommodationServices) && Objects.equals(location, that.location) && Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(_id, title, description, rules, accommodationType, nightPrice, guestsNumber, roomsNumber, bedsNumber, bathroomsNumber, location, user);
+        result = 31 * result + Arrays.hashCode(accommodationServices);
+        return result;
     }
 }
