@@ -5,9 +5,6 @@ import com.google.gson.JsonParser;
 import com.sdi.hostedin.data.callbacks.BookingCallBackStore;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingsListObject;
-import com.sdi.hostedin.data.model.Booking;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,17 +16,15 @@ public class RemoteBookingsDataSource {
 
     ApiClient.Service service = ApiClient.getInstance().getService();
 
-    public  void getBookingsListOfSpecificAccommodation(String accommodationId, BookingCallBackStore.BookingsListCallback bookingsListCallback){
+    public  void getBookingsListOfSpecificAccommodation(String accommodationId, BookingCallBackStore.BookingsListCallback bookingsListCallback) {
         Call<ResponseBookingsListObject> call = service.getBookingsOfSpecificAccommodation(accommodationId);
+
         call.enqueue(new Callback<ResponseBookingsListObject>() {
             @Override
             public void onResponse(Call<ResponseBookingsListObject> call, Response<ResponseBookingsListObject> response) {
-                if(response.isSuccessful()){
-                    assert response.body() != null;
-                    List<Booking> responseBookingsListObject = response.body().getBookingsList();
-                    bookingsListCallback.onSuccess(responseBookingsListObject, "Exito");
-                }
-                else{
+                if (response.isSuccessful()) {
+                    bookingsListCallback.onSuccess(response.body().getBookingsList(), "Exito");
+                } else {
                     String message = "Ocurrio un error al actualizar";
                     if (response.errorBody() != null) {
                         try {

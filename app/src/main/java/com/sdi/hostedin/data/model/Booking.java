@@ -2,21 +2,22 @@ package com.sdi.hostedin.data.model;
 
 public class Booking {
 
+    private String _id;
     private String accommodationId;
     private String beginningDate;
     private String endingDate;
     private int numberOfGuests;
-    private float totalCost;
+    private double totalCost;
     private String bookingStatus;
     private String guestUserId;
     private String guestName;
     private String hostName;
-    private String _id;
+
 
     public Booking() {
     }
 
-    public Booking(String accommodationId,String id, String beginningDate, String endingDate, int numberOfGuest, float totalCost, String bookingStatus, String guestUserId, String guestName, String hostName) {
+    public Booking(String accommodationId,String id, String beginningDate, String endingDate, int numberOfGuest, double totalCost, String bookingStatus, String guestUserId, String guestName, String hostName) {
         this.accommodationId = accommodationId;
         this._id = id;
         this.beginningDate = beginningDate;
@@ -69,7 +70,7 @@ public class Booking {
         this.numberOfGuests = numberOfGuests;
     }
 
-    public float getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
