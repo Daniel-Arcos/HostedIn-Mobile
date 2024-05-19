@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F8F8F8"
+        tools:context=".feature.cancelation.reasonselection.CancelationReasonSelectionFragment">
+
+        <TextView
+            android:id="@+id/txv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¡Lamentamos que tengas que cancelar!"
+            android:textSize="23dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="15dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/txv_reason_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleciona un motivo *"
+            android:textSize="17dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_below="@+id/txv_title"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/txv_reason_selection">
+            <RadioButton
+                android:id="@+id/rbtn_reason_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Motivo 1"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black"/>
+            <RadioButton
+                android:id="@+id/rbtn_reason_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Motivo 1"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black"/>
+            <RadioButton
+                android:id="@+id/rbtn_reason_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Motivo 1"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black"/>
+            <RadioButton
+                android:id="@+id/rbtn_reason_four"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Motivo 1"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black"/>
+
+        </RadioGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel_booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancelar reservacion"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/black"
+            android:textSize="17dp"/>
+    </RelativeLayout>
+</layout>
