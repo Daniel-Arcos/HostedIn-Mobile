@@ -63,8 +63,8 @@ public class AccommodationAdapter extends ListAdapter<Accommodation, Accommodati
         }
 
         public void bind(Accommodation accommodation) {
-            binding.addressTxv.setText(String.valueOf(accommodation.getTitle()));
-            binding.price.setText(String.valueOf(accommodation.getNightPrice()));
+            binding.txvTitle.setText(String.valueOf(accommodation.getTitle()));
+            binding.price.setText("$ " + String.valueOf(accommodation.getNightPrice()) + " MXN");
             binding.getRoot().setOnClickListener(v -> {
                 onItemClickListener.onItemClick(accommodation);
             });

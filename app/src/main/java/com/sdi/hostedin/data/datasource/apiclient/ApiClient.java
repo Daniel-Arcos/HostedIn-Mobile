@@ -24,6 +24,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class ApiClient {
 
@@ -60,14 +61,25 @@ public class ApiClient {
 
         @GET("accommodations/{accommodationId}/bookings/")
         Call<ResponseBookingsListObject> getBookingsOfSpecificAccommodation(@Path("accommodationId") String accommodationId);
+
         @GET("accommodations")
         Call<ResponseGetAccommodationsObject> getAllAccommodations();
+
+        @GET("accommodations")
+        Call<ResponseGetAccommodationsObject> getAllAccommodationsExceptUserAccommodations(@Query("id") String id);
+
+        @GET("accommodations")
+        Call<ResponseGetAccommodationsObject> getAccommodationsByLocationExceptUserAccommodations(
+                @Query("lat") double lat,
+                @Query("long") double lng,
+                @Query("id") String id
+        );
 
     }
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.1.75:3000/api/v1/")
+            .baseUrl("http://192.168.50.7:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 
