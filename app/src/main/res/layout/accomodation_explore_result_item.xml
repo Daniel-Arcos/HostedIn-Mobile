@@ -11,28 +11,31 @@
         android:layout_height="wrap_content">
 
         <ImageView
-        android:id="@+id/imv_accommodation"
-        android:layout_width="match_parent"
-        android:layout_height="300sp"
-        app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>
+            android:id="@+id/imv_accommodation"
+            android:layout_width="match_parent"
+            android:src="#7ED4D7DC"
+            android:layout_height="300sp"/>
 
         <TextView
-            android:id="@+id/address_txv"
+            android:id="@+id/txv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Xalapa, Veracruz"
+            android:text="Campamento a 2k de coatepec para disfrutar"
+            android:layout_toLeftOf="@id/txv_calification"
+            android:layout_alignParentStart="true"
             android:layout_below="@id/imv_accommodation"
             android:textSize="20dp"
             android:layout_marginTop="10dp"
-            android:layout_toStartOf="@id/address_txv"
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/txv_calification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="4.25"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_below="@id/imv_accommodation"
             android:layout_alignParentEnd="true"
             android:textStyle="bold"
@@ -45,7 +48,7 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:text="$5000 MXN por noche"
-            android:layout_below="@id/address_txv"
+            android:layout_below="@id/txv_title"
             android:textStyle="bold"/>
 
         <TextView
@@ -54,9 +57,10 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:text="por noche"
-            android:layout_below="@id/address_txv"
+            android:layout_below="@id/txv_title"
             android:layout_toRightOf="@id/price"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp"/>
 
     </RelativeLayout>
 </layout>

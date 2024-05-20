@@ -1,10 +1,12 @@
 package com.sdi.hostedin.data.datasource.remote;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sdi.hostedin.data.callbacks.AccommodationCallback;
 import com.sdi.hostedin.data.callbacks.AccommodationsCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
+import com.sdi.hostedin.data.datasource.apiclient.moshiconverters.MoshiConverter;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetAccommodationsObject;
@@ -31,45 +33,91 @@ public class RemoteAccommodationsDataSource {
             @Override
             public void onResponse(Call<ResponseGetAccommodationsObject> call, Response<ResponseGetAccommodationsObject> response) {
                 if (response.isSuccessful()) {
-                    ResponseGetAccommodationsObject responseGetAccommodationsObject = response.body();
-                    ArrayList<Accommodation> accommodation = new ArrayList<>();
-                    for (Accommodation ac: responseGetAccommodationsObject.getAccommodations()) {
-                        Accommodation accommodationRes = new Accommodation();
-                        accommodationRes.setId(ac.getId());
-                        accommodationRes.setTitle(ac.getTitle());
-                        accommodationRes.setDescription(ac.getDescription());
-                        accommodationRes.setRules(ac.getRules());
-                        accommodationRes.setAccommodationType(ac.getAccommodationType());
-                        accommodationRes.setNightPrice(ac.getNightPrice());
-                        accommodationRes.setGuestsNumber(ac.getGuestsNumber());
-                        accommodationRes.setRoomsNumber(ac.getRoomsNumber());
-                        accommodationRes.setBedsNumber(ac.getBedsNumber());
-                        accommodationRes.setBathroomsNumber(ac.getBathroomsNumber());
-                        accommodationRes.setAccommodationServices(ac.getAccommodationServices());
-                        accommodationRes.setUser(ac.getUser());
-                        Location location = new Location();
-                        location.set_id(ac.getLocation().get_id());
-                        location.setLongitude(ac.getLocation().getCoordinates()[0]);
-                        location.setLatitude(ac.getLocation().getCoordinates()[1]);
-                        accommodationRes.setLocation(location);
-                        accommodation.add(accommodationRes);
-                    }
-                    accommodationsCallback.onSuccess(accommodation, "");
+                    ArrayList<Accommodation> accommodations =
+                            MoshiConverter.convertAPIAccommodationsResponseToJavaObjects(response.body());
+                    accommodationsCallback.onSuccess(accommodations, "");
                 } else {
                     String message = "Ocurrio un error al actualizar";
-
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
-                            JsonParser jsonParser = new JsonParser();
-                            JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
-                            message = jsonObject.get("message").getAsString();
-                            accommodationsCallback.onError(message);
+                            JsonObject jsonObject = new Gson().fromJson(errorString, JsonObject.class);
+                            if (jsonObject.has("message")) {
+                                message = jsonObject.get("message").getAsString();
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
+                    accommodationsCallback.onError(message);
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
+                accommodationsCallback.onError(t.getMessage());
+            }
+        });
+    }
+
+
+    public void getAllAccommodationsExceptUserAccommodations(String idUser,AccommodationsCallback accommodationsCallback) {
+        Call<ResponseGetAccommodationsObject> call = service.getAllAccommodationsExceptUserAccommodations(idUser);
+        call.enqueue(new Callback<ResponseGetAccommodationsObject>() {
+            @Override
+            public void onResponse(Call<ResponseGetAccommodationsObject> call, Response<ResponseGetAccommodationsObject> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<Accommodation> accommodations =
+                            MoshiConverter.convertAPIAccommodationsResponseToJavaObjects(response.body());
+                    accommodationsCallback.onSuccess(accommodations, "");
+                } else {
+                    String message = "Ocurrio un error al actualizar";
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorString = response.errorBody().string();
+                            JsonObject jsonObject = new Gson().fromJson(errorString, JsonObject.class);
+                            if (jsonObject.has("message")) {
+                                message = jsonObject.get("message").getAsString();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    accommodationsCallback.onError(message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
+                accommodationsCallback.onError(t.getMessage());
+            }
+        });
+    }
+
+
+
+    public void getAllAccommodationsByLocationExceptUserAccommodations(String idUser, double lat, double lng, AccommodationsCallback accommodationsCallback) {
+        Call<ResponseGetAccommodationsObject> call = service.getAccommodationsByLocationExceptUserAccommodations(lat, lng, idUser);
+        call.enqueue(new Callback<ResponseGetAccommodationsObject>() {
+            @Override
+            public void onResponse(Call<ResponseGetAccommodationsObject> call, Response<ResponseGetAccommodationsObject> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<Accommodation> accommodations =
+                            MoshiConverter.convertAPIAccommodationsResponseToJavaObjects(response.body());
+                    accommodationsCallback.onSuccess(accommodations, "");
+                } else {
+                    String message = "Ocurrio un error al actualizar";
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorString = response.errorBody().string();
+                            JsonObject jsonObject = new Gson().fromJson(errorString, JsonObject.class);
+                            if (jsonObject.has("message")) {
+                                message = jsonObject.get("message").getAsString();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                     accommodationsCallback.onError(message);
                 }
             }

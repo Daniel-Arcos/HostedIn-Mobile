@@ -59,18 +59,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Busca lugares"
-                    android:layout_below="@id/txv_explore_title"/>
+                    android:layout_below="@id/txv_explore_title"
+                    android:layout_toLeftOf="@id/btn_delete_results"/>
 
-<!--                <Button-->
-<!--                    style="?attr/materialIconButtonFilledTonalStyle"-->
-<!--                    android:id="@+id/delete_results_btn"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:icon="@drawable/delete_icon"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_marginEnd="20dp"-->
-<!--                    android:layout_marginTop="12dp"-->
-<!--                    android:layout_below="@id/filter_btn"/>-->
+                <Button
+                    style="?attr/materialIconButtonFilledTonalStyle"
+                   android:id="@+id/btn_delete_results"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/delete_icon"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_below="@id/txv_explore_title"/>
 
                 <com.google.android.material.search.SearchView
                     android:id="@+id/search_view"
@@ -104,8 +105,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/search_bar"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/img_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/loading"
+                    android:layout_alignTop="@id/search_bar"
+                    android:layout_alignParentBottom="true"/>
+
+                <ImageView
+                    android:id="@+id/img_no_results"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/no_results_img"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/txv_no_results"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No encontramos nada. Prueba buscando otro lugar"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/img_no_results"
+                    android:visibility="gone"/>
 
 
             </RelativeLayout>

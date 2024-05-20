@@ -38,4 +38,33 @@ public class AccommodationsRepository {
             }
         });
     }
+
+    public  void getAllAccommodationsExceptUserAccommodations(String idUser, AccommodationsCallback accommodationsCallback) {
+        remoteAccommodationsDataSource.getAllAccommodationsExceptUserAccommodations(idUser, new AccommodationsCallback() {
+            @Override
+            public void onSuccess(List<Accommodation> accommodations, String token) {
+                accommodationsCallback.onSuccess(accommodations, token);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                accommodationsCallback.onError(errorMessage);
+            }
+        });
+    }
+
+
+    public  void getAllAccommodationsByLocationExceptUserAccommodations(String idUser, double lat, double lng, AccommodationsCallback accommodationsCallback) {
+        remoteAccommodationsDataSource.getAllAccommodationsByLocationExceptUserAccommodations(idUser, lat, lng, new AccommodationsCallback() {
+            @Override
+            public void onSuccess(List<Accommodation> accommodations, String token) {
+                accommodationsCallback.onSuccess(accommodations, token);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                accommodationsCallback.onError(errorMessage);
+            }
+        });
+    }
 }
