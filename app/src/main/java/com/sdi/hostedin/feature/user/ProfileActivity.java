@@ -88,38 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
         binding.btnMyAccount.setOnClickListener( v -> openEditProfileActivity());
         binding.btnDeleteAccount.setOnClickListener( v -> openDeleteAccountActivity());
         binding.btnSavePassword.setOnClickListener(v -> changeUserPassword());
-        binding.btnLogout.setOnClickListener( v -> /*goToLogin()*/ goToAccommodationDetails() );
-    }
-
-    //TODO: DELETE THIS METHOD
-    private void goToAccommodationForm() {
-        Intent intent = new Intent(this, AccommodationFormActivity.class);
-        startActivity(intent);
-    }
-
-    // TODO: DELETE THIS METHOD TOO
-    private void goToAccommodationDetails() {
-        Intent intent = new Intent(this, AccommodationDetailsActivity.class);
-        Accommodation accommodation = new Accommodation();
-        accommodation.setTitle("Casa Komalli");
-        accommodation.setDescription("Asombrosa casa con vista a el mar " + R.string.lorem_ipsum);
-        accommodation.setRules("No BEBER. " +  R.string.lorem_ipsum);
-        accommodation.setAccommodationType("house");
-        accommodation.setNightPrice(1350);
-        accommodation.setGuestsNumber(5);
-        accommodation.setRoomsNumber(3);
-        accommodation.setBedsNumber(4);
-        accommodation.setBathroomsNumber(2);
-        accommodation.setAccommodationServices(new String[]{"internet","pool","garden","parking","tv","water"});
-        Location location = new Location();
-        location.setLatitude(18.5267737);
-        location.setLongitude(-88.3506384);
-        location.setAddressName("Chetumal, Quintana Roo");
-        accommodation.setLocation(location);
-        accommodation.setUser(null);
-
-        intent.putExtra(AccommodationDetailsActivity.ACCOMMODATION_KEY, accommodation);
-        startActivity(intent);
+        binding.btnLogout.setOnClickListener( v -> goToLogin() );
     }
 
     private void closeChangePasswordSheet() {

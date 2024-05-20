@@ -1,14 +1,14 @@
 package com.sdi.hostedin.data.datasource.apiclient;
 
-//import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseSignupObject;
-
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingsListObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetAccommodationsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
 import com.sdi.hostedin.data.model.Accommodation;
+import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
 import com.sdi.hostedin.data.model.User;
@@ -74,6 +74,10 @@ public class ApiClient {
                 @Query("long") double lng,
                 @Query("id") String id
         );
+
+        // Bookings
+        @POST("bookings")
+        Call<ResponseBookingObject> createBooking(@Body Booking booking);
 
     }
 

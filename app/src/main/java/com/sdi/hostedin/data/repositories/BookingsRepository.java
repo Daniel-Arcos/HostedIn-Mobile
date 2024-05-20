@@ -1,5 +1,6 @@
 package com.sdi.hostedin.data.repositories;
 
+import com.sdi.hostedin.data.callbacks.BookingCallback;
 import com.sdi.hostedin.data.callbacks.BookingsCallback;
 import com.sdi.hostedin.data.datasource.remote.RemoteBookingsDataSource;
 import com.sdi.hostedin.data.model.Booking;
@@ -23,4 +24,17 @@ public class BookingsRepository {
         });
     }
 
+    public void createBooking(Booking booking, BookingCallback bookingCallback) {
+        remoteBookingsDataSource.createBooking(booking, new BookingCallback() {
+            @Override
+            public void onSuccess(Booking booking, String token) {
+                bookingCallback.onSuccess(booking, token);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                bookingCallback.onError(errorMessage);
+            }
+        });
+    }
 }

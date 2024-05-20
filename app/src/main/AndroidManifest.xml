@@ -30,7 +30,7 @@
             android:name=".feature.password.RecoverPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".feature.guest.bookings.AccommodationBookingActivity"
+            android:name=".feature.guest.bookings.accommodationbooking.AccommodationBookingActivity"
             android:exported="false" />
         <activity
             android:name=".feature.guest.explore.accommodationdetails.AccommodationDetailsActivity"

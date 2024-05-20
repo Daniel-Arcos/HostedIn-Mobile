@@ -4,6 +4,7 @@ import static java.text.DateFormat.getDateInstance;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -70,8 +71,33 @@ public class DateFormatterUtils {
         return parsedDate;
     }
 
-    private static String formatNormalDate(Date date) {
+    public static String formatNormalDate(Date date) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(NORMAL_DATE_PATTERN);
         return dateFormatter.format(date);
+    }
+
+    public static String parseLongToString(long date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date newDate = parseLongToDate(date);
+        String startDateFormatted = sdf.format(newDate);
+
+        return startDateFormatted;
+    }
+
+    public static Date parseLongToDate(long date) {
+        Date newDate = new Date(date);
+        TimeZone utcTimeZone = TimeZone.getTimeZone("UTC");
+        newDate.setTime(newDate.getTime() + utcTimeZone.getRawOffset());
+
+        return newDate;
+    }
+
+    public static long parseDateToMillis(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.set(year, month - 1, day, 0, 0, 0); // Mes en base 0
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        return calendar.getTimeInMillis();
     }
 }

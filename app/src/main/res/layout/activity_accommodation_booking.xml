@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable name="accommodation_data" type="com.sdi.hostedin.data.model.Accommodation"/>
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.guest.bookings.AccommodationBookingActivity">
+        tools:context=".feature.guest.bookings.accommodationbooking.AccommodationBookingActivity">
 
         <Button
             android:id="@+id/go_back_btn"
@@ -22,7 +22,7 @@
             app:icon="@drawable/go_back_icon" />
 
         <TextView
-            android:id="@+id/accommodation_booking_message_txv"
+            android:id="@+id/txv_accommodation_booking_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -35,7 +35,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/accommodation_booking_message_txv"
+            android:layout_below="@+id/txv_accommodation_booking_message"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
@@ -68,11 +68,11 @@
                         android:orientation="vertical"
                         android:layout_marginStart="20dp">
                         <TextView
-                            android:id="@+id/aad_accommodation_name_txv"
+                            android:id="@+id/txv_accommodation_booking_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            android:text="Casa Komalli"
+                            android:text="@{accommodation_data.title}"
                             android:textColor="#113E96"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -92,14 +92,15 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Bacalar, Quintana Roo"
+                            android:text="@{accommodation_data.location.address}"
                             android:maxLines="2"
                             android:textColor="#333333"/>
 
                         <TextView
+                            android:id="@+id/txv_night_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="$350.00 MXN por noche"
+                            android:text="$ MXN por noche"
                             android:textColor="#333333"
                             android:textStyle="bold"
                             android:maxLines="2"/>
@@ -156,7 +157,7 @@
                                 android:maxLines="1"/>
 
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_start_date"
+                                android:id="@+id/btn_beginning_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/Widget.Material3.Button.IconButton.Outlined"
@@ -183,7 +184,7 @@
                                 android:maxLines="1"/>
 
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_end_date"
+                                android:id="@+id/btn_ending_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/Widget.Material3.Button.IconButton.Outlined"
@@ -214,6 +215,7 @@
                             android:text="Huéspedes"
                             android:layout_marginTop="2dp"
                             android:layout_marginStart="20dp"
+                            android:layout_gravity="center"
                             />
 
                         <LinearLayout
@@ -224,26 +226,26 @@
                             android:orientation="horizontal">
 
                             <Button
-                                android:id="@+id/decrement_guest_btn"
+                                android:id="@+id/btn_decrement_guests"
                                 style="?attr/materialIconButtonFilledStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
+                                android:paddingStart="18dp"
+                                android:paddingEnd="18dp"
                                 android:text="-"
                                 android:contentDescription="decrement guests number"/>
 
                             <EditText
-                                android:id="@+id/number_guest_etx"
+                                android:id="@+id/etx_guests_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
-                                android:text="5"
+                                android:text="1"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"/>
 
                             <Button
-                                android:id="@+id/increment_guest_btn"
+                                android:id="@+id/btn_increment_guests"
                                 style="?attr/materialIconButtonFilledStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -256,9 +258,10 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/txv_guests_number_limit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Solo permite hasta\n5 huespedes"
+                        android:text="Solo permite hasta\n huespedes"
                         android:layout_marginTop="2dp"
                         android:layout_gravity="end"
                         android:layout_marginEnd="20dp"
@@ -294,7 +297,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="*El pago es presencial con el anfitrión"
-                            android:textSize="10sp"
+                            android:textSize="11sp"
                             android:layout_marginEnd="15dp"
                             android:layout_marginTop="5dp"
                             android:textAlignment="textEnd"
@@ -308,17 +311,19 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
+                            android:id="@+id/txv_price_per_night"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$350 MXN x 5 noches"
+                            android:text="$ MXN x noches"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             />
                         <TextView
+                            android:id="@+id/txv_subtotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$1750 MXN"
+                            android:text="$ MXN"
                             android:layout_marginEnd="15dp"
                             android:layout_marginTop="5dp"
                             android:textAlignment="textEnd"
@@ -338,9 +343,10 @@
                             android:layout_weight="1"
                             />
                         <TextView
+                            android:id="@+id/txv_iva"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$262.50 MXN"
+                            android:text="$ MXN"
                             android:layout_marginEnd="15dp"
                             android:textAlignment="textEnd"
                             android:layout_weight="1"
@@ -361,9 +367,10 @@
                             android:layout_weight="1"
                             />
                         <TextView
+                            android:id="@+id/txv_total"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$2012.50 MXN"
+                            android:text="$ MXN"
                             android:textStyle="bold"
                             android:layout_marginEnd="15dp"
                             android:textAlignment="textEnd"
@@ -373,7 +380,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lnly_cancelation_details"
+                    android:id="@+id/lnly_cancellation_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -394,11 +401,11 @@
                         />
 
                     <TextView
+                        android:id="@+id/txv_cancellation_policy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="La cancelación de la reservación puede hacerse hasta máximo un día
-antes de la fecha de inicio. (Tienes hasta el 26/03/2024 antes de las
-23:59 hrs)"
+antes de la fecha de inicio."
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginTop="5dp"
@@ -410,6 +417,7 @@ antes de la fecha de inicio. (Tienes hasta el 26/03/2024 antes de las
         </ScrollView>
 
         <Button
+            android:id="@+id/btn_save_booking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -418,5 +426,14 @@ antes de la fecha de inicio. (Tienes hasta el 26/03/2024 antes de las
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:text="Confirmar reservación" />
+
+        <ProgressBar
+            android:id="@+id/pgb_create_booking"
+            style="@android:style/Widget.Material.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </RelativeLayout>
 </layout>
