@@ -1,5 +1,6 @@
 package com.sdi.hostedin.feature.host.bookings.list;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -21,12 +22,14 @@ public class HostBookingsListAdapter extends ListAdapter<Booking, HostBookingsLi
     public static final DiffUtil.ItemCallback<Booking> DIFFER_CALLBACK = new DiffUtil.ItemCallback<Booking>() {
         @Override
         public boolean areItemsTheSame(@NonNull Booking oldItem, @NonNull Booking newItem) {
-            return oldItem.equals(newItem);
+            return oldItem.get_id().equals(newItem.get_id());
         }
 
+
+        @SuppressLint("DiffUtilEquals")
         @Override
         public boolean areContentsTheSame(@NonNull Booking oldItem, @NonNull Booking newItem) {
-            return oldItem.get_id().equals(newItem.get_id());
+            return oldItem.equals(newItem);
         }
     };
 

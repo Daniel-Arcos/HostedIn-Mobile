@@ -12,7 +12,7 @@ public class Booking implements Parcelable {
     private String beginningDate;
     private String endingDate;
     private int numberOfGuests;
-    private double totalCost;
+    private int totalCost;
     private String bookingStatus;
     private String guestUserId;
     private String guestName;
@@ -22,7 +22,7 @@ public class Booking implements Parcelable {
     public Booking() {
     }
 
-    public Booking(String _id,String accommodationId, String beginningDate, String endingDate, int numberOfGuest, double totalCost, String bookingStatus, String guestUserId, String guestName, String hostName) {
+    public Booking(String _id,String accommodationId, String beginningDate, String endingDate, int numberOfGuest, int totalCost, String bookingStatus, String guestUserId, String guestName, String hostName) {
         this.accommodationId = accommodationId;
         this._id = _id;
         this.beginningDate = beginningDate;
@@ -41,7 +41,7 @@ public class Booking implements Parcelable {
         beginningDate = in.readString();
         endingDate = in.readString();
         numberOfGuests = in.readInt();
-        totalCost = in.readDouble();
+        totalCost = in.readInt();
         bookingStatus = in.readString();
         guestUserId = in.readString();
         guestName = in.readString();
@@ -100,11 +100,11 @@ public class Booking implements Parcelable {
         this.numberOfGuests = numberOfGuests;
     }
 
-    public double getTotalCost() {
+    public int getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(float totalCost) {
+    public void setTotalCost(int totalCost) {
         this.totalCost = totalCost;
     }
 
@@ -152,7 +152,7 @@ public class Booking implements Parcelable {
         dest.writeString(beginningDate);
         dest.writeString(endingDate);
         dest.writeInt(numberOfGuests);
-        dest.writeDouble(totalCost);
+        dest.writeInt(totalCost);
         dest.writeString(bookingStatus);
         dest.writeString(guestUserId);
         dest.writeString(guestName);

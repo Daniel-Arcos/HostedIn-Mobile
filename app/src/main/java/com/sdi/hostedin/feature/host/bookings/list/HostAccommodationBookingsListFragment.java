@@ -45,9 +45,10 @@ public class HostAccommodationBookingsListFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         binding = FragmentAccommodationBookingsListBinding.inflate(getLayoutInflater());
         hostAccBookingsListViewModel = new  ViewModelProvider(getActivity(), new ViewModelFactory(getActivity().getApplication())).get(HostAccBookingsListViewModel.class);
-        hostBookingsListAdapter = new HostBookingsListAdapter(getActivity());
+        hostBookingsListAdapter = new HostBookingsListAdapter(getContext());
 
         binding.rcyvBooksItems.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.rcyvBooksItems.setAdapter(hostBookingsListAdapter);
         hostAccBookingsListViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), requestStatus -> {
             switch (requestStatus.getRequestStatus()) {
                 case LOADING:

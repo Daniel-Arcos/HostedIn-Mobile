@@ -58,7 +58,7 @@ public class ApiClient {
         @POST("accommodations")
         Call<ResponseAccommodationObject> createAccommodation(@Body Accommodation accommodation);
 
-        @GET("accommodations/{accommodationId}/bookings")
+        @GET("accommodations/{accommodationId}/bookings/")
         Call<ResponseBookingsListObject> getBookingsOfSpecificAccommodation(@Path("accommodationId") String accommodationId);
         @GET("accommodations")
         Call<ResponseGetAccommodationsObject> getAllAccommodations();

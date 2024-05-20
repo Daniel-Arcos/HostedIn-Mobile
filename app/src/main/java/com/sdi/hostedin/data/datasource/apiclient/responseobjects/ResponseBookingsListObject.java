@@ -1,12 +1,15 @@
 package com.sdi.hostedin.data.datasource.apiclient.responseobjects;
 
 import com.sdi.hostedin.data.model.Booking;
+import com.squareup.moshi.Json;
 
 import java.util.List;
 
 public class ResponseBookingsListObject {
     private String message;
-    private List<Booking> bookings;
+
+    @Json(name = "bookings")
+    private BookingsWrapper bookingsWrapper;
 
     public String getMessage() {
         return message;
@@ -17,10 +20,23 @@ public class ResponseBookingsListObject {
     }
 
     public List<Booking> getBookings() {
-        return bookings;
+        return bookingsWrapper.bookings;
     }
 
     public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
+        this.bookingsWrapper.bookings = bookings;
+    }
+
+    public static class BookingsWrapper {
+        @Json(name = "bookings")
+        private List<Booking> bookings;
+
+        public List<Booking> getBookings() {
+            return bookings;
+        }
+
+        public void setBookings(List<Booking> bookings) {
+            this.bookings = bookings;
+        }
     }
 }
