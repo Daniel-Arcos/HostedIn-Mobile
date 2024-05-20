@@ -129,7 +129,7 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
                     .title("FEI");
 
             currentMarker = gMap.addMarker(mko);
-            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 10));
+            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 14));
         }
     }
 
@@ -175,6 +175,7 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
                                             gMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                                             location.setLatitude(latLng.latitude);
                                             location.setLongitude(latLng.longitude);
+                                            location.setAddress(place.getAddress());
                                         }
                                     }
                                 } else {
@@ -192,23 +193,6 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
             }
         });
     }
-
-//    private void createMarker(Place place) {
-//        if (place.getLatLng() != null) {
-//            MarkerOptions markerOptions = new MarkerOptions()
-//                    .draggable(true)
-//                    .position(place.getLatLng())
-//                    .title(place.getName());
-//
-//            Marker marker = gMap.addMarker(markerOptions);
-//            gMap.setOnMarkerClickListener(clickedMarker -> {
-//                if (clickedMarker.equals(marker)) {
-//                    clickedMarker.showInfoWindow();
-//                }
-//                return false;
-//            });
-//        }
-//    }
 
     private void moveMarker(Place place) {
         if (currentMarker != null && place.getLatLng() != null) {

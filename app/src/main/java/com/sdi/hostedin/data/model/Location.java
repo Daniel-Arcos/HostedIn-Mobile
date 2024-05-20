@@ -12,7 +12,7 @@ public class Location implements Parcelable {
     private Double[] coordinates;
     private double latitude;
     private double longitude;
-    private String addressName;
+    private String address;
 
     public Location() {
 
@@ -22,7 +22,7 @@ public class Location implements Parcelable {
         _id = in.readString();
         latitude = in.readDouble();
         longitude = in.readDouble();
-        addressName = in.readString();
+        address = in.readString();
     }
 
     public static final Creator<Location> CREATOR = new Creator<Location>() {
@@ -85,12 +85,12 @@ public class Location implements Parcelable {
                 '}';
     }
 
-    public String getAddressName() {
-        return addressName;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddressName(String addressName) {
-        this.addressName = addressName;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
@@ -103,6 +103,6 @@ public class Location implements Parcelable {
         dest.writeString(_id);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
-        dest.writeString(addressName);
+        dest.writeString(address);
     }
 }

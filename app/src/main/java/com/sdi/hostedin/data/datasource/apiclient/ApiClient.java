@@ -1,14 +1,14 @@
 package com.sdi.hostedin.data.datasource.apiclient;
 
-//import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseSignupObject;
-
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingsListObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetAccommodationsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
 import com.sdi.hostedin.data.model.Accommodation;
+import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
 import com.sdi.hostedin.data.model.User;
@@ -60,14 +60,18 @@ public class ApiClient {
 
         @GET("accommodations/{accommodationId}/bookings")
         Call<ResponseBookingsListObject> getBookingsOfSpecificAccommodation(@Path("accommodationId") String accommodationId);
+
         @GET("accommodations")
         Call<ResponseGetAccommodationsObject> getAllAccommodations();
+
+        @POST("bookings")
+        Call<ResponseBookingObject> createBooking(@Body Booking booking);
 
     }
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.1.75:3000/api/v1/")
+            .baseUrl("http://192.168.100.7:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 

@@ -51,6 +51,7 @@ public class RemoteAccommodationsDataSource {
                         location.set_id(ac.getLocation().get_id());
                         location.setLongitude(ac.getLocation().getCoordinates()[0]);
                         location.setLatitude(ac.getLocation().getCoordinates()[1]);
+                        location.setAddress(ac.getLocation().getAddress());
                         accommodationRes.setLocation(location);
                         accommodation.add(accommodationRes);
                     }

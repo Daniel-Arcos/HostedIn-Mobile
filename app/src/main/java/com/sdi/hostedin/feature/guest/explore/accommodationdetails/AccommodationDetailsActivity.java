@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.inputmethod.InputMethodManager;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -14,13 +15,15 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.databinding.ActivityAccommodationDetailsBinding;
-import com.sdi.hostedin.feature.guest.bookings.AccommodationBookingActivity;
+import com.sdi.hostedin.databinding.ItemHostDetailsBinding;
+import com.sdi.hostedin.feature.guest.bookings.accommodationbooking.AccommodationBookingActivity;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class AccommodationDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -29,6 +32,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     private MapView mpvLocation;
     private GoogleMap gMap;
     private BottomSheetBehavior<RelativeLayout> bottomSheetBehavior;
+    private ItemHostDetailsBinding inclHostData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
 
         Bundle extras = getIntent().getExtras();
         binding.setAccommodationData(extras.getParcelable(ACCOMMODATION_KEY));
+
+        this.inclHostData = binding.inclHostData;
 
         //viewModel
 
@@ -55,7 +61,6 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     private void configureBottomSheet() {
         bottomSheetBehavior = BottomSheetBehavior.from(binding.btmshMoreDetails);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-        // bottomSheetBehavior.setDraggable(false);
     }
 
     private void configureButtons() {
@@ -105,8 +110,6 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     }
 
     private void loadAccommodationData() {
-        // TODO: Save the address Name on CREATING accommodation
-
         loadNightPrice();
 
         loadAccommodationBasics();
@@ -115,11 +118,11 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
 
         // TODO: load Rating
 
-        // TODO: Reviews
+        // TODO: load Reviews
 
         // TODO: Load accommodation types (map with type)
 
-        // Host data
+        loadHostData();
     }
 
     private void loadNightPrice() {
@@ -176,12 +179,17 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
                         .title(accommodationTitle);
 
                 gMap.addMarker(mko);
-                gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 8));
+                gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12));
             }
         }
     }
 
     private void loadHostData() {
-        // TODO
+        inclHostData.txvHostName.setText(binding.getAccommodationData().getUser().getFullName());
+        inclHostData.txvHostPhoneNumber.setText(binding.getAccommodationData().getUser().getPhoneNumber());
+        inclHostData.txvHostOccupation.setVisibility(View.VISIBLE);
+        inclHostData.txvHostOccupation.setText(binding.getAccommodationData().getUser().getOccupation());
+        inclHostData.txvHostResidence.setVisibility(View.VISIBLE);
+        inclHostData.txvHostResidence.setText(binding.getAccommodationData().getUser().getResidence());
     }
 }

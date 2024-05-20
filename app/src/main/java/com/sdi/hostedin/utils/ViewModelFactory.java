@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.sdi.hostedin.feature.guest.bookings.accommodationbooking.AccommodationBookingViewModel;
+import com.sdi.hostedin.feature.guest.explore.accommodationdetails.AccommodationDetailsViewModel;
 import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreViewModel;
 import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationFormViewModel;
 import com.sdi.hostedin.feature.host.bookings.list.HostAccBookingsListViewModel;
@@ -43,6 +45,10 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new AccommodationFormViewModel(application);
         } else if (modelClass.equals(HostAccBookingsListViewModel.class)) {
             return (T) new HostAccBookingsListViewModel(application);
+        } else if (modelClass.equals(AccommodationDetailsViewModel.class)) {
+            return (T) new AccommodationDetailsViewModel(application);
+        } else if (modelClass.equals(AccommodationBookingViewModel.class)) {
+            return (T) new AccommodationBookingViewModel(application);
         }
 
         return null;

@@ -21,7 +21,6 @@ public class Accommodation implements Parcelable {
     private int bathroomsNumber;
     private String[] accommodationServices;
     private Location location;
-
     private User user;
 
     public Accommodation() {
