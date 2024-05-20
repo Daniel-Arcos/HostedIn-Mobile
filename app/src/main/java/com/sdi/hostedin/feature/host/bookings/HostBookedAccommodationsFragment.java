@@ -55,7 +55,7 @@ public class HostBookedAccommodationsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding =  FragmentHostBookedAccommodationsBinding.inflate(getLayoutInflater());
         binding.bttPrueba.setOnClickListener(v->{
-            HostAccommodationBookingsListFragment hostAccommodationBookingsListFragment =  new HostAccommodationBookingsListFragment("60f8d6e999b8d019545a4f78");
+            HostAccommodationBookingsListFragment hostAccommodationBookingsListFragment =  new HostAccommodationBookingsListFragment("664b5263d67d7d6d857fcfeb");
             hostAccommodationBookingsListFragment.show(getChildFragmentManager(),"BookingList");
         });
         return binding.getRoot();

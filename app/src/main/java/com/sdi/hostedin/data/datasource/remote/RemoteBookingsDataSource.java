@@ -5,12 +5,9 @@ import com.google.gson.JsonParser;
 import com.sdi.hostedin.data.callbacks.BookingCallback;
 import com.sdi.hostedin.data.callbacks.BookingsCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
-import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingsListObject;
 import com.sdi.hostedin.data.model.Booking;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;

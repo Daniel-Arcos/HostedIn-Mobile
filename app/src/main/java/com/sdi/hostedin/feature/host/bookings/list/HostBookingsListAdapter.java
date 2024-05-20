@@ -59,7 +59,7 @@ public class HostBookingsListAdapter extends ListAdapter<Booking, HostBookingsLi
         }
 
         public void bindBooking(Booking booking){
-            binding.txvGuestName.setText(booking.getGuestName());
+            binding.txvGuestName.setText(booking.getGuestUser().getFullName());
             String starDate = DateFormatterUtils.parseMongoDateToLocal(booking.getBeginningDate());
             String endDate = DateFormatterUtils.parseMongoDateToLocal(booking.getEndingDate());
             binding.txvStayDates.setText(starDate + " - " + endDate);

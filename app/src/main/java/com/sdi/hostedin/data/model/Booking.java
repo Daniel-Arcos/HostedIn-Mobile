@@ -12,19 +12,16 @@ public class Booking implements Parcelable {
     private String beginningDate;
     private String endingDate;
     private int numberOfGuests;
-    private int totalCost;
+    private double totalCost;
     private String bookingStatus;
     private User guestUser;
     private User hostUser;
-    private String guestUserId;
-    private String guestName;
-    private String hostName;
 
     public Booking() {
     }
 
     public Booking(String _id,String accommodationId, String beginningDate, String endingDate, int numberOfGuest, double totalCost, String bookingStatus,
-                   User guestUser, User hostUser, String guestUserId, String guestName, String hostName) {
+                   User guestUser, User hostUser) {
         this.accommodationId = accommodationId;
         this._id = _id;
         this.beginningDate = beginningDate;
@@ -34,23 +31,6 @@ public class Booking implements Parcelable {
         this.bookingStatus = bookingStatus;
         this.guestUser = guestUser;
         this.hostUser = hostUser;
-        this.guestUserId = guestUserId;
-        this.guestName = guestName;
-        this.hostName = hostName;
-    }
-
-    public Booking(String _id,String accommodationId, String beginningDate, String endingDate, int numberOfGuest, double totalCost, String bookingStatus,
-                   String guestUserId, String guestName, String hostName) {
-        this.accommodationId = accommodationId;
-        this._id = _id;
-        this.beginningDate = beginningDate;
-        this.endingDate = endingDate;
-        this.numberOfGuests = numberOfGuest;
-        this.totalCost = totalCost;
-        this.bookingStatus = bookingStatus;
-        this.guestUserId = guestUserId;
-        this.guestName = guestName;
-        this.hostName = hostName;
     }
 
     protected Booking(Parcel in) {
@@ -63,9 +43,6 @@ public class Booking implements Parcelable {
         bookingStatus = in.readString();
         guestUser = in.readParcelable(User.class.getClassLoader());
         hostUser = in.readParcelable(User.class.getClassLoader());
-        guestUserId = in.readString();
-        guestName = in.readString();
-        hostName = in.readString();
     }
 
     public static final Creator<Booking> CREATOR = new Creator<Booking>() {
@@ -120,7 +97,7 @@ public class Booking implements Parcelable {
         this.numberOfGuests = numberOfGuests;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
@@ -151,30 +128,6 @@ public class Booking implements Parcelable {
         this.hostUser = hostUser;
     }
 
-    public String getGuestUserId() {
-        return guestUserId;
-    }
-
-    public void setGuestUserId(String guestUserId) {
-        this.guestUserId = guestUserId;
-    }
-
-    public String getGuestName() {
-        return guestName;
-    }
-
-    public void setGuestName(String guestName) {
-        this.guestName = guestName;
-    }
-
-    public String getHostName() {
-        return hostName;
-    }
-
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -187,13 +140,10 @@ public class Booking implements Parcelable {
         dest.writeString(beginningDate);
         dest.writeString(endingDate);
         dest.writeInt(numberOfGuests);
-        dest.writeInt(totalCost);
+        dest.writeDouble(totalCost);
         dest.writeString(bookingStatus);
         dest.writeParcelable(guestUser, flags);
         dest.writeParcelable(hostUser, flags);
-        dest.writeString(guestUserId);
-        dest.writeString(guestName);
-        dest.writeString(hostName);
     }
 }
 
