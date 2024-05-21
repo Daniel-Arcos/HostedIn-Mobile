@@ -5,14 +5,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sdi.hostedin.data.callbacks.AccommodationCallback;
 import com.sdi.hostedin.data.callbacks.AccommodationsCallback;
+import com.sdi.hostedin.data.callbacks.BookedAccommodationsCallBack;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.datasource.apiclient.moshiconverters.MoshiConverter;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
-import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookedAccommodation;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetAccommodationsObject;
 import com.sdi.hostedin.data.model.Accommodation;
-import com.sdi.hostedin.data.model.Location;
-import com.sdi.hostedin.data.model.User;
 
 import java.util.ArrayList;
 
@@ -124,6 +123,41 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
+                accommodationsCallback.onError(t.getMessage());
+            }
+        });
+    }
+
+    public void getALLHostAccommodationsWithAtLeastOneBooking(String userId, BookedAccommodationsCallBack accommodationsCallback){
+        Call<ResponseBookedAccommodation> call = service.getHostBookedAccommodations(userId, true);
+        call.enqueue(new Callback<ResponseBookedAccommodation>() {
+            @Override
+            public void onResponse(Call<ResponseBookedAccommodation> call, Response<ResponseBookedAccommodation> response) {
+                if (response.isSuccessful()){
+                    ResponseBookedAccommodation responseGetAccommodationsObject = response.body();
+                    accommodationsCallback.onSuccess(responseGetAccommodationsObject.getAccommodations(), response.message());
+                }
+                else{
+                    String message = "Ocurrio un error al recuperar los alojamiento";
+
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorString = response.errorBody().string();
+                            JsonParser jsonParser = new JsonParser();
+                            JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
+                            message = jsonObject.get("message").getAsString();
+                            accommodationsCallback.onError(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    accommodationsCallback.onError(message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBookedAccommodation> call, Throwable t) {
                 accommodationsCallback.onError(t.getMessage());
             }
         });

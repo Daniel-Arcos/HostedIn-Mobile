@@ -2,6 +2,7 @@ package com.sdi.hostedin.data.datasource.apiclient;
 
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookedAccommodation;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingsListObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
@@ -74,16 +75,21 @@ public class ApiClient {
                 @Query("long") double lng,
                 @Query("id") String id
         );
+        @GET("users/{userId}/accommodations")
+        Call<ResponseBookedAccommodation> getHostBookedAccommodations(@Path("userId") String userId, @Query("atLeastOneBooking") boolean atLeastOneBooking);
 
         // Bookings
         @POST("bookings")
         Call<ResponseBookingObject> createBooking(@Body Booking booking);
 
+
+
+
     }
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.248.1:3000/api/v1/")
+            .baseUrl("http://192.168.1.75:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 

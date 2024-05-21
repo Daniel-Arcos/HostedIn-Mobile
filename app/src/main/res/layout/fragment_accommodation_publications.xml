@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -53,31 +54,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/lrlyButtons"
-            android:layout_above="@+id/txv_questionHint"
+            android:layout_above="@+id/btn_create_accommodation"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginRight="10dp" />
 
-
-        <TextView
-            android:id="@+id/txv_questionHint"
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btn_create_accommodation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/bttNewAccommodation"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="Do you wanna post a new accommodation?" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/bttNewAccommodation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Crear publicacion"
+            app:icon="@drawable/ic_house"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="Post new accommodation" />
+            android:layout_alignParentEnd="true"/>
+
 
 
     </RelativeLayout>

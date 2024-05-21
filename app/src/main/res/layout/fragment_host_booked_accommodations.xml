@@ -35,15 +35,25 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/txv_noAccommodations"
+            android:layout_width="192dp"
+            android:layout_height="105dp"
+            android:gravity="center"
+            android:text="No tienes alojamientos reservados, publica uno o espera a que alguien reserve uno"
+            android:layout_above="@id/pgb_loading_wheel"
+            android:layout_centerHorizontal="true"/>
 
-        <Button
-            android:id="@+id/bttPrueba"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
+
+
+        <ProgressBar
+            android:id="@+id/pgb_loading_wheel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="Prueab reservaciones" />
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 

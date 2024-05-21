@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/change_to_guest_btn"
             app:layout_constraintVertical_bias="0.0"
             android:background="@color/general_background"/>
 
@@ -35,26 +35,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/black"/>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="192dp"
-            android:layout_height="105dp"
-            android:gravity="center"
-            android:text="Add your fragments to start! Dont forget to check documentation"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_host_container"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_host_container"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/fragment_host_container" />
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_create_accommodation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Crear publicacion"
-            app:icon="@drawable/ic_house"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_host_container"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationViewHost"

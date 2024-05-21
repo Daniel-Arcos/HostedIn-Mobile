@@ -2,8 +2,10 @@ package com.sdi.hostedin.data.repositories;
 
 import com.sdi.hostedin.data.callbacks.AccommodationCallback;
 import com.sdi.hostedin.data.callbacks.AccommodationsCallback;
+import com.sdi.hostedin.data.callbacks.BookedAccommodationsCallBack;
 import com.sdi.hostedin.data.datasource.remote.RemoteAccommodationsDataSource;
 import com.sdi.hostedin.data.model.Accommodation;
+import com.sdi.hostedin.data.model.BookedAccommodation;
 
 import java.util.List;
 
@@ -58,6 +60,20 @@ public class AccommodationsRepository {
         remoteAccommodationsDataSource.getAllAccommodationsByLocationExceptUserAccommodations(idUser, lat, lng, new AccommodationsCallback() {
             @Override
             public void onSuccess(List<Accommodation> accommodations, String token) {
+                accommodationsCallback.onSuccess(accommodations, token);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                accommodationsCallback.onError(errorMessage);
+            }
+        });
+    }
+
+    public void getHostBoookedAccommodations(String userId, BookedAccommodationsCallBack accommodationsCallback){
+        remoteAccommodationsDataSource.getALLHostAccommodationsWithAtLeastOneBooking(userId, new BookedAccommodationsCallBack() {
+            @Override
+            public void onSuccess(List<BookedAccommodation> accommodations, String token) {
                 accommodationsCallback.onSuccess(accommodations, token);
             }
 

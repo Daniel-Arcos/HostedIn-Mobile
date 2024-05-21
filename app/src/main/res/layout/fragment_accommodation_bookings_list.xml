@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.bookings.list.HostAccommodationBookingsListFragment">
+        tools:context=".feature.host.bookings.list.HostAccommodationBookingsListFragment"
+        android:background="@drawable/top_rouded_backgorund">
 
         <TextView
             android:id="@+id/txv_books_header"
@@ -22,6 +23,7 @@
             android:layout_marginStart="16dp"/>
 
         <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.TextButton"
             android:id="@+id/btt_close_books"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +31,8 @@
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="16dp"
             android:text="cerrar"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            />
 
         <View
             android:id="@+id/vw_horizontal_line"
@@ -48,9 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/vw_horizontal_line"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp" />
 
         <ProgressBar

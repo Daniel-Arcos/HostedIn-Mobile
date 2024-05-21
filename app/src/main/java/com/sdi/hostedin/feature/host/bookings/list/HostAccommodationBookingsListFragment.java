@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.sdi.hostedin.data.model.BookedAccommodation;
 import com.sdi.hostedin.databinding.FragmentAccommodationBookingsListBinding;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
@@ -25,14 +26,14 @@ import com.sdi.hostedin.utils.ViewModelFactory;
  */
 public class HostAccommodationBookingsListFragment extends DialogFragment {
 
-    private String accommodationId;
+    private BookedAccommodation accommodationBooked;
     private FragmentAccommodationBookingsListBinding binding;
     private HostAccBookingsListViewModel hostAccBookingsListViewModel;
 
     private HostBookingsListAdapter hostBookingsListAdapter;
 
-    public HostAccommodationBookingsListFragment(String accommodationId) {
-        this.accommodationId = accommodationId;
+    public HostAccommodationBookingsListFragment(BookedAccommodation accommodationId) {
+        this.accommodationBooked = accommodationId;
     }
 
     @Override
@@ -46,6 +47,8 @@ public class HostAccommodationBookingsListFragment extends DialogFragment {
         binding = FragmentAccommodationBookingsListBinding.inflate(getLayoutInflater());
         hostAccBookingsListViewModel = new  ViewModelProvider(getActivity(), new ViewModelFactory(getActivity().getApplication())).get(HostAccBookingsListViewModel.class);
         hostBookingsListAdapter = new HostBookingsListAdapter(getContext());
+
+        binding.bttCloseBooks.setOnClickListener( v -> CloseDialogFragment());
 
         binding.rcyvBooksItems.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.rcyvBooksItems.setAdapter(hostBookingsListAdapter);
@@ -69,7 +72,7 @@ public class HostAccommodationBookingsListFragment extends DialogFragment {
         hostAccBookingsListViewModel.getBookingList().observe(getViewLifecycleOwner(), bookings ->{
             hostBookingsListAdapter.submitList(bookings);
         });
-        hostAccBookingsListViewModel.getBookingsOfAccommodation(accommodationId);
+        hostAccBookingsListViewModel.getBookingsOfAccommodation(accommodationBooked.get_id());
 
         return binding.getRoot();
     }
@@ -81,9 +84,13 @@ public class HostAccommodationBookingsListFragment extends DialogFragment {
         Dialog dialog = getDialog();
         if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
-            int height = getResources().getDisplayMetrics().heightPixels / 2; // La mitad de la pantalla
+            int height = getResources().getDisplayMetrics().heightPixels / 2;
             dialog.getWindow().setLayout(width, height);
-            dialog.getWindow().setGravity(Gravity.BOTTOM); // Posiciona en la parte inferior
+            dialog.getWindow().setGravity(Gravity.BOTTOM);
         }
+    }
+
+    private void CloseDialogFragment(){
+        this.dismiss();
     }
 }
