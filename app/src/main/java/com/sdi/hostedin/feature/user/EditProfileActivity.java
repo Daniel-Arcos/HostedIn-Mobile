@@ -6,17 +6,17 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.sdi.hostedin.MainActivity;
 import com.sdi.hostedin.data.model.ProfilePhoto;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityEditProfileBinding;
+import com.sdi.hostedin.grpc.ProfilePhotoGrpc;
+import com.sdi.hostedin.grpc.GrpcServerData;
 import com.sdi.hostedin.utils.DataValidator;
 import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.DatePickerConfigurator;
@@ -37,6 +37,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
     private Uri selectedImageUri;
     private byte[] profilePhotoLoaded;
+    private ProfilePhotoGrpc grpcClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,18 @@ public class EditProfileActivity extends AppCompatActivity {
         loadUserData();
         DatePickerConfigurator.configureDatePicker(binding.etxBirthdate);
         configureButtons();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            if (grpcClient != null) {
+                grpcClient.shutdown();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void manageProgressBarCircle() {
@@ -120,6 +133,7 @@ public class EditProfileActivity extends AppCompatActivity {
         if (isUserDataValid()) {
             User user = createUser();
             editProfileViewModel.editProfile(user);
+            assignProfilePhoto();
         }
     }
 
@@ -137,30 +151,24 @@ public class EditProfileActivity extends AppCompatActivity {
         editedUser.setPhoneNumber(String.valueOf(binding.etxPhoneNumber.getText()).trim());
         editedUser.setResidence(String.valueOf(binding.etxResidence.getText()).trim());
         editedUser.setOccupation(String.valueOf(binding.etxOccupation.getText()).trim());
-        editedUser.setProfilePhoto(assignProfilePhotoOnCreate());
 
         return editedUser;
     }
 
-    private ProfilePhoto assignProfilePhotoOnCreate() {
-        ProfilePhoto profilePhoto = new ProfilePhoto();
-        profilePhoto.setType(DEFAULT_TYPE_PHOTO);
-
+    private void assignProfilePhoto() {
         if (selectedImageUri != null) {
             byte[] profilePhotoData = ImageUtils.uriToBytes(this, selectedImageUri);
             if (profilePhotoData != null) {
-                profilePhoto.setData(profilePhotoData);
+                grpcClient = new ProfilePhotoGrpc(GrpcServerData.HOST, GrpcServerData.PORT);
+                grpcClient.uploadProfilePhoto(binding.getUserData().getId(), profilePhotoData);
             } else {
                 ToastUtils.showShortInformationMessage(this, "Error procesando la imagen");
             }
-        } else {
-            profilePhoto.setData(this.profilePhotoLoaded);
         }
-
-        return profilePhoto;
     }
 
     private void manageSuccessUpdate() {
+        binding.txvFullName.setText(binding.etxFullName.getText());
         ToastUtils.showShortInformationMessage(this, "Información actualizada con éxito");
         finish();
     }

@@ -58,7 +58,6 @@ public class AccommodationFormActivity extends AppCompatActivity {
         getSupportFragmentManager().popBackStack();
 
         showAccommodationPublishingMessage();
-        //showAccommodationTypeFragment();
         binding.btnNext.setOnClickListener( v -> btnNextClick() );
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
