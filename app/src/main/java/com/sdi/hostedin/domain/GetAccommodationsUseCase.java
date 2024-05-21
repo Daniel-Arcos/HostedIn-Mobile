@@ -13,8 +13,8 @@ import java.util.List;
 public class GetAccommodationsUseCase {
 
     AccommodationsRepository accommodationsRepository = new AccommodationsRepository();
-    public void getAllAccommodations(AccommodationsCallback accommodationsCallback) {
-        accommodationsRepository.getAllAccommodations(new AccommodationsCallback() {
+    public void getAllAccommodations(String token, AccommodationsCallback accommodationsCallback) {
+        accommodationsRepository.getAllAccommodations(token, new AccommodationsCallback() {
             @Override
             public void onSuccess(List<Accommodation> accommodations, String token) {
                 accommodationsCallback.onSuccess(accommodations, token);
@@ -27,8 +27,8 @@ public class GetAccommodationsUseCase {
         });
     }
 
-    public void getAllAccommodationsExceptUserAccommodations(String idUser, AccommodationsCallback accommodationsCallback) {
-        accommodationsRepository.getAllAccommodationsExceptUserAccommodations(idUser, new AccommodationsCallback() {
+    public void getAllAccommodationsExceptUserAccommodations(String idUser, String token, AccommodationsCallback accommodationsCallback) {
+        accommodationsRepository.getAllAccommodationsExceptUserAccommodations(idUser, token, new AccommodationsCallback() {
             @Override
             public void onSuccess(List<Accommodation> accommodations, String token) {
                 accommodationsCallback.onSuccess(accommodations, token);
@@ -42,8 +42,8 @@ public class GetAccommodationsUseCase {
     }
 
 
-    public void getAllAccommodationsByLocationExceptUserAccommodations(String idUser, double lat, double lng, AccommodationsCallback accommodationsCallback) {
-        accommodationsRepository.getAllAccommodationsByLocationExceptUserAccommodations(idUser, lat, lng, new AccommodationsCallback() {
+    public void getAllAccommodationsByLocationExceptUserAccommodations(String idUser, double lat, double lng, String token, AccommodationsCallback accommodationsCallback) {
+        accommodationsRepository.getAllAccommodationsByLocationExceptUserAccommodations(idUser, lat, lng, token, new AccommodationsCallback() {
             @Override
             public void onSuccess(List<Accommodation> accommodations, String token) {
                 accommodationsCallback.onSuccess(accommodations, token);

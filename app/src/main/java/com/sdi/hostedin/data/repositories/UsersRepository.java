@@ -43,8 +43,8 @@ public class UsersRepository {
         });
     }
 
-    public void getUserById(String userId, GetAccountCallback getAccountCallback) {
-        remoteUsersDataSource.getUserById(userId, new RemoteUsersDataSource.GetAccountCallback() {
+    public void getUserById(String userId, String token, GetAccountCallback getAccountCallback) {
+        remoteUsersDataSource.getUserById(userId, token, new RemoteUsersDataSource.GetAccountCallback() {
             @Override
             public void onSuccess(User user, String token) {
                 getAccountCallback.onSuccess(user, token);
@@ -57,8 +57,8 @@ public class UsersRepository {
         });
     }
 
-    public void editProfile(User user, EditProfileCallback editProfileCallback) {
-        remoteUsersDataSource.editUserAccount(user, new RemoteUsersDataSource.EditAccountCallback() {
+    public void editProfile(User user, String token, EditProfileCallback editProfileCallback) {
+        remoteUsersDataSource.editUserAccount(user, token, new RemoteUsersDataSource.EditAccountCallback() {
             @Override
             public void onSuccess(User user, String token) {
                 editProfileCallback.onSuccess(user, token);
@@ -85,8 +85,8 @@ public class UsersRepository {
         });
     }
 
-    public void deleteAccount(String userId, DeleteAccountCallback deleteAccountCallback) {
-        remoteUsersDataSource.deleteAccount(userId, new RemoteUsersDataSource.DeleteAccountCallback() {
+    public void deleteAccount(String userId, String token, DeleteAccountCallback deleteAccountCallback) {
+        remoteUsersDataSource.deleteAccount(userId, token, new RemoteUsersDataSource.DeleteAccountCallback() {
             @Override
             public void onSuccess(String userId) {
                 deleteAccountCallback.onSuccess(userId);

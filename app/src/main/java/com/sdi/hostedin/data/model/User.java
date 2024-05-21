@@ -5,6 +5,11 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import com.squareup.moshi.Json;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class User implements Parcelable {
 
     private String _id;
@@ -25,6 +30,9 @@ public class User implements Parcelable {
 
     private  ProfilePhoto profilePhoto;
 
+    @Json(name = "roles")
+    private List<String> roles;
+
     public User() {
 
     }
@@ -39,6 +47,7 @@ public class User implements Parcelable {
         occupation = in.readString();
         residence = in.readString();
         profilePhoto = in.readParcelable(ProfilePhoto.class.getClassLoader());
+        roles = in.createStringArrayList();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -125,6 +134,14 @@ public class User implements Parcelable {
         this.profilePhoto = profilePhoto;
     }
 
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -141,6 +158,7 @@ public class User implements Parcelable {
         dest.writeString(occupation);
         dest.writeString(residence);
         dest.writeParcelable(profilePhoto, flags);
+        dest.writeStringList(roles);
     }
 
     @Override

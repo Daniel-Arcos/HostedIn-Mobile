@@ -1,5 +1,7 @@
 package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -32,8 +36,10 @@ import com.sdi.hostedin.databinding.FragmentAccommodationLocationBinding;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +58,8 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
     private String mParam2;
 
     private static final int LOCAL_FRAGMENT_NUMBER = 2;
+    private static final int MIN_LATITUDE_VALUE_ALLOWED = -90;
+    private static final int MIN_LONGITUDE_VALUE_ALLOWED = -180;
     private FragmentAccommodationLocationBinding binding;
     private AccommodationFormViewModel accommodationFormViewModel;
     private Location location;
@@ -158,7 +166,6 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
                 if (response != null) {
                     List<AutocompletePrediction> predictions = response.getAutocompletePredictions();
                     if (!predictions.isEmpty()) {
-                        //for (AutocompletePrediction prediction: predictions) {
                             AutocompletePrediction firstPrediction = predictions.get(0);
                             String placeId = firstPrediction.getPlaceId();
                             List<Place.Field> placeDetailFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME, Place.Field.ADDRESS);
@@ -170,7 +177,6 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
                                         Place place = fetchResponse.getPlace();
                                         LatLng latLng = place.getLatLng();
                                         if (latLng != null) {
-                                            Log.d("PRUEBA", "searchPlace: " + place.getName() + "address: " + place.getAddress() + "latLng: " + place.getLatLng() + "\n");
                                             moveMarker(place);
                                             gMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                                             location.setLatitude(latLng.latitude);
@@ -182,7 +188,6 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
                                     ToastUtils.showShortInformationMessage(this.getContext(), "Failed to fetch place details: " + fetchTask.getException());
                                 }
                             });
-                        //}
                     }
                 }
             } else {
@@ -198,13 +203,15 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
         if (currentMarker != null && place.getLatLng() != null) {
             currentMarker.setPosition(place.getLatLng());
             currentMarker.setTitle(place.getName());
+
+            gMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
         }
     }
 
     private void ValidateAccommodationLocationSelected() {
         if (location != null) {
             updateLatLng();
-            if (location.getLatitude() >= -90 && location.getLongitude() >= -180 ) {
+            if (location.getLatitude() >= MIN_LATITUDE_VALUE_ALLOWED && location.getLongitude() >= MIN_LONGITUDE_VALUE_ALLOWED ) {
                 accommodationFormViewModel.selectAccommodationLocation(location);
                 accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
             } else {
@@ -218,6 +225,23 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
             LatLng position = currentMarker.getPosition();
             location.setLatitude(position.latitude);
             location.setLongitude(position.longitude);
+            setAddressFromLatLng(position);
+        }
+    }
+
+    private void setAddressFromLatLng(LatLng position) {
+        Geocoder geocoder = new Geocoder(this.getContext(), Locale.getDefault());
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(position.latitude, position.longitude, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                String address = addresses.get(0).getAddressLine(0);
+                location.setAddress(address);
+            } else {
+                location.setAddress("Hosted In");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

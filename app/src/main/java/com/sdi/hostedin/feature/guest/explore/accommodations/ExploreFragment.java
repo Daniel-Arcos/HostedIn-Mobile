@@ -3,15 +3,16 @@ package com.sdi.hostedin.feature.guest.explore.accommodations;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -19,10 +20,13 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.api.net.SearchByTextRequest;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Accommodation;
+import com.sdi.hostedin.data.model.Location;
+import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentExploreBinding;
 import com.sdi.hostedin.feature.guest.explore.accommodationdetails.AccommodationDetailsActivity;
 import com.sdi.hostedin.feature.host.HostMainActivity;
 import com.sdi.hostedin.feature.user.ProfileActivity;
+import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
 import java.util.ArrayList;
@@ -32,6 +36,7 @@ import java.util.List;
 
 public class ExploreFragment extends Fragment {
 
+    public static final String USER_KEY = "user_key";
     private FragmentExploreBinding binding;
     private PlacesClient placesClient;
 
@@ -67,6 +72,11 @@ public class ExploreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentExploreBinding.inflate(inflater, container, false);
+        User user = (User) getArguments().getParcelable(USER_KEY);
+        exploreViewModel.setUserMutableLiveData(user);
+        if (!exploreViewModel.getUserMutableLiveData().getValue().getRoles().contains("Host")) {
+            binding.changeToHostBtn.setVisibility(View.GONE);
+        }
         Places.initialize(this.getContext(), getString(R.string.google_maps_key));
         placesClient = Places.createClient(this.getContext());
         animationDrawable = (AnimationDrawable) binding.imgLoading.getDrawable();
@@ -126,9 +136,15 @@ public class ExploreFragment extends Fragment {
     }
 
     private void changeToHostMenu() {
-        Intent intent = new Intent(getContext(), HostMainActivity.class);
-        startActivity(intent);
-        this.requireActivity().finish();
+        Intent intent = new Intent(this.getActivity(), HostMainActivity.class);
+        if (exploreViewModel.getRequestStatusMutableLiveData().getValue() != null) {
+            intent.putExtra(HostMainActivity.USER_KEY, exploreViewModel.getUserMutableLiveData().getValue());
+            startActivity(intent);
+            this.getActivity().finish();
+        } else {
+            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+            //GoToLogin
+        }
     }
 
     private void changeToUserProfile() {

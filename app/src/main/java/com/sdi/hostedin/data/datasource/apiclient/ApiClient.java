@@ -31,10 +31,9 @@ import retrofit2.http.Query;
 public class ApiClient {
 
     public interface Service {
-
         // Users
         @GET("users/{userId}")
-        Call<ResponseGetUserObject> getUserById(@Path("userId") String userId);
+        Call<ResponseGetUserObject> getUserById(@Path("userId") String userId, @Header("Authorization") String authToken);
 
         @POST("auth/signup")
         Call<ResponseAuthObject> signUp(@Body User user);
@@ -52,29 +51,30 @@ public class ApiClient {
         Call<Void> updateUserPassword(@Header("authorization")String token, @Body NewPasswordRecovery newPassword);
 
         @PUT("users/{userId}")
-        Call<ResponseEditAccountObject> updateUserById(@Path("userId") String userId, @Body User user);
+        Call<ResponseEditAccountObject> updateUserById(@Path("userId") String userId, @Body User user, @Header("Authorization") String authToken);
 
         @DELETE("users/{userId}")
-        Call<ResponseEditAccountObject> deleteUserById(@Path("userId") String userId);
+        Call<ResponseEditAccountObject> deleteUserById(@Path("userId") String userId, @Header("Authorization") String authToken);
 
         // Accommodations
         @POST("accommodations")
-        Call<ResponseAccommodationObject> createAccommodation(@Body Accommodation accommodation);
+        Call<ResponseAccommodationObject> createAccommodation(@Body Accommodation accommodation, @Header("Authorization") String authToken);
 
         @GET("accommodations/{accommodationId}/bookings/")
-        Call<ResponseBookingsListObject> getBookingsOfSpecificAccommodation(@Path("accommodationId") String accommodationId);
+        Call<ResponseBookingsListObject> getBookingsOfSpecificAccommodation(@Path("accommodationId") String accommodationId, @Header("Authorization") String authToken);
 
         @GET("accommodations")
-        Call<ResponseGetAccommodationsObject> getAllAccommodations();
+        Call<ResponseGetAccommodationsObject> getAllAccommodations(@Header("Authorization") String authToken);
 
         @GET("accommodations")
-        Call<ResponseGetAccommodationsObject> getAllAccommodationsExceptUserAccommodations(@Query("id") String id);
+        Call<ResponseGetAccommodationsObject> getAllAccommodationsExceptUserAccommodations(@Query("id") String id, @Header("Authorization") String authToken);
 
         @GET("accommodations")
         Call<ResponseGetAccommodationsObject> getAccommodationsByLocationExceptUserAccommodations(
                 @Query("lat") double lat,
                 @Query("long") double lng,
-                @Query("id") String id
+                @Query("id") String id,
+                @Header("Authorization") String authToken
         );
         @GET("users/{userId}/accommodations")
         Call<ResponseBookedAccommodation> getHostBookedAccommodations(@Path("userId") String userId, @Query("atLeastOneBooking") boolean atLeastOneBooking);
@@ -84,12 +84,14 @@ public class ApiClient {
 
         // Bookings
         @POST("bookings")
-        Call<ResponseBookingObject> createBooking(@Body Booking booking);
+        Call<ResponseBookingObject> createBooking(@Body Booking booking, @Header("Authorization") String authToken);
 
 
 
 
     }
+
+
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red

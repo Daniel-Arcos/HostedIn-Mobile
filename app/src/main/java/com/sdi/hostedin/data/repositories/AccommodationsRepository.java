@@ -15,8 +15,8 @@ public class AccommodationsRepository {
 
     private RemoteAccommodationsDataSource remoteAccommodationsDataSource = new RemoteAccommodationsDataSource();
 
-    public void createAccommodation(Accommodation accommodation, AccommodationCallback accommodationCallback) {
-        remoteAccommodationsDataSource.createAccommodation(accommodation, new AccommodationCallback() {
+    public void createAccommodation(Accommodation accommodation, String token, AccommodationCallback accommodationCallback) {
+        remoteAccommodationsDataSource.createAccommodation(accommodation, token, new AccommodationCallback() {
             @Override
             public void onSuccess(Accommodation accommodation, String token) {
                 accommodationCallback.onSuccess(accommodation, token);
@@ -29,8 +29,8 @@ public class AccommodationsRepository {
         });
     }
 
-    public  void getAllAccommodations(AccommodationsCallback accommodationsCallback) {
-        remoteAccommodationsDataSource.getAllAccommodations(new AccommodationsCallback() {
+    public  void getAllAccommodations(String token, AccommodationsCallback accommodationsCallback) {
+        remoteAccommodationsDataSource.getAllAccommodations(token, new AccommodationsCallback() {
             @Override
             public void onSuccess(List<Accommodation> accommodations, String token) {
                 accommodationsCallback.onSuccess(accommodations, token);
@@ -43,8 +43,8 @@ public class AccommodationsRepository {
         });
     }
 
-    public  void getAllAccommodationsExceptUserAccommodations(String idUser, AccommodationsCallback accommodationsCallback) {
-        remoteAccommodationsDataSource.getAllAccommodationsExceptUserAccommodations(idUser, new AccommodationsCallback() {
+    public  void getAllAccommodationsExceptUserAccommodations(String idUser, String token, AccommodationsCallback accommodationsCallback) {
+        remoteAccommodationsDataSource.getAllAccommodationsExceptUserAccommodations(idUser, token, new AccommodationsCallback() {
             @Override
             public void onSuccess(List<Accommodation> accommodations, String token) {
                 accommodationsCallback.onSuccess(accommodations, token);
@@ -58,8 +58,8 @@ public class AccommodationsRepository {
     }
 
 
-    public  void getAllAccommodationsByLocationExceptUserAccommodations(String idUser, double lat, double lng, AccommodationsCallback accommodationsCallback) {
-        remoteAccommodationsDataSource.getAllAccommodationsByLocationExceptUserAccommodations(idUser, lat, lng, new AccommodationsCallback() {
+    public  void getAllAccommodationsByLocationExceptUserAccommodations(String idUser, double lat, double lng, String token, AccommodationsCallback accommodationsCallback) {
+        remoteAccommodationsDataSource.getAllAccommodationsByLocationExceptUserAccommodations(idUser, lat, lng, token, new AccommodationsCallback() {
             @Override
             public void onSuccess(List<Accommodation> accommodations, String token) {
                 accommodationsCallback.onSuccess(accommodations, token);

@@ -11,8 +11,8 @@ public class DeleteAccountUseCase {
 
     UsersRepository usersRepository = new UsersRepository();
 
-    public void deleteAccount(String userId, DeleteAccountCallback deleteAccountCallback) {
-        usersRepository.deleteAccount(userId, new UsersRepository.DeleteAccountCallback() {
+    public void deleteAccount(String userId, String token, DeleteAccountCallback deleteAccountCallback) {
+        usersRepository.deleteAccount(userId, token, new UsersRepository.DeleteAccountCallback() {
             @Override
             public void onSuccess(String userId) {
                 deleteAccountCallback.onSuccess(userId);

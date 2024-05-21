@@ -51,10 +51,8 @@ public class RemoteUsersDataSource {
                     userSaved.setFullName(responseAuthObject.getUser().getFullName());
                     userSaved.setPhoneNumber(responseAuthObject.getUser().getPhoneNumber());
                     userSaved.setId(responseAuthObject.getUser().getId());
+                    userSaved.setRoles(response.body().getUser().getRoles());
                     String token = response.headers().get("Authorization");
-                    if (token != null && token.startsWith("Bearer ")) {
-                        token = token.substring(7);
-                    }
                     authCallback.onSuccess(userSaved, token);
                 } else {
                     if (response.errorBody() != null) {
@@ -90,10 +88,8 @@ public class RemoteUsersDataSource {
                     userLogged.setFullName(responseAuthObject.getUser().getFullName());
                     userLogged.setPhoneNumber(responseAuthObject.getUser().getPhoneNumber());
                     userLogged.setId(responseAuthObject.getUser().getId());
+                    userLogged.setRoles(response.body().getUser().getRoles());
                     String token = response.headers().get("Authorization");
-                    if (token != null && token.startsWith("Bearer ")) {
-                        token = token.substring(7);
-                    }
                     authCallback.onSuccess(userLogged, token);
                 } else {
                     if (response.errorBody() != null) {
@@ -117,8 +113,8 @@ public class RemoteUsersDataSource {
         });
     }
 
-    public void editUserAccount(User user, EditAccountCallback editAccountCallback) {
-        Call<ResponseEditAccountObject> call = service.updateUserById(user.getId(), user);
+    public void editUserAccount(User user, String token, EditAccountCallback editAccountCallback) {
+        Call<ResponseEditAccountObject> call = service.updateUserById(user.getId(), user, token);
 
         call.enqueue(new Callback<ResponseEditAccountObject>() {
             @Override
@@ -126,11 +122,11 @@ public class RemoteUsersDataSource {
                 if (response.isSuccessful()) {
                     ResponseEditAccountObject responseEditAccountObject = response.body();
                     User editedUser = responseEditAccountObject.getUser();
-                    String token = response.headers().get("Authorization");
-                    if (token != null && token.startsWith("Bearer ")) {
-                        token = token.substring(7);
+                    String token = "";
+                    String refreshToken = response.headers().get("Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
                     }
-
                     editAccountCallback.onSuccess(editedUser, token);
                 } else {
                     String message = "Ocurrio un error al actualizar";
@@ -158,8 +154,8 @@ public class RemoteUsersDataSource {
         });
     }
 
-    public void getUserById(String userId, GetAccountCallback getAccountCallback) {
-        Call<ResponseGetUserObject> call = service.getUserById(userId);
+    public void getUserById(String userId, String token, GetAccountCallback getAccountCallback) {
+        Call<ResponseGetUserObject> call = service.getUserById(userId, token);
 
         call.enqueue(new Callback<ResponseGetUserObject>() {
             @Override
@@ -199,8 +195,8 @@ public class RemoteUsersDataSource {
         });
     }
 
-    public void deleteAccount(String userId, DeleteAccountCallback deleteAccountCallback) {
-        Call<ResponseEditAccountObject> call = service.deleteUserById(userId);
+    public void deleteAccount(String userId, String token, DeleteAccountCallback deleteAccountCallback) {
+        Call<ResponseEditAccountObject> call = service.deleteUserById(userId, token);
 
         call.enqueue(new Callback<ResponseEditAccountObject>() {
             @Override

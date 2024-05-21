@@ -53,8 +53,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new AccommodationBookingViewModel(application);
         } else if (modelClass.equals(HostBookedAccommodationsViewModel.class)) {
             return (T) new HostBookedAccommodationsViewModel(application);
-        }
-        else if(modelClass.equals(GuestBookingsViewModel.class)){
+        } else if(modelClass.equals(GuestBookingsViewModel.class)){
             return  (T) new GuestBookingsViewModel(application);
         }
 

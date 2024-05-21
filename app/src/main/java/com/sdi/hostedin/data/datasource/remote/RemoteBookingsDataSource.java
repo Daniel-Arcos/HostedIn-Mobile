@@ -19,8 +19,8 @@ public class RemoteBookingsDataSource {
 
     ApiClient.Service service = ApiClient.getInstance().getService();
 
-    public  void getBookingsListOfSpecificAccommodation(String accommodationId, BookingsCallback bookingsListCallback) {
-        Call<ResponseBookingsListObject> call = service.getBookingsOfSpecificAccommodation(accommodationId);
+    public  void getBookingsListOfSpecificAccommodation(String accommodationId, String token, BookingsCallback bookingsListCallback) {
+        Call<ResponseBookingsListObject> call = service.getBookingsOfSpecificAccommodation(accommodationId, token);
 
         call.enqueue(new Callback<ResponseBookingsListObject>() {
             @Override
@@ -51,8 +51,8 @@ public class RemoteBookingsDataSource {
         });
     }
 
-    public void createBooking(Booking booking, BookingCallback bookingCallback) {
-        Call<ResponseBookingObject> call = service.createBooking(booking);
+    public void createBooking(Booking booking, String token, BookingCallback bookingCallback) {
+        Call<ResponseBookingObject> call = service.createBooking(booking, token);
 
         call.enqueue(new Callback<ResponseBookingObject>() {
             @Override

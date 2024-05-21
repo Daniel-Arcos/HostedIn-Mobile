@@ -10,8 +10,8 @@ import java.util.List;
 public class BookingsRepository {
     RemoteBookingsDataSource remoteBookingsDataSource = new RemoteBookingsDataSource();
 
-    public void getBookingsOfSpecificAccommodation(String accommodationId, BookingsCallback bookingsListCallback){
-        remoteBookingsDataSource.getBookingsListOfSpecificAccommodation(accommodationId, new BookingsCallback() {
+    public void getBookingsOfSpecificAccommodation(String accommodationId, String token, BookingsCallback bookingsListCallback){
+        remoteBookingsDataSource.getBookingsListOfSpecificAccommodation(accommodationId, token, new BookingsCallback() {
             @Override
             public void onSuccess(List<Booking> bookingList, String message) {
                 bookingsListCallback.onSuccess(bookingList, message);
@@ -24,8 +24,8 @@ public class BookingsRepository {
         });
     }
 
-    public void createBooking(Booking booking, BookingCallback bookingCallback) {
-        remoteBookingsDataSource.createBooking(booking, new BookingCallback() {
+    public void createBooking(Booking booking, String token, BookingCallback bookingCallback) {
+        remoteBookingsDataSource.createBooking(booking, token, new BookingCallback() {
             @Override
             public void onSuccess(Booking booking, String token) {
                 bookingCallback.onSuccess(booking, token);

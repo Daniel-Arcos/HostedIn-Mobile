@@ -1,22 +1,34 @@
 package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.FragmentAccommodationMultimediaBinding;
+import com.sdi.hostedin.utils.ImageUtils;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
+
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +46,17 @@ public class AccommodationMultimediaFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private static final int LOCAL_FRAGMENT_NUMBER = 5;
+    private static final String DEFAULT_TYPE_PHOTO = "Buffer";
+    private static final int NUMBER_OF_IMAGES = 3;
+    private static final int MILLISECONDS_TIME_VIDEO = 60000;
+    private static final int MAX_MB_SIZE_VIDEO = 130;
     private FragmentAccommodationMultimediaBinding binding;
     private AccommodationFormViewModel accommodationFormViewModel;
-    private Uri[] temporaryPhotos;
-    private Uri temporaryVideo;
+    private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
+    private Uri[] selectedImagesUri = new Uri[NUMBER_OF_IMAGES];
+    private int currentImageNumber = 0;
+    private Uri selectedVideo;
+    boolean isNextClicked = false;
 
     private boolean isPhotoClickedTEMPORARY;
 
@@ -70,6 +89,27 @@ public class AccommodationMultimediaFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        pickMedia = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+            if (uri != null) {
+                if (currentImageNumber < 3) {
+                    selectedImagesUri[currentImageNumber] = uri;
+                    ImageView imvAccommodationPhoto = getImageViewByNumber(currentImageNumber);
+                    if (imvAccommodationPhoto != null) {
+                        imvAccommodationPhoto.setImageURI(uri);
+                    }
+
+                } else {
+                    if (isVideoValid(this.getContext(), uri)) {
+                        selectedVideo = uri;
+                        binding.imvFourthVideo.setImageResource(0);
+                        binding.vdvFourthVideo.setVideoURI(uri);
+                        binding.vdvFourthVideo.start();
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
@@ -78,34 +118,134 @@ public class AccommodationMultimediaFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentAccommodationMultimediaBinding.inflate(getLayoutInflater());
 
+        selectedImagesUri = new Uri[NUMBER_OF_IMAGES];
+        selectedVideo = null;
+        isPhotoClickedTEMPORARY = false;
+
         accommodationFormViewModel =
                 new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
                     .get(AccommodationFormViewModel.class);
 
-        binding.btnTakePhoto.setOnClickListener( v -> manageBtnTakePhoto() );
-
+        configureListeners();
         return binding.getRoot();
-    }
-
-    private void manageBtnTakePhoto() {
-        //TODO
-        this.isPhotoClickedTEMPORARY = true;
-        ToastUtils.showShortInformationMessage(this.getContext(), "Ahora da clic en Siguiente");
     }
 
     @Override
     public void onResume() {
         super.onResume();
         customActivityParent();
-        temporaryPhotos = null;
-        temporaryVideo = null;
-        isPhotoClickedTEMPORARY = false;
+
+//        selectedImagesUri = new Uri[NUMBER_OF_IMAGES];
+//        selectedVideo = null;
+//        isPhotoClickedTEMPORARY = false;
 
         accommodationFormViewModel.getFragmentNumberMutableLiveData().observe(getViewLifecycleOwner(), fragmentNumber -> {
             if (fragmentNumber == LOCAL_FRAGMENT_NUMBER) {
-                ValidateAccommodationMultimediaSelected();
+                validateAccommodationMultimediaSelected();
             }
         });
+    }
+
+    private void configureListeners() {
+        binding.btnTakePhoto.setOnClickListener( v -> manageBtnTakePhoto() );
+        binding.rtlyMainImage.setOnClickListener( v -> {
+            currentImageNumber = 0;
+            openImageChooser();
+        });
+
+        binding.rtlySecondImage.setOnClickListener( v -> {
+            currentImageNumber = 1;
+            openImageChooser();
+        });
+
+        binding.rtlyThirdImage.setOnClickListener( v -> {
+            currentImageNumber = 2;
+            openImageChooser();
+        });
+
+        binding.rtlyFourthVideo.setOnClickListener( v -> {
+            currentImageNumber = 4;
+            openVideoChooser();
+        });
+    }
+
+    private void openImageChooser() {
+        this.pickMedia.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
+    }
+
+    private void openVideoChooser() {
+        this.pickMedia.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.VideoOnly.INSTANCE)
+                .build());
+    }
+
+    private ImageView getImageViewByNumber(int imageNumber) {
+        switch (imageNumber) {
+            case 0:
+                binding.imvMainImage.setPadding(0,0,0,0);
+                return binding.imvMainImage;
+            case 1:
+                binding.imvSecondImage.setPadding(0,0,0,0);
+                return binding.imvSecondImage;
+            case 2:
+                binding.imvThirdImage.setPadding(0,0,0,0);
+                return binding.imvThirdImage;
+            default:
+                return null;
+        }
+    }
+
+    private boolean isVideoValid(Context context, Uri videoUri) {
+        boolean isVideoValid = true;
+
+        if (!isVideoDurationValid(context, videoUri)) {
+            isVideoValid = false;
+            ToastUtils.showShortInformationMessage(this.getContext(), "El video debe durar menos de 1 minuto");
+        } else if (!isVideoSizeValid(context, videoUri)) {
+            isVideoValid = false;
+            ToastUtils.showShortInformationMessage(this.getContext(), "El video debe pesar menos de 10 MB");
+        }
+
+        return isVideoValid;
+    }
+
+    private boolean isVideoDurationValid(Context context, Uri videoUri) {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(context, videoUri);
+        String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        long duration = 0;
+        if (time != null) {
+            duration = Long.parseLong(time);
+        }
+        try {
+            retriever.release();
+            retriever.close();
+        } catch (IOException e) {
+            Log.e("DEBUG", "isVideoDurationValid: " + e.getMessage());;
+        }
+
+        return duration <= MILLISECONDS_TIME_VIDEO;
+    }
+
+    private boolean isVideoSizeValid(Context context, Uri videoUri) {
+
+        Cursor cursor = context.getContentResolver().query(videoUri, null, null, null, null);
+        if (cursor != null) {
+            int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+            cursor.moveToFirst();
+            long size = cursor.getLong(sizeIndex);
+            cursor.close();
+            return size <= MAX_MB_SIZE_VIDEO * 1024 * 1024;
+        }
+        return false;
+    }
+
+    private void manageBtnTakePhoto() {
+        //TODO
+        this.isPhotoClickedTEMPORARY = true;
+        ToastUtils.showShortInformationMessage(this.getContext(), "Ahora da clic en Siguiente");
     }
 
     public void customActivityParent() {
@@ -126,13 +266,71 @@ public class AccommodationMultimediaFragment extends Fragment {
         }
     }
 
-    private void ValidateAccommodationMultimediaSelected() {
-        if (isPhotoClickedTEMPORARY) {
-            //TODO:
-            accommodationFormViewModel.selectPhoto();
-            accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
+    private void validateAccommodationMultimediaSelected() {
+        if (areSelectedPhotosValid() && isSelectedVideoValid()) {
+            if (isNextClicked) {
+                accommodationFormViewModel.selectMultimedia(uriPhotoToBytes(), uriVideoToBytes());
+                accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
+            } else {
+                isNextClicked = true;
+            }
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "**Da Clic en TOMAR FOTO**" );
+            ToastUtils.showShortInformationMessage(this.getContext(), "Selecciona 3 fotos y 1 video de tu alojamiento");
         }
+    }
+
+    private byte[][] uriPhotoToBytes() {
+        byte[][] photoBytes = new byte[selectedImagesUri.length][];
+
+        for (int i = 0; i < selectedImagesUri.length; i++) {
+            if (selectedImagesUri[i] != null) {
+                byte[] bytes = ImageUtils.uriToBytes(this.getContext(), selectedImagesUri[i]);
+                if (bytes != null) {
+                    photoBytes[i] = bytes;
+                } else {
+                    ToastUtils.showShortInformationMessage(this.getContext(), "Error procesando la imagen");
+                }
+            }
+        }
+
+        return photoBytes;
+    }
+
+    private byte[] uriVideoToBytes() {
+        byte[] videoBytes = null;
+
+        if (selectedVideo != null) {
+            byte[] bytes = ImageUtils.uriToBytes(this.getContext(), selectedVideo);
+            if (bytes != null) {
+                videoBytes = bytes;
+            } else {
+                ToastUtils.showShortInformationMessage(this.getContext(), "Error procesando la imagen");
+            }
+        }
+
+        return videoBytes;
+    }
+
+    private boolean areSelectedPhotosValid() {
+        boolean arePhotosSelectedValid = false;
+
+        if (selectedImagesUri != null
+                && selectedImagesUri[0] != null
+                && selectedImagesUri[1] != null
+                && selectedImagesUri[2] != null) {
+            arePhotosSelectedValid = true;
+        }
+
+        return arePhotosSelectedValid;
+    }
+
+    private boolean isSelectedVideoValid() {
+        boolean isSelectedVideoValid = false;
+
+        if (selectedVideo != null && isVideoValid(this.getContext(), selectedVideo)) {
+            isSelectedVideoValid = true;
+        }
+
+        return isSelectedVideoValid;
     }
 }

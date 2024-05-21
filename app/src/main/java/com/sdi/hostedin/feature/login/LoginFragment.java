@@ -28,6 +28,7 @@ import com.sdi.hostedin.feature.signup.SignupFragment;
 import com.sdi.hostedin.feature.password.RecoverPasswordActivity;
 import com.sdi.hostedin.feature.signup.SignupViewModel;
 import com.sdi.hostedin.utils.TextChangedListener;
+import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
 /**
@@ -130,6 +131,17 @@ public class LoginFragment extends Fragment {
     }
 
     private void enterToApp() {
+        User user = signinViewModel.getUserMutableLiveData().getValue();
+        if (!user.getRoles().contains("Guest")) {
+            goToHostMenu();
+        } else if (!user.getRoles().contains("Host")) {
+            goToGuestMenu();
+        } else {
+            choseNextActivity();
+        }
+    }
+
+    private void choseNextActivity() {
         DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
         if (dataStoreSingleton.getDataStore() == null) {
             dataStoreRX = new RxPreferenceDataStoreBuilder(this.getContext(),"USER_DATASTORE" ).build();
@@ -138,7 +150,6 @@ public class LoginFragment extends Fragment {
         }
         dataStoreSingleton.setDataStore(dataStoreRX);
         DataStoreHelper dataStoreHelper = new DataStoreHelper(this.getActivity(), dataStoreRX);
-        dataStoreHelper.putStringValue("USER_ID", signinViewModel.getUserId().getValue());
         boolean isHostEstablished = dataStoreHelper.getBoolValue("START_HOST");
         if (isHostEstablished) {
             goToHostMenu();
@@ -149,14 +160,24 @@ public class LoginFragment extends Fragment {
 
     private void goToGuestMenu() {
         Intent intent = new Intent(this.getActivity(), GuestMainActivity.class);
-        startActivity(intent);
-        this.getActivity().finish();
+        if (signinViewModel.getUserMutableLiveData().getValue() != null) {
+            intent.putExtra(GuestMainActivity.USER_KEY, signinViewModel.getUserMutableLiveData().getValue());
+            startActivity(intent);
+            this.getActivity().finish();
+        } else {
+            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+        }
     }
 
     private void goToHostMenu() {
         Intent intent = new Intent(this.getActivity(), HostMainActivity.class);
-        startActivity(intent);
-        this.getActivity().finish();
+        if (signinViewModel.getUserMutableLiveData().getValue() != null) {
+            intent.putExtra(HostMainActivity.USER_KEY, signinViewModel.getUserMutableLiveData().getValue());
+            startActivity(intent);
+            this.getActivity().finish();
+        } else {
+            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+        }
     }
 
     private void recoverPassword(){

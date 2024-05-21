@@ -19,6 +19,7 @@ public class HostBookedAccommodationsViewModel extends AndroidViewModel {
     private MutableLiveData<RequestStatus> requestStatusMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<List<BookedAccommodation>> accommodationsList = new MutableLiveData<>();
     private MutableLiveData<Boolean> isNew = new MutableLiveData<>();
+    private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();    
 
     public HostBookedAccommodationsViewModel(@NonNull Application application) { super(application); this.isNew.setValue(true); }
 
@@ -38,6 +39,14 @@ public class HostBookedAccommodationsViewModel extends AndroidViewModel {
         return accommodationsList;
     }
 
+    public MutableLiveData<User> getUserMutableLiveData() {
+        return userMutableLiveData;
+    }
+
+    public void setUserMutableLiveData(User user) {
+        this.userMutableLiveData.setValue(user);
+    }
+    
     public void getHostBookedAccommodations(){
         GetAccommodationsUseCase getAccommodationsUseCase = new GetAccommodationsUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, "Recuperando alojamientos"));

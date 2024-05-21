@@ -8,8 +8,8 @@ public class CreateAccommodationUseCase {
 
     AccommodationsRepository accommodationsRepository = new AccommodationsRepository();
 
-    public void createAccommodation(Accommodation accommodation, AccommodationCallback accommodationCallback) {
-        accommodationsRepository.createAccommodation(accommodation, new AccommodationCallback() {
+    public void createAccommodation(Accommodation accommodation, String token, AccommodationCallback accommodationCallback) {
+        accommodationsRepository.createAccommodation(accommodation, token, new AccommodationCallback() {
             @Override
             public void onSuccess(Accommodation accommodation, String token) {
                 accommodationCallback.onSuccess(accommodation, token);
