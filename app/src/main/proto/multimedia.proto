@@ -1,6 +1,9 @@
 syntax = "proto3";
 
+option java_multiple_files = true;
 option java_package = "io.grpc.examples";
+option java_outer_classname = "MultimediaProto";
+
 
 message UploadProfilePhotoRequest {
   string userId = 1;
