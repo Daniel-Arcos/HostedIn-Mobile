@@ -8,6 +8,7 @@ import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookin
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetAccommodationsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGuestBookedAccommodations;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.GenericSingleString;
@@ -77,6 +78,9 @@ public class ApiClient {
         );
         @GET("users/{userId}/accommodations")
         Call<ResponseBookedAccommodation> getHostBookedAccommodations(@Path("userId") String userId, @Query("atLeastOneBooking") boolean atLeastOneBooking);
+
+        @GET("users/{userId}/accommodations")
+        Call<ResponseGuestBookedAccommodations> getGuestBookedAccommodations(@Path("userId") String userId, @Query("status") String status);
 
         // Bookings
         @POST("bookings")

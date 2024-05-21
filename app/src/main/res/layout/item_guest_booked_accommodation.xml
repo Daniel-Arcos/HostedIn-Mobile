@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+    <ImageView
+        android:id="@+id/imv_accommodation"
+        android:layout_width="match_parent"
+        android:layout_height="300sp"
+        app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>
+
+    <TextView
+        android:id="@+id/txv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Xalap -Veracruz"
+        android:layout_marginStart="8dp"
+        android:layout_below="@id/imv_accommodation"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/txv_dates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_below="@id/txv_address"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/btt_review_accommodation"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            tools:text="12/05/2024 - 12/12/2024" />
+
+    <TextView
+        android:id="@+id/txv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="20dp"
+        tools:text="$5000 MXN "
+        android:layout_below="@id/txv_dates"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btt_review_accommodation"
+            android:layout_width="wrap_content"
+            android:text="Calificar"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imv_accommodation"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="22dp"
+            android:contentDescription="Reservaciones"
+            android:src="@drawable/reservation_icon"
+            tools:ignore="TouchTargetSizeCheck"
+            android:layout_alignBaseline="@id/txv_dates"/>
+
+    </RelativeLayout>
+</layout>

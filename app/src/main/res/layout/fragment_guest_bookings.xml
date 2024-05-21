@@ -59,6 +59,27 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp" />
 
+        <TextView
+            android:id="@+id/txv_noAccommodations"
+            android:layout_width="192dp"
+            android:layout_height="105dp"
+            android:layout_above="@id/pgb_loading_wheel"
+            android:layout_alignTop="@+id/recyclerPublicationView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="98dp"
+            android:gravity="center"
+            android:text="No tienes alojamientos reservados, publica uno o espera a que alguien reserve uno" />
+
+
+
+        <ProgressBar
+            android:id="@+id/pgb_loading_wheel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
 
 
     </RelativeLayout>

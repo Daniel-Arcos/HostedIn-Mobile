@@ -14,7 +14,7 @@ import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.databinding.ActivityGuestMainActiviyBinding;
-import com.sdi.hostedin.feature.guest.bookings.BookingFragment;
+import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.GuestBookingsFragment;
 import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreFragment;
 import com.sdi.hostedin.feature.statistics.StatisticsFragment;
 
@@ -58,7 +58,7 @@ public class GuestMainActivity extends AppCompatActivity {
             } else if (itemId == R.id.bookings) {
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(binding.fragmentContainer.getId(), BookingFragment.class, null)
+                        .replace(binding.fragmentContainer.getId(), GuestBookingsFragment.class, null)
                         .commit();
             } else {
                 getSupportFragmentManager().beginTransaction()

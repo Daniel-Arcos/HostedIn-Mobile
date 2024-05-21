@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.sdi.hostedin.feature.guest.bookings.accommodationbooking.AccommodationBookingViewModel;
+import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.GuestBookingsViewModel;
 import com.sdi.hostedin.feature.guest.explore.accommodationdetails.AccommodationDetailsViewModel;
 import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreViewModel;
 import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationFormViewModel;
@@ -52,6 +53,9 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new AccommodationBookingViewModel(application);
         } else if (modelClass.equals(HostBookedAccommodationsViewModel.class)) {
             return (T) new HostBookedAccommodationsViewModel(application);
+        }
+        else if(modelClass.equals(GuestBookingsViewModel.class)){
+            return  (T) new GuestBookingsViewModel(application);
         }
 
         return null;

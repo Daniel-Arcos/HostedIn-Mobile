@@ -77,6 +77,7 @@ public class HostBookedAccommodationsFragment extends Fragment {
             hostBookedAccommodationsAdapter.submitList(accommodations);
             if(accommodations.size() > 0) binding.txvNoAccommodations.setVisibility(View.INVISIBLE);
         });
+        manageLoading();
         hostBookedAccommodationsViewModel.getHostBookedAccommodations();
         return binding.getRoot();
     }
