@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.data.callbacks.BookingsCallback;
+import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.domain.GetBookingsOfAccommodationUseCase;
 import com.sdi.hostedin.ui.RequestStatus;
@@ -34,7 +35,8 @@ public class HostAccBookingsListViewModel extends AndroidViewModel {
         GetBookingsOfAccommodationUseCase getBookingsOfAccommodation = new GetBookingsOfAccommodationUseCase();
 
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, "Cargando"));
-        getBookingsOfAccommodation.getBookingsOfSpecificAccommodation(accommodationId, new BookingsCallback() {
+        String token = DataStoreAccess.accessToken(getApplication());
+        getBookingsOfAccommodation.getBookingsOfSpecificAccommodation(accommodationId, token, new BookingsCallback() {
 
             @Override
             public void onSuccess(List<Booking> bookingList, String message) {

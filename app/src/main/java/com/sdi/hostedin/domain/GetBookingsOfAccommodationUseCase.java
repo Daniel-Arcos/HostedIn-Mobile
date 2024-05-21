@@ -9,8 +9,8 @@ import java.util.List;
 public class GetBookingsOfAccommodationUseCase {
     private BookingsRepository bookingsRepository = new BookingsRepository();
 
-    public void getBookingsOfSpecificAccommodation(String accommodationId, BookingsCallback bookingsListCallback){
-        bookingsRepository.getBookingsOfSpecificAccommodation(accommodationId, new BookingsCallback() {
+    public void getBookingsOfSpecificAccommodation(String accommodationId, String token, BookingsCallback bookingsListCallback){
+        bookingsRepository.getBookingsOfSpecificAccommodation(accommodationId, token, new BookingsCallback() {
             @Override
             public void onSuccess(List<Booking> bookingList, String message) {
                 bookingsListCallback.onSuccess(bookingList, message);

@@ -27,15 +27,20 @@ public class RemoteAccommodationsDataSource {
 
     }
 
-    public void getAllAccommodations(AccommodationsCallback accommodationsCallback) {
-        Call<ResponseGetAccommodationsObject> call = service.getAllAccommodations();
+    public void getAllAccommodations(String token, AccommodationsCallback accommodationsCallback) {
+        Call<ResponseGetAccommodationsObject> call = service.getAllAccommodations(token);
         call.enqueue(new Callback<ResponseGetAccommodationsObject>() {
             @Override
             public void onResponse(Call<ResponseGetAccommodationsObject> call, Response<ResponseGetAccommodationsObject> response) {
                 if (response.isSuccessful()) {
                     ArrayList<Accommodation> accommodations =
                             MoshiConverter.convertAPIAccommodationsResponseToJavaObjects(response.body());
-                    accommodationsCallback.onSuccess(accommodations, "");
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+                    accommodationsCallback.onSuccess(accommodations, token);
                 } else {
                     String message = "Ocurrio un error al actualizar";
                     if (response.errorBody() != null) {
@@ -61,15 +66,20 @@ public class RemoteAccommodationsDataSource {
     }
 
 
-    public void getAllAccommodationsExceptUserAccommodations(String idUser,AccommodationsCallback accommodationsCallback) {
-        Call<ResponseGetAccommodationsObject> call = service.getAllAccommodationsExceptUserAccommodations(idUser);
+    public void getAllAccommodationsExceptUserAccommodations(String idUser, String token, AccommodationsCallback accommodationsCallback) {
+        Call<ResponseGetAccommodationsObject> call = service.getAllAccommodationsExceptUserAccommodations(idUser, token);
         call.enqueue(new Callback<ResponseGetAccommodationsObject>() {
             @Override
             public void onResponse(Call<ResponseGetAccommodationsObject> call, Response<ResponseGetAccommodationsObject> response) {
                 if (response.isSuccessful()) {
                     ArrayList<Accommodation> accommodations =
                             MoshiConverter.convertAPIAccommodationsResponseToJavaObjects(response.body());
-                    accommodationsCallback.onSuccess(accommodations, "");
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+                    accommodationsCallback.onSuccess(accommodations, token);
                 } else {
                     String message = "Ocurrio un error al actualizar";
                     if (response.errorBody() != null) {
@@ -96,15 +106,20 @@ public class RemoteAccommodationsDataSource {
 
 
 
-    public void getAllAccommodationsByLocationExceptUserAccommodations(String idUser, double lat, double lng, AccommodationsCallback accommodationsCallback) {
-        Call<ResponseGetAccommodationsObject> call = service.getAccommodationsByLocationExceptUserAccommodations(lat, lng, idUser);
+    public void getAllAccommodationsByLocationExceptUserAccommodations(String idUser, double lat, double lng, String token, AccommodationsCallback accommodationsCallback) {
+        Call<ResponseGetAccommodationsObject> call = service.getAccommodationsByLocationExceptUserAccommodations(lat, lng, idUser, token);
         call.enqueue(new Callback<ResponseGetAccommodationsObject>() {
             @Override
             public void onResponse(Call<ResponseGetAccommodationsObject> call, Response<ResponseGetAccommodationsObject> response) {
                 if (response.isSuccessful()) {
                     ArrayList<Accommodation> accommodations =
                             MoshiConverter.convertAPIAccommodationsResponseToJavaObjects(response.body());
-                    accommodationsCallback.onSuccess(accommodations, "");
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+                    accommodationsCallback.onSuccess(accommodations, token);
                 } else {
                     String message = "Ocurrio un error al actualizar";
                     if (response.errorBody() != null) {
@@ -129,8 +144,8 @@ public class RemoteAccommodationsDataSource {
         });
     }
 
-    public void createAccommodation(Accommodation accommodation, AccommodationCallback accommodationCallback) {
-        Call<ResponseAccommodationObject> call = service.createAccommodation(accommodation);
+    public void createAccommodation(Accommodation accommodation, String token, AccommodationCallback accommodationCallback) {
+        Call<ResponseAccommodationObject> call = service.createAccommodation(accommodation, token);
 
         call.enqueue(new Callback<ResponseAccommodationObject>() {
             @Override

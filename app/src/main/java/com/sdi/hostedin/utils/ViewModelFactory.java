@@ -10,6 +10,7 @@ import com.sdi.hostedin.feature.guest.bookings.accommodationbooking.Accommodatio
 import com.sdi.hostedin.feature.guest.explore.accommodationdetails.AccommodationDetailsViewModel;
 import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreViewModel;
 import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationFormViewModel;
+import com.sdi.hostedin.feature.host.bookings.HostBookedAccommodationsViewModel;
 import com.sdi.hostedin.feature.host.bookings.list.HostAccBookingsListViewModel;
 import com.sdi.hostedin.feature.password.RecoverPasswordViewModel;
 import com.sdi.hostedin.feature.login.SigninViewModel;
@@ -49,6 +50,8 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new AccommodationDetailsViewModel(application);
         } else if (modelClass.equals(AccommodationBookingViewModel.class)) {
             return (T) new AccommodationBookingViewModel(application);
+        } else if (modelClass.equals(HostBookedAccommodationsViewModel.class)) {
+            return (T) new HostBookedAccommodationsViewModel(application);
         }
 
         return null;

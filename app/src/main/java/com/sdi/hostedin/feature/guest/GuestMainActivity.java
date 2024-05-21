@@ -13,12 +13,15 @@ import com.google.android.material.search.SearchView;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
+import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityGuestMainActiviyBinding;
 import com.sdi.hostedin.feature.guest.bookings.BookingFragment;
 import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreFragment;
+import com.sdi.hostedin.feature.host.bookings.HostBookedAccommodationsFragment;
 import com.sdi.hostedin.feature.statistics.StatisticsFragment;
 
 public class GuestMainActivity extends AppCompatActivity {
+    public static final String USER_KEY = "user_key";
     ActivityGuestMainActiviyBinding binding;
     RxDataStore<Preferences> dataStoreRX;
     @Override
@@ -26,6 +29,9 @@ public class GuestMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityGuestMainActiviyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Bundle extras = getIntent().getExtras();
+        User user = (User) extras.getParcelable(USER_KEY);
+
         DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
         if (dataStoreSingleton.getDataStore() == null) {
             dataStoreRX = new RxPreferenceDataStoreBuilder(this,"USER_DATASTORE" ).build();
@@ -43,9 +49,12 @@ public class GuestMainActivity extends AppCompatActivity {
             }
         });
 
+        Bundle bundleFragment = new Bundle();
+        bundleFragment.putParcelable(ExploreFragment.USER_KEY, user);
+
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(binding.fragmentContainer.getId(), ExploreFragment.class, null)
+                .replace(binding.fragmentContainer.getId(), ExploreFragment.class, bundleFragment)
                 .commit();
 
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{
@@ -53,7 +62,7 @@ public class GuestMainActivity extends AppCompatActivity {
             if (itemId == R.id.explore) {
                 getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(binding.fragmentContainer.getId(), ExploreFragment.class, null)
+                        .replace(binding.fragmentContainer.getId(), ExploreFragment.class, bundleFragment)
                         .commit();
             } else if (itemId == R.id.bookings) {
                 getSupportFragmentManager().beginTransaction()

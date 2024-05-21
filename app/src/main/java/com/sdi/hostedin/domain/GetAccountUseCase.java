@@ -12,8 +12,8 @@ public class GetAccountUseCase {
 
     UsersRepository usersRepository = new UsersRepository();
 
-    public void getUserById(String userId, GetAccountUseCase.GetAccountCallback getAccountCallback) {
-        usersRepository.getUserById(userId, new UsersRepository.GetAccountCallback() {
+    public void getUserById(String userId, String token, GetAccountUseCase.GetAccountCallback getAccountCallback) {
+        usersRepository.getUserById(userId, token, new UsersRepository.GetAccountCallback() {
             @Override
             public void onSuccess(User user, String token) {
                 getAccountCallback.onSuccess(user, token);

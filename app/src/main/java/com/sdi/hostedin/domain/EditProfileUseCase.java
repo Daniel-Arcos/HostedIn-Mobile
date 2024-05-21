@@ -12,8 +12,8 @@ public class EditProfileUseCase {
 
     UsersRepository usersRepository = new UsersRepository();
 
-    public void editProfile(User user, EditProfileCallback editProfileCallback) {
-        usersRepository.editProfile(user, new UsersRepository.EditProfileCallback() {
+    public void editProfile(User user, String token, EditProfileCallback editProfileCallback) {
+        usersRepository.editProfile(user, token, new UsersRepository.EditProfileCallback() {
             @Override
             public void onSuccess(User user, String token) {
                 editProfileCallback.onSuccess(user, token);

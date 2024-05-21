@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.datastore.preferences.core.Preferences;
-import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,19 +16,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sdi.hostedin.R;
-import com.sdi.hostedin.data.datasource.DataStoreHelper;
-import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentSignupBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
+import com.sdi.hostedin.feature.host.HostMainActivity;
 import com.sdi.hostedin.feature.login.LoginFragment;
 import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.DatePickerConfigurator;
 import com.sdi.hostedin.utils.TextChangedListener;
+import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,9 +67,51 @@ public class SignupFragment extends Fragment {
         signupViewModel =
                 new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication())).get(SignupViewModel.class);
         DatePickerConfigurator.configureDatePicker(binding.etxBirthDate.getEditText());
-        binding.btnLogin.setOnClickListener(v -> {
-            goToSignUp();
+        configureTextListeners();
+        configureButtonClicks();
+        manageLoading();
+        return  binding.getRoot();
+    }
+
+    private void manageLoading() {
+        signupViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), status -> {
+            switch (status.getRequestStatus()) {
+                case LOADING:
+                    binding.pgbSignup.setVisibility(View.VISIBLE);
+                    break;
+                case DONE:
+                    binding.pgbSignup.setVisibility(View.GONE);
+                    EnterToApplication();
+                    break;
+                case ERROR:
+                    Toast.makeText(this.getContext(),status.getMessage(), Toast.LENGTH_SHORT).show();
+                    binding.pgbSignup.setVisibility(View.GONE);
+            }
         });
+
+    }
+
+    private void EnterToApplication() {
+        User user = signupViewModel.getUserMutableLiveData().getValue();
+        if (user.getRoles().contains("Guest")) {
+            goToGuestMenu();
+        } else {
+            goToHostMenu();
+        }
+    }
+
+    private void configureButtonClicks() {
+        binding.btnLogin.setOnClickListener(v -> {
+            goToLogin();
+        });
+        binding.btnSignup.setOnClickListener(v -> {
+            if (validateFields()) {
+                signUp();
+            }
+        });
+    }
+
+    private void configureTextListeners() {
         binding.etxFullName.getEditText().addTextChangedListener(
                 new TextChangedListener<EditText>(binding.etxFullName.getEditText()) {
                     @Override
@@ -103,12 +145,12 @@ public class SignupFragment extends Fragment {
                 }
         );
         binding.etxPassword.getEditText().addTextChangedListener(
-            new TextChangedListener<EditText>(binding.etxPassword.getEditText()) {
-                @Override
-                public void onTextChanged(EditText target, Editable s) {
-                    validatePassword(binding.etxPassword.getEditText().getText().toString());
-                }
-            });
+                new TextChangedListener<EditText>(binding.etxPassword.getEditText()) {
+                    @Override
+                    public void onTextChanged(EditText target, Editable s) {
+                        validatePassword(binding.etxPassword.getEditText().getText().toString());
+                    }
+                });
         binding.etxConfirmPassword.getEditText().addTextChangedListener(
                 new TextChangedListener<EditText>(binding.etxConfirmPassword.getEditText()) {
                     @Override
@@ -117,28 +159,6 @@ public class SignupFragment extends Fragment {
                     }
                 }
         );
-        binding.btnSignup.setOnClickListener(v -> {
-            if (validateFields()) {
-                signUp();
-            }
-        });
-
-        signupViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), status -> {
-            switch (status.getRequestStatus()) {
-                case LOADING:
-                    binding.pgbSignup.setVisibility(View.VISIBLE);
-                    break;
-                case DONE:
-                    binding.pgbSignup.setVisibility(View.GONE);
-                    goToGuestMenu();
-                    break;
-                case ERROR:
-                    Toast.makeText(this.getContext(),status.getMessage(), Toast.LENGTH_SHORT).show();
-                    binding.pgbSignup.setVisibility(View.GONE);
-            }
-        });
-
-        return  binding.getRoot();
     }
 
     private boolean validatePasswordsMatches() {
@@ -156,18 +176,27 @@ public class SignupFragment extends Fragment {
     }
 
     private void goToGuestMenu() {
-        DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
-        if (dataStoreSingleton.getDataStore() == null) {
-            dataStoreRX = new RxPreferenceDataStoreBuilder(this.getContext(),"USER_DATASTORE" ).build();
-        } else {
-            dataStoreRX = dataStoreSingleton.getDataStore();
-        }
-        dataStoreSingleton.setDataStore(dataStoreRX);
-        DataStoreHelper dataStoreHelper = new DataStoreHelper(this.getActivity(), dataStoreRX);
-        dataStoreHelper.putStringValue("USER_ID", signupViewModel.getUserId().getValue());
         Intent intent = new Intent(this.getActivity(), GuestMainActivity.class);
-        startActivity(intent);
-        this.getActivity().finish();
+        if (signupViewModel.getUserMutableLiveData().getValue() != null) {
+            intent.putExtra(GuestMainActivity.USER_KEY, signupViewModel.getUserMutableLiveData().getValue());
+            startActivity(intent);
+            this.getActivity().finish();
+        } else {
+            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+            goToLogin();
+        }
+    }
+
+    private void goToHostMenu() {
+        Intent intent = new Intent(this.getActivity(), HostMainActivity.class);
+        if (signupViewModel.getUserMutableLiveData().getValue() != null) {
+            intent.putExtra(HostMainActivity.USER_KEY, signupViewModel.getUserMutableLiveData().getValue());
+            startActivity(intent);
+            this.getActivity().finish();
+        } else {
+            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+            goToLogin();
+        }
     }
 
     private void signUp() {
@@ -178,10 +207,14 @@ public class SignupFragment extends Fragment {
         user.setPhoneNumber(binding.etxPhoneNumber.getEditText().getText().toString());
         user.setEmail(binding.etxEmail.getEditText().getText().toString());
         user.setPassword(binding.etxPassword.getEditText().getText().toString());
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("Host");
+        roles.add(("Guest"));
+        user.setRoles(roles);
         signupViewModel.signUp(user);
     }
 
-    private void goToSignUp() {
+    private void goToLogin() {
         getParentFragmentManager()
                 .beginTransaction()
                 .setReorderingAllowed(true)
@@ -196,7 +229,7 @@ public class SignupFragment extends Fragment {
 
         if (!matcher.matches()) {
             validPassword = false;
-            binding.txvPassword.setText("Minimo 8 caracteres, una letra minúscula, mayúscula y un número.");
+            binding.txvPassword.setText("Minimo 8 caracteres, una letra minúscula, mayúscula, un número y un caracter especial.");
             binding.txvPassword.setVisibility(View.VISIBLE);
         } else {
             binding.txvPassword.setVisibility(View.GONE);

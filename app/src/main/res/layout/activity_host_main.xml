@@ -24,17 +24,6 @@
             app:layout_constraintVertical_bias="0.0"
             android:background="@color/general_background"/>
 
-        <Button
-            style="@style/Widget.Material3.Button.TextButton"
-            android:id="@+id/change_to_guest_btn"
-            android:paddingEnd="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Modo huesped"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/black"/>
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="192dp"

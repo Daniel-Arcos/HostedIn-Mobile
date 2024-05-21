@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.sdi.hostedin.data.callbacks.AccommodationCallback;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
+import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.data.model.User;
@@ -124,7 +125,8 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         CreateAccommodationUseCase createAccommodationUseCase = new CreateAccommodationUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
 
-        createAccommodationUseCase.createAccommodation(accommodation, new AccommodationCallback() {
+        String token = DataStoreAccess.accessToken(getApplication());
+        createAccommodationUseCase.createAccommodation(accommodation, token, new AccommodationCallback() {
             @Override
             public void onSuccess(Accommodation accommodation, String token) {
                 accommodationMutableLiveData.setValue(accommodation);

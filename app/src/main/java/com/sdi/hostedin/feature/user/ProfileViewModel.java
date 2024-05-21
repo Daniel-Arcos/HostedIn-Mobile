@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.domain.EditProfileUseCase;
 import com.sdi.hostedin.domain.GetAccountUseCase;
@@ -38,8 +39,8 @@ public class ProfileViewModel extends AndroidViewModel {
 
         GetAccountUseCase getAccountUseCase = new GetAccountUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
-
-        getAccountUseCase.getUserById(userId, new GetAccountUseCase.GetAccountCallback() {
+        String token = DataStoreAccess.accessToken(getApplication());
+        getAccountUseCase.getUserById(userId, token, new GetAccountUseCase.GetAccountCallback() {
             @Override
             public void onSuccess(User user, String token) {
                 userMutableLiveData.setValue(user);
@@ -57,7 +58,8 @@ public class ProfileViewModel extends AndroidViewModel {
         EditProfileUseCase editProfileUseCase = new EditProfileUseCase();
         requestChangePasswordStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
 
-        editProfileUseCase.editProfile(user, new EditProfileUseCase.EditProfileCallback() {
+        String token = DataStoreAccess.accessToken(getApplication());
+        editProfileUseCase.editProfile(user, token, new EditProfileUseCase.EditProfileCallback() {
             @Override
             public void onSuccess(User user, String token) {
                 userMutableLiveData.setValue(user);

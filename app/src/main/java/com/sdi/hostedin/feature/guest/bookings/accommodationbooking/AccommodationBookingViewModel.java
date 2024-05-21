@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.data.callbacks.BookingCallback;
+import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.domain.CreateAccommodationUseCase;
 import com.sdi.hostedin.domain.CreateBookingUseCase;
@@ -105,8 +106,8 @@ public class AccommodationBookingViewModel extends AndroidViewModel {
     public void createBooking(Booking booking) {
         CreateBookingUseCase createBookingUseCase = new CreateBookingUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
-
-        createBookingUseCase.createBooking(booking, new BookingCallback() {
+        String token = DataStoreAccess.accessToken(getApplication());
+        createBookingUseCase.createBooking(booking, token, new BookingCallback() {
             @Override
             public void onSuccess(Booking booking, String token) {
                 bookingMutableLiveData.setValue(booking);
