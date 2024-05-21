@@ -14,13 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.BookedAccommodation;
-
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentHostBookedAccommodationsBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.host.bookings.list.HostAccommodationBookingsListFragment;
-
-import com.sdi.hostedin.feature.signup.SignupViewModel;
+import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
 
@@ -35,7 +33,6 @@ public class HostBookedAccommodationsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private HostBookedAccommodationsViewModel hostBookingsViewModel;
 
     private FragmentHostBookedAccommodationsBinding binding;
     private HostBookedAccommodationsAdapter hostBookedAccommodationsAdapter;
@@ -74,8 +71,8 @@ public class HostBookedAccommodationsFragment extends Fragment {
         binding.rcyvBookedPublications.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         User user = (User) getArguments().getParcelable(USER_KEY);
-        hostBookingsViewModel.setUserMutableLiveData(user);
-        if (!hostBookingsViewModel.getUserMutableLiveData().getValue().getRoles().contains("Guest")) {
+        hostBookedAccommodationsViewModel.setUserMutableLiveData(user);
+        if (!hostBookedAccommodationsViewModel.getUserMutableLiveData().getValue().getRoles().contains("Guest")) {
             binding.btnChangeToHost.setVisibility(View.GONE);
         }
         binding.btnChangeToHost.setOnClickListener(v -> {goToGuestActivity();});
@@ -102,10 +99,10 @@ public class HostBookedAccommodationsFragment extends Fragment {
         hostBookedAccommodationsViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), status -> {
             switch (status.getRequestStatus()) {
                 case LOADING:
-                    binding.rcyvBookedPublications.setVisibility(View.GONE);
                     binding.pgbLoadingWheel.setVisibility(View.VISIBLE);
                     break;
                 case DONE:
+                    binding.txvNoAccommodations.setVisibility(View.INVISIBLE);
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
                     break;
                 case ERROR:
@@ -117,8 +114,8 @@ public class HostBookedAccommodationsFragment extends Fragment {
 
     private void goToGuestActivity() {
         Intent intent = new Intent(this.getActivity(), GuestMainActivity.class);
-        if (hostBookingsViewModel.getUserMutableLiveData().getValue() != null) {
-            intent.putExtra(GuestMainActivity.USER_KEY, hostBookingsViewModel.getUserMutableLiveData().getValue());
+        if (hostBookedAccommodationsViewModel.getUserMutableLiveData().getValue() != null) {
+            intent.putExtra(GuestMainActivity.USER_KEY, hostBookedAccommodationsViewModel.getUserMutableLiveData().getValue());
             startActivity(intent);
             this.getActivity().finish();
         } else {

@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.sdi.hostedin.data.callbacks.BookedAccommodationsCallBack;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.BookedAccommodation;
+import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.domain.GetAccommodationsUseCase;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
@@ -19,7 +20,7 @@ public class HostBookedAccommodationsViewModel extends AndroidViewModel {
     private MutableLiveData<RequestStatus> requestStatusMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<List<BookedAccommodation>> accommodationsList = new MutableLiveData<>();
     private MutableLiveData<Boolean> isNew = new MutableLiveData<>();
-    private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();    
+    private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
 
     public HostBookedAccommodationsViewModel(@NonNull Application application) { super(application); this.isNew.setValue(true); }
 

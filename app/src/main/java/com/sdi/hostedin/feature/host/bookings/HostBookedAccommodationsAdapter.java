@@ -1,6 +1,7 @@
 package com.sdi.hostedin.feature.host.bookings;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -60,6 +61,7 @@ public class HostBookedAccommodationsAdapter extends ListAdapter<BookedAccommoda
         public void bindBookedAccommodation(BookedAccommodation accommodation){
             binding.txvAddress.setText(String.valueOf(accommodation.getTitle()));
             binding.txvPrice.setText("$ " + String.valueOf(accommodation.getNightPrice()));
+            binding.imvAccommodation.setBackgroundColor(Color.LTGRAY);
             binding.bttSeeBookingDetails.setOnClickListener(v->{
                 onItemClicListener.onItemClick(accommodation);
             });

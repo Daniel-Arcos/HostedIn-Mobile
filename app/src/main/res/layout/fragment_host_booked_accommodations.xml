@@ -14,15 +14,16 @@
         tools:context=".feature.host.bookings.HostBookedAccommodationsFragment">
 
         <Button
-            style="@style/Widget.Material3.Button.TextButton"
             android:id="@+id/btn_change_to_host"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Modo huesped"
-            android:layout_toStartOf="@id/profile_btn"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
-            android:textColor="@color/black"
-            android:layout_marginTop="5dp"/>
+            android:layout_toStartOf="@id/profile_btn"
+            android:text="Modo huesped"
+            android:textColor="@color/black" />
 
         <Button
             style="?attr/materialIconButtonFilledStyle"
@@ -54,10 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txv_fragment_header"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="8dp"/>
 
         <TextView
             android:id="@+id/txv_noAccommodations"

@@ -9,8 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imv_accommodation"
@@ -23,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Xalap -Veracruz"
-        android:layout_marginStart="8dp"
         android:layout_below="@id/imv_accommodation"
         android:textSize="20dp"
         android:layout_marginTop="10dp"
@@ -33,7 +31,6 @@
             android:id="@+id/txv_dates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_below="@id/txv_address"
             android:layout_alignParentStart="true"
             android:layout_marginEnd="5dp"
@@ -46,7 +43,6 @@
         android:id="@+id/txv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:textSize="20dp"
         tools:text="$5000 MXN "
         android:layout_below="@id/txv_dates"

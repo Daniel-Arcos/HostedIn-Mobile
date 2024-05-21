@@ -55,9 +55,8 @@
             android:layout_below="@id/lrlyButtons"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="10dp" />
 
         <TextView
             android:id="@+id/txv_noAccommodations"
