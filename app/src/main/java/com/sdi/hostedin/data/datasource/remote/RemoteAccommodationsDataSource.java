@@ -1,5 +1,7 @@
 package com.sdi.hostedin.data.datasource.remote;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -243,7 +245,6 @@ public class RemoteAccommodationsDataSource {
                             e.printStackTrace();
                         }
                     }
-
                     accommodationCallback.onError(message);
                 }
             }
