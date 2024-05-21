@@ -33,16 +33,17 @@ public class Booking implements Parcelable {
         this.hostUser = hostUser;
     }
 
+
     protected Booking(Parcel in) {
         _id = in.readString();
         accommodationId = in.readString();
         beginningDate = in.readString();
         endingDate = in.readString();
         numberOfGuests = in.readInt();
-        totalCost = in.readInt();
+        totalCost = in.readDouble();
         bookingStatus = in.readString();
-        guestUser = in.readParcelable(User.class.getClassLoader());
-        hostUser = in.readParcelable(User.class.getClassLoader());
+        //guestUser = (User)in.readParcelable(User.class.getClassLoader());
+        //hostUser = (User)in.readParcelable(User.class.getClassLoader());
     }
 
     public static final Creator<Booking> CREATOR = new Creator<Booking>() {
@@ -127,6 +128,7 @@ public class Booking implements Parcelable {
     public void setHostUser(User hostUser) {
         this.hostUser = hostUser;
     }
+
 
     @Override
     public int describeContents() {

@@ -1,13 +1,14 @@
 package com.sdi.hostedin.feature.guest;
 
+import android.os.Bundle;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
-
-import android.os.Bundle;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.search.SearchView;
 import com.sdi.hostedin.R;
@@ -17,7 +18,6 @@ import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityGuestMainActiviyBinding;
 import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.GuestBookingsFragment;
 import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreFragment;
-import com.sdi.hostedin.feature.host.bookings.HostBookedAccommodationsFragment;
 import com.sdi.hostedin.feature.statistics.StatisticsFragment;
 
 public class GuestMainActivity extends AppCompatActivity {
@@ -60,17 +60,23 @@ public class GuestMainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{
             int itemId = item.getItemId();
             if (itemId == R.id.explore) {
-                getSupportFragmentManager().beginTransaction()
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.popBackStack();
+                fragmentManager.beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(binding.fragmentContainer.getId(), ExploreFragment.class, bundleFragment)
                         .commit();
             } else if (itemId == R.id.bookings) {
-                getSupportFragmentManager().beginTransaction()
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.popBackStack();
+                fragmentManager.beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(binding.fragmentContainer.getId(), GuestBookingsFragment.class, null)
                         .commit();
             } else {
-                getSupportFragmentManager().beginTransaction()
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.popBackStack();
+                fragmentManager.beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(binding.fragmentContainer.getId(), StatisticsFragment.class, null)
                         .commit();

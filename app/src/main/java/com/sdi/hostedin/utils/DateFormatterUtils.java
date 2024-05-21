@@ -1,17 +1,18 @@
 package com.sdi.hostedin.utils;
 
-import static java.text.DateFormat.getDateInstance;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class DateFormatterUtils {
     private static final String NORMAL_DATE_PATTERN = "dd/MM/yyyy";
     private static final String MONGODB_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    private static final String NATURAL_DATE = "EEEE d 'de' MMMM 'del' yyyy";
     private static final String TIME_ZONE = "UTC";
+
 
 
     public static String parseDateForMongoDB(String dayFirst) {
@@ -37,6 +38,22 @@ public class DateFormatterUtils {
         }
 
         return parsedDate;
+    }
+
+    public static String parseMongoDateToNaturalDate(String dateString){
+        String formattedDate = "";
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat(MONGODB_DATE_PATTERN, Locale.getDefault());
+        Date dateFormatted = null;
+        try{
+            dateFormatted = inputDateFormat.parse(dateString);
+            if (dateFormatted != null){
+                SimpleDateFormat outPutFormat = new SimpleDateFormat(NATURAL_DATE, new Locale("es", "Es"));
+                formattedDate = outPutFormat.format(dateFormatted);
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return formattedDate;
     }
 
     private static String formatMongoDate(Date date) {

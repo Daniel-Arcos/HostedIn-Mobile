@@ -1,6 +1,7 @@
 package com.sdi.hostedin.feature.host.bookings.list;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -10,20 +11,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.sdi.hostedin.data.model.BookedAccommodation;
+import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.databinding.FragmentAccommodationBookingsListBinding;
-import com.sdi.hostedin.utils.ToastUtils;
+import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.details.BookingDetailsActivity;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HostAccommodationBookingsListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HostAccommodationBookingsListFragment extends DialogFragment {
 
     private BookedAccommodation accommodationBooked;
@@ -31,6 +27,10 @@ public class HostAccommodationBookingsListFragment extends DialogFragment {
     private HostAccBookingsListViewModel hostAccBookingsListViewModel;
 
     private HostBookingsListAdapter hostBookingsListAdapter;
+
+    public HostAccommodationBookingsListFragment(){
+
+    }
 
     public HostAccommodationBookingsListFragment(BookedAccommodation accommodationId) {
         this.accommodationBooked = accommodationId;
@@ -66,15 +66,20 @@ public class HostAccommodationBookingsListFragment extends DialogFragment {
                     Log.e("testTris", requestStatus.getMessage());
             }
         });
-        hostBookingsListAdapter.setOnItemClicListener(v->{
-            ToastUtils.showShortInformationMessage(getContext(), "Ver detalles");
-        });
+        hostBookingsListAdapter.setOnItemClicListener(this:: watchBookingDetails);
         hostAccBookingsListViewModel.getBookingList().observe(getViewLifecycleOwner(), bookings ->{
             hostBookingsListAdapter.submitList(bookings);
         });
         hostAccBookingsListViewModel.getBookingsOfAccommodation(accommodationBooked.get_id());
 
         return binding.getRoot();
+    }
+
+    private void watchBookingDetails(Booking booking) {
+        Intent intent = new Intent(getActivity(), BookingDetailsActivity.class);
+        intent.putExtra(BookingDetailsActivity.THIRD_USER_KEY, booking.getGuestUser());
+        intent.putExtra(BookingDetailsActivity.BOOKING_KEY, booking);
+        startActivity(intent);
     }
 
     @Override

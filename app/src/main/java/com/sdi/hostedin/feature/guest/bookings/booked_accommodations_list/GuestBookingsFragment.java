@@ -1,5 +1,6 @@
 package com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
@@ -8,13 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.GuestBooking;
 import com.sdi.hostedin.databinding.FragmentGuestBookingsBinding;
+import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.details.BookingDetailsActivity;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
 public class GuestBookingsFragment extends Fragment {
@@ -32,11 +36,7 @@ public class GuestBookingsFragment extends Fragment {
         TransitionInflater inflater = TransitionInflater.from(requireContext());
         setEnterTransition(inflater.inflateTransition(R.transition.fade));
         setExitTransition(inflater.inflateTransition(R.transition.fade));
-        guestBookingsViewModel = new ViewModelProvider(requireActivity(), new ViewModelFactory(getActivity().getApplication())).get(GuestBookingsViewModel.class);
-        if (Boolean.TRUE.equals(guestBookingsViewModel.getIsNew().getValue())){
-            guestBookingsViewModel.getCurrentBookedAccommodations();
-            guestBookingsViewModel.setIsNew(false);
-        }
+
     }
 
     @Override
@@ -45,19 +45,29 @@ public class GuestBookingsFragment extends Fragment {
         binding = FragmentGuestBookingsBinding.inflate(inflater, container, false);
         binding.bttOlds.setBackgroundColor(Color.LTGRAY);
 
+        guestBookingsViewModel = new ViewModelProvider(requireActivity(), new ViewModelFactory(getActivity().getApplication())).get(GuestBookingsViewModel.class);
+        if (Boolean.TRUE.equals(guestBookingsViewModel.getIsNew().getValue())){
+            guestBookingsViewModel.setIsNew(false);
+        }
+
         binding.recyclerPublicationView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         binding.bttOlds.setOnClickListener(v -> getOldBookingds());
         binding.bttCurrents.setOnClickListener(v -> getCurrentBookings());
 
         adapter = new GuestBookingsAdapter(this.getContext(), true);
-        adapter.setOnItemClickListener(this::wathcBookingDetails);
+        adapter.setOnItemClickListener(this::watchBookingDetails);
         adapter.setOnRateButtonClick(this::rateAccommodation);
         binding.recyclerPublicationView.setAdapter(adapter);
         guestBookingsViewModel.getBookedAccommodations().observe(getViewLifecycleOwner(), accommodations ->{
             adapter.submitList(accommodations);
             if(accommodations.size() > 0) binding.txvNoAccommodations.setVisibility(View.INVISIBLE);
         });
+
+
         manageLoading();
+
+        adapter.setShowButton(false);
+        guestBookingsViewModel.getCurrentBookedAccommodations();
         return binding.getRoot();
     }
 
@@ -79,8 +89,24 @@ public class GuestBookingsFragment extends Fragment {
 
     }
 
-    private void wathcBookingDetails(GuestBooking booking) {
+    private void watchBookingDetails(GuestBooking booking) {
+        Intent intent = new Intent(this.getActivity(), BookingDetailsActivity.class);
+        intent.putExtra(BookingDetailsActivity.THIRD_USER_KEY, booking.getAccommodation().getUser());
+        intent.putExtra(BookingDetailsActivity.BOOKING_KEY, convertToBooking(booking));
+        startActivity(intent);
+    }
 
+    @NonNull
+    private Booking convertToBooking(GuestBooking guestBooking){
+        Booking booking = new Booking();
+                booking.set_id(guestBooking.get_id());
+                booking.setAccommodationId(guestBooking.getAccommodation().getId());
+                booking.setBeginningDate(guestBooking.getBeginningDate());
+                booking.setEndingDate(guestBooking.getEndingDate());
+                booking.setNumberOfGuests(guestBooking.getNumberOfGuests());
+                booking.setTotalCost(guestBooking.getTotalCost());
+                booking.setBookingStatus(guestBooking.getBookingStatus());
+        return booking;
     }
 
     private void manageLoading() {

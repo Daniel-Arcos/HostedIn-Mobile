@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 
 import com.squareup.moshi.Json;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Parcelable {
