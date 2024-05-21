@@ -1,5 +1,6 @@
 package com.sdi.hostedin.data.model;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -22,6 +23,7 @@ public class Accommodation implements Parcelable {
     private String[] accommodationServices;
     private Location location;
     private User user;
+    private boolean isMultimediaSelected;
 
     public Accommodation() {
     }
@@ -40,6 +42,9 @@ public class Accommodation implements Parcelable {
         accommodationServices = in.createStringArray();
         location = in.readParcelable(Location.class.getClassLoader());
         user = in.readParcelable(User.class.getClassLoader());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            isMultimediaSelected = in.readBoolean();
+        }
     }
 
     public static final Creator<Accommodation> CREATOR = new Creator<Accommodation>() {
@@ -197,6 +202,9 @@ public class Accommodation implements Parcelable {
         dest.writeStringArray(accommodationServices);
         dest.writeParcelable(location, flags);
         dest.writeParcelable(user, flags);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            dest.writeBoolean(isMultimediaSelected);
+        }
     }
 
     @Override
@@ -212,5 +220,13 @@ public class Accommodation implements Parcelable {
         int result = Objects.hash(_id, title, description, rules, accommodationType, nightPrice, guestsNumber, roomsNumber, bedsNumber, bathroomsNumber, location, user);
         result = 31 * result + Arrays.hashCode(accommodationServices);
         return result;
+    }
+
+    public boolean isMultimediaSelected() {
+        return isMultimediaSelected;
+    }
+
+    public void setMultimediaSelected(boolean multimediaSelected) {
+        isMultimediaSelected = multimediaSelected;
     }
 }

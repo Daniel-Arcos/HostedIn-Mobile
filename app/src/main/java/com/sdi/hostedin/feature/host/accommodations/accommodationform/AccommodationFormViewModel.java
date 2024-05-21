@@ -25,6 +25,8 @@ public class AccommodationFormViewModel extends AndroidViewModel {
     private  MutableLiveData<Integer> fragmentNumberMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<RequestStatus> requestStatusMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Accommodation> accommodationMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<byte[][]> selectedPhotos = new MutableLiveData<>();
+    private MutableLiveData<byte[]> selectedVideo = new MutableLiveData<>();
     RxDataStore<Preferences> dataStoreRX;
 
     public AccommodationFormViewModel(@NonNull Application application) {
@@ -33,6 +35,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         Accommodation accommodation = new Accommodation();
         Location location = new Location();
         accommodation.setLocation(location);
+        accommodation.setMultimediaSelected(false);
 
         accommodationMutableLiveData.setValue(accommodation);
         fragmentNumberMutableLiveData.setValue(1);
@@ -64,6 +67,14 @@ public class AccommodationFormViewModel extends AndroidViewModel {
 
     public MutableLiveData<Integer> getFragmentNumberMutableLiveData() {
         return fragmentNumberMutableLiveData;
+    }
+
+    public MutableLiveData<byte[][]> getSelectedPhotos() {
+        return selectedPhotos;
+    }
+
+    public MutableLiveData<byte[]> getSelectedVideo() {
+        return selectedVideo;
     }
 
     public void nextFragment(int nextFragment) {
@@ -114,6 +125,15 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         accommodationMutableLiveData.postValue(accommodation);
     }
 
+    public void selectMultimedia(byte[][] selectedPhotos, byte[]selectedVideo) {
+        this.selectedPhotos.setValue(selectedPhotos);
+        this.selectedVideo.setValue(selectedVideo);
+
+        Accommodation accommodation = accommodationMutableLiveData.getValue();
+        accommodation.setMultimediaSelected(true);
+        accommodationMutableLiveData.postValue(accommodation);
+    }
+
     public void selectPhoto() {
         //TODO
         Accommodation accommodation = accommodationMutableLiveData.getValue();
@@ -130,6 +150,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(Accommodation accommodation, String token) {
                 accommodationMutableLiveData.setValue(accommodation);
+                uploadAccommodationMultimedia();
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation created"));
             }
 
@@ -140,4 +161,11 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         });
     }
 
+    private void uploadAccommodationMultimedia() {
+        String accommodationId = accommodationMutableLiveData.getValue().getId();
+        byte[][] selectedPhotos = this.selectedPhotos.getValue();
+        byte[] selectedVideo = this.selectedVideo.getValue();
+
+        //TODO: Upload gRPC
+    }
 }

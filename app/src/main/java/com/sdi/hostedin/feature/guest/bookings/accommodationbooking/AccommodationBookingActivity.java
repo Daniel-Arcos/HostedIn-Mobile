@@ -315,13 +315,20 @@ public class AccommodationBookingActivity extends AppCompatActivity {
 
     private boolean areDatesValid() {
         boolean areDatesValid = false;
-        Date beginningDate = DateFormatterUtils.parseStringToDate(accommodationBookingViewModel.getBeginningDate().getValue());
-        Date endingDate = DateFormatterUtils.parseStringToDate(accommodationBookingViewModel.getEndingDate().getValue());
+        String beginDate = accommodationBookingViewModel.getBeginningDate().getValue();
+        String endDate = accommodationBookingViewModel.getEndingDate().getValue();
 
-        if (endingDate.compareTo(beginningDate) >= 0) {
-            areDatesValid = true;
+        if (beginDate != null && endDate != null) {
+            Date beginningDate = DateFormatterUtils.parseStringToDate(beginDate);
+            Date endingDate = DateFormatterUtils.parseStringToDate(endDate);
+
+            if (endingDate.compareTo(beginningDate) >= 0) {
+                areDatesValid = true;
+            } else {
+                ToastUtils.showShortInformationMessage(this, "Fechas de reservación no válidas");
+            }
         } else {
-            ToastUtils.showShortInformationMessage(this, "Fechas de reservación no válidas");
+            ToastUtils.showShortInformationMessage(this, "Selecciona las fechas de reservación");
         }
 
         return areDatesValid;
