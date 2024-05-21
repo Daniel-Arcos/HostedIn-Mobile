@@ -12,14 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.FragmentAccommodationServicesBinding;
 import com.sdi.hostedin.enums.AccommodationServices;
-import com.sdi.hostedin.enums.AccommodationTypes;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,7 +106,7 @@ public class AccommodationServicesFragment extends Fragment {
 
         accommodationFormViewModel.getFragmentNumberMutableLiveData().observe(getViewLifecycleOwner(), fragmentNumber -> {
             if (fragmentNumber == LOCAL_FRAGMENT_NUMBER) {
-                ValidateAccommodationServicesSelected();
+                validateAccommodationServicesSelected();
             }
         });
     }
@@ -193,7 +190,7 @@ public class AccommodationServicesFragment extends Fragment {
         btnUnselected.setBackgroundTintList(ColorStateList.valueOf(color));
     }
 
-    private void ValidateAccommodationServicesSelected() {
+    private void validateAccommodationServicesSelected() {
         int numberOfServices = accommodationServices.size();
         if (numberOfServices > 0) {
 
