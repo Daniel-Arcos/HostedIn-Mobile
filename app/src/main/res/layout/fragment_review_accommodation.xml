@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.guest.bookings.ReviewAccommodationFragment">
+        tools:context=".feature.guest.bookings.review.ReviewAccommodationFragment">
 
         <!-- TODO: Update blank fragment layout -->
         <TextView
@@ -18,10 +18,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_margin="10dp"
-            android:text="Your Reviews help other users to choose the best accommodation, remeber, all Reviews are public."/>
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toStartOf="@id/imb_close_rate_view"
+            android:text="Your Reviews help other users to choose the best accommodation, remeber, all Reviews are public." />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
+            android:text="close"
+            style="@style/Widget.Material3.Button.TextButton"
             android:id="@+id/imb_close_rate_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,9 +36,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="#00FFFFFF"
-            tools:src="@android:drawable/ic_notification_clear_all" />
+            android:layout_marginBottom="5dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etx_guest_review"
@@ -64,6 +68,15 @@
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="15dp"
             android:text="Rate" />
+
+        <ProgressBar
+            android:id="@+id/pgb_loading_wheel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 </layout>

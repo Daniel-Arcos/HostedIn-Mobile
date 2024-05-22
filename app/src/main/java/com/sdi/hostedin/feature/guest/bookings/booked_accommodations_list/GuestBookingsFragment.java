@@ -15,10 +15,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.GuestBooking;
 import com.sdi.hostedin.databinding.FragmentGuestBookingsBinding;
 import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.details.BookingDetailsActivity;
+import com.sdi.hostedin.feature.guest.bookings.review.ReviewAccommodationFragment;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
 public class GuestBookingsFragment extends Fragment {
@@ -86,7 +88,9 @@ public class GuestBookingsFragment extends Fragment {
     }
 
     private void rateAccommodation(GuestBooking booking) {
-
+        String userId = DataStoreAccess.accessUserId(getActivity().getApplication());
+        ReviewAccommodationFragment reviewAccommodationFragment = ReviewAccommodationFragment.newInstance(booking.getAccommodation().getId(), userId, this);
+        reviewAccommodationFragment.show(getChildFragmentManager(),"ReviewAccommodation");
     }
 
     private void watchBookingDetails(GuestBooking booking) {
@@ -123,5 +127,9 @@ public class GuestBookingsFragment extends Fragment {
                     Toast.makeText(this.getContext(),status.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void ReloadAccommodations(){
+        getCurrentBookings();
     }
 }

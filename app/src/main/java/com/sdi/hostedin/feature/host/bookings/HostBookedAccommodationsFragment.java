@@ -82,7 +82,7 @@ public class HostBookedAccommodationsFragment extends Fragment {
         binding.rcyvBookedPublications.setAdapter(hostBookedAccommodationsAdapter);
         hostBookedAccommodationsViewModel.getAccommodations().observe(getViewLifecycleOwner(), accommodations -> {
             hostBookedAccommodationsAdapter.submitList(accommodations);
-            if(accommodations.size() > 0) binding.txvNoAccommodations.setVisibility(View.INVISIBLE);
+            if(accommodations.size() < 0) {binding.txvNoAccommodations.setVisibility(View.VISIBLE);}
         });
 
         manageLoading();
@@ -99,6 +99,7 @@ public class HostBookedAccommodationsFragment extends Fragment {
         hostBookedAccommodationsViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), status -> {
             switch (status.getRequestStatus()) {
                 case LOADING:
+                    binding.txvNoAccommodations.setVisibility(View.VISIBLE);
                     binding.pgbLoadingWheel.setVisibility(View.VISIBLE);
                     break;
                 case DONE:
@@ -106,6 +107,7 @@ public class HostBookedAccommodationsFragment extends Fragment {
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
                     break;
                 case ERROR:
+                    binding.txvNoAccommodations.setVisibility(View.VISIBLE);
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
                     Toast.makeText(this.getContext(),status.getMessage(), Toast.LENGTH_SHORT).show();
             }

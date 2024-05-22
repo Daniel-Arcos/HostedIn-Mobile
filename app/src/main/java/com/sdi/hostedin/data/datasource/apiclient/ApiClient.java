@@ -1,5 +1,6 @@
 package com.sdi.hostedin.data.datasource.apiclient;
 
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ReponseReviewObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookedAccommodation;
@@ -13,6 +14,7 @@ import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
+import com.sdi.hostedin.data.model.Review;
 import com.sdi.hostedin.data.model.User;
 
 import retrofit2.Call;
@@ -85,6 +87,9 @@ public class ApiClient {
         // Bookings
         @POST("bookings")
         Call<ResponseBookingObject> createBooking(@Body Booking booking, @Header("Authorization") String authToken);
+
+        @POST("reviews")
+        Call<ReponseReviewObject> createReview(@Header("Authorization") String authToken, @Body Review review);
 
 
 
