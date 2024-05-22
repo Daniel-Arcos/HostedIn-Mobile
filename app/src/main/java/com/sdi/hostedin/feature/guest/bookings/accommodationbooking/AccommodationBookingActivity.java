@@ -144,8 +144,8 @@ public class AccommodationBookingActivity extends AppCompatActivity {
     private void updateDate(Button btnDate, String date) {
         btnDate.setText(date);
 
-        if (date != null && accommodationBookingViewModel.getEndingDate().getValue() != null) {
-            Date lastDay = DateFormatterUtils.parseStringToDate(accommodationBookingViewModel.getEndingDate().getValue());
+        if (date != null && accommodationBookingViewModel.getBeginningDate().getValue() != null) {
+            Date lastDay = DateFormatterUtils.parseStringToDate(accommodationBookingViewModel.getBeginningDate().getValue());
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(lastDay);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
@@ -272,7 +272,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
 
     private void updateCost() {
         double subtotal = accommodationBookingViewModel.getTotalCost().getValue();
-        double ivaPercentage = .15;
+        double ivaPercentage = .16;
         double iva = subtotal * ivaPercentage;
         double total = subtotal + iva;
 

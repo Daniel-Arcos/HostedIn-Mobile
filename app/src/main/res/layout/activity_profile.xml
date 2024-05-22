@@ -66,7 +66,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="35dp"
             android:layout_marginEnd="10dp"
-            android:drawableEnd="@drawable/go_ahead_icon"
+            android:drawableEnd="@drawable/ic_go_ahead"
             android:drawableTint="@color/design_default_color_background"
             android:text="Mi Cuenta"
             android:textAlignment="textStart" />

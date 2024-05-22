@@ -74,4 +74,14 @@ public class ImageUtils {
 
         return imageData;
     }
+
+    public static void loadAccommodationImage(byte[] bytesImage, ImageView imvAccommodation) {
+        if (bytesImage != null) {
+            Bitmap bitmapImage = ImageUtils.bytesToBitmap(bytesImage);
+
+            if (bitmapImage != null) {
+                imvAccommodation.setImageBitmap(bitmapImage);
+            }
+        }
+    }
 }

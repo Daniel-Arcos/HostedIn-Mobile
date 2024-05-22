@@ -132,7 +132,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:src="@drawable/go_back_icon"
+            android:src="@drawable/ic_go_back"
             android:layout_alignTop="@id/btn_view_map"
             android:layout_alignBottom="@id/btn_view_map"
             android:layout_alignEnd="@id/btn_view_map"

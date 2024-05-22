@@ -13,17 +13,18 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 import io.grpc.examples.MultimediaServiceGrpc;
 import io.grpc.examples.UploadMultimediaResponse;
-import io.grpc.examples.UploadProfilePhotoRequest;
+import io.grpc.examples.UploadMultimediaRequest;
 import io.grpc.stub.StreamObserver;
 
-public class ProfilePhotoGrpc {
+public class GrpcProfilePhoto {
     private static final String TAG = "PRUEBA";
     private final ManagedChannel channel;
     private final MultimediaServiceGrpc.MultimediaServiceStub asyncStub;
     private final ExecutorService executorService;
 
-    public ProfilePhotoGrpc(String host, int port) {
-        channel = ManagedChannelBuilder.forAddress(host, port)
+    public GrpcProfilePhoto() {
+        channel = ManagedChannelBuilder
+                .forAddress(GrpcServerData.HOST, GrpcServerData.PORT)
                 .usePlaintext()
                 .build();
         asyncStub = MultimediaServiceGrpc.newStub(channel);
@@ -35,8 +36,14 @@ public class ProfilePhotoGrpc {
     }
 
     public void shutdown() throws InterruptedException {
-        channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
-        executorService.shutdown();
+        try {
+            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            Log.e(TAG, "Channel shutdown interrupted: " + e.getMessage());
+        } finally {
+            executorService.shutdown();
+        }
     }
 
     private static class UploadPhotoTask implements Runnable {
@@ -69,7 +76,7 @@ public class ProfilePhotoGrpc {
                 }
             };
 
-            StreamObserver<UploadProfilePhotoRequest> requestObserver = asyncStub.uploadPhotoProfile(responseObserver);
+            StreamObserver<UploadMultimediaRequest> requestObserver = asyncStub.uploadProfilePhoto(responseObserver);
             try {
                 int bufferSize = 1024;
                 byte[] buffer = new byte[bufferSize];
@@ -79,8 +86,8 @@ public class ProfilePhotoGrpc {
                     int length = Math.min(bufferSize, photoData.length - offset);
                     System.arraycopy(photoData, offset, buffer, 0, length);
 
-                    UploadProfilePhotoRequest request = UploadProfilePhotoRequest.newBuilder()
-                            .setUserId(userId)
+                    UploadMultimediaRequest request = UploadMultimediaRequest.newBuilder()
+                            .setModelId(userId)
                             .setData(ByteString.copyFrom(buffer, 0, length))
                             .build();
 

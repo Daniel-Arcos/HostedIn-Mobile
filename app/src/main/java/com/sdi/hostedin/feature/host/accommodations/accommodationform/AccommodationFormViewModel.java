@@ -17,6 +17,7 @@ import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.domain.CreateAccommodationUseCase;
+import com.sdi.hostedin.grpc.GrpcAccommodationMultimedia;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
 
@@ -150,7 +151,6 @@ public class AccommodationFormViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(Accommodation accommodation, String token) {
                 accommodationMutableLiveData.setValue(accommodation);
-                uploadAccommodationMultimedia();
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation created"));
             }
 
@@ -161,11 +161,17 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         });
     }
 
-    private void uploadAccommodationMultimedia() {
+    public void uploadAccommodationMultimedia() {
         String accommodationId = accommodationMutableLiveData.getValue().getId();
         byte[][] selectedPhotos = this.selectedPhotos.getValue();
         byte[] selectedVideo = this.selectedVideo.getValue();
 
-        //TODO: Upload gRPC
+        GrpcAccommodationMultimedia grpcClient = new GrpcAccommodationMultimedia();
+
+        for (byte[] photo : selectedPhotos) {
+            grpcClient.uploadAccommodationMultimedia(accommodationId, photo);
+        }
+
+        grpcClient.uploadAccommodationMultimedia(accommodationId, selectedVideo);
     }
 }

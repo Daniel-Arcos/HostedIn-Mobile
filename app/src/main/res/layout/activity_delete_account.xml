@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            app:icon="@drawable/go_back_icon" />
+            app:icon="@drawable/ic_go_back" />
 
         <TextView
             android:id="@+id/textView2"
