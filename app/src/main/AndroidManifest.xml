@@ -24,7 +24,7 @@
             android:name=".feature.host.accommodations.EditAccommodationActivity"
             android:exported="false" />
         <activity
-            android:name=".feature.guest.bookings.BookingDetailsActivity"
+            android:name=".feature.guest.bookings.booked_accommodations_list.details.BookingDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".feature.password.RecoverPasswordActivity"

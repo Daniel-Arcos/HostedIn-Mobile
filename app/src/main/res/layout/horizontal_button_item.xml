@@ -12,8 +12,7 @@
         android:id="@+id/imageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/rate_icon"/>
+        android:layout_marginStart="16dp"/>
 
     <TextView
         android:id="@+id/txv_generic_text"
