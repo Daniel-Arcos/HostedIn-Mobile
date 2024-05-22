@@ -221,7 +221,6 @@ public class ProfileActivity extends AppCompatActivity {
         dataStoreSingleton.setDataStore(dataStoreRX);
         DataStoreHelper dataStoreHelper = new DataStoreHelper(this, dataStoreRX);
         String userId = dataStoreHelper.getStringValue("USER_ID");
-
         profileViewModel.getUserById(userId);
         profileViewModel.getUserMutableLiveData().observe(this, user -> {
             if (user != null) {

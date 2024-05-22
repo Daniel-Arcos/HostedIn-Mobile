@@ -46,6 +46,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
                 case DONE:
                     binding.pgbCreateAccommodation.setVisibility(View.GONE);
                     ToastUtils.showShortInformationMessage(this, "Alojamiento creado con éxito");
+                    accommodationFormViewModel.uploadAccommodationMultimedia();
                     finish();
                     break;
                 case ERROR:
@@ -175,7 +176,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
     private void finishPublication() {
         Accommodation newAccommodation = accommodationFormViewModel.getAccommodationMutableLiveData().getValue();
 
-        if (newAccommodation.getTitle() != null && !newAccommodation.getTitle().isEmpty()) {
+        if (newAccommodation.getTitle() != null && !newAccommodation.getTitle().isEmpty() && (newAccommodation.getId() == null || newAccommodation.getId().isEmpty()) ) {
             accommodationFormViewModel.createAccommodation(newAccommodation);
         }
     }

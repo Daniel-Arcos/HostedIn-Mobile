@@ -35,7 +35,7 @@
         android:layout_alignBottom="@id/imageView"
         android:layout_alignParentEnd="true"
         android:backgroundTint="#00FFFFFF"
-        android:src="@drawable/go_ahead_icon" />
+        android:src="@drawable/ic_go_ahead" />
 
     <View
         android:id="@+id/vw_horizontal_generic_line"

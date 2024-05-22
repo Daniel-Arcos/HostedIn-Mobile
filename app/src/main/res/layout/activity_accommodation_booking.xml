@@ -12,22 +12,14 @@
         android:layout_height="match_parent"
         tools:context=".feature.guest.bookings.accommodationbooking.AccommodationBookingActivity">
 
-        <Button
-            android:id="@+id/go_back_btn"
-            style="?attr/materialIconButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            app:icon="@drawable/go_back_icon" />
-
         <TextView
             android:id="@+id/txv_accommodation_booking_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/go_back_btn"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
             android:text="¡Preparemos tu\nreservación!"
             android:layout_marginTop="5dp"
             android:textSize="25sp" />

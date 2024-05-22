@@ -6,16 +6,18 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.sdi.hostedin.data.model.ProfilePhoto;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityEditProfileBinding;
-import com.sdi.hostedin.grpc.ProfilePhotoGrpc;
+import com.sdi.hostedin.grpc.GrpcProfilePhoto;
 import com.sdi.hostedin.grpc.GrpcServerData;
 import com.sdi.hostedin.utils.DataValidator;
 import com.sdi.hostedin.utils.DateFormatterUtils;
@@ -32,12 +34,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public static final String USER_KEY = "user_key";
     private static final String DEFAULT_TYPE_PHOTO = "Buffer";
+    private static final int MAX_MB_SIZE_VIDEO = 1;
     private ActivityEditProfileBinding binding;
     private EditProfileViewModel editProfileViewModel;
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
     private Uri selectedImageUri;
     private byte[] profilePhotoLoaded;
-    private ProfilePhotoGrpc grpcClient;
+    private GrpcProfilePhoto grpcClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +162,7 @@ public class EditProfileActivity extends AppCompatActivity {
         if (selectedImageUri != null) {
             byte[] profilePhotoData = ImageUtils.uriToBytes(this, selectedImageUri);
             if (profilePhotoData != null) {
-                grpcClient = new ProfilePhotoGrpc(GrpcServerData.HOST, GrpcServerData.PORT);
+                grpcClient = new GrpcProfilePhoto();
                 grpcClient.uploadProfilePhoto(binding.getUserData().getId(), profilePhotoData);
             } else {
                 ToastUtils.showShortInformationMessage(this, "Error procesando la imagen");
@@ -178,7 +181,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (!isPhotoValid()) {
             isUserDataValid = false;
-            ToastUtils.showShortInformationMessage(this, "Foto no válida");
         } else if (!isFullNameValid()) {
             isUserDataValid = false;
         } else if (!isBirthdateValid()) {
@@ -196,8 +198,11 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private boolean isPhotoValid() {
-        // TODO
         boolean isValid = true;
+        if (!isPhotoSizeValid(selectedImageUri)) {
+            isValid = false;
+            ToastUtils.showShortInformationMessage(this, String.format("La imagen debe ser pesar menos o igual a %dMB", MAX_MB_SIZE_VIDEO));
+        }
 
         return isValid;
     }
@@ -278,5 +283,18 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         return isResidenceValid;
+    }
+
+    private boolean isPhotoSizeValid(Uri imageUri) {
+
+        Cursor cursor = this.getContentResolver().query(imageUri, null, null, null, null);
+        if (cursor != null) {
+            int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+            cursor.moveToFirst();
+            long size = cursor.getLong(sizeIndex);
+            cursor.close();
+            return size <= MAX_MB_SIZE_VIDEO * 1024 * 1024;
+        }
+        return false;
     }
 }

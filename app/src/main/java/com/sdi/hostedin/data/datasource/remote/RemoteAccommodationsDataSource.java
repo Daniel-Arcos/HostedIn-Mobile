@@ -225,6 +225,7 @@ public class RemoteAccommodationsDataSource {
                 if (response.isSuccessful()) {
                     ResponseAccommodationObject responseAccommodationObject = response.body();
                     Accommodation accommodationSaved = new Accommodation();
+                    accommodationSaved = responseAccommodationObject.getAccommodation();
                     String token = response.headers().get("Authorization");
                     if (token != null && token.startsWith("Bearer ")) {
                         token = token.substring(7);

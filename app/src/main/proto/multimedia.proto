@@ -4,25 +4,28 @@ option java_multiple_files = true;
 option java_package = "io.grpc.examples";
 option java_outer_classname = "MultimediaProto";
 
-
-message UploadProfilePhotoRequest {
-  string userId = 1;
-  bytes data = 2;
+message UploadMultimediaRequest {
+    string modelId = 1;
+    bytes data = 2;
 }
 
 message UploadMultimediaResponse {
-  string description = 1;
+    string description = 1;
 }
 
-message DownloadProfilePhotoRequest {
-  string userId = 1;
+message DownloadMultimediaRequest {
+    string modelId = 1;
+    int32 multimediaIndex = 2;
 }
 
 message DownloadMultimediaResponse {
-  bytes data = 1;
+    bytes data = 1;
 }
 
 service MultimediaService {
-  rpc uploadPhotoProfile (stream UploadProfilePhotoRequest) returns (UploadMultimediaResponse);
-  rpc downloadProfilePhoto (DownloadProfilePhotoRequest) returns (stream DownloadMultimediaResponse);
+    rpc uploadProfilePhoto (stream UploadMultimediaRequest) returns (UploadMultimediaResponse);
+    rpc downloadProfilePhoto (DownloadMultimediaRequest) returns (stream DownloadMultimediaResponse);
+
+    rpc uploadAccommodationMultimedia (stream UploadMultimediaRequest) returns (UploadMultimediaResponse);
+    rpc downloadAccommodationMultimedia (DownloadMultimediaRequest) returns (stream DownloadMultimediaResponse);
 }

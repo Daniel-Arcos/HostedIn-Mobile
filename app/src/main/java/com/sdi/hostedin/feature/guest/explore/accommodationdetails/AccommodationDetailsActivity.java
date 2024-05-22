@@ -1,14 +1,19 @@
 package com.sdi.hostedin.feature.guest.explore.accommodationdetails;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,9 +26,16 @@ import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.databinding.ActivityAccommodationDetailsBinding;
 import com.sdi.hostedin.databinding.ItemHostDetailsBinding;
 import com.sdi.hostedin.feature.guest.bookings.accommodationbooking.AccommodationBookingActivity;
+import com.sdi.hostedin.grpc.GrpcAccommodationMultimedia;
+import com.sdi.hostedin.grpc.GrpcServerData;
+import com.sdi.hostedin.utils.ImageUtils;
 
-import java.util.Calendar;
-import java.util.TimeZone;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 
 public class AccommodationDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -33,6 +45,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     private GoogleMap gMap;
     private BottomSheetBehavior<RelativeLayout> bottomSheetBehavior;
     private ItemHostDetailsBinding inclHostData;
+    private GrpcAccommodationMultimedia grpcClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +69,18 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         configureBottomSheet();
         configureButtons();
         manageProgressBarCircle();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            if (grpcClient != null) {
+                grpcClient.shutdown();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void configureBottomSheet() {
@@ -91,6 +116,8 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
             binding.txvMoreDetailsDescription.setText("");
         });
 
+        binding.btnGoAhead.setOnClickListener( v -> binding.vflpAccommodationMultimedia.showNext() );
+        binding.btnGoBack.setOnClickListener( v -> binding.vflpAccommodationMultimedia.showPrevious() );
     }
 
     private void showAccommodationBooking() {
@@ -110,6 +137,10 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     }
 
     private void loadAccommodationData() {
+        loadMultimedia();
+        binding.vflpAccommodationMultimedia.setFlipInterval(60000);
+        binding.vflpAccommodationMultimedia.setAutoStart(true);
+
         loadNightPrice();
 
         loadAccommodationBasics();
@@ -123,6 +154,91 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         // TODO: Load accommodation types (map with type)
 
         loadHostData();
+    }
+
+    private void loadMultimedia() {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(GrpcServerData.HOST, GrpcServerData.PORT)
+                .usePlaintext()
+                .build();
+
+        for (int i = 0 ; i < 4 ; i ++) {
+            byte[] bytes = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, binding.getAccommodationData().getId(),i );
+            //ImageView imageView1 = binding.imvFirstImage;
+            //ImageUtils.loadAccommodationImage(bytes, imageView1);
+            //binding.vflpAccommodationMultimedia.setDisplayedChild(0);
+            insertMultimediaIntoViewFlipper(i, bytes);
+        }
+
+        channel.shutdown();
+
+//        byte[] bytes = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, binding.getAccommodationData().getId(),0 );
+//        ImageView imageView1 = binding.imvFirstImage;
+//                ImageUtils.loadAccommodationImage(bytes, imageView1);
+//                binding.vswchAccommodationMultimedia.setDisplayedChild(0);
+//
+//        byte[] bytes2 = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, binding.getAccommodationData().getId(),1 );
+//        ImageView imageView2 = binding.imvFirstImage;
+//        ImageUtils.loadAccommodationImage(bytes2, imageView2);
+//        binding.vswchAccommodationMultimedia.setDisplayedChild(1);
+//
+//
+//        binding.vswchAccommodationMultimedia.setDisplayedChild(0);
+    }
+
+    private void insertMultimediaIntoViewFlipper(int index, byte[] multimediaBytes) {
+        switch (index) {
+            case 0:
+                ImageView imageView1 = binding.imvFirstImage;
+                ImageUtils.loadAccommodationImage(multimediaBytes, imageView1);
+                binding.vflpAccommodationMultimedia.setDisplayedChild(0);
+                break;
+            case 1:
+                ImageView imageView2 = binding.imvSecondImage;
+                ImageUtils.loadAccommodationImage(multimediaBytes, imageView2);
+                break;
+            case 2:
+                ImageView imageView3 = binding.imvThirdImage;
+                ImageUtils.loadAccommodationImage(multimediaBytes, imageView3);
+                break;
+            case 3:
+                loadVideo(multimediaBytes);
+                break;
+        }
+    }
+
+    private void showFirstImage() {
+        binding.vflpAccommodationMultimedia.setDisplayedChild(0);
+        // Aquí puedes cargar la imagen en el primer ImageView si es necesario
+    }
+
+    private void showSecondImage() {
+        binding.vflpAccommodationMultimedia.setDisplayedChild(1);
+        // Aquí puedes cargar la imagen en el segundo ImageView si es necesario
+    }
+
+    private void showThirdImage() {
+        binding.vflpAccommodationMultimedia.setDisplayedChild(2);
+        // Aquí puedes cargar la imagen en el tercer ImageView si es necesario
+    }
+
+    private void showVideo() {
+        binding.vflpAccommodationMultimedia.setDisplayedChild(3);
+        // Aquí puedes cargar el video en el VideoView si es necesario
+    }
+
+    private void loadVideo(byte[] videoBytes) {
+        try {
+            File tempFile = File.createTempFile("video", ".mp4", getCacheDir());
+            FileOutputStream fos = new FileOutputStream(tempFile);
+            fos.write(videoBytes);
+            fos.close();
+
+            VideoView videoView = binding.vdvFourthVideo;
+            videoView.setVideoURI(Uri.parse(tempFile.getAbsolutePath()));
+            videoView.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadNightPrice() {
