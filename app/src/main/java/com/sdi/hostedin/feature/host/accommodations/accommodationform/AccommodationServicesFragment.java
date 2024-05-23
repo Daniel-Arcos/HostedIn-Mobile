@@ -109,6 +109,14 @@ public class AccommodationServicesFragment extends Fragment {
                 validateAccommodationServicesSelected();
             }
         });
+
+        List<Integer> selectedServices = accommodationFormViewModel.getServicesNumber().getValue();
+        if (selectedServices != null && selectedServices.size() > 0) {
+            int numberOfServices = selectedServices.size();
+            for (int i = 0 ; i < numberOfServices ; i ++) {
+                selectService(selectedServices.get(i), servicesButtons[selectedServices.get(i)]);
+            }
+        }
     }
 
     private void configureServiceButtons() {
@@ -160,6 +168,8 @@ public class AccommodationServicesFragment extends Fragment {
             default:
                 break;
         }
+
+        accommodationFormViewModel.addServicerNumber(serviceNumber);
     }
 
     private void manageSelectionService(AccommodationServices accommodationService, Button btnServiceSelected) {

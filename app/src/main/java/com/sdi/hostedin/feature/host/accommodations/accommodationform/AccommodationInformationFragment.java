@@ -104,6 +104,30 @@ public class AccommodationInformationFragment extends Fragment {
                 }
             }
         });
+
+        accommodationFormViewModel.getTitle().observe(getViewLifecycleOwner(), title -> {
+            if (title != null) {
+                binding.etxTitle.setText(title);
+            }
+        });
+
+        accommodationFormViewModel.getDescription().observe(getViewLifecycleOwner(), description -> {
+            if (description != null) {
+                binding.etxDescription.setText(description);
+            }
+        });
+
+        accommodationFormViewModel.getRules().observe(getViewLifecycleOwner(), rules -> {
+            if (rules != null) {
+                binding.etxTitle.setText(rules);
+            }
+        });
+
+        accommodationFormViewModel.getPrice().observe(getViewLifecycleOwner(), price -> {
+            if (price != null) {
+                binding.etxDescription.setText(String.valueOf(price));
+            }
+        });
     }
 
     public void customActivityParent() {
@@ -125,7 +149,14 @@ public class AccommodationInformationFragment extends Fragment {
         this.description = String.valueOf(binding.etxDescription.getText());
         this.rules = String.valueOf(binding.etxRules.getText());
         String price = String.valueOf(binding.etxNightPrice.getText());
-        this.nightPrice = Double.parseDouble(price);
+        if (!price.isEmpty()) {
+            this.nightPrice = Double.parseDouble(price);
+            accommodationFormViewModel.getPrice().setValue(nightPrice);
+        }
+
+        accommodationFormViewModel.getTitle().setValue(title);
+        accommodationFormViewModel.getDescription().setValue(description);
+        accommodationFormViewModel.getRules().setValue(rules);
     }
 
     private boolean isAccommodationInformationValid() {
@@ -191,22 +222,24 @@ public class AccommodationInformationFragment extends Fragment {
 
     private boolean isPriceValid() {
         //TODO:
-
         boolean isPriceValid = true;
         String price = String.valueOf(binding.etxNightPrice.getText());
         double priceNight = -1;
 
-        if (price != null || !price.isEmpty()) {
-            priceNight = Double.parseDouble(price);
-            if (priceNight < 0) {
-                ToastUtils.showShortInformationMessage(this.getContext(), "Ingresa el precio por noche");
+        if (!price.isEmpty()) {
+            try {
+                priceNight = Double.parseDouble(price);
+                if (priceNight <= 0) {
+                    ToastUtils.showShortInformationMessage(this.getContext(), "Ingresa el precio por noche");
+                    isPriceValid = false;
+                }
+            } catch (NumberFormatException e) {
+                ToastUtils.showShortInformationMessage(this.getContext(), "Ingresa un precio válido");
                 isPriceValid = false;
-            } else {
-                //TODO:
             }
         } else {
+            ToastUtils.showShortInformationMessage(this.getContext(), "Ingresa el precio por noche");
             isPriceValid = false;
-
         }
 
         return isPriceValid;

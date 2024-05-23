@@ -96,6 +96,7 @@ public class AccommodationTypeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         selectedAccommodationType = null;
 
         accommodationFormViewModel.getFragmentNumberMutableLiveData().observe(getViewLifecycleOwner(), fragmentNumber -> {
@@ -103,6 +104,11 @@ public class AccommodationTypeFragment extends Fragment {
                 ValidateAccommodationTypeSelected();
             }
         });
+
+        if (accommodationFormViewModel.getSelectedAccommodationType().getValue() != null) {
+            int selectedType = accommodationFormViewModel.getSelectedAccommodationType().getValue();
+            selectType(selectedType, typesButtons[selectedType]);
+        }
     }
 
     private void configureTypesButtons() {
@@ -139,7 +145,7 @@ public class AccommodationTypeFragment extends Fragment {
                 selectedAccommodationType = AccommodationTypes.SHIP;
                 break;
         }
-
+        accommodationFormViewModel.getSelectedAccommodationType().setValue(type);
         unselectTypes();
         showSelectedType(btnSelected);
     }
