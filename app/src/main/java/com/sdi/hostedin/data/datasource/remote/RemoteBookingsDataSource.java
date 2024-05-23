@@ -60,6 +60,8 @@ public class RemoteBookingsDataSource {
                 if (response.isSuccessful()) {
                     ResponseBookingObject responseBookingObject = response.body();
                     Booking bookingSaved = new Booking();
+                    bookingSaved = responseBookingObject.getBooking();
+
                     String token = response.headers().get("Authorization");
                     if (token != null && token.startsWith("Bearer ")) {
                         token = token.substring(7);

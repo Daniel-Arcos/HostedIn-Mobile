@@ -199,7 +199,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private boolean isPhotoValid() {
         boolean isValid = true;
-        if (!isPhotoSizeValid(selectedImageUri)) {
+        if (selectedImageUri != null && !isPhotoSizeValid(selectedImageUri)) {
             isValid = false;
             ToastUtils.showShortInformationMessage(this, String.format("La imagen debe ser pesar menos o igual a %dMB", MAX_MB_SIZE_VIDEO));
         }
