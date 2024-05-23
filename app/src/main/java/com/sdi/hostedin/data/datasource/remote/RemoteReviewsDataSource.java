@@ -31,7 +31,7 @@ public class RemoteReviewsDataSource {
             public void onResponse(Call<ResponseReviewObject> call, Response<ResponseReviewObject> response) {
                 if (response.isSuccessful()){
                     reviewCallback.onSuccess(response.body().getReview(), response.body().getMessage());
-                }else{
+                } else {
                     String message = "Ocurrio un error al guardar la review";
                     if (response.errorBody() != null) {
                         try {
@@ -64,7 +64,6 @@ public class RemoteReviewsDataSource {
             public void onResponse(Call<ResponseGetReviewsObject> call, Response<ResponseGetReviewsObject> response) {
                 if (response.isSuccessful()) {
                     ResponseGetReviewsObject responseGetReviewsObject = response.body();
-                    reviewsCallback.onSuccess(responseGetReviewsObject.getReviews(), response.message());
 
                     String token = response.headers().get("Authorization");
                     if (token != null && token.startsWith("Bearer ")) {
