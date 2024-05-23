@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,47 +12,85 @@
         android:layout_height="match_parent"
         tools:context=".feature.host.accommodations.accommodationform.AccommodationLocationFragment">
 
-        <TextView
-            android:id="@+id/txv_location_instruction"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
-            android:text="¿Dónde se encuentra tu\nalojamiento?"
-            android:textColor="#5280DB"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            >
+            <TextView
+                android:id="@+id/txv_location_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="¿Dónde se encuentra tu\nalojamiento?"
+                android:textColor="#5280DB"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Busca lugar"
-            android:layout_below="@id/txv_location_instruction"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Detalla la dirección de tu alojamiento"
+                />
 
-        <EditText
-            android:id="@+id/temp_search"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/search_bar"
-            />
+            <LinearLayout
+                android:id="@+id/lnly_search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txv_location_instruction"
+                android:layout_marginBottom="15dp">
 
-        <Button
-            android:id="@+id/btn_searchh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/mpv_accommodation_location"
-            android:layout_below="@+id/search_bar"
-            android:layout_toEndOf="@id/temp_search"
-            android:text="SSQ" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etx_search_bar"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopStart="20dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etx_location_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ubicación"
+                        android:inputType="textAutoComplete"
+                        android:contentDescription="Dirección de tu alojamiento"
+                        android:text="" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/mpv_accommodation_location"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_below="@+id/temp_search"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"/>
+                <Button
+                    style="?attr/materialIconButtonFilledStyle"
+                    android:id="@+id/btn_search_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/search_icon"
+                    app:iconSize="35dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="#5280DB"
+                android:textSize="13sp"
+                android:text="Puedes ajustar tu ubicación manteniendo el marcador rojo y  arrastrarlo a el lugar en dónde se encuentra tu alojamiento"
+                />
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mpv_accommodation_location"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="10dp"/>
+
+
+        </LinearLayout>
+
+
 
 
     </RelativeLayout>

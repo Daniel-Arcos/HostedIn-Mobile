@@ -3,18 +3,12 @@ package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
-import androidx.datastore.preferences.core.Preferences;
-import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
-import androidx.datastore.rxjava2.RxDataStore;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.sdi.hostedin.R;
-import com.sdi.hostedin.data.datasource.DataStoreHelper;
-import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.ActivityAccommodationFormBinding;
 import com.sdi.hostedin.utils.ToastUtils;
@@ -35,7 +29,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
         accommodationFormViewModel = new ViewModelProvider(this, new ViewModelFactory(getApplication())).get(AccommodationFormViewModel.class);
 
         accommodationFormViewModel.getAccommodationMutableLiveData().observe(this, accommodation -> {
-            controlClickNext(accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue());
+            controlNextFragment(accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue());
         });
 
         accommodationFormViewModel.getRequestStatusMutableLiveData().observe(this, status -> {
@@ -55,7 +49,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
             }
         });
 
-        fragmentNumber = 1;
+        fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();
         getSupportFragmentManager().popBackStack();
 
         showAccommodationPublishingMessage();
@@ -67,7 +61,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
                 if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
                     getSupportFragmentManager().popBackStack();
 
-                    accommodationFormViewModel.backFragment(fragmentNumber - 1);
+                    accommodationFormViewModel.backFragment(fragmentNumber);
                     fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();
                 } else {
                     finish();
@@ -89,7 +83,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
         accommodationFormViewModel.nextFragment(fragmentNumber);
     }
 
-    private void controlClickNext(int fragmentNumber) {
+    private void controlNextFragment(int fragmentNumber) {
         switch (fragmentNumber) {
             case 1:
                 showAccommodationTypeFragment();

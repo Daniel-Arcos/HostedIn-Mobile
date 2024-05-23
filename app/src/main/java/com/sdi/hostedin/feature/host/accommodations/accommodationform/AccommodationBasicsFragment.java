@@ -95,10 +95,7 @@ public class AccommodationBasicsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        guestsNumber = 0;
-        roomsNumber = 0;
-        bedsNumber = 0;
-        bathroomsNumber = 0;
+        resetValues();
 
         accommodationFormViewModel.getFragmentNumberMutableLiveData().observe(getViewLifecycleOwner(), fragmentNumber ->{
             if (fragmentNumber == LOCAL_FRAGMENT_NUMBER) {
@@ -108,6 +105,34 @@ public class AccommodationBasicsFragment extends Fragment {
                 }
             }
         });
+
+        loadQuantitiesFromViewModel();
+    }
+
+    private void resetValues() {
+        guestsNumber = 0;
+        roomsNumber = 0;
+        bedsNumber = 0;
+        bathroomsNumber = 0;
+
+        binding.inclGuests.etxQuantity.setText(String.valueOf(guestsNumber));
+        binding.inclRooms.etxQuantity.setText(String.valueOf(roomsNumber));
+        binding.inclBeds.etxQuantity.setText(String.valueOf(bedsNumber));
+        binding.inclBathrooms.etxQuantity.setText(String.valueOf(bathroomsNumber));
+    }
+
+    private void loadQuantitiesFromViewModel() {
+        int guestsSelected = accommodationFormViewModel.getAccommodationMutableLiveData().getValue().getGuestsNumber();
+        int roomsSelected = accommodationFormViewModel.getAccommodationMutableLiveData().getValue().getRoomsNumber();
+        int bedsSelected = accommodationFormViewModel.getAccommodationMutableLiveData().getValue().getBedsNumber();
+        int bathroomsSelected = accommodationFormViewModel.getAccommodationMutableLiveData().getValue().getBathroomsNumber();
+
+        if (guestsSelected > 0 && roomsSelected > 0 && bedsSelected >= 0 && bathroomsSelected >= 0) {
+            binding.inclGuests.etxQuantity.setText(String.valueOf(guestsSelected));
+            binding.inclRooms.etxQuantity.setText(String.valueOf(roomsSelected));
+            binding.inclBeds.etxQuantity.setText(String.valueOf(bedsSelected));
+            binding.inclBathrooms.etxQuantity.setText(String.valueOf(bathroomsSelected));
+        }
     }
 
     private void configureBasics() {

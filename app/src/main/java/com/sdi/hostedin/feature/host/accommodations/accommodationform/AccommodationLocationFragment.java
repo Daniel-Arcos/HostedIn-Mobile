@@ -12,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -116,8 +114,8 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
         Places.initialize(this.getContext(), getString(R.string.google_maps_key));
         placesClient = Places.createClient(this.getContext());
 
-        binding.btnSearchh.setOnClickListener( v -> {
-            String query = binding.tempSearch.getText().toString();
+        binding.btnSearchLocation.setOnClickListener( v -> {
+            String query = binding.etxLocationSearch.getText().toString();
             searchPlace(query);
         });
 
@@ -134,10 +132,16 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
             MarkerOptions mko = new MarkerOptions()
                     .position(loc)
                     .draggable(true)
-                    .title("FEI");
+                    .title("Hosted In");
 
             currentMarker = gMap.addMarker(mko);
             gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 14));
+
+            location = accommodationFormViewModel.getAccommodationMutableLiveData().getValue().getLocation();
+
+            if (currentMarker != null && location != null && location.getLatitude() != 0 && location.getLongitude() != 0) {
+                moveMarkerToSavedLocation(location);
+            }
         }
     }
 
@@ -153,6 +157,18 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
                 ValidateAccommodationLocationSelected();
             }
         });
+    }
+
+    private void moveMarkerToSavedLocation(Location savedLocation) {
+        LatLng latLng = new LatLng(savedLocation.getLatitude(), savedLocation.getLongitude());
+        if (currentMarker != null) {
+            currentMarker.setPosition(latLng);
+            currentMarker.setTitle(savedLocation.getAddress());
+        } else {
+            MarkerOptions mko = new MarkerOptions().position(latLng).draggable(true).title(savedLocation.getAddress());
+            currentMarker = gMap.addMarker(mko);
+        }
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
     }
 
     private void searchPlace(String query) {
@@ -210,12 +226,12 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
 
     private void ValidateAccommodationLocationSelected() {
         if (location != null) {
-            updateLatLng();
-            if (location.getLatitude() >= MIN_LATITUDE_VALUE_ALLOWED && location.getLongitude() >= MIN_LONGITUDE_VALUE_ALLOWED ) {
+            if (location.getLatitude() >= MIN_LATITUDE_VALUE_ALLOWED && location.getLongitude() >= MIN_LONGITUDE_VALUE_ALLOWED) {
+                updateLatLng();
                 accommodationFormViewModel.selectAccommodationLocation(location);
                 accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
             } else {
-                ToastUtils.showShortInformationMessage(this.getContext(), "Selecciona la ubicación de tu alojamiento" );
+                ToastUtils.showShortInformationMessage(this.getContext(), "Selecciona la ubicación de tu alojamiento");
             }
         }
     }

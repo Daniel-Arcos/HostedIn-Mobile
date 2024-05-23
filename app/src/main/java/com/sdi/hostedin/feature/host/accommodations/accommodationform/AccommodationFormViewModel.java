@@ -1,6 +1,7 @@
 package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 
 import android.app.Application;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.datastore.preferences.core.Preferences;
@@ -17,9 +18,14 @@ import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.domain.CreateAccommodationUseCase;
+import com.sdi.hostedin.enums.AccommodationServices;
+import com.sdi.hostedin.enums.AccommodationTypes;
 import com.sdi.hostedin.grpc.GrpcAccommodationMultimedia;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccommodationFormViewModel extends AndroidViewModel {
 
@@ -28,6 +34,14 @@ public class AccommodationFormViewModel extends AndroidViewModel {
     private MutableLiveData<Accommodation> accommodationMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<byte[][]> selectedPhotos = new MutableLiveData<>();
     private MutableLiveData<byte[]> selectedVideo = new MutableLiveData<>();
+    private MutableLiveData<Integer> selectedAccommodationType = new MutableLiveData<>();
+    private MutableLiveData<List<Integer>> servicesNumber = new MutableLiveData<>();
+    private MutableLiveData<List<Uri>> imagesUri = new MutableLiveData<>();
+    private MutableLiveData<Uri> videoUri = new MutableLiveData<>();
+    private MutableLiveData<String> title = new MutableLiveData<>();
+    private MutableLiveData<String> description = new MutableLiveData<>();
+    private MutableLiveData<String> rules = new MutableLiveData<>();
+    private MutableLiveData<Double> price = new MutableLiveData<>();
     RxDataStore<Preferences> dataStoreRX;
 
     public AccommodationFormViewModel(@NonNull Application application) {
@@ -41,6 +55,8 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         accommodationMutableLiveData.setValue(accommodation);
         fragmentNumberMutableLiveData.setValue(1);
         assignUserId();
+        servicesNumber.setValue(new ArrayList<>());
+        imagesUri.setValue(new ArrayList<>());
     }
 
     private void assignUserId() {
@@ -68,6 +84,44 @@ public class AccommodationFormViewModel extends AndroidViewModel {
 
     public MutableLiveData<Integer> getFragmentNumberMutableLiveData() {
         return fragmentNumberMutableLiveData;
+    }
+
+    public MutableLiveData<Integer> getSelectedAccommodationType() {
+        return selectedAccommodationType;
+    }
+
+    public MutableLiveData<List<Integer>> getServicesNumber() {
+        return servicesNumber;
+    }
+
+    public MutableLiveData<List<Uri>> getImagesUri() {
+        return imagesUri;
+    }
+
+    public MutableLiveData<Uri> getVideoUri() {
+        return videoUri;
+    }
+
+    public void addServicerNumber(int num) {
+        if (!servicesNumber.getValue().contains(num)){
+            servicesNumber.getValue().add(num);
+        }
+    }
+
+    public MutableLiveData<String> getTitle() {
+        return title;
+    }
+
+    public MutableLiveData<String> getDescription() {
+        return description;
+    }
+
+    public MutableLiveData<String> getRules() {
+        return rules;
+    }
+
+    public MutableLiveData<Double> getPrice() {
+        return price;
     }
 
     public MutableLiveData<byte[][]> getSelectedPhotos() {

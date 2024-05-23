@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
@@ -12,12 +11,9 @@ import android.widget.ImageView;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.User;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class ImageUtils {
     public static byte[] uriToBytes(Context context, Uri uri)  {
