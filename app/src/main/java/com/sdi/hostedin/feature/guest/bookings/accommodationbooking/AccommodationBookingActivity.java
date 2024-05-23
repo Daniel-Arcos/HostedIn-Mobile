@@ -340,7 +340,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
         String beginningDateMongo = DateFormatterUtils.parseDateForMongoDB(String.valueOf(binding.btnBeginningDate.getText()).trim());
         String endingDateMongo = DateFormatterUtils.parseDateForMongoDB(String.valueOf(binding.btnEndingDate.getText()).trim());
 
-        newBooking.setAccommodationId(binding.getAccommodationData().getId());
+        newBooking.setAccommodation(binding.getAccommodationData());
         if (beginningDateMongo != null) {
             newBooking.setBeginningDate(beginningDateMongo);
         }

@@ -110,11 +110,13 @@ public class BookingDetailsFragment extends Fragment {
     }
 
     private void goToCancellFragment(View view) {
-        CancelationReasonSelectionFragment cancelationReasonSelectionFragment = new CancelationReasonSelectionFragment();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fgcv_book_details_fragment_container, cancelationReasonSelectionFragment).addToBackStack(null)
-                .commit();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(CancelationReasonSelectionFragment.BOOKING, bookingInfo);
+        getParentFragmentManager()
+            .beginTransaction()
+            .setReorderingAllowed(false)
+            .replace(R.id.fgcv_book_details_fragment_container, CancelationReasonSelectionFragment.class, bundle)
+            .commit();
     }
 
     private void openRateAccommodationWindow(View view) {

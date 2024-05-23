@@ -104,7 +104,7 @@ public class GuestBookingsFragment extends Fragment {
     private Booking convertToBooking(GuestBooking guestBooking){
         Booking booking = new Booking();
                 booking.set_id(guestBooking.get_id());
-                booking.setAccommodationId(guestBooking.getAccommodation().getId());
+                booking.setAccommodation(guestBooking.getAccommodation());
                 booking.setBeginningDate(guestBooking.getBeginningDate());
                 booking.setEndingDate(guestBooking.getEndingDate());
                 booking.setNumberOfGuests(guestBooking.getNumberOfGuests());

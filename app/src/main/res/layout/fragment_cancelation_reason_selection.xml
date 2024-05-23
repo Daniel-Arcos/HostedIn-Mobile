@@ -35,6 +35,7 @@
             android:layout_below="@+id/txv_title"/>
 
         <RadioGroup
+            android:id="@+id/rdg_reasons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -91,5 +92,13 @@
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/black"
             android:textSize="17dp"/>
+
+        <ProgressBar
+            android:id="@+id/pgb_cancel_booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
     </RelativeLayout>
 </layout>

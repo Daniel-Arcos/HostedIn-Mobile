@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 public class Booking implements Parcelable {
 
     private String _id;
-    private String accommodationId;
+    private Accommodation accommodation;
     private String beginningDate;
     private String endingDate;
     private int numberOfGuests;
@@ -20,9 +20,9 @@ public class Booking implements Parcelable {
     public Booking() {
     }
 
-    public Booking(String _id,String accommodationId, String beginningDate, String endingDate, int numberOfGuest, double totalCost, String bookingStatus,
+    public Booking(String _id, Accommodation accommodationId, String beginningDate, String endingDate, int numberOfGuest, double totalCost, String bookingStatus,
                    User guestUser, User hostUser) {
-        this.accommodationId = accommodationId;
+        this.accommodation = accommodationId;
         this._id = _id;
         this.beginningDate = beginningDate;
         this.endingDate = endingDate;
@@ -36,7 +36,7 @@ public class Booking implements Parcelable {
 
     protected Booking(Parcel in) {
         _id = in.readString();
-        accommodationId = in.readString();
+        accommodation = in.readParcelable(Accommodation.class.getClassLoader());
         beginningDate = in.readString();
         endingDate = in.readString();
         numberOfGuests = in.readInt();
@@ -58,12 +58,12 @@ public class Booking implements Parcelable {
         }
     };
 
-    public String getAccommodationId() {
-        return accommodationId;
+    public Accommodation getAccommodation() {
+        return accommodation;
     }
 
-    public void setAccommodationId(String accommodationId) {
-        this.accommodationId = accommodationId;
+    public void setAccommodation(Accommodation accommodationId) {
+        this.accommodation = accommodationId;
     }
 
     public String get_id() {
@@ -138,7 +138,7 @@ public class Booking implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(_id);
-        dest.writeString(accommodationId);
+        dest.writeParcelable(accommodation, flags);
         dest.writeString(beginningDate);
         dest.writeString(endingDate);
         dest.writeInt(numberOfGuests);

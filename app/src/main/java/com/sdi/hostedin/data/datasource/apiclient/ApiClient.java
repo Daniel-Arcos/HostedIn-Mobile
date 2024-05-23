@@ -1,5 +1,6 @@
 package com.sdi.hostedin.data.datasource.apiclient;
 
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.CancellationResponse;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetReviewsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseReviewObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
@@ -13,6 +14,7 @@ import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUse
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGuestBookedAccommodations;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Booking;
+import com.sdi.hostedin.data.model.Cancellation;
 import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
 import com.sdi.hostedin.data.model.Review;
@@ -98,13 +100,17 @@ public class ApiClient {
         @GET("accommodations/{accommodationId}/reviews")
         Call<ResponseGetReviewsObject> getReviewsOfAccommodation(@Header("Authorization") String authToken, @Path("accommodationId") String accommodationId);
 
+        //Cancellations
+        @POST("cancellations")
+        Call<CancellationResponse> cancelBooking(@Header("Authorization") String authToken, @Body Cancellation cancellation);
+
     }
 
 
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.1.75:3000/api/v1/")
+            .baseUrl("http://192.168.50.7:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 
