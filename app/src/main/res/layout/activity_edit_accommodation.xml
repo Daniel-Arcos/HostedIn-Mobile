@@ -7,9 +7,11 @@
 
     </data>
 
-    <FrameLayout
-        android:id="@+id/fmly_main_edit_accomm_fragment_container"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fgcv_main_edit_accomm_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:name="com.sdi.hostedin.feature.host.accommodations.edition.EditAccommodationFragment"
+        tools:layout="@layout/fragment_edit_accommodation"/>
 
 </layout>

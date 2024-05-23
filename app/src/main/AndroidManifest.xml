@@ -18,10 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
         <activity
-            android:name=".feature.host.accommodations.EditAccommodationFragment"
+            android:name=".feature.host.accommodations.edition.EditAccommodationFragment"
             android:exported="false" />
         <activity
-            android:name=".feature.host.accommodations.EditAccommodationActivity"
+            android:name=".feature.host.accommodations.edition.EditAccommodationActivity"
             android:exported="false" />
         <activity
             android:name=".feature.guest.bookings.booked_accommodations_list.details.BookingDetailsActivity"

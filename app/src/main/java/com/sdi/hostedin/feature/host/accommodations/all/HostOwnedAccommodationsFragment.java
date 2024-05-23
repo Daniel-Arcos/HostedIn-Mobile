@@ -16,7 +16,7 @@ import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentHostOwnedAccommodationsBinding;
 import com.sdi.hostedin.feature.guest.explore.accommodationdetails.AccommodationDetailsActivity;
-import com.sdi.hostedin.feature.host.accommodations.EditAccommodationActivity;
+import com.sdi.hostedin.feature.host.accommodations.edition.EditAccommodationActivity;
 import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationFormActivity;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
@@ -64,6 +64,7 @@ public class HostOwnedAccommodationsFragment extends Fragment {
 
     private void goToEditAccommodation(Accommodation accommodation) {
         Intent intent = new Intent(this.getActivity(), EditAccommodationActivity.class);
+        intent.putExtra(EditAccommodationActivity.ACCOMMODATION_KEY, accommodation);
         startActivity(intent);
     }
 

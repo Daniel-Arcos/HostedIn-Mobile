@@ -7,4 +7,5 @@
     <color name="mi_color_seleccionado">#113E96</color> <!-- Color seleccionado deseado -->
     <color name="mi_color_no_seleccionado">#00FFFFFF</color> <!-- Color no seleccionado deseado -->
     <color name="secondayContainer">#BFBFBF</color> <!-- Color no seleccionado deseado -->
+    <color name="red">#FF0000</color>
 </resources>

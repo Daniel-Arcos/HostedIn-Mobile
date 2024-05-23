@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,25 +10,138 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.accommodations.EditAccommodationActivity">
+        tools:context=".feature.host.accommodations.edition.EditAccommodationActivity">
 
         <TextView
             android:id="@+id/txv_edit_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/accommodation_edition_header"
             android:textSize="20sp" />
 
-        <FrameLayout
-            android:id="@+id/fmly_accommodation_edition_media"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/lnly_accommodation_sections"
-            android:layout_below="@id/txv_edit_header" />
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/lnly_accommodation_sections"
+            android:layout_below="@id/txv_edit_header">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ViewFlipper
+                        android:id="@+id/vflp_accommodation_multimedia"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp">
+
+                        <ImageView
+                            android:id="@+id/imv_first_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:id="@+id/imv_second_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:id="@+id/imv_third_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+
+                        <VideoView
+                            android:id="@+id/vdv_fourth_video"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </ViewFlipper>
+
+                    <Button
+                        android:id="@+id/btn_go_back"
+                        style="?attr/materialIconButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
+                        app:icon="@drawable/ic_go_back" />
+
+                    <Button
+                        android:id="@+id/btn_go_ahead"
+                        style="?attr/materialIconButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        app:icon="@drawable/ic_go_ahead" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp">
+
+                    <View
+                        android:id="@+id/center_divider"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:foreground="@color/black"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentTop="true"/>
+
+                    <TextView
+                        android:id="@+id/txv_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/center_divider"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="8dp"
+                        android:text="Title"
+                        android:layout_alignParentTop="true"/>
+
+                    <TextView
+                        android:id="@+id/txv_price"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/center_divider"
+                        android:layout_marginStart="8dp"
+                        android:text="Price" />
+
+                    <TextView
+                        android:id="@+id/txv_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txv_title"
+                        android:text="Description" />
+
+                    <TextView
+                        android:id="@+id/txv_services"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txv_description"
+                        android:text="Description" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
 
         <LinearLayout
             android:id="@+id/lnly_accommodation_sections"
@@ -35,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@drawable/top_rouded_backgorund"
-            android:elevation="10dp"
+            android:elevation="16dp"
             android:orientation="vertical">
 
 
@@ -89,6 +203,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="2dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btt_delete_accommodation"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Delete"
+                android:textColor="@color/red" />
         </LinearLayout>
 
     </RelativeLayout>
