@@ -39,7 +39,7 @@ public class RemoteUsersDataSource {
 
     }
 
-    public void createUserAccount(User user, AuthCallback authCallback){
+    public void createUserAccount(User user, AuthCallback authCallback) {
         Call<ResponseAuthObject> call = service.signUp(user);
         call.enqueue(new Callback<ResponseAuthObject>() {
             @Override
@@ -76,7 +76,7 @@ public class RemoteUsersDataSource {
         });
     }
 
-    public void login(User user, AuthCallback authCallback){
+    public void login(User user, AuthCallback authCallback) {
         Call<ResponseAuthObject> call = service.signIn(user);
         call.enqueue(new Callback<ResponseAuthObject>() {
             @Override

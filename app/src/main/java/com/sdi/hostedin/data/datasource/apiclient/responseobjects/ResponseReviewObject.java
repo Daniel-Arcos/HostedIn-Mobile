@@ -2,11 +2,11 @@ package com.sdi.hostedin.data.datasource.apiclient.responseobjects;
 
 import com.sdi.hostedin.data.model.Review;
 
-public class ReponseReviewObject {
+public class ResponseReviewObject {
     private String message;
     private Review review;
 
-    public ReponseReviewObject() {
+    public ResponseReviewObject() {
 
     }
 

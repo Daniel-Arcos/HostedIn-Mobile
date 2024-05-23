@@ -232,10 +232,10 @@
                     android:gravity="center"/>
 
                 <TextView
-                    android:id="@+id/txv_rating"
+                    android:id="@+id/txv_score"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="4.0"
+                    android:text="Sin calif."
                     android:textColor="#5280DB"
                     android:textStyle="bold"
                     android:textSize="50dp"
@@ -250,10 +250,19 @@
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/txv_without_reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Sin reseñas"
+                    android:layout_gravity="center"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcyv_reviews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="3"
-                    android:text="Reseñas, reseñas, reseñas"/>
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -359,5 +368,14 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="2dp"
             android:text="Reservar" />
+
+        <ProgressBar
+            android:id="@+id/pgb_accommodation_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 </layout>

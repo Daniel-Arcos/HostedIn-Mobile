@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Review;
+import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentReviewAccommodationBinding;
 import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.GuestBookingsFragment;
 import com.sdi.hostedin.utils.ToastUtils;
@@ -93,10 +94,12 @@ public class ReviewAccommodationFragment extends DialogFragment {
 
     private void savedNewReview(){
         Review review = new Review();
+        User user = new User();
         review.setAccommodation(accommodationId);
         review.setReviewDescription(binding.etxGuestReview.getEditText().getText().toString().trim());
         review.setRating(binding.rtbScore.getRating());
-        review.setGuestUser(userId);
+        user.setId(userId);
+        review.setGuestUser(user);
         reviewAccommodationViewModel.saveNewReview(review);
     }
 

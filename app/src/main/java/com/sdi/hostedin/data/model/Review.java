@@ -10,7 +10,7 @@ public class Review implements Parcelable {
     private String accommodation;
     private String reviewDescription;
     private float rating;
-    private String guestUser;
+    private User guestUser;
 
 
     protected Review(Parcel in) {
@@ -18,7 +18,7 @@ public class Review implements Parcelable {
         accommodation = in.readString();
         reviewDescription = in.readString();
         rating = in.readFloat();
-        guestUser = in.readString();
+        guestUser = in.readParcelable(User.class.getClassLoader());
     }
 
     public static final Creator<Review> CREATOR = new Creator<Review>() {
@@ -44,7 +44,7 @@ public class Review implements Parcelable {
         dest.writeString(accommodation);
         dest.writeString(reviewDescription);
         dest.writeFloat(rating);
-        dest.writeString(guestUser);
+        dest.writeParcelable(guestUser, flags);
     }
 
     public Review() {
@@ -82,11 +82,11 @@ public class Review implements Parcelable {
         this.rating = rating;
     }
 
-    public String getGuestUser() {
+    public User getGuestUser() {
         return guestUser;
     }
 
-    public void setGuestUser(String guestUser) {
+    public void setGuestUser(User guestUser) {
         this.guestUser = guestUser;
     }
 }
