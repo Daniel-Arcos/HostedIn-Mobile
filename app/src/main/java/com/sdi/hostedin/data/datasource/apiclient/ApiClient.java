@@ -1,6 +1,7 @@
 package com.sdi.hostedin.data.datasource.apiclient;
 
-import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ReponseReviewObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetReviewsObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseReviewObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookedAccommodation;
@@ -92,10 +93,10 @@ public class ApiClient {
         Call<ResponseBookingObject> createBooking(@Body Booking booking, @Header("Authorization") String authToken);
 
         @POST("reviews")
-        Call<ReponseReviewObject> createReview(@Header("Authorization") String authToken, @Body Review review);
+        Call<ResponseReviewObject> createReview(@Header("Authorization") String authToken, @Body Review review);
 
-
-
+        @GET("accommodations/{accommodationId}/reviews")
+        Call<ResponseGetReviewsObject> getReviewsOfAccommodation(@Header("Authorization") String authToken, @Path("accommodationId") String accommodationId);
 
     }
 

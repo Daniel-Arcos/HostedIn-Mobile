@@ -6,6 +6,5 @@
     </style>
     <style name="ButtonWithGradient" parent="Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">@drawable/gradient_color</item>
-        <!-- Otros atributos de estilo según sea necesario -->
     </style>
 </resources>

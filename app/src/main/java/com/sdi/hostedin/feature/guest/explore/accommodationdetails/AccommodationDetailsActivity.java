@@ -3,6 +3,9 @@ package com.sdi.hostedin.feature.guest.explore.accommodationdetails;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -23,16 +26,24 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.sdi.hostedin.data.model.Location;
+import com.sdi.hostedin.data.model.Review;
 import com.sdi.hostedin.databinding.ActivityAccommodationDetailsBinding;
 import com.sdi.hostedin.databinding.ItemHostDetailsBinding;
+import com.sdi.hostedin.enums.AccommodationServices;
+import com.sdi.hostedin.enums.AccommodationTypes;
 import com.sdi.hostedin.feature.guest.bookings.accommodationbooking.AccommodationBookingActivity;
+import com.sdi.hostedin.feature.guest.bookings.accommodationbooking.AccommodationBookingViewModel;
 import com.sdi.hostedin.grpc.GrpcAccommodationMultimedia;
 import com.sdi.hostedin.grpc.GrpcServerData;
 import com.sdi.hostedin.utils.ImageUtils;
+import com.sdi.hostedin.utils.ToastUtils;
+import com.sdi.hostedin.utils.ViewModelFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -40,11 +51,14 @@ import io.grpc.ManagedChannelBuilder;
 public class AccommodationDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final String ACCOMMODATION_KEY = "accommodation_key";
+    private static final int EMPTY_DATA_STRUCTURE = 0;
     private ActivityAccommodationDetailsBinding binding;
     private MapView mpvLocation;
     private GoogleMap gMap;
     private BottomSheetBehavior<RelativeLayout> bottomSheetBehavior;
     private ItemHostDetailsBinding inclHostData;
+    private AccommodationDetailsViewModel accommodationDetailsViewModel;
+    private String servicesAccommodation = "";
     private GrpcAccommodationMultimedia grpcClient;
 
     @Override
@@ -57,9 +71,9 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         Bundle extras = getIntent().getExtras();
         binding.setAccommodationData(extras.getParcelable(ACCOMMODATION_KEY));
 
-        this.inclHostData = binding.inclHostData;
+        accommodationDetailsViewModel = new ViewModelProvider(this, new ViewModelFactory(getApplication())).get(AccommodationDetailsViewModel.class);
 
-        //viewModel
+        this.inclHostData = binding.inclHostData;
 
         mpvLocation = binding.mpvAccommodationLocation;
         mpvLocation.onCreate(savedInstanceState);
@@ -101,7 +115,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         binding.btnShowMoreServices.setOnClickListener(v -> {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
             binding.txvMoreDetailsTitle.setText("Servicios");
-            binding.txvMoreDetailsDescription.setText(loadAccommodationServices());
+            binding.txvMoreDetailsDescription.setText(servicesAccommodation);
         });
 
         binding.btnShowMoreRules.setOnClickListener(v -> {
@@ -127,7 +141,20 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     }
 
     private void manageProgressBarCircle() {
-        //TODO
+        accommodationDetailsViewModel.getRequestStatusMutableLiveData().observe(this, status -> {
+            switch (status.getRequestStatus()) {
+                case LOADING:
+                    binding.pgbAccommodationDetails.setVisibility(View.VISIBLE);
+                    break;
+                case DONE:
+                    binding.pgbAccommodationDetails.setVisibility(View.GONE);
+                    break;
+                case ERROR:
+                    binding.pgbAccommodationDetails.setVisibility(View.GONE);
+                    Log.d("PRUEBA", "error: " + status.getMessage());
+                    ToastUtils.showShortInformationMessage(this, status.getMessage());
+            }
+        });
     }
 
     @Override
@@ -145,13 +172,11 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
 
         loadAccommodationBasics();
 
-        binding.txvAccommodationsServices.setText(loadAccommodationServices());
+        loadAccommodationServices();
 
-        // TODO: load Rating
+        loadReviews();
 
-        // TODO: load Reviews
-
-        // TODO: Load accommodation types (map with type)
+        loadAccommodationType();
 
         loadHostData();
     }
@@ -206,26 +231,6 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         }
     }
 
-    private void showFirstImage() {
-        binding.vflpAccommodationMultimedia.setDisplayedChild(0);
-        // Aquí puedes cargar la imagen en el primer ImageView si es necesario
-    }
-
-    private void showSecondImage() {
-        binding.vflpAccommodationMultimedia.setDisplayedChild(1);
-        // Aquí puedes cargar la imagen en el segundo ImageView si es necesario
-    }
-
-    private void showThirdImage() {
-        binding.vflpAccommodationMultimedia.setDisplayedChild(2);
-        // Aquí puedes cargar la imagen en el tercer ImageView si es necesario
-    }
-
-    private void showVideo() {
-        binding.vflpAccommodationMultimedia.setDisplayedChild(3);
-        // Aquí puedes cargar el video en el VideoView si es necesario
-    }
-
     private void loadVideo(byte[] videoBytes) {
         try {
             File tempFile = File.createTempFile("video", ".mp4", getCacheDir());
@@ -269,14 +274,77 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         binding.txvBasics.setText(basicsJoined);
     }
 
-    private String loadAccommodationServices() {
-        // TODO: map with services names
-
-        String[] services = binding.getAccommodationData().getAccommodationServices();
+    private void loadAccommodationServices() {
         String delimiter = " · ";
-        String servicesJoined = String.join(delimiter, services);
+        String[] services = binding.getAccommodationData().getAccommodationServices();
 
-        return servicesJoined;
+        if (services != null) {
+            int numOfServices = services.length;
+            String[] accommodationServices = new String[numOfServices];
+
+            for(int i = 0 ; i < services.length ; i++) {
+                accommodationServices[i] = AccommodationServices.getDescriptionForService(services[i]);
+            }
+
+            if (accommodationServices != null) {
+                servicesAccommodation = String.join(delimiter, accommodationServices);
+            } else {
+                servicesAccommodation = String.join(delimiter, services);
+            }
+        }
+
+        binding.txvAccommodationsServices.setText(servicesAccommodation);
+    }
+
+    private void loadReviews() {
+        accommodationDetailsViewModel.getAccommodationReviews(binding.getAccommodationData().getId());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        binding.rcyvReviews.setLayoutManager(layoutManager);
+
+        ReviewAdapter reviewAdapter = new ReviewAdapter();
+        binding.rcyvReviews.setAdapter(reviewAdapter);
+
+        accommodationDetailsViewModel.getReviewsMutableLiveData().observe(this, reviews -> {
+            if (reviews != null && reviews.size() > EMPTY_DATA_STRUCTURE) {
+                binding.txvWithoutReviews.setVisibility(View.GONE);
+                reviewAdapter.submitList(reviews);
+                calculateScore(reviews);
+            } else {
+                binding.txvWithoutReviews.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void calculateScore(List<Review> reviews) {
+        List<Float> scores = new ArrayList<>();
+        for(Review review : reviews) {
+            float score = review.getRating();
+            if (score > EMPTY_DATA_STRUCTURE) {
+                scores.add(score);
+            }
+        }
+
+        if (scores.size() > EMPTY_DATA_STRUCTURE) {
+            accommodationDetailsViewModel.calculateScore(scores);
+        }
+
+        accommodationDetailsViewModel.getScore().observe(this, accommodationScore -> {
+            float scoreCalculated = accommodationDetailsViewModel.getScore().getValue();
+            if (scoreCalculated > EMPTY_DATA_STRUCTURE) {
+                binding.txvScore.setText(String.valueOf(scoreCalculated));
+            }
+        });
+    }
+
+    private void loadAccommodationType() {
+        String type = binding.getAccommodationData().getAccommodationType();
+
+        if (type != null) {
+            String accommodationType = AccommodationTypes.getDescriptionForType(type);
+            if (accommodationType != null) {
+                binding.txvAccommodationType.setText(accommodationType);
+            }
+        }
     }
 
     private void loadLocation() {
