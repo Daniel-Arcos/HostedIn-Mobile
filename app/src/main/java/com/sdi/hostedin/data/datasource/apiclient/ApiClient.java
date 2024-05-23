@@ -82,6 +82,9 @@ public class ApiClient {
         Call<ResponseBookedAccommodation> getHostBookedAccommodations(@Path("userId") String userId, @Query("atLeastOneBooking") boolean atLeastOneBooking);
 
         @GET("users/{userId}/accommodations")
+        Call<ResponseGetAccommodationsObject> getAllHostAccommodations(@Header("Authorization") String authToken, @Path("userId") String userId);
+
+        @GET("users/{userId}/accommodations")
         Call<ResponseGuestBookedAccommodations> getGuestBookedAccommodations(@Path("userId") String userId, @Query("status") String status);
 
         // Bookings
@@ -100,7 +103,7 @@ public class ApiClient {
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.100.9:3000/api/v1/")
+            .baseUrl("http://192.168.1.75:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 

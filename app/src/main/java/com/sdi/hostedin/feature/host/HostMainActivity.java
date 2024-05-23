@@ -1,6 +1,5 @@
 package com.sdi.hostedin.feature.host;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +13,7 @@ import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityHostMainBinding;
-import com.sdi.hostedin.feature.guest.GuestMainActivity;
-import com.sdi.hostedin.feature.host.accommodations.AccommodationPublicationsFragment;
-import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreFragment;
+import com.sdi.hostedin.feature.host.accommodations.all.HostOwnedAccommodationsFragment;
 import com.sdi.hostedin.feature.host.bookings.HostBookedAccommodationsFragment;
 import com.sdi.hostedin.feature.statistics.StatisticsFragment;
 
@@ -63,7 +60,7 @@ public class HostMainActivity extends AppCompatActivity {
                 fragmentManager.popBackStack();
                 fragmentManager.beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(binding.fragmentHostContainer.getId(), AccommodationPublicationsFragment.class, null)
+                        .replace(binding.fragmentHostContainer.getId(), HostOwnedAccommodationsFragment.class, null)
                         .commit();
             } else {
                 FragmentManager fragmentManager = getSupportFragmentManager();

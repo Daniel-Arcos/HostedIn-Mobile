@@ -1,7 +1,5 @@
 package com.sdi.hostedin.data.datasource.remote;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -257,5 +255,36 @@ public class RemoteAccommodationsDataSource {
         });
     }
 
+    public void getAllHostOwnedAccommodations(String userId, String token,  AccommodationsCallback accommodationsCallback){
+        Call<ResponseGetAccommodationsObject> call = service.getAllHostAccommodations(token, userId);
+        call.enqueue(new Callback<ResponseGetAccommodationsObject>() {
+            @Override
+            public void onResponse(Call<ResponseGetAccommodationsObject> call, Response<ResponseGetAccommodationsObject> response) {
+                if (response.isSuccessful()){
+                    ResponseGetAccommodationsObject responseGetAccommodationsObject = response.body();
+                    accommodationsCallback.onSuccess(responseGetAccommodationsObject.getAccommodations(), response.message());
+                }else{
+                    String message = "Ocurrio un error al recuperar los alojamientos";
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorString = response.errorBody().string();
+                            JsonParser jsonParser = new JsonParser();
+                            JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
+                            message = jsonObject.get("message").getAsString();
+                            accommodationsCallback.onError(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    accommodationsCallback.onError(message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
+                accommodationsCallback.onError(t.getMessage());
+            }
+        });
+    }
 
 }
