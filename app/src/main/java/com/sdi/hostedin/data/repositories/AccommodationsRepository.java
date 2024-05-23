@@ -72,7 +72,21 @@ public class AccommodationsRepository {
         });
     }
 
-    public void getHostBoookedAccommodations(String userId, BookedAccommodationsCallBack accommodationsCallback){
+    public void getAlLHostOwnedAccommodations(String userId, String token, AccommodationsCallback accommodationsCallback){
+        remoteAccommodationsDataSource.getAllHostOwnedAccommodations(userId, token, new AccommodationsCallback() {
+            @Override
+            public void onSuccess(List<Accommodation> accommodations, String token) {
+                accommodationsCallback.onSuccess(accommodations, token);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                accommodationsCallback.onError(errorMessage);
+            }
+        });
+    }
+
+    public void getHostBookedAccommodations(String userId, BookedAccommodationsCallBack accommodationsCallback){
         remoteAccommodationsDataSource.getALLHostAccommodationsWithAtLeastOneBooking(userId, new BookedAccommodationsCallBack() {
             @Override
             public void onSuccess(List<BookedAccommodation> accommodations, String token) {

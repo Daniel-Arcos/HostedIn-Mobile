@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.host.accommodations.all.HostOwnedAccommodationsFragment">
+
+        <TextView
+            android:id="@+id/txvGretting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/general_background"
+            android:text="¡Que genial volver  a verte!, estos son tus alojamientos, quieres editarlos? "
+            android:textAlignment="viewStart"
+            android:textSize="20sp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerPublicationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/txvGretting"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btn_create_accommodation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Crear publicacion"
+            app:icon="@drawable/ic_house" />
+        <TextView
+            android:id="@+id/txv_noAccommodations"
+            android:layout_width="192dp"
+            android:layout_height="105dp"
+            android:layout_above="@id/pgb_loading_wheel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="123dp"
+            android:gravity="center"
+            android:text="No tienes alojamientos reservados, publica uno o espera a que alguien reserve uno" />
+
+
+
+        <ProgressBar
+            android:id="@+id/pgb_loading_wheel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+
+
+    </RelativeLayout>
+
+</layout>

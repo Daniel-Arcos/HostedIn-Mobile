@@ -52,18 +52,28 @@
         android:layout_toRightOf="@id/txv_price"
         android:layout_marginLeft="10dp"/>
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btt_see_booking_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
             android:layout_below="@id/imv_accommodation"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="22dp"
-            android:background="#00FFFFFF"
+            android:background="@drawable/reservation_icon"
             android:contentDescription="Reservaciones"
-            android:src="@drawable/reservation_icon"
             tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/txv_btt_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btt_see_booking_details"
+            android:layout_alignStart="@id/btt_see_booking_details"
+            android:layout_alignEnd="@id/btt_see_booking_details"
+            android:text="Reservations"
+            android:gravity="center_horizontal"
+            android:textSize="8sp" />
 
     </RelativeLayout>
 </layout>
