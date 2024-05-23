@@ -104,7 +104,7 @@ public class ApiClient {
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.1.75:3000/api/v1/")
+            .baseUrl("http://192.168.100.9:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 

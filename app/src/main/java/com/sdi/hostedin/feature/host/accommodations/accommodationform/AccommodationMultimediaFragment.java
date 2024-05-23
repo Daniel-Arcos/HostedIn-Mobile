@@ -29,6 +29,7 @@ import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,6 +95,7 @@ public class AccommodationMultimediaFragment extends Fragment {
             if (uri != null) {
                 if (currentImageNumber < 3) {
                     selectedImagesUri[currentImageNumber] = uri;
+                    accommodationFormViewModel.getImagesUri().getValue().add(uri);   /////////
                     ImageView imvAccommodationPhoto = getImageViewByNumber(currentImageNumber);
                     if (imvAccommodationPhoto != null) {
                         imvAccommodationPhoto.setImageURI(uri);
@@ -102,6 +104,7 @@ public class AccommodationMultimediaFragment extends Fragment {
                 } else {
                     if (isVideoValid(this.getContext(), uri)) {
                         selectedVideo = uri;
+                        accommodationFormViewModel.getVideoUri().setValue(uri);
                         binding.imvFourthVideo.setImageResource(0);
                         binding.vdvFourthVideo.setVideoURI(uri);
                         binding.vdvFourthVideo.start();
@@ -135,19 +138,33 @@ public class AccommodationMultimediaFragment extends Fragment {
         super.onResume();
         customActivityParent();
 
-//        selectedImagesUri = new Uri[NUMBER_OF_IMAGES];
-//        selectedVideo = null;
-//        isPhotoClickedTEMPORARY = false;
-
         accommodationFormViewModel.getFragmentNumberMutableLiveData().observe(getViewLifecycleOwner(), fragmentNumber -> {
             if (fragmentNumber == LOCAL_FRAGMENT_NUMBER) {
                 validateAccommodationMultimediaSelected();
             }
         });
+
+        List<Uri> imageUri = accommodationFormViewModel.getImagesUri().getValue();
+        for (int i = 0; i < imageUri.size() ; i++) {
+            if (imageUri != null) {
+                selectedImagesUri[i] = imageUri.get(i);
+                ImageView imvAccommodationPhoto = getImageViewByNumber(i);
+                if (imvAccommodationPhoto != null) {
+                    imvAccommodationPhoto.setImageURI(imageUri.get(i));
+                }
+            }
+        }
+
+        Uri videoUri = accommodationFormViewModel.getVideoUri().getValue();
+        if (videoUri != null) {
+            selectedVideo = videoUri;
+            binding.imvFourthVideo.setImageResource(0);
+            binding.vdvFourthVideo.setVideoURI(videoUri);
+            binding.vdvFourthVideo.start();
+        }
     }
 
     private void configureListeners() {
-        binding.btnTakePhoto.setOnClickListener( v -> manageBtnTakePhoto() );
         binding.rtlyMainImage.setOnClickListener( v -> {
             currentImageNumber = 0;
             openImageChooser();
@@ -240,12 +257,6 @@ public class AccommodationMultimediaFragment extends Fragment {
             return size <= MAX_MB_SIZE_VIDEO * 1024 * 1024;
         }
         return false;
-    }
-
-    private void manageBtnTakePhoto() {
-        //TODO
-        this.isPhotoClickedTEMPORARY = true;
-        ToastUtils.showShortInformationMessage(this.getContext(), "Ahora da clic en Siguiente");
     }
 
     public void customActivityParent() {

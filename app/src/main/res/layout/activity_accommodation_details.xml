@@ -94,9 +94,6 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
                         app:icon="@drawable/ic_go_ahead" />
-
-
-
                 </RelativeLayout>
 
                 <TextView
@@ -104,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{accommodation_data.location.address}"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:textColor="#333333"
                     android:layout_marginTop="6dp"/>
 
