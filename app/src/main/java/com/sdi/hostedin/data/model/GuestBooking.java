@@ -9,7 +9,6 @@ import java.util.Objects;
 
 public class GuestBooking implements Parcelable {
     private String _id;
-    @Json(name="accommodationId")
     private Accommodation accommodation;
     private String beginningDate;
     private String endingDate;
