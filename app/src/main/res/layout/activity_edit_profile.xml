@@ -66,20 +66,21 @@
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
-                <androidx.coordinatorlayout.widget.CoordinatorLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:background="#00FFFFFF"
-                    android:layout_alignParentBottom="true">
+<!--                <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:background="#00FFFFFF"-->
+<!--                    android:layout_alignParentBottom="true">-->
 
                     <RelativeLayout
                         android:id="@+id/btmsh_edit_user_data"
                         style="@style/Widget.Material3.BottomSheet"
+                        android:layout_below="@id/txv_full_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clickable="true"
                         android:elevation="10dp"
-                        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                        android:background="@drawable/rectangle_upper_rounded_shape"
                         >
 
                         <ScrollView
@@ -281,7 +282,7 @@
 
                     </RelativeLayout>
 
-                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+<!--                </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
         <ProgressBar
             android:id="@+id/pgb_edit_profile"

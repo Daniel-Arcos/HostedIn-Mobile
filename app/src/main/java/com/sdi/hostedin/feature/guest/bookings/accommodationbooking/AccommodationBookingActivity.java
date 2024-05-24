@@ -29,10 +29,12 @@ import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityAccommodationBookingBinding;
 import com.sdi.hostedin.databinding.ItemHostDetailsBinding;
+import com.sdi.hostedin.enums.AccommodationTypes;
 import com.sdi.hostedin.enums.BookingSatuses;
 import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationFormActivity;
 import com.sdi.hostedin.feature.user.EditProfileViewModel;
 import com.sdi.hostedin.utils.DateFormatterUtils;
+import com.sdi.hostedin.utils.ImageUtils;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
@@ -48,6 +50,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AccommodationBookingActivity extends AppCompatActivity {
 
+    public static final String ACCOMMODATION_IMAGE_KEY = "accommodation_image_key";
     private static final String MONEY_SYMBOL = "$";
     private ActivityAccommodationBookingBinding binding;
     private RxDataStore<Preferences> dataStoreRX;
@@ -55,6 +58,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
     private AccommodationBookingViewModel accommodationBookingViewModel;
     private ItemHostDetailsBinding inclHostData;
     private int limitGuestsNumber;
+    private List<Booking> bookedDates = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,17 +68,19 @@ public class AccommodationBookingActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         binding.setAccommodationData(extras.getParcelable(ACCOMMODATION_KEY));
+        binding.imvAccommodationPhoto.setImageURI(extras.getParcelable(ACCOMMODATION_IMAGE_KEY));
 
         limitGuestsNumber = binding.getAccommodationData().getGuestsNumber();
         this.inclHostData = binding.inclHostData;
 
         accommodationBookingViewModel = new ViewModelProvider(this, new ViewModelFactory(getApplication())).get(AccommodationBookingViewModel.class);
 
+        accommodationBookingViewModel.getAccommodationBookings(binding.getAccommodationData().getId());
+
         loadData();
         setViewModelObservers();
         showAccommodationBookingMessage();
         manageProgressBarCircle();
-        configureDatePicker();
         configureButtons();
     }
 
@@ -100,7 +106,14 @@ public class AccommodationBookingActivity extends AppCompatActivity {
     }
 
     private void loadAccommodationType() {
-        // TODO:
+        String type = binding.getAccommodationData().getAccommodationType();
+
+        if (type != null) {
+            String accommodationType = AccommodationTypes.getDescriptionForType(type);
+            if (accommodationType != null) {
+                binding.txvAccommodationType.setText(accommodationType);
+            }
+        }
     }
 
     private void loadAccommodationImage() {
@@ -117,6 +130,22 @@ public class AccommodationBookingActivity extends AppCompatActivity {
         accommodationBookingViewModel.getStayDays().observe(this, stayDays -> updateStayDays() );
 
         accommodationBookingViewModel.getTotalCost().observe(this, cost -> updateCost() );
+
+        accommodationBookingViewModel.getBookingsList().observe(this, bookings -> manageBookedDates(bookings) );
+    }
+
+    private void manageBookedDates(List<Booking> bookings) {
+        for (int i = 0 ; i < bookings.size() ; i++) {
+            if (bookings.get(i).getBookingStatus().equals(BookingSatuses.CURRENT.getDescription())) {
+                String beginDate = DateFormatterUtils.parseMongoDateToLocal(bookings.get(i).getBeginningDate());
+                String endDate = DateFormatterUtils.parseMongoDateToLocal(bookings.get(i).getEndingDate());
+                bookings.get(i).setBeginningDate(beginDate);
+                bookings.get(i).setEndingDate(endDate);
+                bookedDates.add(bookings.get(i));
+            }
+        }
+
+        configureDatePicker(bookedDates);
     }
 
     private void manageProgressBarCircle() {
@@ -127,7 +156,9 @@ public class AccommodationBookingActivity extends AppCompatActivity {
                     break;
                 case DONE:
                     binding.pgbCreateBooking.setVisibility(View.GONE);
-                    manageSuccessCreation();
+                    if (status.getMessage().equals(AccommodationBookingViewModel.SUCCESS_BOOKING_MESSAGE)) {
+                        manageSuccessCreation();
+                    }
                     break;
                 case ERROR:
                     binding.pgbCreateBooking.setVisibility(View.GONE);
@@ -190,18 +221,14 @@ public class AccommodationBookingActivity extends AppCompatActivity {
         binding.btnSaveBooking.setOnClickListener( v -> saveBooking() );
     }
 
-    private void configureDatePicker() {
+    private void configureDatePicker(List<Booking> bookingDates) {
         String titleCalendar = "Selecciona un rango de fechas";
         long currentTimeMillis = MaterialDatePicker.todayInUtcMilliseconds();
 
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
         constraintsBuilder.setStart(currentTimeMillis);
 
-        // TODO: Recover the bookings
-        List<Booking> reservedDates = new ArrayList<>();
-        ///
-
-        constraintsBuilder.setValidator(new DateValidatorBookedDates(reservedDates));
+        constraintsBuilder.setValidator(new DateValidatorBookedDates(bookingDates));
 
         dateRangePicker =
                 MaterialDatePicker.Builder.dateRangePicker()
@@ -225,14 +252,10 @@ public class AccommodationBookingActivity extends AppCompatActivity {
             long firstDate = selectedDates.first;
             long secondDate = selectedDates.second;
 
-            //TODO: Recover the bookings
-            List<Booking> reservedDates = new ArrayList<>();
-            ///
-
             DateValidatorBookedDates dateValidator = new DateValidatorBookedDates(
                     DateFormatterUtils.parseLongToDate(firstDate),
                     DateFormatterUtils.parseLongToDate(secondDate),
-                    reservedDates
+                    bookedDates
             );
 
             boolean isValidDateBooking = dateValidator.areBookingDatesValid(DateFormatterUtils.parseLongToDate(firstDate), DateFormatterUtils.parseLongToDate(secondDate));
@@ -260,6 +283,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
     private void loadHostData() {
         inclHostData.txvHostName.setText(binding.getAccommodationData().getUser().getFullName());
         inclHostData.txvHostPhoneNumber.setText(binding.getAccommodationData().getUser().getPhoneNumber());
+        ImageUtils.loadProfilePhoto(binding.getAccommodationData().getUser(), binding.inclHostData.imvProfilePhoto);
     }
 
     private void updateStayDays() {

@@ -32,6 +32,7 @@ public class DateFormatterUtils {
         Date parsedDate = null;
         try {
             SimpleDateFormat dateFormatter = new SimpleDateFormat(NORMAL_DATE_PATTERN);
+            dateFormatter.setTimeZone(TimeZone.getTimeZone(TIME_ZONE));
             parsedDate = dateFormatter.parse(date);
         } catch (ParseException ex) {
             ex.printStackTrace();
