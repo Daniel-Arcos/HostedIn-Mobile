@@ -60,18 +60,20 @@ public class ExploreFragment extends Fragment {
         TransitionInflater inflater = TransitionInflater.from(requireContext());
         setEnterTransition(inflater.inflateTransition(R.transition.fade));
         setExitTransition(inflater.inflateTransition(R.transition.fade));
-        exploreViewModel =
-                new ViewModelProvider(requireActivity(), new ViewModelFactory(getActivity().getApplication())).get(ExploreViewModel.class);
-        if (exploreViewModel.getIsNew().getValue()) {
-            exploreViewModel.getAllAccommodationsExceptUserAccommodations();
-            exploreViewModel.setIsNew(false);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentExploreBinding.inflate(inflater, container, false);
+        binding.setLifecycleOwner(this);
+        exploreViewModel =
+                new ViewModelProvider(requireActivity(), new ViewModelFactory(requireActivity().getApplication())).get(ExploreViewModel.class);
+        if (exploreViewModel.getIsNew().getValue()) {
+            exploreViewModel.getAllAccommodationsExceptUserAccommodations();
+            exploreViewModel.setIsNew(false);
+        }
+
         User user = (User) getArguments().getParcelable(USER_KEY);
         exploreViewModel.setUserMutableLiveData(user);
         if (!exploreViewModel.getUserMutableLiveData().getValue().getRoles().contains("Host")) {
@@ -117,6 +119,7 @@ public class ExploreFragment extends Fragment {
         AccommodationAdapter adapter = new AccommodationAdapter(this.getContext());
         adapter.setOnItemClickListener(this::goToAccommodationDetails);
         binding.rcyvAccommodationsExplore.setAdapter(adapter);
+        adapter.submitList(exploreViewModel.accommodationsLiveData.getValue());
         exploreViewModel.getAccommodationsLiveData().observe(getViewLifecycleOwner(), accommodations -> {
             adapter.submitList(accommodations);
             if (accommodations.size() == 0) {

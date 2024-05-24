@@ -24,6 +24,7 @@ public class Accommodation implements Parcelable {
     private Location location;
     private User user;
     private boolean isMultimediaSelected;
+    private byte[] mainImage;
 
     public Accommodation() {
     }
@@ -163,6 +164,14 @@ public class Accommodation implements Parcelable {
         this.user = user;
     }
 
+    public byte[] getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(byte[] mainImage) {
+        this.mainImage = mainImage;
+    }
+
     @Override
     public String toString() {
         return "Accommodation{" +
@@ -212,13 +221,14 @@ public class Accommodation implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Accommodation that = (Accommodation) o;
-        return Double.compare(that.nightPrice, nightPrice) == 0 && guestsNumber == that.guestsNumber && roomsNumber == that.roomsNumber && bedsNumber == that.bedsNumber && bathroomsNumber == that.bathroomsNumber && Objects.equals(_id, that._id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(rules, that.rules) && Objects.equals(accommodationType, that.accommodationType) && Arrays.equals(accommodationServices, that.accommodationServices) && Objects.equals(location, that.location) && Objects.equals(user, that.user);
+        return Double.compare(that.nightPrice, nightPrice) == 0 && guestsNumber == that.guestsNumber && roomsNumber == that.roomsNumber && bedsNumber == that.bedsNumber && bathroomsNumber == that.bathroomsNumber && isMultimediaSelected == that.isMultimediaSelected && Objects.equals(_id, that._id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(rules, that.rules) && Objects.equals(accommodationType, that.accommodationType) && Arrays.equals(accommodationServices, that.accommodationServices) && Objects.equals(location, that.location) && Objects.equals(user, that.user) && Arrays.equals(mainImage, that.mainImage);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(_id, title, description, rules, accommodationType, nightPrice, guestsNumber, roomsNumber, bedsNumber, bathroomsNumber, location, user);
+        int result = Objects.hash(_id, title, description, rules, accommodationType, nightPrice, guestsNumber, roomsNumber, bedsNumber, bathroomsNumber, location, user, isMultimediaSelected);
         result = 31 * result + Arrays.hashCode(accommodationServices);
+        result = 31 * result + Arrays.hashCode(mainImage);
         return result;
     }
 

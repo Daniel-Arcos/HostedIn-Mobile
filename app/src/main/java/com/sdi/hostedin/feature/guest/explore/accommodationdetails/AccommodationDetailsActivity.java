@@ -73,6 +73,9 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
 
         accommodationDetailsViewModel = new ViewModelProvider(this, new ViewModelFactory(getApplication())).get(AccommodationDetailsViewModel.class);
 
+        accommodationDetailsViewModel.getMultimediasListMutableLiveData().observe(this, multimedias -> {
+            loadMultimedia(multimedias);
+        });
         this.inclHostData = binding.inclHostData;
 
         mpvLocation = binding.mpvAccommodationLocation;
@@ -83,6 +86,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         configureBottomSheet();
         configureButtons();
         manageProgressBarCircle();
+        accommodationDetailsViewModel.loadAccommodationMultimedia(binding.getAccommodationData().getId());
     }
 
     @Override
@@ -164,7 +168,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     }
 
     private void loadAccommodationData() {
-        loadMultimedia();
+        //loadMultimedia();
         binding.vflpAccommodationMultimedia.setFlipInterval(60000);
         binding.vflpAccommodationMultimedia.setAutoStart(true);
 
@@ -181,20 +185,24 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         loadHostData();
     }
 
-    private void loadMultimedia() {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(GrpcServerData.HOST, GrpcServerData.PORT)
-                .usePlaintext()
-                .build();
-
-        for (int i = 0 ; i < 4 ; i ++) {
-            byte[] bytes = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, binding.getAccommodationData().getId(),i );
-            //ImageView imageView1 = binding.imvFirstImage;
-            //ImageUtils.loadAccommodationImage(bytes, imageView1);
-            //binding.vflpAccommodationMultimedia.setDisplayedChild(0);
-            insertMultimediaIntoViewFlipper(i, bytes);
+    private void loadMultimedia(List<byte[]> multimedias) {
+        for (int i = 0; i < 4; i++) {
+            insertMultimediaIntoViewFlipper(i, multimedias.get(i));
         }
 
-        channel.shutdown();
+//        ManagedChannel channel = ManagedChannelBuilder.forAddress(GrpcServerData.HOST, GrpcServerData.PORT)
+//                .usePlaintext()
+//                .build();
+
+//        for (int i = 0 ; i < 4 ; i ++) {
+//            byte[] bytes = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, binding.getAccommodationData().getId(),i );
+//            //ImageView imageView1 = binding.imvFirstImage;
+//            //ImageUtils.loadAccommodationImage(bytes, imageView1);
+//            //binding.vflpAccommodationMultimedia.setDisplayedChild(0);
+//            insertMultimediaIntoViewFlipper(i, bytes);
+//        }
+
+//        channel.shutdown();
 
 //        byte[] bytes = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, binding.getAccommodationData().getId(),0 );
 //        ImageView imageView1 = binding.imvFirstImage;
