@@ -7,9 +7,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -39,6 +44,7 @@ import com.sdi.hostedin.utils.ImageUtils;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -141,7 +147,42 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     private void showAccommodationBooking() {
         Intent intent = new Intent(this, AccommodationBookingActivity.class);
         intent.putExtra(ACCOMMODATION_KEY, binding.getAccommodationData());
+
+        Drawable drawable = binding.imvFirstImage.getDrawable();
+        Uri imageUri = prepareImageForIntent(drawable);
+        intent.putExtra(AccommodationBookingActivity.ACCOMMODATION_IMAGE_KEY, imageUri);
+
         startActivity(intent);
+    }
+
+    private Uri prepareImageForIntent(Drawable drawable) {
+        if (drawable != null) {
+            if (drawable instanceof BitmapDrawable) {
+                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                return getImageUri(this, bitmap);
+            }
+        } else {
+            Drawable drawable1 = binding.imvSecondImage.getDrawable();
+            Uri resultUri = prepareImageForIntent(drawable1);
+            if (resultUri != null) {
+                return resultUri;
+            }
+
+            Drawable drawable2 = binding.imvThirdImage.getDrawable();
+            resultUri = prepareImageForIntent(drawable2);
+            if (resultUri != null) {
+                return resultUri;
+            }
+        }
+
+        return null;
+    }
+
+    private Uri getImageUri(Context context, Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Accommodation photo", null);
+        return Uri.parse(path);
     }
 
     private void manageProgressBarCircle() {

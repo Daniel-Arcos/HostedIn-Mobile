@@ -34,7 +34,7 @@ public class DateValidatorBookedDates implements CalendarConstraints.DateValidat
                     Date reservedStartDate = DateFormatterUtils.parseStringToDate(startDateString);
                     Date reservedEndDate = DateFormatterUtils.parseStringToDate(endDateString);
 
-                    if (!startDate.after(reservedEndDate) && !endDate.before(reservedStartDate)) {
+                    if (startDate.before(reservedEndDate) && endDate.after(reservedStartDate)) {
                         return false;
                     }
                 }
@@ -49,15 +49,15 @@ public class DateValidatorBookedDates implements CalendarConstraints.DateValidat
         long currentTimeMillis = MaterialDatePicker.todayInUtcMilliseconds();
 
         if (bookedDates != null) {
+            if (date < currentTimeMillis) {
+                return false;
+            }
+            for (Booking booked : bookedDates) {
 
-            for (Booking reserved : bookedDates) {
-                if (date < currentTimeMillis) {
-                    return false;
-                }
+                if (booked.getBeginningDate() != null && booked.getEndingDate() != null) {
+                    long beginDate = DateFormatterUtils.parseStringToDate(booked.getBeginningDate()).getTime();
+                    long endDate = DateFormatterUtils.parseStringToDate(booked.getEndingDate()).getTime();
 
-                if (reserved.getBeginningDate() != null && reserved.getEndingDate() != null) {
-                    long beginDate = DateFormatterUtils.parseStringToDate(reserved.getBeginningDate()).getTime();
-                    long endDate = DateFormatterUtils.parseStringToDate(reserved.getEndingDate()).getTime();
                     if (date >= beginDate && date <= endDate) {
                         return false;
                     }
