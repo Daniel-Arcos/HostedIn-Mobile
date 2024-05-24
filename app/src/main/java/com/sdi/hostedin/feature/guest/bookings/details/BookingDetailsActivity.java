@@ -1,4 +1,4 @@
-package com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.details;
+package com.sdi.hostedin.feature.guest.bookings.details;
 
 import android.os.Bundle;
 

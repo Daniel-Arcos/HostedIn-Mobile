@@ -19,7 +19,7 @@ import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.GuestBooking;
 import com.sdi.hostedin.databinding.FragmentGuestBookingsBinding;
-import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.details.BookingDetailsActivity;
+import com.sdi.hostedin.feature.guest.bookings.details.BookingDetailsActivity;
 import com.sdi.hostedin.feature.guest.bookings.review.ReviewAccommodationFragment;
 import com.sdi.hostedin.utils.ViewModelFactory;
 

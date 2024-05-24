@@ -1,4 +1,4 @@
-package com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.details;
+package com.sdi.hostedin.feature.guest.bookings.details;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -6,11 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.datasource.DataStoreHelper;
+import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentBookingDetailsBinding;
@@ -30,6 +35,7 @@ public class BookingDetailsFragment extends Fragment {
     private  FragmentBookingDetailsBinding binding;
 
     private static User thirdUser;
+    RxDataStore<Preferences> dataStoreRX;
     private static Booking bookingInfo;
     public BookingDetailsFragment() {
     }
@@ -70,7 +76,17 @@ public class BookingDetailsFragment extends Fragment {
         binding.txvContactInfo.setText(contactInfo);
 
 
-        //TO-DO: Revisar si es host o guest
+
+        DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
+        if (dataStoreSingleton.getDataStore() == null) {
+            dataStoreRX = new RxPreferenceDataStoreBuilder(this.getContext(),"USER_DATASTORE" ).build();
+        } else {
+            dataStoreRX = dataStoreSingleton.getDataStore();
+        }
+        DataStoreHelper dataStoreHelper = new DataStoreHelper(this.getActivity(), dataStoreRX);
+        boolean isHostEstablished = dataStoreHelper.getBoolValue("START_HOST");
+
+        
         if(bookingInfo.getHostUser() == null){
             binding.txvHostTag.setText("Who will be your Guest?");
             binding.txvTotalCostTag.setText("How much will you earn?");

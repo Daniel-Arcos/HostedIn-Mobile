@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.sdi.hostedin.data.model.BookedAccommodation;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.databinding.FragmentAccommodationBookingsListBinding;
-import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.details.BookingDetailsActivity;
+import com.sdi.hostedin.feature.guest.bookings.details.BookingDetailsActivity;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
 public class HostAccommodationBookingsListFragment extends DialogFragment {
