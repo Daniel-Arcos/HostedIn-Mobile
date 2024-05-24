@@ -18,8 +18,7 @@ import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.domain.CreateAccommodationUseCase;
-import com.sdi.hostedin.enums.AccommodationServices;
-import com.sdi.hostedin.enums.AccommodationTypes;
+import com.sdi.hostedin.domain.UpdateAccommodationUseCase;
 import com.sdi.hostedin.grpc.GrpcAccommodationMultimedia;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
@@ -44,9 +43,17 @@ public class AccommodationFormViewModel extends AndroidViewModel {
     private MutableLiveData<Double> price = new MutableLiveData<>();
     RxDataStore<Preferences> dataStoreRX;
 
-    public AccommodationFormViewModel(@NonNull Application application) {
+    public AccommodationFormViewModel(@NonNull Application application){
         super(application);
 
+        defaultStart();
+    }
+
+    public void restartViewModel(){
+        defaultStart();
+    }
+
+    private void  defaultStart(){
         Accommodation accommodation = new Accommodation();
         Location location = new Location();
         accommodation.setLocation(location);
@@ -57,6 +64,10 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         assignUserId();
         servicesNumber.setValue(new ArrayList<>());
         imagesUri.setValue(new ArrayList<>());
+    }
+
+    public void setAccommodationMutableLiveData(Accommodation accommodation) {
+        this.accommodationMutableLiveData.setValue(accommodation);
     }
 
     private void assignUserId() {
@@ -228,4 +239,24 @@ public class AccommodationFormViewModel extends AndroidViewModel {
 
         grpcClient.uploadAccommodationMultimedia(accommodationId, selectedVideo);
     }
+
+    public void updateAccommodation(Accommodation accommodation) {
+        UpdateAccommodationUseCase updateAccommodationUseCase = new UpdateAccommodationUseCase();
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+
+        String token = DataStoreAccess.accessToken(getApplication());
+        updateAccommodationUseCase.updateAccommodation(accommodation, token, new AccommodationCallback() {
+            @Override
+            public void onSuccess(Accommodation accommodation, String token) {
+                accommodationMutableLiveData.setValue(accommodation);
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation updated"));
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
+            }
+        });
+    }
+
 }

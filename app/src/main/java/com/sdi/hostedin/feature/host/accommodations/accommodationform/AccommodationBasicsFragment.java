@@ -1,15 +1,15 @@
 package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentAccommodationBasicsBinding;
 import com.sdi.hostedin.databinding.ItemAccommodationBasicBinding;
 import com.sdi.hostedin.utils.ToastUtils;
@@ -40,6 +40,9 @@ public class AccommodationBasicsFragment extends Fragment {
     private int bedsNumber;
     private int bathroomsNumber;
 
+    private static Accommodation accommodationToEdit;
+    private static boolean isEdition = false;
+
     public AccommodationBasicsFragment() {
         // Required empty public constructor
     }
@@ -58,6 +61,14 @@ public class AccommodationBasicsFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+    public static AccommodationBasicsFragment newInstance(Accommodation accommodation, boolean isEdition) {
+        AccommodationBasicsFragment fragment = new AccommodationBasicsFragment();
+        Bundle args = new Bundle();
+        accommodationToEdit = accommodation;
+        AccommodationBasicsFragment.isEdition = isEdition;
         fragment.setArguments(args);
         return fragment;
     }
@@ -107,6 +118,7 @@ public class AccommodationBasicsFragment extends Fragment {
         });
 
         loadQuantitiesFromViewModel();
+
     }
 
     private void resetValues() {

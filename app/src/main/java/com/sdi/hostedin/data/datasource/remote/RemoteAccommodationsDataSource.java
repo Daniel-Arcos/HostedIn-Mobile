@@ -255,6 +255,44 @@ public class RemoteAccommodationsDataSource {
         });
     }
 
+    public void updateAccommodation(Accommodation accommodation, String token, AccommodationCallback accommodationCallback) {
+        Call<ResponseAccommodationObject> call = service.updateAccommodation(token, accommodation.getId(), accommodation);
+
+        call.enqueue(new Callback<ResponseAccommodationObject>() {
+            @Override
+            public void onResponse(Call<ResponseAccommodationObject> call, Response<ResponseAccommodationObject> response) {
+                if (response.isSuccessful()) {
+                    ResponseAccommodationObject responseAccommodationObject = response.body();
+                    Accommodation accommodationSaved = responseAccommodationObject.getAccommodation();
+                    String token = response.headers().get("Authorization");
+                    if (token != null && token.startsWith("Bearer ")) {
+                        token = token.substring(7);
+                    }
+                    accommodationCallback.onSuccess(accommodationSaved, token);
+                } else {
+                    String message = "Ocurrio un error al actualizar";
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorString = response.errorBody().string();
+                            JsonParser jsonParser = new JsonParser();
+                            JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
+                            message = jsonObject.get("message").getAsString();
+                            accommodationCallback.onError(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    accommodationCallback.onError(message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseAccommodationObject> call, Throwable t) {
+                accommodationCallback.onError(t.getMessage());
+            }
+        });
+    }
+
     public void getAllHostOwnedAccommodations(String userId, String token,  AccommodationsCallback accommodationsCallback){
         Call<ResponseGetAccommodationsObject> call = service.getAllHostAccommodations(token, userId);
         call.enqueue(new Callback<ResponseGetAccommodationsObject>() {

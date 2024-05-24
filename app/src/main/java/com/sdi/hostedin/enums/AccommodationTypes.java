@@ -1,7 +1,5 @@
 package com.sdi.hostedin.enums;
 
-import com.sdi.hostedin.R;
-
 public enum AccommodationTypes {
     HOUSE("house"),
     APARTMENT("apartment"),
@@ -38,4 +36,6 @@ public enum AccommodationTypes {
             return null;
         }
     }
+
+
 }

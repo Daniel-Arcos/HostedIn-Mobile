@@ -3,16 +3,16 @@ package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentAccommodationTypeBinding;
 import com.sdi.hostedin.enums.AccommodationTypes;
 import com.sdi.hostedin.utils.ToastUtils;
@@ -34,10 +34,16 @@ public class AccommodationTypeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private static final int LOCAL_FRAGMENT_NUMBER = 1;
+
     private FragmentAccommodationTypeBinding binding;
     private AccommodationFormViewModel accommodationFormViewModel;
     private AccommodationTypes selectedAccommodationType;
     private Button[] typesButtons;
+
+
+    private static Accommodation accommodationToEdit;
+    private static boolean isEdition = false;
+
 
     public AccommodationTypeFragment() {
         // Required empty public constructor
@@ -57,6 +63,15 @@ public class AccommodationTypeFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static AccommodationTypeFragment newInstance(Accommodation accommodation, boolean isEdition) {
+        AccommodationTypeFragment fragment = new AccommodationTypeFragment();
+        Bundle args = new Bundle();
+        accommodationToEdit = accommodation;
+        AccommodationTypeFragment.isEdition = isEdition;
         fragment.setArguments(args);
         return fragment;
     }
@@ -90,8 +105,12 @@ public class AccommodationTypeFragment extends Fragment {
                 new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
                 .get(AccommodationFormViewModel.class);
 
+
+
         return binding.getRoot();
     }
+
+
 
     @Override
     public void onResume() {
@@ -108,6 +127,47 @@ public class AccommodationTypeFragment extends Fragment {
         if (accommodationFormViewModel.getSelectedAccommodationType().getValue() != null) {
             int selectedType = accommodationFormViewModel.getSelectedAccommodationType().getValue();
             selectType(selectedType, typesButtons[selectedType]);
+        }
+
+        if(isEdition){
+            loadAccommodationInfo();
+        }
+    }
+
+    private void loadAccommodationInfo() {
+        Button buttonSelected = new Button(getContext());
+        int buttonType = 0;
+        for (AccommodationTypes types: AccommodationTypes.values()){
+            if(types.getDescription().equals(accommodationToEdit.getAccommodationType())){
+                String spanishWord = "";
+                if(types.getDescription().equals(AccommodationTypes.HOUSE.getDescription())){
+                    buttonType = 0;
+                    spanishWord = "Casa";
+                }else if(types.getDescription().equals(AccommodationTypes.APARTMENT.getDescription())){
+                    buttonType = 0;
+                    spanishWord = "Departamento";
+                }
+                else if(types.getDescription().equals(AccommodationTypes.CABIN.getDescription())){
+                    buttonType = 0;
+                    spanishWord = "Cabaña";
+                }else if(types.getDescription().equals(AccommodationTypes.CAMP.getDescription())){
+                    buttonType = 0;
+                    spanishWord = "Campamento";
+                }else if(types.getDescription().equals(AccommodationTypes.CAMPER.getDescription())){
+                    buttonType = 0;
+                    spanishWord = "Casa rodante";
+                }else if(types.getDescription().equals(AccommodationTypes.SHIP.getDescription())){
+                    buttonType = 0;
+                    spanishWord = "Barco";
+                }
+
+                for (Button button : typesButtons){
+                    if(button.getText().equals(spanishWord)){
+                        buttonSelected = button;
+                    }
+                }
+                selectType(buttonType, buttonSelected);
+            }
         }
     }
 

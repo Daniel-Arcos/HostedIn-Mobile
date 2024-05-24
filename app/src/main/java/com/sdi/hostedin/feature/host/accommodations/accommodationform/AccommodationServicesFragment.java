@@ -3,15 +3,15 @@ package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentAccommodationServicesBinding;
 import com.sdi.hostedin.enums.AccommodationServices;
 import com.sdi.hostedin.utils.ToastUtils;
@@ -29,12 +29,9 @@ public class AccommodationServicesFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static boolean  isEdition = false;
+    private static  Accommodation accommodation;
     private static final int LOCAL_FRAGMENT_NUMBER = 4;
     private FragmentAccommodationServicesBinding binding;
     private AccommodationFormViewModel accommodationFormViewModel;
@@ -49,16 +46,15 @@ public class AccommodationServicesFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment AccommodationServicesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AccommodationServicesFragment newInstance(String param1, String param2) {
+    public static AccommodationServicesFragment newInstance(Accommodation parm1,boolean param2) {
         AccommodationServicesFragment fragment = new AccommodationServicesFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        accommodation = parm1;
+        isEdition = param2;
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,8 +63,6 @@ public class AccommodationServicesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -117,6 +111,59 @@ public class AccommodationServicesFragment extends Fragment {
                 selectService(selectedServices.get(i), servicesButtons[selectedServices.get(i)]);
             }
         }
+        if (isEdition){
+            loadAccommodationInfo();
+        }
+    }
+
+    private void loadAccommodationInfo(){
+        AccommodationServices accommodationService = null;
+        String[] accServices = accommodation.getAccommodationServices();
+        for (String accService : accServices) {
+            for (AccommodationServices service : AccommodationServices.values()) {
+                if (accService.equals(service.getDescription())) {
+                    String spanishWord = "";
+                    if (service.getDescription().equals(AccommodationServices.INTERNET.getDescription())) {
+                        accommodationService =  AccommodationServices.INTERNET;
+                        spanishWord = "Internet";
+                    } else if (service.getDescription().equals(AccommodationServices.TV.getDescription())) {
+                        accommodationService =  AccommodationServices.TV;
+                        spanishWord = "TV";
+                    } else if (service.getDescription().equals(AccommodationServices.KITCHEN.getDescription())) {
+                        accommodationService =  AccommodationServices.KITCHEN;
+                        spanishWord = "Cocina";
+                    } else if (service.getDescription().equals(AccommodationServices.WASHING_MACHINE.getDescription())) {
+                        accommodationService =  AccommodationServices.WASHING_MACHINE;
+                        spanishWord = "Lavadora";
+                    } else if (service.getDescription().equals(AccommodationServices.PARKING.getDescription())) {
+                        accommodationService =  AccommodationServices.PARKING;
+                        spanishWord = "Estacionamiento";
+                    } else if (service.getDescription().equals(AccommodationServices.AIR_CONDITIONING.getDescription())) {
+                        accommodationService =  AccommodationServices.AIR_CONDITIONING;
+                        spanishWord = "Aire acondicionado";
+                    } else if (service.getDescription().equals(AccommodationServices.POOL.getDescription())) {
+                        accommodationService =  AccommodationServices.POOL;
+                        spanishWord = "Alberca";
+                    } else if (service.getDescription().equals(AccommodationServices.GARDEN.getDescription())) {
+                        accommodationService =  AccommodationServices.GARDEN;
+                        spanishWord = "Patio";
+                    } else if (service.getDescription().equals(AccommodationServices.LIGHT.getDescription())) {
+                        accommodationService =  AccommodationServices.LIGHT;
+                        spanishWord = "Luz";
+                    } else if (service.getDescription().equals(AccommodationServices.WATER.getDescription())) {
+                        accommodationService =  AccommodationServices.WATER;
+                        spanishWord = "Agua";
+                    }
+
+                    for (Button button : servicesButtons) {
+                        if (button.getText().equals(spanishWord)) {
+                            selectAccommodationService(accommodationService, button);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     private void configureServiceButtons() {
@@ -168,7 +215,6 @@ public class AccommodationServicesFragment extends Fragment {
             default:
                 break;
         }
-
         accommodationFormViewModel.addServicerNumber(serviceNumber);
     }
 

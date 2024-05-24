@@ -5,14 +5,6 @@ import android.database.Cursor;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.text.HtmlCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +14,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.text.HtmlCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentAccommodationMultimediaBinding;
 import com.sdi.hostedin.utils.ImageUtils;
 import com.sdi.hostedin.utils.ToastUtils;
@@ -59,6 +59,9 @@ public class AccommodationMultimediaFragment extends Fragment {
     private Uri selectedVideo;
     boolean isNextClicked = false;
 
+    private static Accommodation accommodationToEdit ;
+    private static boolean isEdition;
+
     private boolean isPhotoClickedTEMPORARY;
 
     public AccommodationMultimediaFragment() {
@@ -79,6 +82,14 @@ public class AccommodationMultimediaFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+    public static AccommodationMultimediaFragment newInstance(Accommodation param1, boolean param2) {
+        AccommodationMultimediaFragment fragment = new AccommodationMultimediaFragment();
+        Bundle args = new Bundle();
+        accommodationToEdit = param1;
+        isEdition = param2;
         fragment.setArguments(args);
         return fragment;
     }

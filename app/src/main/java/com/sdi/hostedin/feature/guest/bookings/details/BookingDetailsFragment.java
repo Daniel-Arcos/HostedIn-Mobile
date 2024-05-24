@@ -34,8 +34,9 @@ public class BookingDetailsFragment extends Fragment {
 
     private  FragmentBookingDetailsBinding binding;
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     private static User thirdUser;
-    RxDataStore<Preferences> dataStoreRX;
+    private RxDataStore<Preferences> dataStoreRX;
     private static Booking bookingInfo;
     public BookingDetailsFragment() {
     }
@@ -62,32 +63,22 @@ public class BookingDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentBookingDetailsBinding.inflate(inflater, container, false);
+        loadBookingInformation();
+        loadCustomeButtons();
+        return binding.getRoot();
+    }
+
+    private void loadBookingInformation(){
         binding.rcyvAccommodationMedia.setBackgroundColor(Color.LTGRAY);
         binding.txvStartingDate.setText(DateFormatterUtils.parseMongoDateToNaturalDate(bookingInfo.getBeginningDate()));
         binding.txvEndingDate.setText(DateFormatterUtils.parseMongoDateToNaturalDate(bookingInfo.getEndingDate()));
-
-
-
         binding.txvTotalGuest.setText(String.valueOf(bookingInfo.getNumberOfGuests())+ "guests");
         binding.txvTotalCost.setText("$ " + String.valueOf(bookingInfo.getTotalCost()) + " MXN");
         binding.txvHostName.setText(thirdUser.getFullName());
         String contactInfo = "Phone number:  " + thirdUser.getPhoneNumber() + "\n" +
-                                "Email: " + thirdUser.getEmail();
+                "Email: " + thirdUser.getEmail();
         binding.txvContactInfo.setText(contactInfo);
-
-
-
-        DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
-        if (dataStoreSingleton.getDataStore() == null) {
-            dataStoreRX = new RxPreferenceDataStoreBuilder(this.getContext(),"USER_DATASTORE" ).build();
-        } else {
-            dataStoreRX = dataStoreSingleton.getDataStore();
-        }
-        DataStoreHelper dataStoreHelper = new DataStoreHelper(this.getActivity(), dataStoreRX);
-        boolean isHostEstablished = dataStoreHelper.getBoolValue("START_HOST");
-
-        
-        if(bookingInfo.getHostUser() == null){
+        if(isHost()){
             binding.txvHostTag.setText("Who will be your Guest?");
             binding.txvTotalCostTag.setText("How much will you earn?");
         }
@@ -95,13 +86,12 @@ public class BookingDetailsFragment extends Fragment {
             binding.txvHostTag.setText("Who will be your Host?");
             binding.txvTotalCostTag.setText("How much will you pay?");
         }
+    }
 
-
+    private void loadCustomeButtons(){
         binding.inclWatchMap.imageView.setBackgroundResource(R.drawable.map_icon);
         binding.inclWatchMap.txvGenericText.setText("Watch in map");
         binding.inclWatchMap.bttGenericButton.setOnClickListener(this:: watchAccommodationMap);
-
-
         if(bookingInfo.getBookingStatus().equals(BookingSatuses.CURRENT)){
             binding.inclRatePublication.imageView.setBackgroundResource(R.drawable.rate_icon);
             binding.inclRatePublication.txvGenericText.setText("Rate accommodation");
@@ -111,21 +101,18 @@ public class BookingDetailsFragment extends Fragment {
         else {
             binding.inclRatePublication.getRoot().setVisibility(View.INVISIBLE);
         }
-
         if(canBeCancelled(bookingInfo.getBeginningDate())){
             binding.inclCancellBook.imageView.setBackgroundResource(R.drawable.cancell_icon);
             binding.inclCancellBook.txvGenericText.setText("Cancel booking");
-            binding.inclCancellBook.bttGenericButton.setOnClickListener(this:: goToCancellFragment);
+            binding.inclCancellBook.bttGenericButton.setOnClickListener(this::goToCancelFragment);
             binding.inclCancellBook.getRoot().setVisibility(View.VISIBLE);
         }
         else {
             binding.inclCancellBook.getRoot().setVisibility(View.INVISIBLE);
         }
-
-        return binding.getRoot();
     }
 
-    private void goToCancellFragment(View view) {
+    private void goToCancelFragment(View view) {
         CancelationReasonSelectionFragment cancelationReasonSelectionFragment = new CancelationReasonSelectionFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -134,15 +121,13 @@ public class BookingDetailsFragment extends Fragment {
     }
 
     private void openRateAccommodationWindow(View view) {
-        ToastUtils.showShortInformationMessage(this.getContext(), "Calificar");
+        ToastUtils.showShortInformationMessage(this.getContext(), "Rate");
     }
 
     private void watchAccommodationMap(View view) {
-
-        ToastUtils.showShortInformationMessage(this.getContext(), "Ver mapa");
+        ToastUtils.showShortInformationMessage(this.getContext(), "watch map");
     }
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
     private boolean canBeCancelled(String beginningDate) {
         try {
@@ -157,4 +142,14 @@ public class BookingDetailsFragment extends Fragment {
         }
     }
 
+    private boolean isHost(){
+        DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
+        if (dataStoreSingleton.getDataStore() == null) {
+            dataStoreRX = new RxPreferenceDataStoreBuilder(this.getContext(),"USER_DATASTORE" ).build();
+        } else {
+            dataStoreRX = dataStoreSingleton.getDataStore();
+        }
+        DataStoreHelper dataStoreHelper = new DataStoreHelper(this.getActivity(), dataStoreRX);
+        return dataStoreHelper.getBoolValue("START_HOST");
+    }
 }

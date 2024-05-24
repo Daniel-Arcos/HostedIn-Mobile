@@ -3,14 +3,12 @@ package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,8 +25,8 @@ import com.google.android.libraries.places.api.net.FetchPlaceResponse;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
-
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.databinding.FragmentAccommodationLocationBinding;
 import com.sdi.hostedin.utils.ToastUtils;
@@ -66,6 +64,9 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
     private PlacesClient placesClient;
     private Marker currentMarker;
 
+    private static Accommodation accommodationToEdit;
+    private static boolean isEdition = false;
+
     public AccommodationLocationFragment() {
         // Required empty public constructor
     }
@@ -84,6 +85,15 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static AccommodationLocationFragment newInstance(Accommodation accommodation, boolean isEdition) {
+        AccommodationLocationFragment fragment = new AccommodationLocationFragment();
+        Bundle args = new Bundle();
+        accommodationToEdit = accommodation;
+        AccommodationLocationFragment.isEdition = isEdition;
         fragment.setArguments(args);
         return fragment;
     }
@@ -119,6 +129,8 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
             searchPlace(query);
         });
 
+
+
         return binding.getRoot();
     }
 
@@ -128,20 +140,28 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
 
         if (gMap != null) {
             LatLng loc = new LatLng(19.541313423005903, -96.9271922754975);
-
-            MarkerOptions mko = new MarkerOptions()
-                    .position(loc)
-                    .draggable(true)
-                    .title("Hosted In");
-
-            currentMarker = gMap.addMarker(mko);
-            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 14));
-
-            location = accommodationFormViewModel.getAccommodationMutableLiveData().getValue().getLocation();
-
-            if (currentMarker != null && location != null && location.getLatitude() != 0 && location.getLongitude() != 0) {
-                moveMarkerToSavedLocation(location);
+            if(isEdition){
+                LatLng accommodationLocation = new LatLng(accommodationToEdit.getLocation().getLatitude(), accommodationToEdit.getLocation().getLongitude());
+                setLocation(accommodationLocation);
+            }else{
+                setLocation(loc);
             }
+        }
+    }
+
+    private void setLocation(LatLng loc){
+        MarkerOptions mko = new MarkerOptions()
+                .position(loc)
+                .draggable(true)
+                .title("Hosted In");
+
+        currentMarker = gMap.addMarker(mko);
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 14));
+
+        location = accommodationFormViewModel.getAccommodationMutableLiveData().getValue().getLocation();
+
+        if (currentMarker != null && location != null && location.getLatitude() != 0 && location.getLongitude() != 0) {
+            moveMarkerToSavedLocation(location);
         }
     }
 

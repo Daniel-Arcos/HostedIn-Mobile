@@ -25,4 +25,6 @@ public class EditAccommodationActivity extends AppCompatActivity {
                 .add(binding.fgcvMainEditAccommFragmentContainer.getId(), editAccommodationFragment)
                 .commit();
     }
+
+
 }

@@ -29,6 +29,20 @@ public class AccommodationsRepository {
         });
     }
 
+    public void updateAccommodation(Accommodation accommodation, String token, AccommodationCallback accommodationCallback) {
+        remoteAccommodationsDataSource.updateAccommodation(accommodation, token, new AccommodationCallback() {
+            @Override
+            public void onSuccess(Accommodation accommodation, String token) {
+                accommodationCallback.onSuccess(accommodation, token);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                accommodationCallback.onError(errorMessage);
+            }
+        });
+    }
+
     public  void getAllAccommodations(String token, AccommodationsCallback accommodationsCallback) {
         remoteAccommodationsDataSource.getAllAccommodations(token, new AccommodationsCallback() {
             @Override

@@ -98,13 +98,16 @@ public class ApiClient {
         @GET("accommodations/{accommodationId}/reviews")
         Call<ResponseGetReviewsObject> getReviewsOfAccommodation(@Header("Authorization") String authToken, @Path("accommodationId") String accommodationId);
 
+        @PUT("accommodations/{accommodationId}")
+        Call<ResponseAccommodationObject> updateAccommodation(@Header("Authorization") String token, @Path("accommodationId") String accommodationId, @Body Accommodation accommodation);
+
     }
 
 
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.100.9:3000/api/v1/")
+            .baseUrl("http://192.168.1.75:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build();
 

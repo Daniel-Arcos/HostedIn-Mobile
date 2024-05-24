@@ -1,18 +1,18 @@
 package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 
 import android.os.Bundle;
-
-import androidx.core.text.HtmlCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.core.text.HtmlCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentAccommodationInformationBinding;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
@@ -39,6 +39,9 @@ public class AccommodationInformationFragment extends Fragment {
     private String description;
     private String rules;
     private double nightPrice;
+    private static Accommodation accommodationToEdit ;
+    private static boolean isEdition;
+
 
 
     public AccommodationInformationFragment() {
@@ -63,6 +66,14 @@ public class AccommodationInformationFragment extends Fragment {
         return fragment;
     }
 
+    public static AccommodationInformationFragment newInstance(Accommodation param1, boolean param2) {
+        AccommodationInformationFragment fragment = new AccommodationInformationFragment();
+        Bundle args = new Bundle();
+        accommodationToEdit = param1;
+        isEdition = param2;
+        fragment.setArguments(args);
+        return fragment;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,13 +89,23 @@ public class AccommodationInformationFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentAccommodationInformationBinding.inflate(getLayoutInflater());
 
-        customActivityParent();
-
+        if(!isEdition) {
+            customActivityParent();
+        }else{
+            loadAccommodationInfo();
+        }
         accommodationFormViewModel =
                 new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
                         .get(AccommodationFormViewModel.class);
 
         return binding.getRoot();
+    }
+
+    private void loadAccommodationInfo() {
+        binding.etxTitle.setText(accommodationToEdit.getTitle());
+        binding.etxDescription.setText(accommodationToEdit.getDescription());
+        binding.etxRules.setText(accommodationToEdit.getRules());
+        binding.etxNightPrice.setText(String.valueOf(accommodationToEdit.getNightPrice()));
     }
 
     @Override
