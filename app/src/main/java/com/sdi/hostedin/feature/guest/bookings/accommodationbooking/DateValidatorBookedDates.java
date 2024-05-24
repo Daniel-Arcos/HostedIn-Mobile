@@ -6,6 +6,9 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.utils.DateFormatterUtils;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -53,7 +56,6 @@ public class DateValidatorBookedDates implements CalendarConstraints.DateValidat
                 return false;
             }
             for (Booking booked : bookedDates) {
-
                 if (booked.getBeginningDate() != null && booked.getEndingDate() != null) {
                     long beginDate = DateFormatterUtils.parseStringToDate(booked.getBeginningDate()).getTime();
                     long endDate = DateFormatterUtils.parseStringToDate(booked.getEndingDate()).getTime();

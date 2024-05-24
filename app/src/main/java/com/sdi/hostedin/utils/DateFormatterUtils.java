@@ -91,6 +91,7 @@ public class DateFormatterUtils {
 
     public static String formatNormalDate(Date date) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(NORMAL_DATE_PATTERN);
+        dateFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         return dateFormatter.format(date);
     }
 

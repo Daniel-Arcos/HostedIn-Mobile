@@ -58,13 +58,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="Miguel Gomez"
+                        android:text=""
                         />
                     <TextView
                         android:id="@+id/txv_host_phone_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="22882882288"
+                        android:text=""
                         android:maxLines="1"
                         />
                 </LinearLayout>

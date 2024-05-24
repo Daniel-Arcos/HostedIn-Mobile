@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.data.model.Review;
+import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityAccommodationDetailsBinding;
 import com.sdi.hostedin.databinding.ItemHostDetailsBinding;
 import com.sdi.hostedin.enums.AccommodationServices;
@@ -148,41 +149,44 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         Intent intent = new Intent(this, AccommodationBookingActivity.class);
         intent.putExtra(ACCOMMODATION_KEY, binding.getAccommodationData());
 
-        Drawable drawable = binding.imvFirstImage.getDrawable();
-        Uri imageUri = prepareImageForIntent(drawable);
-        intent.putExtra(AccommodationBookingActivity.ACCOMMODATION_IMAGE_KEY, imageUri);
+        Uri imageUri = prepareImageForIntent();
+
+        if (imageUri != null) {
+            intent.putExtra(AccommodationBookingActivity.ACCOMMODATION_IMAGE_KEY, imageUri);
+        }
 
         startActivity(intent);
     }
 
-    private Uri prepareImageForIntent(Drawable drawable) {
-        if (drawable != null) {
-            if (drawable instanceof BitmapDrawable) {
-                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-                return getImageUri(this, bitmap);
-            }
-        } else {
-            Drawable drawable1 = binding.imvSecondImage.getDrawable();
-            Uri resultUri = prepareImageForIntent(drawable1);
-            if (resultUri != null) {
-                return resultUri;
-            }
+    private Uri prepareImageForIntent() {
+        Drawable drawable1 = binding.imvFirstImage.getDrawable();
+        Drawable drawable2 = binding.imvSecondImage.getDrawable();
+        Drawable drawable3 = binding.imvThirdImage.getDrawable();
 
-            Drawable drawable2 = binding.imvThirdImage.getDrawable();
-            resultUri = prepareImageForIntent(drawable2);
-            if (resultUri != null) {
-                return resultUri;
-            }
+        Uri resultUri = null;
+        if (drawable1 instanceof BitmapDrawable) {
+            Bitmap bitmap = ((BitmapDrawable) drawable1).getBitmap();
+            resultUri = getImageUri(bitmap);
+        } else if (drawable2 instanceof BitmapDrawable) {
+            Bitmap bitmap = ((BitmapDrawable) drawable2).getBitmap();
+            resultUri = getImageUri(bitmap);
+        } else if (drawable3 instanceof BitmapDrawable) {
+            Bitmap bitmap = ((BitmapDrawable) drawable3).getBitmap();
+            resultUri = getImageUri(bitmap);
         }
 
-        return null;
+        return resultUri;
     }
 
-    private Uri getImageUri(Context context, Bitmap bitmap) {
+    private Uri getImageUri(Bitmap bitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Accommodation photo", null);
-        return Uri.parse(path);
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Accommodation photo", null);
+        if (path != null) {
+            return Uri.parse(path);
+        } else {
+            return null;
+        }
     }
 
     private void manageProgressBarCircle() {
@@ -214,15 +218,10 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         binding.vflpAccommodationMultimedia.setAutoStart(true);
 
         loadNightPrice();
-
         loadAccommodationBasics();
-
         loadAccommodationServices();
-
         loadReviews();
-
         loadAccommodationType();
-
         loadHostData();
     }
 
@@ -418,11 +417,15 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     }
 
     private void loadHostData() {
-        inclHostData.txvHostName.setText(binding.getAccommodationData().getUser().getFullName());
-        inclHostData.txvHostPhoneNumber.setText(binding.getAccommodationData().getUser().getPhoneNumber());
-        inclHostData.txvHostOccupation.setVisibility(View.VISIBLE);
-        inclHostData.txvHostOccupation.setText(binding.getAccommodationData().getUser().getOccupation());
-        inclHostData.txvHostResidence.setVisibility(View.VISIBLE);
-        inclHostData.txvHostResidence.setText(binding.getAccommodationData().getUser().getResidence());
+        User user = binding.getAccommodationData().getUser();
+        if (user != null) {
+            inclHostData.txvHostName.setText(user.getFullName());
+            inclHostData.txvHostPhoneNumber.setText(user.getPhoneNumber());
+            inclHostData.txvHostOccupation.setVisibility(View.VISIBLE);
+            inclHostData.txvHostOccupation.setText(user.getOccupation());
+            inclHostData.txvHostResidence.setVisibility(View.VISIBLE);
+            inclHostData.txvHostResidence.setText(user.getResidence());
+            ImageUtils.loadProfilePhoto(user, binding.inclHostData.imvProfilePhoto);
+        }
     }
 }
