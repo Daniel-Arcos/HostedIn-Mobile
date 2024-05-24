@@ -121,60 +121,6 @@
                     android:maxLines="2"
                     android:text="@{accommodation_data.description}" />
 
-                <androidx.coordinatorlayout.widget.CoordinatorLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#00FFFFFF">
-
-                    <RelativeLayout
-                        android:id="@+id/btmsh_more_details"
-                        style="@style/Widget.Material3.BottomSheet"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#00BFBFBF"
-                        android:clickable="true"
-                        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-                        <TextView
-                            android:id="@+id/txv_more_details_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="13dp"
-                            android:text="Detalles"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_close_details"
-                            style="@style/Widget.Material3.Button.TextButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="5dp"
-                            android:text="Cerrar"
-                            android:textSize="17sp" />
-
-                        <ScrollView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/txv_more_details_title">
-
-                            <TextView
-                                android:id="@+id/txv_more_details_description"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="15dp"
-                                android:layout_marginEnd="15dp"
-                                android:text="detalles..."
-                                android:textSize="18sp" />
-
-                        </ScrollView>
-
-                    </RelativeLayout>
-
-                </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
                 <android.widget.Button
                     android:id="@+id/btn_show_more_description"
                     style="@style/Widget.Material3.FloatingActionButton.Secondary"
@@ -351,6 +297,63 @@
         </ScrollView>
 
 <!--        bottom sheet-->
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="#00FFFFFF">
+
+            <RelativeLayout
+                android:id="@+id/btmsh_more_details"
+                style="@style/Widget.Material3.BottomSheet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00BFBFBF"
+                android:clickable="true"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+                <TextView
+                    android:id="@+id/txv_more_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Detalles"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginStart="15dp"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_close_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:text="Cerrar"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="17sp"
+                    android:layout_marginRight="5dp"/>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txv_more_details_title"
+                    >
+
+                    <TextView
+                        android:id="@+id/txv_more_details_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="detalles..."
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:textSize="18sp"
+                        />
+
+                </ScrollView>
+
+            </RelativeLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <Button
             android:id="@+id/btn_booking"
