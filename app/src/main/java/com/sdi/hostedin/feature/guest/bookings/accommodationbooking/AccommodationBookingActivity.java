@@ -2,7 +2,6 @@ package com.sdi.hostedin.feature.guest.bookings.accommodationbooking;
 
 import static com.sdi.hostedin.feature.guest.explore.accommodationdetails.AccommodationDetailsActivity.ACCOMMODATION_KEY;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
 import androidx.core.util.Pair;
@@ -11,12 +10,10 @@ import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
-import android.graphics.Color;
+import android.content.ContentResolver;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -32,21 +29,15 @@ import com.sdi.hostedin.databinding.ItemHostDetailsBinding;
 import com.sdi.hostedin.enums.AccommodationTypes;
 import com.sdi.hostedin.enums.BookingSatuses;
 import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationFormActivity;
-import com.sdi.hostedin.feature.user.EditProfileViewModel;
 import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.ImageUtils;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 public class AccommodationBookingActivity extends AppCompatActivity {
 
@@ -68,7 +59,11 @@ public class AccommodationBookingActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         binding.setAccommodationData(extras.getParcelable(ACCOMMODATION_KEY));
-        binding.imvAccommodationPhoto.setImageURI(extras.getParcelable(ACCOMMODATION_IMAGE_KEY));
+        Uri imageUri = extras.getParcelable(ACCOMMODATION_IMAGE_KEY);
+        if (imageUri != null) {
+            binding.imvAccommodationPhoto.setImageURI(imageUri);
+            removeImageFromLocalStorage(imageUri);
+        }
 
         limitGuestsNumber = binding.getAccommodationData().getGuestsNumber();
         this.inclHostData = binding.inclHostData;
@@ -89,7 +84,6 @@ public class AccommodationBookingActivity extends AppCompatActivity {
         loadLimitGuestsNumber();
         loadNightPrice();
         loadAccommodationType();
-        loadAccommodationImage();
     }
 
     private void loadLimitGuestsNumber() {
@@ -114,10 +108,6 @@ public class AccommodationBookingActivity extends AppCompatActivity {
                 binding.txvAccommodationType.setText(accommodationType);
             }
         }
-    }
-
-    private void loadAccommodationImage() {
-        // TODO:
     }
 
     private void setViewModelObservers() {
@@ -161,6 +151,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
                     }
                     break;
                 case ERROR:
+                    Log.d("PRUEBA", status.getMessage());
                     binding.pgbCreateBooking.setVisibility(View.GONE);
                     ToastUtils.showShortInformationMessage(this, status.getMessage());
             }
@@ -280,6 +271,17 @@ public class AccommodationBookingActivity extends AppCompatActivity {
         binding.txvAccommodationBookingMessage.setText(styledTextSpanned);
     }
 
+    private void removeImageFromLocalStorage(Uri imageUri) {
+        ContentResolver contentResolver = getContentResolver();
+        int deletedRows = contentResolver.delete(imageUri, null, null);
+
+        if (deletedRows > 0) {
+            Log.d("DeleteImage", "Imagen eliminada correctamente");
+        } else {
+            Log.d("DeleteImage", "No se pudo eliminar la imagen");
+        }
+    }
+
     private void loadHostData() {
         inclHostData.txvHostName.setText(binding.getAccommodationData().getUser().getFullName());
         inclHostData.txvHostPhoneNumber.setText(binding.getAccommodationData().getUser().getPhoneNumber());
@@ -364,7 +366,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
         String beginningDateMongo = DateFormatterUtils.parseDateForMongoDB(String.valueOf(binding.btnBeginningDate.getText()).trim());
         String endingDateMongo = DateFormatterUtils.parseDateForMongoDB(String.valueOf(binding.btnEndingDate.getText()).trim());
 
-        newBooking.setAccommodationId(binding.getAccommodationData().getId());
+        newBooking.setAccommodation(binding.getAccommodationData());
         if (beginningDateMongo != null) {
             newBooking.setBeginningDate(beginningDateMongo);
         }

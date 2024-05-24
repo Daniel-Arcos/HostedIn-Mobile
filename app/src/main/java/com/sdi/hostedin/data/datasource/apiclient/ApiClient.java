@@ -1,5 +1,7 @@
 package com.sdi.hostedin.data.datasource.apiclient;
 
+import com.sdi.hostedin.data.datasource.apiclient.moshiconverters.DateJsonAdapter;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.CancellationResponse;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetReviewsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseReviewObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
@@ -13,10 +15,12 @@ import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUse
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGuestBookedAccommodations;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Booking;
+import com.sdi.hostedin.data.model.Cancellation;
 import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
 import com.sdi.hostedin.data.model.Review;
 import com.sdi.hostedin.data.model.User;
+import com.squareup.moshi.Moshi;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -100,10 +104,16 @@ public class ApiClient {
 
         @PUT("accommodations/{accommodationId}")
         Call<ResponseAccommodationObject> updateAccommodation(@Header("Authorization") String token, @Path("accommodationId") String accommodationId, @Body Accommodation accommodation);
+        
+        //Cancellations
+        @POST("cancellations")
+        Call<CancellationResponse> cancelBooking(@Header("Authorization") String authToken, @Body Cancellation cancellation);
 
     }
 
-
+    Moshi moshi = new Moshi.Builder()
+            .add(new DateJsonAdapter())
+            .build();
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red

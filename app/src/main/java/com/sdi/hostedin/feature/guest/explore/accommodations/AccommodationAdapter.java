@@ -6,12 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.AccomodationExploreResultItemBinding;
+import com.sdi.hostedin.utils.ImageUtils;
+import com.sdi.hostedin.utils.ViewModelFactory;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 public class AccommodationAdapter extends ListAdapter<Accommodation, AccommodationAdapter.AcViewHolder> {
 
@@ -19,12 +25,12 @@ public class AccommodationAdapter extends ListAdapter<Accommodation, Accommodati
             new DiffUtil.ItemCallback<Accommodation>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull Accommodation oldItem, @NonNull Accommodation newItem) {
-                    return oldItem.getId().equals(newItem.getId());
+                    return Objects.equals(oldItem.getId(), newItem.getId());
                 }
 
                 @Override
                 public boolean areContentsTheSame(@NonNull Accommodation oldItem, @NonNull Accommodation newItem) {
-                    return oldItem.equals(newItem);
+                    return oldItem.equals(newItem) && Arrays.equals(oldItem.getMainImage(), newItem.getMainImage());
                 }
             };
 
@@ -60,9 +66,13 @@ public class AccommodationAdapter extends ListAdapter<Accommodation, Accommodati
         public AcViewHolder(@NonNull AccomodationExploreResultItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
         }
 
         public void bind(Accommodation accommodation) {
+            if (accommodation.getMainImage() != null) {
+                binding.imvAccommodation.setImageBitmap(ImageUtils.bytesToBitmap(accommodation.getMainImage()));
+            }
             binding.txvTitle.setText(String.valueOf(accommodation.getTitle()));
             binding.price.setText("$ " + String.valueOf(accommodation.getNightPrice()) + " MXN");
             binding.getRoot().setOnClickListener(v -> {

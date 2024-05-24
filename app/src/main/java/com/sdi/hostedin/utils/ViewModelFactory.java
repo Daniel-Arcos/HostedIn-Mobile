@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.sdi.hostedin.feature.cancelation.CancelationViewModel;
 import com.sdi.hostedin.feature.guest.bookings.accommodationbooking.AccommodationBookingViewModel;
 import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.GuestBookingsViewModel;
 import com.sdi.hostedin.feature.guest.bookings.review.ReviewAccommodationViewModel;
@@ -61,6 +62,8 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new ReviewAccommodationViewModel(application);
         }else if (modelClass.equals(HostOwnedAccommodationsViewModel.class)){
             return (T) new HostOwnedAccommodationsViewModel(application);
+        } else if (modelClass.equals(CancelationViewModel.class)) {
+            return (T) new CancelationViewModel(application);
         }
 
         return null;

@@ -42,6 +42,12 @@ public class GuestBookingsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        guestBookingsViewModel.getCurrentBookedAccommodations();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentGuestBookingsBinding.inflate(inflater, container, false);
@@ -69,7 +75,6 @@ public class GuestBookingsFragment extends Fragment {
         manageLoading();
 
         adapter.setShowButton(false);
-        guestBookingsViewModel.getCurrentBookedAccommodations();
         return binding.getRoot();
     }
 
@@ -104,7 +109,7 @@ public class GuestBookingsFragment extends Fragment {
     private Booking convertToBooking(GuestBooking guestBooking){
         Booking booking = new Booking();
                 booking.set_id(guestBooking.get_id());
-                booking.setAccommodationId(guestBooking.getAccommodation().getId());
+                booking.setAccommodation(guestBooking.getAccommodation());
                 booking.setBeginningDate(guestBooking.getBeginningDate());
                 booking.setEndingDate(guestBooking.getEndingDate());
                 booking.setNumberOfGuests(guestBooking.getNumberOfGuests());

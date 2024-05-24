@@ -1,6 +1,8 @@
 package com.sdi.hostedin.feature.guest.explore.accommodations;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.datastore.preferences.core.Preferences;
@@ -9,18 +11,22 @@ import androidx.datastore.rxjava2.RxDataStore;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.sdi.hostedin.MyApplication;
 import com.sdi.hostedin.data.callbacks.AccommodationsCallback;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.User;
+import com.sdi.hostedin.data.repositories.MultimediasRepository;
 import com.sdi.hostedin.domain.GetAccommodationsUseCase;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 public class ExploreViewModel extends AndroidViewModel {
 
@@ -30,11 +36,15 @@ public class ExploreViewModel extends AndroidViewModel {
     MutableLiveData<List<Accommodation>> accommodationsLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> isNew = new MutableLiveData<>();
     MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
-
+    private final ExecutorService executorService;
+    private final Handler mainHandler;
 
     public ExploreViewModel(@NonNull Application application) {
         super(application);
         this.isNew.setValue(true);
+        MyApplication myApplication = (MyApplication) application;
+        executorService = myApplication.getExecutorService();
+        mainHandler = myApplication.getMainThreadHandler();
     }
 
     public MutableLiveData<String> getPlaceToSearch() {
@@ -83,6 +93,7 @@ public class ExploreViewModel extends AndroidViewModel {
                         DataStoreAccess.saveToken(getApplication(), token);
                     }
                     requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodations"));
+                    fetchMainImageAccommodation(accommodations);
                 }
 
                 @Override
@@ -107,6 +118,7 @@ public class ExploreViewModel extends AndroidViewModel {
                     if (token != null && !token.equals("")) {
                         DataStoreAccess.saveToken(getApplication(), token);
                     }
+                    fetchMainImageAccommodation(accommodations);
                 }
 
                 @Override
@@ -114,6 +126,25 @@ public class ExploreViewModel extends AndroidViewModel {
                     requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
                 }
             });
+        }
+    }
+
+    public void fetchMainImageAccommodation(List<Accommodation> accommodations) {
+        MultimediasRepository multimediasRepository = new MultimediasRepository(executorService);
+        for (Accommodation accommodation: accommodations) {
+            multimediasRepository.loadMainImageAccommodation(accommodation.getId(), new MultimediasRepository.LoadMainImageAccommodationCallback() {
+                @Override
+                public void onSuccess(byte[] image) {
+                    accommodation.setMainImage(image);
+                    List<Accommodation> list = new ArrayList<>(accommodations);
+                    accommodationsLiveData.setValue(new ArrayList<>(list));
+                }
+
+                @Override
+                public void onError(String message) {
+                    System.out.println(message);
+                }
+            }, mainHandler);
         }
     }
 }
