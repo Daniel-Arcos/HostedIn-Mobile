@@ -1,5 +1,6 @@
 package com.sdi.hostedin.data.datasource.apiclient;
 
+import com.sdi.hostedin.data.datasource.apiclient.moshiconverters.DateJsonAdapter;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.CancellationResponse;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetReviewsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseReviewObject;
@@ -19,6 +20,7 @@ import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
 import com.sdi.hostedin.data.model.Review;
 import com.sdi.hostedin.data.model.User;
+import com.squareup.moshi.Moshi;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -106,12 +108,14 @@ public class ApiClient {
 
     }
 
-
+    Moshi moshi = new Moshi.Builder()
+            .add(new DateJsonAdapter())
+            .build();
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
             .baseUrl("http://192.168.50.7:3000/api/v1/")
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build();
 
     private Service service;

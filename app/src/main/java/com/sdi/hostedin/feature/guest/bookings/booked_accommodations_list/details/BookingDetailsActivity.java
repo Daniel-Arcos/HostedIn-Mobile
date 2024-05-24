@@ -2,13 +2,20 @@ package com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.detai
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.rxjava2.RxDataStore;
+import androidx.fragment.app.Fragment;
 
+import com.google.android.material.search.SearchView;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityBookingDetailsBinding;
+import com.sdi.hostedin.feature.cancelation.cancelationdetails.CancelationDetailsFragment;
+import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreFragment;
+import com.sdi.hostedin.feature.login.LoginFragment;
 
 public class BookingDetailsActivity extends AppCompatActivity {
 
@@ -24,15 +31,42 @@ public class BookingDetailsActivity extends AppCompatActivity {
         binding = ActivityBookingDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+//        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                handleOnPressedButton();
+//            }
+//        });
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                handleOnPressedButton();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
         Bundle extras = getIntent().getExtras();
 
         User thirdUser = extras.getParcelable(THIRD_USER_KEY);
         Booking bookingInfo = extras.getParcelable(BOOKING_KEY);
-
-        BookingDetailsFragment defaultFragment;
-        defaultFragment = BookingDetailsFragment.newInstance(thirdUser, bookingInfo);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(BookingDetailsFragment.USER, thirdUser);
+        bundle.putParcelable(BookingDetailsFragment.BOOKING, bookingInfo);
         getSupportFragmentManager().beginTransaction()
-                .add(binding.fgcvBookDetailsFragmentContainer.getId(), defaultFragment)
+                .setReorderingAllowed(true)
+                .add(binding.fgcvBookDetailsFragmentContainer.getId(), BookingDetailsFragment.class, bundle)
                 .commit();
+    }
+
+    private void handleOnPressedButton() {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fgcv_book_details_fragment_container);
+        if (currentFragment instanceof CancelationDetailsFragment) {
+            finish(); // Finaliza la actividad directamente
+        } else {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStack(); // Regresa al fragmento anterior
+            } else {
+                finish(); // No hay más fragmentos en el stack, finaliza la actividad
+            }
+        }
     }
 }

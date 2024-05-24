@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.datastore.preferences.core.Preferences;
@@ -74,6 +75,7 @@ public class CancelationReasonSelectionFragment extends Fragment {
         configureReasons();
         configureListeners();
         manageLoading();
+        binding.rbtnReasonOne.setChecked(true);
         return binding.getRoot();
     }
 
@@ -123,28 +125,28 @@ public class CancelationReasonSelectionFragment extends Fragment {
             bundle.putParcelable(CancelationDetailsFragment.CANCELATION, cancelationViewModel.getCancellationResponse().getValue());
             getParentFragmentManager()
                     .beginTransaction()
-                    .setReorderingAllowed(false)
+                    .setReorderingAllowed(true)
                     .replace(R.id.fgcv_book_details_fragment_container, CancelationDetailsFragment.class, bundle)
                     .commit();
         }
     }
 
     private void configureListeners() {
-        binding.rbtnReasonOne.setOnClickListener( v-> {
-            cancelationViewModel.getReasonsCancellation().setValue(binding.rbtnReasonOne.getText().toString());
-
+        binding.rbtnReasonOne.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                cancelationViewModel.getReasonsCancellation().setValue(binding.rbtnReasonOne.getText().toString());
+            }
         });
-        binding.rbtnReasonTwo.setOnClickListener( v-> {
+        binding.rbtnReasonTwo.setOnCheckedChangeListener( (buttonView, isChecked) -> {
             cancelationViewModel.getReasonsCancellation().setValue(binding.rbtnReasonTwo.getText().toString());
 
         });
-        binding.rbtnReasonThree.setOnClickListener( v-> {
+        binding.rbtnReasonThree.setOnCheckedChangeListener( (buttonView, isChecked) -> {
             cancelationViewModel.getReasonsCancellation().setValue(binding.rbtnReasonThree.getText().toString());
 
         });
-        binding.rbtnReasonThree.setOnClickListener( v-> {
+        binding.rbtnReasonThree.setOnCheckedChangeListener( (buttonView, isChecked) -> {
             cancelationViewModel.getReasonsCancellation().setValue(binding.rbtnReasonFour.getText().toString());
-
         });
     }
 

@@ -44,8 +44,8 @@ public class Cancellation implements Parcelable {
     protected Cancellation(Parcel in) {
         _id = in.readString();
         reason = in.readString();
-        long cancellationDateLong = in.readLong();
-        cancellationDate = new Date(cancellationDateLong);
+        long tmpCancellationDate = in.readLong();
+        cancellationDate = tmpCancellationDate != -1 ? new Date(tmpCancellationDate) : null;
         cancellator = in.readParcelable(User.class.getClassLoader());
         booking = in.readParcelable(Booking.class.getClassLoader());
     }

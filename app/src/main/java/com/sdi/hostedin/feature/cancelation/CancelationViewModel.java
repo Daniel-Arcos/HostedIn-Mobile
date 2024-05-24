@@ -1,6 +1,7 @@
 package com.sdi.hostedin.feature.cancelation;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -43,8 +44,8 @@ public class CancelationViewModel extends AndroidViewModel {
         cancellationsRepository.cancelBooking(cancellation, token, new CancellationCallback() {
             @Override
             public void onSuccess(Cancellation cancellation, String token) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Reservacion cancelada con exito"));
                 cancellationResponse.setValue(cancellation);
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Reservacion cancelada con exito"));
                 if (token != null && !token.equals("")) {
                     DataStoreAccess.saveToken(getApplication(), token);
                 }

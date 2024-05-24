@@ -16,6 +16,7 @@ import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentBookingDetailsBinding;
 import com.sdi.hostedin.enums.BookingSatuses;
 import com.sdi.hostedin.feature.cancelation.reasonselection.CancelationReasonSelectionFragment;
+import com.sdi.hostedin.feature.signup.SignupFragment;
 import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.ToastUtils;
 
@@ -27,6 +28,8 @@ import java.time.temporal.ChronoUnit;
 
 public class BookingDetailsFragment extends Fragment {
 
+    public static final String USER = "user";
+    public static final String BOOKING = "booking";
     private  FragmentBookingDetailsBinding binding;
 
     private static User thirdUser;
@@ -56,6 +59,9 @@ public class BookingDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentBookingDetailsBinding.inflate(inflater, container, false);
+        thirdUser = getArguments().getParcelable(USER);
+        bookingInfo = getArguments().getParcelable(BOOKING);
+
         binding.rcyvAccommodationMedia.setBackgroundColor(Color.LTGRAY);
         binding.txvStartingDate.setText(DateFormatterUtils.parseMongoDateToNaturalDate(bookingInfo.getBeginningDate()));
         binding.txvEndingDate.setText(DateFormatterUtils.parseMongoDateToNaturalDate(bookingInfo.getEndingDate()));
@@ -114,9 +120,11 @@ public class BookingDetailsFragment extends Fragment {
         bundle.putParcelable(CancelationReasonSelectionFragment.BOOKING, bookingInfo);
         getParentFragmentManager()
             .beginTransaction()
-            .setReorderingAllowed(false)
+            .setReorderingAllowed(true)
+                .addToBackStack(null)
             .replace(R.id.fgcv_book_details_fragment_container, CancelationReasonSelectionFragment.class, bundle)
             .commit();
+
     }
 
     private void openRateAccommodationWindow(View view) {

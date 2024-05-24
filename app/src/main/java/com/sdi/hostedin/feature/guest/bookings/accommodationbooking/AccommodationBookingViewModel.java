@@ -1,6 +1,7 @@
 package com.sdi.hostedin.feature.guest.bookings.accommodationbooking;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -116,6 +117,7 @@ public class AccommodationBookingViewModel extends AndroidViewModel {
 
             @Override
             public void onError(String errorMessage) {
+                Log.i("PRUEBA", "onError: " + errorMessage);
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });
