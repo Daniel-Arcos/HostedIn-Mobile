@@ -4,6 +4,7 @@ import com.sdi.hostedin.data.callbacks.AccommodationCallback;
 import com.sdi.hostedin.data.callbacks.AccommodationsCallback;
 import com.sdi.hostedin.data.callbacks.BookedAccommodationsCallBack;
 import com.sdi.hostedin.data.callbacks.GuestBookedAccommodationCallBack;
+import com.sdi.hostedin.data.callbacks.PasswordCodeCallback;
 import com.sdi.hostedin.data.datasource.remote.RemoteAccommodationsDataSource;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.BookedAccommodation;
@@ -124,6 +125,20 @@ public class AccommodationsRepository {
             @Override
             public void onError(String errorMessage) {
                 accommodationsCallback.onError(errorMessage);
+            }
+        });
+    }
+
+    public void deleteAcommodation(String accommodationId, String token, PasswordCodeCallback passwordCodeCallback){
+        remoteAccommodationsDataSource.deleteAccommodationById(accommodationId, token, new PasswordCodeCallback() {
+            @Override
+            public void onSucces(String message) {
+                passwordCodeCallback.onSucces(message);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                passwordCodeCallback.onError(errorMessage);
             }
         });
     }

@@ -236,9 +236,10 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         for (byte[] photo : selectedPhotos) {
             grpcClient.uploadAccommodationMultimedia(accommodationId, photo);
         }
-
         grpcClient.uploadAccommodationMultimedia(accommodationId, selectedVideo);
     }
+
+
 
     public void updateAccommodation(Accommodation accommodation) {
         UpdateAccommodationUseCase updateAccommodationUseCase = new UpdateAccommodationUseCase();
@@ -248,8 +249,13 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         updateAccommodationUseCase.updateAccommodation(accommodation, token, new AccommodationCallback() {
             @Override
             public void onSuccess(Accommodation accommodation, String token) {
-                accommodationMutableLiveData.setValue(accommodation);
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation updated"));
+                if(fragmentNumberMutableLiveData.getValue() == AccommodationMultimediaFragment.LOCAL_FRAGMENT_NUMBER){
+                    uploadAccommodationMultimedia();
+                }
+                else{
+                   accommodationMutableLiveData.setValue(accommodation);
+                   requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation updated"));
+                }
             }
 
             @Override

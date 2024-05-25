@@ -2,6 +2,7 @@ package com.sdi.hostedin.data.datasource.remote;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sdi.hostedin.data.callbacks.PasswordCodeCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
@@ -14,10 +15,7 @@ public class RemotePasswordCodeDataSource {
 
     ApiClient.Service service = ApiClient.getInstance().getService();
 
-    public interface PasswordCodeCallback {
-        void onSucces(String message);
-        void onError(String errorMessage);
-    }
+
 
     public RemotePasswordCodeDataSource(){}
 

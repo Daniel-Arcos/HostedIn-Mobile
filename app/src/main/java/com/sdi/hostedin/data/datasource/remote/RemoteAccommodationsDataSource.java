@@ -7,6 +7,7 @@ import com.sdi.hostedin.data.callbacks.AccommodationCallback;
 import com.sdi.hostedin.data.callbacks.AccommodationsCallback;
 import com.sdi.hostedin.data.callbacks.BookedAccommodationsCallBack;
 import com.sdi.hostedin.data.callbacks.GuestBookedAccommodationCallBack;
+import com.sdi.hostedin.data.callbacks.PasswordCodeCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.datasource.apiclient.moshiconverters.MoshiConverter;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
@@ -321,6 +322,38 @@ public class RemoteAccommodationsDataSource {
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
                 accommodationsCallback.onError(t.getMessage());
+            }
+        });
+    }
+
+    public void deleteAccommodationById(String accommodationId, String token, PasswordCodeCallback passwordCodeCallback){
+        Call<Void> call = service.deleteAccommodation(token,accommodationId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    passwordCodeCallback.onSucces(response.message());
+                }
+                else{
+                    String message = "Ocurrio un error al recuperar los alojamientos";
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorString = response.errorBody().string();
+                            JsonParser jsonParser = new JsonParser();
+                            JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
+                            message = jsonObject.get("message").getAsString();
+                            passwordCodeCallback.onError(message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    passwordCodeCallback.onError(message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                passwordCodeCallback.onError(t.getMessage());
             }
         });
     }

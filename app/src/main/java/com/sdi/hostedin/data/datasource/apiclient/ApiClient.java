@@ -104,7 +104,10 @@ public class ApiClient {
 
         @PUT("accommodations/{accommodationId}")
         Call<ResponseAccommodationObject> updateAccommodation(@Header("Authorization") String token, @Path("accommodationId") String accommodationId, @Body Accommodation accommodation);
-        
+
+        @DELETE("accommodations/{accommodationId}")
+        Call<Void> deleteAccommodation(@Header("Authorization") String token, @Path("accommodationId") String accommodationId);
+
         //Cancellations
         @POST("cancellations")
         Call<CancellationResponse> cancelBooking(@Header("Authorization") String authToken, @Body Cancellation cancellation);

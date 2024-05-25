@@ -46,7 +46,7 @@ public class AccommodationMultimediaFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private static final int LOCAL_FRAGMENT_NUMBER = 5;
+    public static final int LOCAL_FRAGMENT_NUMBER = 5;
     private static final String DEFAULT_TYPE_PHOTO = "Buffer";
     private static final int NUMBER_OF_IMAGES = 3;
     private static final int MILLISECONDS_TIME_VIDEO = 60000;
@@ -275,7 +275,7 @@ public class AccommodationMultimediaFragment extends Fragment {
             Button btnNext = getActivity().findViewById(R.id.btn_next);
             String messageButton = "Siguiente";
 
-            if (!btnNext.getText().toString().equals(messageButton)){
+            if (!isEdition && !btnNext.getText().toString().equals(messageButton)){
                 String styledText = getString(R.string.accommodation_publishing_message);
                 CharSequence styledTextSpanned = HtmlCompat.fromHtml(styledText, HtmlCompat.FROM_HTML_MODE_LEGACY);
 

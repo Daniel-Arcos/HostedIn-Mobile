@@ -1,5 +1,6 @@
 package com.sdi.hostedin.data.repositories;
 
+import com.sdi.hostedin.data.callbacks.PasswordCodeCallback;
 import com.sdi.hostedin.data.datasource.remote.RemotePasswordCodeDataSource;
 
 public class PasswordRepository {
@@ -12,7 +13,7 @@ public class PasswordRepository {
 
     public void confirmEmail(String email, PasswordRecoveryCallBack sendVerificationCodeCallback){
         RemotePasswordCodeDataSource remotePasswordCodeDataSource = new RemotePasswordCodeDataSource();
-        remotePasswordCodeDataSource.sendEmailPasswordCode(email, new RemotePasswordCodeDataSource.PasswordCodeCallback() {
+        remotePasswordCodeDataSource.sendEmailPasswordCode(email, new PasswordCodeCallback() {
             @Override
             public void onSucces(String message) {
                 sendVerificationCodeCallback.onSucces(message);
@@ -28,7 +29,7 @@ public class PasswordRepository {
 
     public void verifyPasswordCode(String code, PasswordRecoveryCallBack passwordCodeCallback){
         RemotePasswordCodeDataSource remotePasswordCodeDataSource = new RemotePasswordCodeDataSource();
-        remotePasswordCodeDataSource.verifyPasswordCode(code, new RemotePasswordCodeDataSource.PasswordCodeCallback() {
+        remotePasswordCodeDataSource.verifyPasswordCode(code, new PasswordCodeCallback() {
             @Override
             public void onSucces(String message) {
                 passwordCodeCallback.onSucces(message);
@@ -43,7 +44,7 @@ public class PasswordRepository {
 
     public void updatePassword(String token, String newPassword, String email, PasswordRecoveryCallBack passwordVerificationCodeCallback){
         RemotePasswordCodeDataSource remotePasswordCodeDataSource = new RemotePasswordCodeDataSource();
-        remotePasswordCodeDataSource.changePassword(token, newPassword, email, new RemotePasswordCodeDataSource.PasswordCodeCallback() {
+        remotePasswordCodeDataSource.changePassword(token, newPassword, email, new PasswordCodeCallback() {
             @Override
             public void onSucces(String message) {
                 passwordVerificationCodeCallback.onSucces(message);

@@ -10,8 +10,6 @@ import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
@@ -21,7 +19,6 @@ import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentBookingDetailsBinding;
 import com.sdi.hostedin.enums.BookingSatuses;
 import com.sdi.hostedin.feature.cancelation.reasonselection.CancelationReasonSelectionFragment;
-import com.sdi.hostedin.feature.signup.SignupFragment;
 import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.ToastUtils;
 
@@ -118,7 +115,7 @@ public class BookingDetailsFragment extends Fragment {
         }
     }
 
-    private void goToCancellFragment(View view) {
+    private void goToCancelFragment(View view) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(CancelationReasonSelectionFragment.BOOKING, bookingInfo);
         getParentFragmentManager()
