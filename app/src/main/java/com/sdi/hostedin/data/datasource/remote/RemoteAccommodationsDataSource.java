@@ -182,7 +182,7 @@ public class RemoteAccommodationsDataSource {
     }
 
     public void getGuestBookedAccommodations(String userId, String bookingStatus, GuestBookedAccommodationCallBack accommodationsCallback){
-        Call<ResponseGuestBookedAccommodations> call = service.getGuestBookedAccommodations(userId, bookingStatus);
+        Call<ResponseGuestBookedAccommodations> call = service.getGuestBookings(userId, bookingStatus);
         call.enqueue(new Callback<ResponseGuestBookedAccommodations>() {
             @Override
             public void onResponse(Call<ResponseGuestBookedAccommodations> call, Response<ResponseGuestBookedAccommodations> response) {

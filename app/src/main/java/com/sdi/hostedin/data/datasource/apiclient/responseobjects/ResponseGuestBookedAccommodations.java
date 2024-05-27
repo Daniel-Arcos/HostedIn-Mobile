@@ -6,7 +6,7 @@ import com.squareup.moshi.Json;
 import java.util.List;
 
 public class ResponseGuestBookedAccommodations {
-    @Json(name = "accommodations")
+    @Json(name = "bookings")
     private List<GuestBooking> accommodationsBooked;
     private String message;
 
