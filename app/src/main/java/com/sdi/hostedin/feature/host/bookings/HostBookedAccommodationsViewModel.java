@@ -52,8 +52,9 @@ public class HostBookedAccommodationsViewModel extends AndroidViewModel {
         GetAccommodationsUseCase getAccommodationsUseCase = new GetAccommodationsUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, "Recuperando alojamientos"));
         String userId = DataStoreAccess.accessUserId(this.getApplication());
+        String token = DataStoreAccess.accessToken(getApplication());
         if(userId != null) {
-            getAccommodationsUseCase.getHostBookedAccommodations(userId, new BookedAccommodationsCallBack() {
+            getAccommodationsUseCase.getHostBookedAccommodations(userId, token, new BookedAccommodationsCallBack() {
 
                 @Override
                 public void onSuccess(List<BookedAccommodation> accommodations, String message) {

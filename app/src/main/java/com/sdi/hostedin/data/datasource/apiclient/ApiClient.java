@@ -84,13 +84,13 @@ public class ApiClient {
                 @Header("Authorization") String authToken
         );
         @GET("users/{userId}/accommodations")
-        Call<ResponseBookedAccommodation> getHostBookedAccommodations(@Path("userId") String userId, @Query("atLeastOneBooking") boolean atLeastOneBooking);
+        Call<ResponseBookedAccommodation> getHostBookedAccommodations(@Header("Authorization") String authToken, @Path("userId") String userId, @Query("atLeastOneBooking") boolean atLeastOneBooking);
 
         @GET("users/{userId}/accommodations")
         Call<ResponseGetAccommodationsObject> getAllHostAccommodations(@Header("Authorization") String authToken, @Path("userId") String userId);
 
         @GET("users/{userId}/bookings")
-        Call<ResponseGuestBookedAccommodations> getGuestBookings(@Path("userId") String userId, @Query("status") String status);
+        Call<ResponseGuestBookedAccommodations> getGuestBookings(@Header("Authorization") String authToken, @Path("userId") String userId, @Query("status") String status);
 
         // Bookings
         @POST("bookings")

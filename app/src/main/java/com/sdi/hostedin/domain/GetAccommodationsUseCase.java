@@ -70,8 +70,8 @@ public class GetAccommodationsUseCase {
         });
     }
 
-    public void getHostBookedAccommodations(String userId, BookedAccommodationsCallBack accommodationsCallback){
-        accommodationsRepository.getHostBookedAccommodations(userId, new BookedAccommodationsCallBack() {
+    public void getHostBookedAccommodations(String userId, String token, BookedAccommodationsCallBack accommodationsCallback){
+        accommodationsRepository.getHostBookedAccommodations(userId, token, new BookedAccommodationsCallBack() {
             @Override
             public void onSuccess(List<BookedAccommodation> accommodations, String token) {
                 accommodationsCallback.onSuccess(accommodations, token);
@@ -84,8 +84,8 @@ public class GetAccommodationsUseCase {
         });
     }
 
-    public void getGuestBookedAccommodations(String userId, String bookingStatus, GuestBookedAccommodationCallBack accommodationsCallback){
-        accommodationsRepository.getGuestBookedAccommodations(userId, bookingStatus,new GuestBookedAccommodationCallBack() {
+    public void getGuestBookedAccommodations(String userId, String bookingStatus, String token, GuestBookedAccommodationCallBack accommodationsCallback){
+        accommodationsRepository.getGuestBookedAccommodations(userId, bookingStatus,token, new GuestBookedAccommodationCallBack() {
             @Override
             public void onSuccess(List<GuestBooking> accommodations, String message) {
                 accommodationsCallback.onSuccess(accommodations, message);

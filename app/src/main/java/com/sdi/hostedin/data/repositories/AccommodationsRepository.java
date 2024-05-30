@@ -101,8 +101,8 @@ public class AccommodationsRepository {
         });
     }
 
-    public void getHostBookedAccommodations(String userId, BookedAccommodationsCallBack accommodationsCallback){
-        remoteAccommodationsDataSource.getALLHostAccommodationsWithAtLeastOneBooking(userId, new BookedAccommodationsCallBack() {
+    public void getHostBookedAccommodations(String userId, String token, BookedAccommodationsCallBack accommodationsCallback){
+        remoteAccommodationsDataSource.getALLHostAccommodationsWithAtLeastOneBooking(userId, token, new BookedAccommodationsCallBack() {
             @Override
             public void onSuccess(List<BookedAccommodation> accommodations, String token) {
                 accommodationsCallback.onSuccess(accommodations, token);
@@ -115,8 +115,8 @@ public class AccommodationsRepository {
         });
     }
 
-    public void getGuestBookedAccommodations(String userId,String bookingStatus, GuestBookedAccommodationCallBack accommodationsCallback){
-        remoteAccommodationsDataSource.getGuestBookedAccommodations(userId, bookingStatus,  new GuestBookedAccommodationCallBack() {
+    public void getGuestBookedAccommodations(String userId,String bookingStatus,String token, GuestBookedAccommodationCallBack accommodationsCallback){
+        remoteAccommodationsDataSource.getGuestBookedAccommodations(userId, bookingStatus, token, new GuestBookedAccommodationCallBack() {
             @Override
             public void onSuccess(List<GuestBooking> accommodations, String message) {
                 accommodationsCallback.onSuccess(accommodations, message);

@@ -146,8 +146,8 @@ public class RemoteAccommodationsDataSource {
         });
     }
 
-    public void getALLHostAccommodationsWithAtLeastOneBooking(String userId, BookedAccommodationsCallBack accommodationsCallback){
-        Call<ResponseBookedAccommodation> call = service.getHostBookedAccommodations(userId, true);
+    public void getALLHostAccommodationsWithAtLeastOneBooking(String userId,String token, BookedAccommodationsCallBack accommodationsCallback){
+        Call<ResponseBookedAccommodation> call = service.getHostBookedAccommodations(token, userId, true);
         call.enqueue(new Callback<ResponseBookedAccommodation>() {
             @Override
             public void onResponse(Call<ResponseBookedAccommodation> call, Response<ResponseBookedAccommodation> response) {
@@ -181,8 +181,8 @@ public class RemoteAccommodationsDataSource {
         });
     }
 
-    public void getGuestBookedAccommodations(String userId, String bookingStatus, GuestBookedAccommodationCallBack accommodationsCallback){
-        Call<ResponseGuestBookedAccommodations> call = service.getGuestBookings(userId, bookingStatus);
+    public void getGuestBookedAccommodations(String userId, String bookingStatus, String token,  GuestBookedAccommodationCallBack accommodationsCallback){
+        Call<ResponseGuestBookedAccommodations> call = service.getGuestBookings(token, userId, bookingStatus);
         call.enqueue(new Callback<ResponseGuestBookedAccommodations>() {
             @Override
             public void onResponse(Call<ResponseGuestBookedAccommodations> call, Response<ResponseGuestBookedAccommodations> response) {

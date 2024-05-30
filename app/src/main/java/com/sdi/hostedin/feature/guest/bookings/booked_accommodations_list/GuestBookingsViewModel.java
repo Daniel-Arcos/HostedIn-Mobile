@@ -46,8 +46,9 @@ public class GuestBookingsViewModel extends AndroidViewModel {
         GetAccommodationsUseCase getAccommodationsUseCase = new GetAccommodationsUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, "Recuperando alojamientos"));
         String userId = DataStoreAccess.accessUserId(this.getApplication());
+        String token = DataStoreAccess.accessToken(getApplication());
         if(userId != null) {
-            getAccommodationsUseCase.getGuestBookedAccommodations(userId, BookingSatuses.CURRENT.getDescription(), new GuestBookedAccommodationCallBack() {
+            getAccommodationsUseCase.getGuestBookedAccommodations(userId, BookingSatuses.CURRENT.getDescription(), token,  new GuestBookedAccommodationCallBack() {
 
                 @Override
                 public void onSuccess(List<GuestBooking> accommodations, String message) {
@@ -67,8 +68,9 @@ public class GuestBookingsViewModel extends AndroidViewModel {
         GetAccommodationsUseCase getAccommodationsUseCase = new GetAccommodationsUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, "Recuperando alojamientos"));
         String userId = DataStoreAccess.accessUserId(this.getApplication());
+        String token = DataStoreAccess.accessToken(getApplication());
         if(userId != null) {
-            getAccommodationsUseCase.getGuestBookedAccommodations(userId, BookingSatuses.OVERDUE.getDescription(), new GuestBookedAccommodationCallBack() {
+            getAccommodationsUseCase.getGuestBookedAccommodations(userId, BookingSatuses.OVERDUE.getDescription(), token, new GuestBookedAccommodationCallBack() {
 
                 @Override
                 public void onSuccess(List<GuestBooking> accommodations, String message) {
