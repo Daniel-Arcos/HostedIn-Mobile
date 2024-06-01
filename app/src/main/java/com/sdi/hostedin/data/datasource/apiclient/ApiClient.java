@@ -54,7 +54,7 @@ public class ApiClient {
         @POST("users/passwords/code")
         Call<Void> createCodeToken(@Body GenericSingleString code);
 
-        @PATCH("users/passwords")
+        @PATCH("users")
         Call<Void> updateUserPassword(@Header("authorization")String token, @Body NewPasswordRecovery newPassword);
 
         @PUT("users/{userId}")
@@ -120,7 +120,7 @@ public class ApiClient {
 
     Retrofit retrofit = new Retrofit.Builder()
             //Modificar con la URL de su computadora - red
-            .baseUrl("http://192.168.50.7:3000/api/v1/")
+            .baseUrl("http://192.168.1.75:3000/api/v1/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build();
 
