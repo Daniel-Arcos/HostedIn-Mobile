@@ -22,10 +22,22 @@ message DownloadMultimediaResponse {
     bytes data = 1;
 }
 
+message UpdatedMultimediaRequest {
+    string modelId = 1;
+    int32 multimediaId = 2;
+    bytes data = 3;
+}
+
+message UpdateMultimediaResponse {
+    string description = 1;
+}
+
 service MultimediaService {
     rpc uploadProfilePhoto (stream UploadMultimediaRequest) returns (UploadMultimediaResponse);
     rpc downloadProfilePhoto (DownloadMultimediaRequest) returns (stream DownloadMultimediaResponse);
 
     rpc uploadAccommodationMultimedia (stream UploadMultimediaRequest) returns (UploadMultimediaResponse);
     rpc downloadAccommodationMultimedia (DownloadMultimediaRequest) returns (stream DownloadMultimediaResponse);
+
+     rpc updateAccommodationMultimedia (stream UpdatedMultimediaRequest) returns (UpdateMultimediaResponse);
 }
