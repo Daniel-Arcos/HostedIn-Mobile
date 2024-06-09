@@ -87,7 +87,7 @@
                         android:id="@+id/etx_rules"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_rules"
+                        android:hint="@string/rules"
                         android:inputType="textMultiLine|textAutoComplete"
                         android:maxLines="8"
                         android:contentDescription="@string/rules_content_description"

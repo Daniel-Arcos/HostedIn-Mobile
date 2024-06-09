@@ -30,6 +30,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.data.model.Review;
 import com.sdi.hostedin.data.model.User;
@@ -59,6 +60,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
 
     public static final String ACCOMMODATION_KEY = "accommodation_key";
     private static final int EMPTY_DATA_STRUCTURE = 0;
+    public static final String DELIMITER_DETAILS = " · ";
     private ActivityAccommodationDetailsBinding binding;
     private MapView mpvLocation;
     private GoogleMap gMap;
@@ -119,19 +121,19 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
 
         binding.btnShowMoreDescription.setOnClickListener(v -> {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
-            binding.txvMoreDetailsTitle.setText("Descripción");
+            binding.txvMoreDetailsTitle.setText(R.string.hint_description);
             binding.txvMoreDetailsDescription.setText(binding.getAccommodationData().getDescription());
         });
 
         binding.btnShowMoreServices.setOnClickListener(v -> {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
-            binding.txvMoreDetailsTitle.setText("Servicios");
+            binding.txvMoreDetailsTitle.setText(R.string.services);
             binding.txvMoreDetailsDescription.setText(servicesAccommodation);
         });
 
         binding.btnShowMoreRules.setOnClickListener(v -> {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
-            binding.txvMoreDetailsTitle.setText("Reglas");
+            binding.txvMoreDetailsTitle.setText(R.string.rules);
             binding.txvMoreDetailsDescription.setText(binding.getAccommodationData().getRules());
         });
 
@@ -229,33 +231,6 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         for (int i = 0; i < 4; i++) {
             insertMultimediaIntoViewFlipper(i, multimedias.get(i));
         }
-
-//        ManagedChannel channel = ManagedChannelBuilder.forAddress(GrpcServerData.HOST, GrpcServerData.PORT)
-//                .usePlaintext()
-//                .build();
-
-//        for (int i = 0 ; i < 4 ; i ++) {
-//            byte[] bytes = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, binding.getAccommodationData().getId(),i );
-//            //ImageView imageView1 = binding.imvFirstImage;
-//            //ImageUtils.loadAccommodationImage(bytes, imageView1);
-//            //binding.vflpAccommodationMultimedia.setDisplayedChild(0);
-//            insertMultimediaIntoViewFlipper(i, bytes);
-//        }
-
-//        channel.shutdown();
-
-//        byte[] bytes = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, binding.getAccommodationData().getId(),0 );
-//        ImageView imageView1 = binding.imvFirstImage;
-//                ImageUtils.loadAccommodationImage(bytes, imageView1);
-//                binding.vswchAccommodationMultimedia.setDisplayedChild(0);
-//
-//        byte[] bytes2 = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, binding.getAccommodationData().getId(),1 );
-//        ImageView imageView2 = binding.imvFirstImage;
-//        ImageUtils.loadAccommodationImage(bytes2, imageView2);
-//        binding.vswchAccommodationMultimedia.setDisplayedChild(1);
-//
-//
-//        binding.vswchAccommodationMultimedia.setDisplayedChild(0);
     }
 
     private void insertMultimediaIntoViewFlipper(int index, byte[] multimediaBytes) {
@@ -296,8 +271,8 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
 
     private void loadNightPrice() {
         String price = String.valueOf(binding.getAccommodationData().getNightPrice());
-        String detailPrice = " MXN por noche";
-        String nightPrice = "$" + price + detailPrice;
+        String detailPrice = getString(R.string.mxn_per_night_message);
+        String nightPrice = getString(R.string.money_symbol) + price + detailPrice;
 
         binding.txvNightPrice.setText(nightPrice);
     }
@@ -309,21 +284,25 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         String bathroomsNumber = String.valueOf(binding.getAccommodationData().getBathroomsNumber());
 
         String[] basics = {guestsNumber, roomsNumber, bedsNumber, bathroomsNumber};
-        String[] basicsNames = {" Huéspedes", " Habitaciones", " Camas", " Baños"};
+        String[] basicsNames =
+        {
+                " " + getString(R.string.guests),
+                " " + getString(R.string.rooms),
+                " " + getString(R.string.beds),
+                " " + getString(R.string.bathrooms)
+        };
 
         String[] basicsDetails = new String[basics.length];
         for (int i = 0; i < basics.length; i++) {
             basicsDetails[i] = basics[i] + basicsNames[i];
         }
 
-        String delimiter = " · ";
-        String basicsJoined = String.join(delimiter, basicsDetails);
+        String basicsJoined = String.join(DELIMITER_DETAILS, basicsDetails);
 
         binding.txvBasics.setText(basicsJoined);
     }
 
     private void loadAccommodationServices() {
-        String delimiter = " · ";
         String[] services = binding.getAccommodationData().getAccommodationServices();
 
         if (services != null) {
@@ -335,9 +314,9 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
             }
 
             if (accommodationServices != null) {
-                servicesAccommodation = String.join(delimiter, accommodationServices);
+                servicesAccommodation = String.join(DELIMITER_DETAILS, accommodationServices);
             } else {
-                servicesAccommodation = String.join(delimiter, services);
+                servicesAccommodation = String.join(DELIMITER_DETAILS, services);
             }
         }
 

@@ -20,7 +20,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_marginStart="30dp"
-            android:text="¡Preparemos tu\nreservación!"
+            android:text=""
             android:layout_marginTop="5dp"
             android:textSize="25sp" />
 
@@ -95,7 +95,7 @@
                             android:id="@+id/txv_night_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="$ MXN por noche"
+                            android:text="@string/default_night_price_booking_message"
                             android:textColor="#333333"
                             android:textStyle="bold"
                             android:maxLines="2"/>
@@ -124,7 +124,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tu reservación"
+                        android:text="@string/your_reservation"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginStart="20dp"
@@ -145,7 +145,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Fecha de inicio"
+                                android:text="@string/begin_date"
                                 android:textStyle="bold"
                                 android:layout_marginTop="15dp"
                                 android:layout_marginStart="20dp"
@@ -157,7 +157,7 @@
                                 android:layout_height="wrap_content"
                                 style="@style/Widget.Material3.Button.IconButton.Outlined"
                                 android:text=""
-                                android:hint="      dd/mm/yyyy      "
+                                android:hint="@string/hint_date_format"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginStart="14dp"
                                 />
@@ -172,7 +172,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Fecha de fin"
+                                android:text="@string/end_date"
                                 android:textStyle="bold"
                                 android:layout_marginTop="15dp"
                                 android:layout_marginStart="20dp"
@@ -184,7 +184,7 @@
                                 android:layout_height="wrap_content"
                                 style="@style/Widget.Material3.Button.IconButton.Outlined"
                                 android:text=""
-                                android:hint="      dd/mm/yyyy      "
+                                android:hint="@string/hint_date_format"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginStart="15dp"
                                 />
@@ -194,7 +194,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Huéspedes"
+                        android:text="@string/guests"
                         android:textStyle="bold"
                         android:layout_marginTop="6dp"
                         android:layout_marginStart="20dp"
@@ -207,7 +207,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Huéspedes"
+                            android:text="@string/guests"
                             android:layout_marginTop="2dp"
                             android:layout_marginStart="20dp"
                             android:layout_gravity="center"
@@ -227,15 +227,15 @@
                                 android:layout_height="wrap_content"
                                 android:paddingStart="18dp"
                                 android:paddingEnd="18dp"
-                                android:text="-"
-                                android:contentDescription="decrement guests number"/>
+                                android:text="@string/decrement_symbol"
+                                android:contentDescription="@string/decrement_guests_number_content_description"/>
 
                             <EditText
                                 android:id="@+id/etx_guests_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
-                                android:text="1"
+                                android:text="@string/default_guests_number_booking"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"/>
 
@@ -247,8 +247,8 @@
                                 android:paddingStart="16dp"
                                 android:paddingEnd="16dp"
                                 android:layout_marginEnd="20dp"
-                                android:text="+"
-                                android:contentDescription="increment guests number"/>
+                                android:text="@string/increment_symbol"
+                                android:contentDescription="@string/increment_guests_number_content_description"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -256,7 +256,7 @@
                         android:id="@+id/txv_guests_number_limit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Solo permite hasta\n huespedes"
+                        android:text="@string/default_guests_restriction_booking_message"
                         android:layout_marginTop="2dp"
                         android:layout_gravity="end"
                         android:layout_marginEnd="20dp"
@@ -281,7 +281,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Detalles del precio"
+                            android:text="@string/price_details"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:layout_marginStart="20dp"
@@ -291,7 +291,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="*El pago es presencial con el anfitrión"
+                            android:text="@string/face_to_face_payment_advise"
                             android:textSize="11sp"
                             android:layout_marginEnd="15dp"
                             android:layout_marginTop="5dp"
@@ -309,7 +309,7 @@
                             android:id="@+id/txv_price_per_night"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$ MXN x noches"
+                            android:text="@string/default_nights_price_booking_message"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
@@ -318,7 +318,7 @@
                             android:id="@+id/txv_subtotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$ MXN"
+                            android:text="@string/default_price_booking_message"
                             android:layout_marginEnd="15dp"
                             android:layout_marginTop="5dp"
                             android:textAlignment="textEnd"
@@ -333,7 +333,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Impuestos"
+                            android:text="@string/taxes"
                             android:layout_marginStart="20dp"
                             android:layout_weight="1"
                             />
@@ -341,7 +341,7 @@
                             android:id="@+id/txv_iva"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$ MXN"
+                            android:text="@string/default_price_booking_message"
                             android:layout_marginEnd="15dp"
                             android:textAlignment="textEnd"
                             android:layout_weight="1"
@@ -356,7 +356,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TOTAL"
+                            android:text="@string/total"
                             android:textStyle="bold"
                             android:layout_marginStart="20dp"
                             android:layout_weight="1"
@@ -365,7 +365,7 @@
                             android:id="@+id/txv_total"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$ MXN"
+                            android:text="@string/default_price_booking_message"
                             android:textStyle="bold"
                             android:layout_marginEnd="15dp"
                             android:textAlignment="textEnd"
@@ -387,7 +387,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Políticas de cancelación"
+                        android:text="@string/cancellation_policies"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginStart="20dp"
@@ -399,8 +399,7 @@
                         android:id="@+id/txv_cancellation_policy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="La cancelación de la reservación puede hacerse hasta máximo un día
-antes de la fecha de inicio."
+                        android:text="@string/default_cancellation_restriction_booking_message"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginTop="5dp"
@@ -420,7 +419,7 @@ antes de la fecha de inicio."
             android:layout_alignParentBottom="true"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:text="Confirmar reservación" />
+            android:text="@string/confirm_booking" />
 
         <ProgressBar
             android:id="@+id/pgb_create_booking"

@@ -81,12 +81,12 @@ public class ReviewAccommodationFragment extends DialogFragment {
 
     private boolean checkFieldsContent(){
         if(binding.etxGuestReview.getEditText().getText().length() <= 0){
-            ToastUtils.showShortInformationMessage(getActivity(), "You must enter a review");
+            ToastUtils.showShortInformationMessage(getActivity(), getString(R.string.must_enter_review));
             return false;
         }
         float rate = binding.rtbScore.getRating();
         if (rate < 0){
-            ToastUtils.showShortInformationMessage(getActivity(), "You must rate the accommodation");
+            ToastUtils.showShortInformationMessage(getActivity(), getString(R.string.must_rate_accommodation));
             return false;
         }
         return  true;

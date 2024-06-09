@@ -87,13 +87,13 @@ public class AccommodationBookingActivity extends AppCompatActivity {
     }
 
     private void loadLimitGuestsNumber() {
-        String limitGuests = String.format("Solo se permiten\n %d huéspedes", this.limitGuestsNumber);
+        String limitGuests = String.format(getString(R.string.guests_number_allowed), this.limitGuestsNumber);
         binding.txvGuestsNumberLimit.setText(limitGuests);
     }
 
     private void loadNightPrice() {
         String price = String.valueOf(binding.getAccommodationData().getNightPrice());
-        String detailPrice = " MXN por noche";
+        String detailPrice = getString(R.string.mxn_per_night_message);
         String nightPrice = MONEY_SYMBOL + price + detailPrice;
 
         binding.txvNightPrice.setText(nightPrice);
@@ -159,7 +159,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
     }
 
     private void manageSuccessCreation() {
-        ToastUtils.showShortInformationMessage(this, "Reservación registrada con éxito");
+        ToastUtils.showShortInformationMessage(this, getString(R.string.booking_successfully));
         finish();
     }
 
@@ -175,7 +175,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
 
             String dayBeforeString = DateFormatterUtils.formatNormalDate(dayBefore);
 
-            String cancellationPolicy = String.format("La cancelación de la reservación puede hacerse hasta máximo un día antes de la fecha de inicio. (Tienes hasta el %s antes de las 23:59 hrs)",
+            String cancellationPolicy = String.format(getString(R.string.booking_cancellation_message),
                     dayBeforeString);
 
             binding.txvCancellationPolicy.setText(cancellationPolicy);
@@ -213,7 +213,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
     }
 
     private void configureDatePicker(List<Booking> bookingDates) {
-        String titleCalendar = "Selecciona un rango de fechas";
+        String titleCalendar = getString(R.string.choose_date_range);
         long currentTimeMillis = MaterialDatePicker.todayInUtcMilliseconds();
 
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
@@ -257,7 +257,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
                 accommodationBookingViewModel.calculateStayDays();
                 accommodationBookingViewModel.calculateCost(binding.getAccommodationData().getNightPrice());
             } else {
-                ToastUtils.showShortInformationMessage(this, "No puedes reservar entre fechas ocupadas");
+                ToastUtils.showShortInformationMessage(this, getString(R.string.cannot_book_on_booked_dates));
             }
 
             binding.btnBeginningDate.setEnabled(true);
@@ -291,7 +291,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
     private void updateStayDays() {
         int days = accommodationBookingViewModel.getStayDays().getValue();
         String stayDays = String.valueOf(days);
-        String pricePerNight = MONEY_SYMBOL + binding.getAccommodationData().getNightPrice()+ " x " + stayDays + " noches";
+        String pricePerNight = MONEY_SYMBOL + binding.getAccommodationData().getNightPrice()+ " x " + stayDays + getString(R.string.nights);
 
         binding.txvPricePerNight.setText(pricePerNight);
     }
@@ -333,7 +333,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
         if (guestsNumber > 0 && guestsNumber <= binding.getAccommodationData().getGuestsNumber()) {
             isGuestsNumberValid = true;
         } else {
-            ToastUtils.showShortInformationMessage(this, "Cantidad no válida de huéspedes");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.invalid_guests_number_booking));
         }
 
         return isGuestsNumberValid;
@@ -351,10 +351,10 @@ public class AccommodationBookingActivity extends AppCompatActivity {
             if (endingDate.compareTo(beginningDate) >= 0) {
                 areDatesValid = true;
             } else {
-                ToastUtils.showShortInformationMessage(this, "Fechas de reservación no válidas");
+                ToastUtils.showShortInformationMessage(this, getString(R.string.invalid_booking_dates));
             }
         } else {
-            ToastUtils.showShortInformationMessage(this, "Selecciona las fechas de reservación");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.choose_booking_dates));
         }
 
         return areDatesValid;

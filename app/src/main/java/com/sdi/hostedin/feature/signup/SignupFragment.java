@@ -167,7 +167,7 @@ public class SignupFragment extends Fragment {
         String passwordConfirmation = binding.etxConfirmPassword.getEditText().getText().toString();
         if (!passwordConfirmation.equals(password)) {
             validPasswords = false;
-            binding.txvConfirmPassword.setText("La contraseñas no coinciden");
+            binding.txvConfirmPassword.setText(R.string.passwords_dont_match);
             binding.txvConfirmPassword.setVisibility(View.VISIBLE);
         } else {
             binding.txvConfirmPassword.setVisibility(View.GONE);
@@ -182,7 +182,7 @@ public class SignupFragment extends Fragment {
             startActivity(intent);
             this.getActivity().finish();
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.there_is_a_problem));
             goToLogin();
         }
     }
@@ -194,7 +194,7 @@ public class SignupFragment extends Fragment {
             startActivity(intent);
             this.getActivity().finish();
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.there_is_a_problem));
             goToLogin();
         }
     }
@@ -229,7 +229,7 @@ public class SignupFragment extends Fragment {
 
         if (!matcher.matches()) {
             validPassword = false;
-            binding.txvPassword.setText("Minimo 8 caracteres, una letra minúscula, mayúscula, un número y un caracter especial.");
+            binding.txvPassword.setText(R.string.password_rules);
             binding.txvPassword.setVisibility(View.VISIBLE);
         } else {
             binding.txvPassword.setVisibility(View.GONE);
@@ -263,32 +263,32 @@ public class SignupFragment extends Fragment {
     private boolean validateNotEmptyFields() {
         boolean notEmpty = true;
         if (binding.etxFullName.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvName.setText("Este campo es requerido.");
+            binding.txvName.setText(R.string.required_field);
             binding.txvName.setVisibility(View.VISIBLE);
             notEmpty = false;
         }
         if (binding.etxBirthDate.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvDateBirth.setText("Este campo es requerido.");
+            binding.txvDateBirth.setText(R.string.required_field);
             binding.txvDateBirth.setVisibility(View.VISIBLE);
             notEmpty = false;
         }
         if (binding.etxPhoneNumber.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvPhoneNumber.setText("Este campo es requerido.");
+            binding.txvPhoneNumber.setText(R.string.required_field);
             binding.txvPhoneNumber.setVisibility(View.VISIBLE);
             notEmpty = false;
         }
         if (binding.etxEmail.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvEmail.setText("Este campo es requerido.");
+            binding.txvEmail.setText(R.string.required_field);
             binding.txvEmail.setVisibility(View.VISIBLE);
             notEmpty = false;
         }
         if (binding.etxPassword.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvPassword.setText("Este campo es requerido.");
+            binding.txvPassword.setText(R.string.required_field);
             binding.txvPassword.setVisibility(View.VISIBLE);
             notEmpty = false;
         }
         if (binding.etxConfirmPassword.getEditText().getText().toString().trim().isEmpty()) {
-            binding.txvConfirmPassword.setText("Este campo es requerido.");
+            binding.txvConfirmPassword.setText(R.string.required_field);
             binding.txvConfirmPassword.setVisibility(View.VISIBLE);
             notEmpty = false;
         }
@@ -301,7 +301,7 @@ public class SignupFragment extends Fragment {
         EmailValidator emailValidator = EmailValidator.getInstance();
         if (!emailValidator.isValid(email)) {
             isEmail = false;
-            binding.txvEmail.setText("El correo electronico ingresado no tiene el formato correcto");
+            binding.txvEmail.setText(R.string.invalid_email_format);
             binding.txvEmail.setVisibility(View.VISIBLE);
         } else {
             binding.txvEmail.setVisibility(View.GONE);
@@ -313,7 +313,7 @@ public class SignupFragment extends Fragment {
         boolean isPhoneNumber = true;
         if (!(binding.etxPhoneNumber.getEditText().getText().toString().length() == 10)) {
             isPhoneNumber = false;
-            binding.txvPhoneNumber.setText("El numero de telefono debe tener exactamente 10 numeros.");
+            binding.txvPhoneNumber.setText(R.string.invalid_phone_number_format);
             binding.txvPhoneNumber.setVisibility(View.VISIBLE);
         } else {
             binding.txvPhoneNumber.setVisibility(View.GONE);

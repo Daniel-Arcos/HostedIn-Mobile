@@ -165,7 +165,7 @@ public class LoginFragment extends Fragment {
             startActivity(intent);
             this.getActivity().finish();
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.there_is_a_problem));
         }
     }
 
@@ -176,7 +176,7 @@ public class LoginFragment extends Fragment {
             startActivity(intent);
             this.getActivity().finish();
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.there_is_a_problem));
         }
     }
 
