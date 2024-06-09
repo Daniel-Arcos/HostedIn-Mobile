@@ -266,7 +266,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
     }
 
     private void showAccommodationBookingMessage() {
-        String styledText = getString(R.string.accommodation_booking_message);
+        String styledText = getString(R.string.accommodation_booking_header);
         CharSequence styledTextSpanned = HtmlCompat.fromHtml(styledText, HtmlCompat.FROM_HTML_MODE_LEGACY);
         binding.txvAccommodationBookingMessage.setText(styledTextSpanned);
     }

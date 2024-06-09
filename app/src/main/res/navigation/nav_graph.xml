@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.sdi.hostedin.feature.host.FirstFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/first_fragment"
         tools:layout="@layout/fragment_first" >
 
         <action
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.sdi.hostedin.feature.host.SecondFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/second_fragment"
         tools:layout="@layout/fragment_second" >
 
         <action

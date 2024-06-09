@@ -153,7 +153,7 @@ public class AccommodationInformationFragment extends Fragment {
 
     public void customActivityParent() {
         if (getActivity() != null) {
-            String styledText = getString(R.string.last_step_publishing_message);
+            String styledText = getString(R.string.last_step_publishing_header);
             String messageButton = "Listo";
             CharSequence styledTextSpanned = HtmlCompat.fromHtml(styledText, HtmlCompat.FROM_HTML_MODE_LEGACY);
 

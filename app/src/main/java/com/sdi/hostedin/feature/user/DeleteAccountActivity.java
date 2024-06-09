@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.sdi.hostedin.MainActivity;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.ActivityDeleteAccountBinding;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
@@ -60,7 +61,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
             if (isMatchPassword() && userId != null) {
                 deleteAccountViewModel.deleteAccount(userId);
             } else {
-                ToastUtils.showShortInformationMessage(this, "Contraseña incorrecta");
+                ToastUtils.showShortInformationMessage(this, getString(R.string.wrong_password));
             }
         }
     }
@@ -70,7 +71,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
         String passwordConfirmation = String.valueOf(binding.etxConfirmPassword.getText()).trim();
 
         if (passwordConfirmation.isEmpty()) {
-            ToastUtils.showShortInformationMessage(this, "Debes ingresar tu contraseña actual");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.enter_current_password));
             isPasswordConfirmationValid = false;
         }
 
@@ -91,7 +92,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
 
     private void manageSuccessDelete() {
-        ToastUtils.showShortInformationMessage(this, "Cuenta eliminada con éxito");
+        ToastUtils.showShortInformationMessage(this, getString(R.string.account_deleted_successfully));
         finish();
         goToLogin();
     }

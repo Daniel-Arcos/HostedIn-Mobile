@@ -276,7 +276,7 @@ public class AccommodationMultimediaFragment extends Fragment {
             String messageButton = "Siguiente";
 
             if (!isEdition && !btnNext.getText().toString().equals(messageButton)){
-                String styledText = getString(R.string.accommodation_publishing_message);
+                String styledText = getString(R.string.accommodation_publishing_header);
                 CharSequence styledTextSpanned = HtmlCompat.fromHtml(styledText, HtmlCompat.FROM_HTML_MODE_LEGACY);
 
                 TextView txvAccommodationPublishingMessage = getActivity().findViewById(R.id.txv_accommodation_publishing_message);

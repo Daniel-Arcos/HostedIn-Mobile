@@ -31,7 +31,7 @@
             android:textAlignment="center"
             android:layout_marginTop="14dp"
             android:layout_marginBottom="7dp"
-            android:text="Eliminar cuenta"
+            android:text="@string/delete_account"
             android:textColor="#FF0000"
             android:textStyle="bold" />
 
@@ -56,7 +56,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
-            android:text="Esta es una acción irreversible"
+            android:text="@string/irreversible_action"
             android:textAlignment="textStart"
             android:textColor="#FF0000"
             android:textStyle="bold" />
@@ -71,7 +71,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:text="Una vez que elimines tu cuenta no habrá manera de poder recuperarla.\nSi estás seguro de realizar esta acción, ingresa tu contraseña actual para confirmar la eliminación de tu cuenta"
+            android:text="@string/irreversible_action_description"
             android:textAlignment="textStart"
             />
 
@@ -94,10 +94,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="password"
-                android:hint="Confirma tu contraseña"
+                android:hint="@string/hint_confirm_password"
                 android:inputType="textPassword"
                 android:text=""
-                android:maxLength="100"
+                android:maxLength="64"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,7 +113,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             app:strokeColor="#FF0000"
-            android:text="Eliminar cuenta"
+            android:text="@string/delete_account"
             android:textAlignment="center"
             android:textColor="#FF0000" />
 

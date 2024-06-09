@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Hosted In</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello, welcome to Hosted In!</string>
+    <string name="hello_blank_fragment">Hola, bienvenido a Hosted In!</string>
     <string name="title_activity_host_main">HostMainActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment">First Fragment</string>
-    <string name="second_fragment">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment">Primer Fragmento</string>
+    <string name="second_fragment">Segundo Fragmento</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -46,16 +45,17 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
 
-    <string name="accommodation_publishing_header"><![CDATA[<b><font color="#5280DB">Hi, </font></b>let\'s prepare<br>"your publication!]]></string>
-    <string name="accommodation_booking_header"><![CDATA[<b>¡Let\'s prepare your<br><font color="#5280DB">booking!</font></b>]]></string>
-    <string name="last_step_publishing_header"><![CDATA[<b><font color="#5280DB">Last </font></b>step!]]></string>
-    <string name="per_night_tag">per night</string>
-    <string name="accommodation_edition_header">Hi, select the accommodation\'s section you want to edit.</string>
-    <string name="delete_account">Delete account</string>
-    <string name="irreversible_action">This is an irreversible action</string>
-    <string name="irreversible_action_description">Once you delete your account there is no way to recover it.\nIf you are sure you want to do this, enter your current password to confirm the deletion of your account.</string>
-    <string name="hint_confirm_password">Confirm your password</string>
-    <string name="wrong_password">Wrong password</string>
-    <string name="enter_current_password">You must enter your current password</string>
-    <string name="account_deleted_successfully">Account deleted successfully</string>
+    <string name="accommodation_publishing_header"><![CDATA[<b><font color="#5280DB">¡Hola, </font></b>vamos a preparar<br>"tu publicación!]]></string>
+    <string name="accommodation_booking_header"><![CDATA[<b>¡Preparemos tu<br><font color="#5280DB">reservación!</font></b>]]></string>
+    <string name="last_step_publishing_header"><![CDATA[<b><font color="#5280DB">¡Último </font></b>paso!]]></string>
+    <string name="per_night_tag">por noche</string>
+    <string name="accommodation_edition_header">¡Hola, selecciona el apartado que desea modificar de tu alojamiento!.</string>
+    <string name="delete_account">Eliminar cuenta</string>
+    <string name="irreversible_action">Esta es una acción irreversible</string>
+    <string name="irreversible_action_description">Una vez que elimines tu cuenta no habrá manera de poder recuperarla.\nSi estás seguro de realizar esta acción, ingresa tu contraseña actual para confirmar la eliminación de tu cuenta</string>
+    <string name="hint_confirm_password">Confirma tu contraseña</string>
+    <string name="wrong_password">Contraseña incorrecta</string>
+    <string name="enter_current_password">Debes ingresar tu contraseña actual</string>
+    <string name="account_deleted_successfully">Cuenta eliminada con éxito</string>
+
 </resources>

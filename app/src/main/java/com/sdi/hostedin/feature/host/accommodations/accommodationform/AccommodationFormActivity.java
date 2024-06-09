@@ -72,7 +72,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
     }
 
     public void showAccommodationPublishingMessage() {
-        String styledText = getString(R.string.accommodation_publishing_message);
+        String styledText = getString(R.string.accommodation_publishing_header);
         CharSequence styledTextSpanned = HtmlCompat.fromHtml(styledText, HtmlCompat.FROM_HTML_MODE_LEGACY);
         binding.txvAccommodationPublishingMessage.setText(styledTextSpanned);
 
