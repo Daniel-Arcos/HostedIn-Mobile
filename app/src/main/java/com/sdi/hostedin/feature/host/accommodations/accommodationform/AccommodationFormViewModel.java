@@ -200,13 +200,6 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         accommodationMutableLiveData.postValue(accommodation);
     }
 
-    public void selectPhoto() {
-        //TODO
-        Accommodation accommodation = accommodationMutableLiveData.getValue();
-        accommodation.setDescription("photo: cambiar esto");
-        accommodationMutableLiveData.postValue(accommodation);
-    }
-
     public void createAccommodation(Accommodation accommodation) {
         CreateAccommodationUseCase createAccommodationUseCase = new CreateAccommodationUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
@@ -238,8 +231,6 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         }
         grpcClient.uploadAccommodationMultimedia(accommodationId, selectedVideo);
     }
-
-
 
     public void updateAccommodation(Accommodation accommodation) {
         UpdateAccommodationUseCase updateAccommodationUseCase = new UpdateAccommodationUseCase();

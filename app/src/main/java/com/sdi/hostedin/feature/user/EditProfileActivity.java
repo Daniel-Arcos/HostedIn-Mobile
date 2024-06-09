@@ -6,19 +6,16 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.View;
-import android.widget.RelativeLayout;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityEditProfileBinding;
 import com.sdi.hostedin.grpc.GrpcProfilePhoto;
-import com.sdi.hostedin.grpc.GrpcServerData;
 import com.sdi.hostedin.utils.DataValidator;
 import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.DatePickerConfigurator;
@@ -165,14 +162,14 @@ public class EditProfileActivity extends AppCompatActivity {
                 grpcClient = new GrpcProfilePhoto();
                 grpcClient.uploadProfilePhoto(binding.getUserData().getId(), profilePhotoData);
             } else {
-                ToastUtils.showShortInformationMessage(this, "Error procesando la imagen");
+                ToastUtils.showShortInformationMessage(this, getString(R.string.error_processing_image));
             }
         }
     }
 
     private void manageSuccessUpdate() {
         binding.txvFullName.setText(binding.etxFullName.getText());
-        ToastUtils.showShortInformationMessage(this, "Información actualizada con éxito");
+        ToastUtils.showShortInformationMessage(this, getString(R.string.iInformation_updated_successfully));
         finish();
     }
 
@@ -185,7 +182,7 @@ public class EditProfileActivity extends AppCompatActivity {
             isUserDataValid = false;
         } else if (!isBirthdateValid()) {
             isUserDataValid = false;
-            ToastUtils.showShortInformationMessage(this, "Debes ser mayor de edad (18)");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.age_restriction));
         } else if (!isPhoneNumberValid()) {
             isUserDataValid = false;
         } else if (!isOccupationValid()) {
@@ -201,7 +198,7 @@ public class EditProfileActivity extends AppCompatActivity {
         boolean isValid = true;
         if (selectedImageUri != null && !isPhotoSizeValid(selectedImageUri)) {
             isValid = false;
-            ToastUtils.showShortInformationMessage(this, String.format("La imagen debe ser pesar menos o igual a %dMB", MAX_MB_SIZE_VIDEO));
+            ToastUtils.showShortInformationMessage(this, String.format(getString(R.string.profile_photo_size_restriction), MAX_MB_SIZE_VIDEO));
         }
 
         return isValid;
@@ -212,10 +209,10 @@ public class EditProfileActivity extends AppCompatActivity {
         String fullName = String.valueOf(binding.etxFullName.getText()).trim();
 
         if (fullName.isEmpty()) {
-            ToastUtils.showShortInformationMessage(this, "Debes ingresar tu nombre completo");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.must_enter_full_name));
             isFullNameValid = false;
         } else if (!DataValidator.isFullNameValid(fullName)) {
-            ToastUtils.showShortInformationMessage(this, "Nombre completo no válido");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.invalid_full_name));
             isFullNameValid = false;
         }
 
@@ -227,7 +224,7 @@ public class EditProfileActivity extends AppCompatActivity {
         String birthdateStr = String.valueOf(binding.etxBirthdate.getText()).trim();
 
         if (birthdateStr.isEmpty()) {
-            ToastUtils.showShortInformationMessage(this, "Debes ingresar tu fecha de nacimiento");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.must_enter_birthdate));
             isBirthdateValid = false;
         } else {
             try {
@@ -237,7 +234,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 LocalDate minAgeDate = currentDate.minusYears(18);
                 isBirthdateValid = !birthdate.isAfter(minAgeDate);
             } catch (DateTimeParseException e) {
-                ToastUtils.showShortInformationMessage(this, "El formato de la fecha no es válido");
+                ToastUtils.showShortInformationMessage(this, getString(R.string.invalid_date_format));
                 isBirthdateValid = false;
             }
         }
@@ -251,10 +248,10 @@ public class EditProfileActivity extends AppCompatActivity {
         String phoneNumber = String.valueOf(binding.etxPhoneNumber.getText()).trim();
 
         if (phoneNumber.isEmpty()) {
-            ToastUtils.showShortInformationMessage(this, "Debes ingresar tu número de teléfono");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.must_enter_phone_number));
             isPhoneNumberValid = false;
         } else if (!DataValidator.isPhoneNumberValid(phoneNumber)) {
-            ToastUtils.showShortInformationMessage(this, "Número de teléfono no válido");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.invalid_phone_number));
             isPhoneNumberValid = false;
         }
 
@@ -266,7 +263,7 @@ public class EditProfileActivity extends AppCompatActivity {
         String occupation = String.valueOf(binding.etxOccupation.getText()).trim();
 
         if (!occupation.isEmpty() && !DataValidator.isOccupationValid(occupation)) {
-            ToastUtils.showShortInformationMessage(this, "Ocupación no válida");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.invalid_occupation));
             isOccupationValid = false;
         }
 
@@ -278,7 +275,7 @@ public class EditProfileActivity extends AppCompatActivity {
         String residence = String.valueOf(binding.etxResidence.getText()).trim();
 
         if (!residence.isEmpty() && !DataValidator.isResidenceValid(residence)) {
-            ToastUtils.showShortInformationMessage(this, "Estancia no válida");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.invalid_residence));
             isResidenceValid = false;
         }
 

@@ -39,7 +39,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
                     break;
                 case DONE:
                     binding.pgbCreateAccommodation.setVisibility(View.GONE);
-                    ToastUtils.showShortInformationMessage(this, "Alojamiento creado con éxito");
+                    ToastUtils.showShortInformationMessage(this, getString(R.string.accommodation_created_successfully));
                     accommodationFormViewModel.uploadAccommodationMultimedia();
                     finish();
                     break;
@@ -76,7 +76,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
         CharSequence styledTextSpanned = HtmlCompat.fromHtml(styledText, HtmlCompat.FROM_HTML_MODE_LEGACY);
         binding.txvAccommodationPublishingMessage.setText(styledTextSpanned);
 
-        binding.btnNext.setText("Siguiente");
+        binding.btnNext.setText(R.string.next);
     }
 
     private void btnNextClick() {
@@ -107,8 +107,6 @@ public class AccommodationFormActivity extends AppCompatActivity {
                 finishPublication();
                 break;
             default:
-                // TODO:
-                ToastUtils.showShortInformationMessage(this, "Entró al BREAK: " + fragmentNumber);
                 break;
         }
     }

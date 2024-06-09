@@ -153,7 +153,7 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
         MarkerOptions mko = new MarkerOptions()
                 .position(loc)
                 .draggable(true)
-                .title("Hosted In");
+                .title(getString(R.string.app_name));
 
         currentMarker = gMap.addMarker(mko);
         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 14));
@@ -251,7 +251,7 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
                 accommodationFormViewModel.selectAccommodationLocation(location);
                 accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
             } else {
-                ToastUtils.showShortInformationMessage(this.getContext(), "Selecciona la ubicación de tu alojamiento");
+                ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.choose_accommodation_location_message));
             }
         }
     }
@@ -274,7 +274,7 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
                 String address = addresses.get(0).getAddressLine(0);
                 location.setAddress(address);
             } else {
-                location.setAddress("Hosted In");
+                location.setAddress(getString(R.string.app_name));
             }
         } catch (IOException e) {
             e.printStackTrace();

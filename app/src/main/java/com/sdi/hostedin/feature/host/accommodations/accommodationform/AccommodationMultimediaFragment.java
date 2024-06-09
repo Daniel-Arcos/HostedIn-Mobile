@@ -106,12 +106,11 @@ public class AccommodationMultimediaFragment extends Fragment {
             if (uri != null) {
                 if (currentImageNumber < 3) {
                     selectedImagesUri[currentImageNumber] = uri;
-                    accommodationFormViewModel.getImagesUri().getValue().add(uri);   /////////
+                    accommodationFormViewModel.getImagesUri().getValue().add(uri);
                     ImageView imvAccommodationPhoto = getImageViewByNumber(currentImageNumber);
                     if (imvAccommodationPhoto != null) {
                         imvAccommodationPhoto.setImageURI(uri);
                     }
-
                 } else {
                     if (isVideoValid(this.getContext(), uri)) {
                         selectedVideo = uri;
@@ -230,10 +229,10 @@ public class AccommodationMultimediaFragment extends Fragment {
 
         if (!isVideoDurationValid(context, videoUri)) {
             isVideoValid = false;
-            ToastUtils.showShortInformationMessage(this.getContext(), "El video debe durar menos de 1 minuto");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.time_video_restriction));
         } else if (!isVideoSizeValid(context, videoUri)) {
             isVideoValid = false;
-            ToastUtils.showShortInformationMessage(this.getContext(), "El video debe pesar menos de 10 MB");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.size_video_restriction));
         }
 
         return isVideoValid;
@@ -273,7 +272,7 @@ public class AccommodationMultimediaFragment extends Fragment {
     public void customActivityParent() {
         if (getActivity() != null) {
             Button btnNext = getActivity().findViewById(R.id.btn_next);
-            String messageButton = "Siguiente";
+            String messageButton = getString(R.string.next);
 
             if (!isEdition && !btnNext.getText().toString().equals(messageButton)){
                 String styledText = getString(R.string.accommodation_publishing_header);
@@ -297,7 +296,7 @@ public class AccommodationMultimediaFragment extends Fragment {
                 isNextClicked = true;
             }
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Selecciona 3 fotos y 1 video de tu alojamiento");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.choose_multimedia_instruction));
         }
     }
 
@@ -310,7 +309,7 @@ public class AccommodationMultimediaFragment extends Fragment {
                 if (bytes != null) {
                     photoBytes[i] = bytes;
                 } else {
-                    ToastUtils.showShortInformationMessage(this.getContext(), "Error procesando la imagen");
+                    ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.error_processing_image));
                 }
             }
         }
@@ -326,7 +325,7 @@ public class AccommodationMultimediaFragment extends Fragment {
             if (bytes != null) {
                 videoBytes = bytes;
             } else {
-                ToastUtils.showShortInformationMessage(this.getContext(), "Error procesando la imagen");
+                ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.error_procesing_video));
             }
         }
 

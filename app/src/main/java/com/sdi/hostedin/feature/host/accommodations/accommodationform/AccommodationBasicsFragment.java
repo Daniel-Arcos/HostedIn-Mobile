@@ -9,6 +9,7 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentAccommodationBasicsBinding;
 import com.sdi.hostedin.databinding.ItemAccommodationBasicBinding;
@@ -32,6 +33,7 @@ public class AccommodationBasicsFragment extends Fragment {
     private String mParam2;
 
     private static final int LOCAL_FRAGMENT_NUMBER = 3;
+    private static final int MAX_BASICS_NUMBER = 50;
     private FragmentAccommodationBasicsBinding binding;
     private AccommodationFormViewModel accommodationFormViewModel;
     private ItemAccommodationBasicBinding[] includeBasics;
@@ -148,7 +150,13 @@ public class AccommodationBasicsFragment extends Fragment {
     }
 
     private void configureBasics() {
-        String[] basics = {"Huéspedes", "Habitaciones", "Camas", "Baños"};
+        String[] basics =
+        {
+            getString(R.string.guests),
+            getString(R.string.rooms),
+            getString(R.string.beds),
+            getString(R.string.bathrooms)
+        };
 
         for(int i = 0 ; i < includeBasics.length ; i++ ) {
             ItemAccommodationBasicBinding item = includeBasics[i];
@@ -159,14 +167,17 @@ public class AccommodationBasicsFragment extends Fragment {
     }
 
     private void incrementQuantity(EditText etxQuantity) {
-        // TODO
         int currentQuantity = Integer.parseInt(etxQuantity.getText().toString());
-        currentQuantity++;
-        etxQuantity.setText(String.valueOf(currentQuantity));
+        if (currentQuantity < MAX_BASICS_NUMBER) {
+            currentQuantity++;
+            etxQuantity.setText(String.valueOf(currentQuantity));
+        } else {
+            String message = String.format(getString(R.string.max_basics_quantity), MAX_BASICS_NUMBER);
+            ToastUtils.showShortInformationMessage(this.getContext(), message);
+        }
     }
 
     private void decrementQuantity(EditText etxQuantity) {
-        //TODO
         int currentQuantity = Integer.parseInt(etxQuantity.getText().toString());
         if (currentQuantity > 0) {
             currentQuantity--;
@@ -179,23 +190,22 @@ public class AccommodationBasicsFragment extends Fragment {
 
         if (!isGuestsNumberValid()) {
             areQuantitiesValid = false;
-            ToastUtils.showShortInformationMessage(this.getContext(), "Debes ajustar la cantidad de Huespedes");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.must_adjust_guests_number));
         } else if (!isRoomsNumberValid()) {
             areQuantitiesValid = false;
-            ToastUtils.showShortInformationMessage(this.getContext(), "Debes ajustar la cantidad de Habitaciones");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.must_adjust_rooms_number));
         }else if (!isBedsNumberValid()) {
             areQuantitiesValid = false;
-            ToastUtils.showShortInformationMessage(this.getContext(), "Debes ajustar la cantidad Camas");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.must_adjust_beds_number));
         } else if (!isBathroomsNumberValid()) {
             areQuantitiesValid = false;
-            ToastUtils.showShortInformationMessage(this.getContext(), "Debes ajustar la cantidad de Baños");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.must_adjust_bathrooms_number));
         }
 
         return areQuantitiesValid;
     }
 
     private boolean isGuestsNumberValid() {
-        // TODO
         boolean isGuestNumberValid = false;
         String guests = String.valueOf(includeBasics[0].etxQuantity.getText());
 
@@ -212,7 +222,6 @@ public class AccommodationBasicsFragment extends Fragment {
     }
 
     private boolean isRoomsNumberValid() {
-        // TODO
         boolean isRoomsNumberValid = false;
         String rooms = String.valueOf(includeBasics[1].etxQuantity.getText());
 

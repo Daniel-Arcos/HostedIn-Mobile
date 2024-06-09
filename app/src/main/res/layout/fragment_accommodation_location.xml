@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="¿Dónde se encuentra tu\nalojamiento?"
+                android:text="@string/accommodation_location_header"
                 android:textColor="#5280DB"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="Detalla la dirección de tu alojamiento"
+                android:text="@string/accommodation_location_description"
                 />
 
             <LinearLayout
@@ -57,9 +57,9 @@
                         android:id="@+id/etx_location_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Ubicación"
+                        android:hint="@string/location"
                         android:inputType="textAutoComplete"
-                        android:contentDescription="Dirección de tu alojamiento"
+                        android:contentDescription="@string/location_content_description"
                         android:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,7 +78,7 @@
                 android:layout_marginTop="15dp"
                 android:textColor="#5280DB"
                 android:textSize="13sp"
-                android:text="Puedes ajustar tu ubicación manteniendo el marcador rojo y  arrastrarlo a el lugar en dónde se encuentra tu alojamiento"
+                android:text="@string/choose_location_instruction"
                 />
 
             <com.google.android.gms.maps.MapView

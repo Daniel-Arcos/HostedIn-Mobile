@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="5dp"
-            android:text="Ponle un título y descripción a tu\nalojamiento"
+            android:text="@string/accommodation_information_header"
             android:textColor="#5280DB"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -47,9 +47,9 @@
                         android:id="@+id/etx_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Título"
+                        android:hint="@string/hint_title"
                         android:inputType="textAutoComplete"
-                        android:contentDescription="Titulo de tu publicación del alojamiento"
+                        android:contentDescription="@string/title_content_description"
                         android:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,10 +62,10 @@
                         android:id="@+id/etx_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Descripcion"
+                        android:hint="@string/hint_description"
                         android:inputType="textMultiLine|textAutoComplete"
                         android:maxLines="8"
-                        android:contentDescription="Descripción de tu alojamiento"
+                        android:contentDescription="@string/description_content_description"
                         android:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="¿Deseas agregar alguna regla para tu alojamiento?"
+                    android:text="@string/add_some_rules"
                     android:textColor="#5280DB"
                     android:textStyle="normal"
                     />
@@ -87,10 +87,10 @@
                         android:id="@+id/etx_rules"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Reglas"
+                        android:hint="@string/hint_rules"
                         android:inputType="textMultiLine|textAutoComplete"
                         android:maxLines="8"
-                        android:contentDescription="Reglas que deben cumplir los huéspedes en tu alojamiento"
+                        android:contentDescription="@string/rules_content_description"
                         android:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
-                    android:text="Ahora, establece el precio\npor noche de tu alojamiento"
+                    android:text="@string/set_night_price_instruction"
                     android:textColor="#5280DB"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -116,7 +116,7 @@
                                 android:id="@+id/money_symbol_tvw"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="$"
+                                android:text="@string/money_symbol"
                                 android:textSize="60sp"
                                 android:textStyle="bold"
                                 android:layout_alignParentTop="true"
@@ -133,8 +133,8 @@
                                 android:layout_alignParentBottom="true"
                                 android:layout_toStartOf="@+id/money_type_tvw"
                                 android:layout_toEndOf="@+id/money_symbol_tvw"
-                                android:contentDescription="Reglas que deben cumplir los huéspedes en tu alojamiento"
-                                android:hint="Precio"
+                                android:contentDescription="@string/price_content_description"
+                                android:hint="@string/hint_price"
                                 android:inputType="numberDecimal"
                                 android:text=""
                                 android:textSize="55sp"
@@ -148,7 +148,7 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerVertical="true"
-                                android:text="MXN"
+                                android:text="@string/money_type"
                                 android:textSize="45sp"
                                 android:textStyle="bold" />
 

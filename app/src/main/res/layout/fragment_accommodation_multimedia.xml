@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="5dp"
-            android:text="Muéstrales a tus huéspedes el\nalojamiento"
+            android:text="@string/accommodation_multimedia_header"
             android:textColor="#5280DB"
             android:textSize="18sp"
             android:textStyle="bold" />

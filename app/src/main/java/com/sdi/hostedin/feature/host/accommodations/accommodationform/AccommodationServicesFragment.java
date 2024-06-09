@@ -11,6 +11,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentAccommodationServicesBinding;
 import com.sdi.hostedin.enums.AccommodationServices;
@@ -167,9 +168,18 @@ public class AccommodationServicesFragment extends Fragment {
     }
 
     private void configureServiceButtons() {
-        String[] services = {
-                "Internet", "TV", "Cocina", "Lavadora", "Estacionamiento",
-                "Aire acondicionado", "Alberca", "Patio", "Luz", "Agua"
+        String[] services =
+        {
+            getString(R.string.internet),
+            getString(R.string.tv),
+            getString(R.string.kitchen),
+            getString(R.string.washing_machine),
+            getString(R.string.parking),
+            getString(R.string.air_conditioning),
+            getString(R.string.pool),
+            getString(R.string.garden),
+            getString(R.string.light),
+            getString(R.string.water)
         };
 
         for (int i = 0; i < servicesButtons.length; i++) {
@@ -260,7 +270,7 @@ public class AccommodationServicesFragment extends Fragment {
             accommodationFormViewModel.selectAccommodationServices(selectedServices);
             accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Selecciona al menos un servicio" );
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.choose_at_least_one_service_message) );
         }
     }
 }

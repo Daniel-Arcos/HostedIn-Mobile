@@ -157,12 +157,12 @@ public class ProfileActivity extends AppCompatActivity {
         Matcher matcher = pattern.matcher(password);
 
         if (!matcher.matches()) {
-            binding.txvNewPassword.setText("Minimo 8 caracteres, una letra minúscula, mayúscula y un número.");
+            binding.txvNewPassword.setText(R.string.password_rules);
             binding.txvNewPassword.setVisibility(View.VISIBLE);
             return false;
         } else if (BCrypt.checkpw(password, user.getPassword())) {
             validPassword = false;
-            binding.txvNewPassword.setText("Las contraseña nueva no puede ser igual a la anterior.");
+            binding.txvNewPassword.setText(R.string.password_cannot_be_the_same);
             binding.txvNewPassword.setVisibility(View.VISIBLE);
         } else {
             binding.txvNewPassword.setVisibility(View.GONE);
@@ -179,7 +179,7 @@ public class ProfileActivity extends AppCompatActivity {
         boolean equal = true;
         if (!newPasswordConfirmation.equals(newPassword)) {
             equal = false;
-            binding.txvNewPasswordConfirmation.setText("Las contraseñas no coinciden.");
+            binding.txvNewPasswordConfirmation.setText(R.string.passwords_dont_match);
             binding.txvNewPasswordConfirmation.setVisibility(View.VISIBLE);
         } else {
             binding.txvNewPasswordConfirmation.setVisibility(View.GONE);
@@ -239,7 +239,7 @@ public class ProfileActivity extends AppCompatActivity {
             intent.putExtra(EditProfileActivity.USER_KEY, profileViewModel.getUserMutableLiveData().getValue());
             startActivity(intent);
         } else {
-            ToastUtils.showShortInformationMessage(this, "El usuario viene nulo");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.user_is_null));
             goToLogin();
         }
     }
@@ -250,7 +250,7 @@ public class ProfileActivity extends AppCompatActivity {
             intent.putExtra(DeleteAccountActivity.USER_KEY, user);
             startActivity(intent);
         } else {
-            ToastUtils.showShortInformationMessage(this, "El usuario viene nulo");
+            ToastUtils.showShortInformationMessage(this, getString(R.string.user_is_null));
             goToLogin();
         }
     }

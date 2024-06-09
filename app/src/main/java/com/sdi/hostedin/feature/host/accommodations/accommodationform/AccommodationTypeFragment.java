@@ -172,7 +172,15 @@ public class AccommodationTypeFragment extends Fragment {
     }
 
     private void configureTypesButtons() {
-        String[] types = {"Casa", "Departamento", "Cabaña", "Campamento", "Casa rodante", "Barco"};
+        String[] types =
+        {
+            getString(R.string.house),
+            getString(R.string.apartment),
+            getString(R.string.cabin),
+            getString(R.string.camp),
+            getString(R.string.camper),
+            getString(R.string.ship)
+        };
         int[] typeIcons = {R.drawable.ic_house, R.drawable.ic_apartment, R.drawable.ic_cabin,
                 R.drawable.ic_camp, R.drawable.ic_camper, R.drawable.ic_ship};
 
@@ -227,7 +235,7 @@ public class AccommodationTypeFragment extends Fragment {
             accommodationFormViewModel.selectAccommodationType(selectedAccommodationType.getDescription());
             accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Selecciona un tipo de alojamiento" );
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.choose_accommodation_type_message) );
         }
     }
 }

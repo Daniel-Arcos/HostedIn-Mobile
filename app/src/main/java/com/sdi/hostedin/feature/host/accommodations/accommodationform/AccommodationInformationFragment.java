@@ -154,7 +154,7 @@ public class AccommodationInformationFragment extends Fragment {
     public void customActivityParent() {
         if (getActivity() != null) {
             String styledText = getString(R.string.last_step_publishing_header);
-            String messageButton = "Listo";
+            String messageButton = getString(R.string.ready);
             CharSequence styledTextSpanned = HtmlCompat.fromHtml(styledText, HtmlCompat.FROM_HTML_MODE_LEGACY);
 
             TextView txvAccommodationPublishingMessage = getActivity().findViewById(R.id.txv_accommodation_publishing_message);
@@ -202,7 +202,7 @@ public class AccommodationInformationFragment extends Fragment {
 
         //TODO: Regex
         if (title == null || title.isEmpty()) {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Ingresa el título de tu alojamiento");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.enter_accommodation_title_message));
             isTitleValid = false;
         } else {
             //TODO:
@@ -217,7 +217,7 @@ public class AccommodationInformationFragment extends Fragment {
 
         //TODO:
         if (description == null || description.isEmpty()) {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Ingresa la descripción de tu alojamiento");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.enter_accommodation_description_message));
             isDescriptionValid = false;
         } else {
             //TODO:
@@ -232,7 +232,7 @@ public class AccommodationInformationFragment extends Fragment {
 
         //TODO:
         if (rules == null || rules.isEmpty()) {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Ingresa alguna regla para tu alojamiento");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.enter_accommodation_rules_description));
             isRuleValid = false;
         } else {
             //TODO:
@@ -251,15 +251,15 @@ public class AccommodationInformationFragment extends Fragment {
             try {
                 priceNight = Double.parseDouble(price);
                 if (priceNight <= 0) {
-                    ToastUtils.showShortInformationMessage(this.getContext(), "Ingresa el precio por noche");
+                    ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.enter_night_price_instruction));
                     isPriceValid = false;
                 }
             } catch (NumberFormatException e) {
-                ToastUtils.showShortInformationMessage(this.getContext(), "Ingresa un precio válido");
+                ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.enter_valid_night_price));
                 isPriceValid = false;
             }
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Ingresa el precio por noche");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.enter_night_price_instruction));
             isPriceValid = false;
         }
 
