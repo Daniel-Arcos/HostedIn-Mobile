@@ -61,7 +61,7 @@
     <string name="enter_current_password">Debes ingresar tu contraseña actual</string>
     <string name="account_deleted_successfully">Cuenta eliminada con éxito</string>
     <string name="my_profile">Mi Perfil</string>
-    <string name="full_name">Fullname</string>
+    <string name="full_name">Nombre completo</string>
     <string name="my_account">Mi Cuenta</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="log_out">Cerrar sesión</string>
@@ -222,5 +222,12 @@
     <string name="do_rate">Calificar</string>
     <string name="must_enter_review">Debes ingresar una reseña</string>
     <string name="must_rate_accommodation">Debes calificar el alojamiento</string>
+    <string name="host_mode">Modo anfitrion</string>
+    <string name="explore_header">¡Hola, vamos a planear el viaje de tus sueños!</string>
+    <string name="search_places">Busca lugares</string>
+    <string name="no_places_found">No encontramos nada. Prueba buscando otro lugar</string>
+    <string name="guest_mode">Modo huesped</string>
+    <string name="host_booked_accommodations_header">Hola, En Hosted-In te ayudamos a gestionar las reservaciones de tus publicaciones</string>
+    <string name="still_no_bookings">No tienes alojamientos reservados, publica uno o espera a que alguien reserve uno</string>
 
 </resources>

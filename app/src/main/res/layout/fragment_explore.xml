@@ -14,10 +14,11 @@
                     android:id="@+id/change_to_host_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Modo anfitrion"
+                    android:text="@string/host_mode"
                     android:layout_toStartOf="@id/profile_btn"
                     android:layout_marginEnd="15dp"
                     android:textColor="@color/black"
+                    android:drawableLeft="@drawable/ic_change_mode_1"
                     android:layout_marginTop="5dp"/>
 
                 <Button
@@ -34,7 +35,7 @@
                     android:id="@+id/txv_explore_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¡Hola, vamos a planear el viaje de tus sueños!"
+                    android:text="@string/explore_header"
                     android:textSize="18sp"
                     android:layout_below="@id/change_to_host_btn"
                     android:layout_marginStart="20dp"
@@ -58,7 +59,7 @@
                     android:id="@+id/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Busca lugares"
+                    android:hint="@string/search_places"
                     android:layout_below="@id/txv_explore_title"
                     android:layout_toLeftOf="@id/btn_delete_results"/>
 
@@ -77,7 +78,7 @@
                     android:id="@+id/search_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Busca lugares"
+                    android:hint="@string/search_places"
                     app:layout_anchor="@id/search_bar">
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -130,7 +131,7 @@
                     android:id="@+id/txv_no_results"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No encontramos nada. Prueba buscando otro lugar"
+                    android:text="@string/no_places_found"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@id/img_no_results"
                     android:visibility="gone"/>

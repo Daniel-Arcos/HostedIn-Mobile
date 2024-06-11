@@ -15,14 +15,15 @@
 
         <Button
             android:id="@+id/btn_change_to_host"
-            style="@style/Widget.Material3.Button.TextButton"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
             android:layout_toStartOf="@id/profile_btn"
-            android:text="Modo huesped"
+            android:text="@string/guest_mode"
+            android:drawableLeft="@drawable/ic_change_mode_1"
             android:textColor="@color/black" />
 
         <Button
@@ -43,7 +44,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="10dp"
         android:background="@color/general_background"
-        android:text="Hola, En Hosted-In te ayudamos a gestionar las reservaciones de tus publicaciones"
+        android:text="@string/host_booked_accommodations_header"
         android:textAlignment="viewStart"
         android:textSize="20sp"
         android:layout_alignParentStart="true"
@@ -67,7 +68,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="123dp"
             android:gravity="center"
-            android:text="No tienes alojamientos reservados, publica uno o espera a que alguien reserve uno" />
+            android:text="@string/still_no_bookings" />
 
 
 

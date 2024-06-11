@@ -2,6 +2,8 @@ package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 
 import android.app.Application;
 import android.net.Uri;
+import android.os.Handler;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.datastore.preferences.core.Preferences;
@@ -10,6 +12,7 @@ import androidx.datastore.rxjava2.RxDataStore;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.sdi.hostedin.MyApplication;
 import com.sdi.hostedin.data.callbacks.AccommodationCallback;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
@@ -17,14 +20,16 @@ import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.data.model.User;
+import com.sdi.hostedin.data.repositories.MultimediasRepository;
 import com.sdi.hostedin.domain.CreateAccommodationUseCase;
 import com.sdi.hostedin.domain.UpdateAccommodationUseCase;
-import com.sdi.hostedin.grpc.GrpcAccommodationMultimedia;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
+import com.sdi.hostedin.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 public class AccommodationFormViewModel extends AndroidViewModel {
 
@@ -43,10 +48,16 @@ public class AccommodationFormViewModel extends AndroidViewModel {
     private MutableLiveData<Double> price = new MutableLiveData<>();
     RxDataStore<Preferences> dataStoreRX;
 
+    private final ExecutorService executorService;
+    private final Handler mainHandler;
+
     public AccommodationFormViewModel(@NonNull Application application){
         super(application);
 
         defaultStart();
+        MyApplication myApplication = (MyApplication) application;
+        executorService = myApplication.getExecutorService();
+        mainHandler = myApplication.getMainThreadHandler();
     }
 
     public void restartViewModel(){
@@ -209,6 +220,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(Accommodation accommodation, String token) {
                 accommodationMutableLiveData.setValue(accommodation);
+                uploadAccommodationMultimedia();
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation created"));
             }
 
@@ -221,15 +233,44 @@ public class AccommodationFormViewModel extends AndroidViewModel {
 
     public void uploadAccommodationMultimedia() {
         String accommodationId = accommodationMutableLiveData.getValue().getId();
+
+        byte[][] selectedMultimedia = joinMultimedia();
+        if (selectedMultimedia != null) {
+            MultimediasRepository multimediasRepository = new MultimediasRepository(executorService);
+
+            multimediasRepository.uploadAccommodationMultimedia(accommodationId, selectedMultimedia, new MultimediasRepository.UploadAccommodationMultimediaCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    ToastUtils.showShortInformationMessage(getApplication(), "Multimedia guardada");
+                }
+
+                @Override
+                public void onError(String message) {
+                    ToastUtils.showShortInformationMessage(getApplication(), "Error al subir la multimedia. Puedes editarlo más tarde");
+                }
+            }, mainHandler);
+        }
+        else
+        {
+            Log.e("PRUEBA", "No multimedia");
+            ToastUtils.showShortInformationMessage(getApplication(), "Error al intentar guardar la multimedia");
+        }
+    }
+
+    private byte[][] joinMultimedia() {
+        int numberOfVideos = 1;
         byte[][] selectedPhotos = this.selectedPhotos.getValue();
         byte[] selectedVideo = this.selectedVideo.getValue();
-
-        GrpcAccommodationMultimedia grpcClient = new GrpcAccommodationMultimedia();
-
-        for (byte[] photo : selectedPhotos) {
-            grpcClient.uploadAccommodationMultimedia(accommodationId, photo);
+        byte[][] selectedMultimedia = null;
+        if (selectedPhotos != null) {
+            selectedMultimedia = new byte[selectedPhotos.length + numberOfVideos][];
+            System.arraycopy(selectedPhotos, 0, selectedMultimedia, 0, selectedPhotos.length);
+            if (selectedVideo != null) {
+                selectedMultimedia[selectedPhotos.length] = selectedVideo;
+            }
         }
-        grpcClient.uploadAccommodationMultimedia(accommodationId, selectedVideo);
+
+        return selectedMultimedia;
     }
 
     public void updateAccommodation(Accommodation accommodation) {

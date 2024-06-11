@@ -224,4 +224,11 @@
     <string name="do_rate">Rate</string>
     <string name="must_enter_review">You must enter a review</string>
     <string name="must_rate_accommodation">You must rate the accommodation</string>
+    <string name="host_mode">Host mode</string>
+    <string name="explore_header">Hello, let\'s plan the trip of your dreams!</string>
+    <string name="search_places">Search places</string>
+    <string name="no_places_found">We didn\'t find anything. Try looking for another place.</string>
+    <string name="guest_mode">Guest mode</string>
+    <string name="host_booked_accommodations_header">Hello, In Hosted-In we help you manage your publications\' reservations</string>
+    <string name="still_no_bookings">You don\'t have any accommodations booked, publish one or wait for someone to book one</string>
 </resources>

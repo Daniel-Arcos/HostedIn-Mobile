@@ -40,7 +40,6 @@ public class AccommodationFormActivity extends AppCompatActivity {
                 case DONE:
                     binding.pgbCreateAccommodation.setVisibility(View.GONE);
                     ToastUtils.showShortInformationMessage(this, getString(R.string.accommodation_created_successfully));
-                    accommodationFormViewModel.uploadAccommodationMultimedia();
                     finish();
                     break;
                 case ERROR:

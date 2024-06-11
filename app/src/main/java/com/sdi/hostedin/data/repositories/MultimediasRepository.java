@@ -18,6 +18,12 @@ public class MultimediasRepository {
 
     public interface LoadAccommodationMultimediaCallback {
         void onSuccess(List<byte[]> multimedias);
+        void onSuccess(byte[] multimedia);
+        void onError(String message);
+    }
+
+    public interface UploadAccommodationMultimediaCallback {
+        void onSuccess(String message);
         void onError(String message);
     }
 
@@ -30,7 +36,7 @@ public class MultimediasRepository {
         this.executor = executor;
     }
 
-    public void loadAccommodationMultimedia(String _id, LoadAccommodationMultimediaCallback callback) {
+    public void loadAccommodationMultimedia(String _id, LoadAccommodationMultimediaCallback callback, final Handler handler) {
         ManagedChannel channel = ManagedChannelBuilder.forAddress(GrpcServerData.HOST, GrpcServerData.PORT)
                 .usePlaintext()
                 .build();
@@ -38,15 +44,16 @@ public class MultimediasRepository {
             @Override
             public void run() {
                 try {
-                    List<byte[]> multimedias = new ArrayList<>();
+                    //List<byte[]> multimedias = new ArrayList<>();
                     for (int i = 0; i < 4; i++) {
                         byte[] bytes = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, _id ,i );
-                        multimedias.add(bytes);
+                        notifySuccessResult(bytes, callback, handler);
+                        //multimedias.add(bytes);
                     }
                     channel.shutdown();
-                    callback.onSuccess(multimedias);
+                    //callback.onSuccess(multimedias);
                 } catch (Exception e) {
-                    callback.onError(e.getMessage());
+                    notifyErrorResult(e.getMessage(), callback, handler);
                 }
             }
         });
@@ -70,6 +77,47 @@ public class MultimediasRepository {
         });
     }
 
+    public void uploadAccommodationMultimedia(String accommodationId, byte[][] data, UploadAccommodationMultimediaCallback callback, final Handler handler) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(GrpcServerData.HOST, GrpcServerData.PORT)
+                .usePlaintext()
+                .build();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GrpcAccommodationMultimedia grpcClient = new GrpcAccommodationMultimedia();
+                    for (byte[] multimediaItem : data) {
+                        grpcClient.uploadAccommodationMultimedia(accommodationId, multimediaItem);
+                    }
+                    channel.shutdown();
+                    notifySuccessUpload(callback, handler);
+                } catch (Exception e) {
+                    notifyErrorUpload(e.getMessage(), callback, handler);
+                }
+            }
+        });
+    }
+
+    //UploadAccommodationMultimedia
+    private void notifySuccessUpload(UploadAccommodationMultimediaCallback callback, Handler handler) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onSuccess("uploaded");
+            }
+        });
+    }
+
+    private void notifyErrorUpload(String message, UploadAccommodationMultimediaCallback callback, Handler handler) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onError("error uploading");
+            }
+        });
+    }
+
+    // LoadMainImageAccommodation
     private void notifySuccessResult(byte[] image, LoadMainImageAccommodationCallback callback, Handler handler) {
         handler.post(new Runnable() {
             @Override
@@ -80,6 +128,25 @@ public class MultimediasRepository {
     }
 
     private void notifyErrorResult(String message, LoadMainImageAccommodationCallback callback, Handler handler) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onError(message);
+            }
+        });
+    }
+
+    // LoadAccommodationMultimedia
+    private void notifySuccessResult(byte[] image, LoadAccommodationMultimediaCallback callback, Handler handler) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onSuccess(image);
+            }
+        });
+    }
+
+    private void notifyErrorResult(String message, LoadAccommodationMultimediaCallback callback, Handler handler) {
         handler.post(new Runnable() {
             @Override
             public void run() {

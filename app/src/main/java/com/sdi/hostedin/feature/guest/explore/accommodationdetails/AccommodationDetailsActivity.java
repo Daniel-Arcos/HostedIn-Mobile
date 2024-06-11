@@ -20,6 +20,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
@@ -68,7 +69,6 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     private ItemHostDetailsBinding inclHostData;
     private AccommodationDetailsViewModel accommodationDetailsViewModel;
     private String servicesAccommodation = "";
-    private GrpcAccommodationMultimedia grpcClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,18 +96,6 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         configureButtons();
         manageProgressBarCircle();
         accommodationDetailsViewModel.loadAccommodationMultimedia(binding.getAccommodationData().getId());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        try {
-            if (grpcClient != null) {
-                grpcClient.shutdown();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     private void configureBottomSheet() {
@@ -215,7 +203,6 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     }
 
     private void loadAccommodationData() {
-        //loadMultimedia();
         binding.vflpAccommodationMultimedia.setFlipInterval(60000);
         binding.vflpAccommodationMultimedia.setAutoStart(true);
 
@@ -228,7 +215,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     }
 
     private void loadMultimedia(List<byte[]> multimedias) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < multimedias.size(); i++) {
             insertMultimediaIntoViewFlipper(i, multimedias.get(i));
         }
     }
@@ -263,6 +250,15 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
 
             VideoView videoView = binding.vdvFourthVideo;
             videoView.setVideoURI(Uri.parse(tempFile.getAbsolutePath()));
+
+            MediaController mediaController = new MediaController(this);
+            mediaController.setAnchorView(videoView);
+            videoView.setMediaController(mediaController);
+
+            videoView.setOnPreparedListener(mediaPlayer -> {
+                mediaPlayer.setLooping(true);
+            });
+
             videoView.start();
         } catch (IOException e) {
             e.printStackTrace();
