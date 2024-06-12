@@ -15,6 +15,8 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 import io.grpc.examples.DownloadMultimediaRequest;
 import io.grpc.examples.MultimediaServiceGrpc;
+import io.grpc.examples.UpdateMultimediaResponse;
+import io.grpc.examples.UpdatedMultimediaRequest;
 import io.grpc.examples.UploadMultimediaRequest;
 import io.grpc.examples.UploadMultimediaResponse;
 import io.grpc.stub.StreamObserver;
@@ -36,6 +38,10 @@ public class GrpcAccommodationMultimedia {
 
     public void uploadAccommodationMultimedia(String accommodationId, byte[] data) {
         executorService.submit(new UpdateAccommodationMultimediaTask(asyncStub, accommodationId, data));
+    }
+
+    public void UpdateAccommodationMultimediaEditionTask(String accommodationId, byte[] data, int indexMultimedia) {
+        executorService.submit(new UpdateAccommodationMultimediaEditionTask(asyncStub, accommodationId, data, indexMultimedia));
     }
 
     public void shutdown() throws InterruptedException {
@@ -207,5 +213,82 @@ public class GrpcAccommodationMultimedia {
 //            return stream.toByteArray();
 //        }
 //    }
+
+
+
+    public static class UpdateAccommodationMultimediaEditionTask implements Runnable {
+        private final MultimediaServiceGrpc.MultimediaServiceStub asyncStub;
+        private final String accommodationId;
+        private final byte[] data;
+        private final int indexMultimedia;
+
+        UpdateAccommodationMultimediaEditionTask(MultimediaServiceGrpc.MultimediaServiceStub asyncStub, String accommodationId, byte[] data, int index) {
+            this.asyncStub = asyncStub;
+            this.accommodationId = accommodationId;
+            this.data = data;
+            this.indexMultimedia= index;
+        }
+
+        @Override
+        public void run() {
+            StreamObserver<UpdateMultimediaResponse> responseObserver = new StreamObserver<UpdateMultimediaResponse>() {
+                @Override
+                public void onNext(UpdateMultimediaResponse response) {
+                    Log.d(TAG, "Upload successful: " + response.getDescription());
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    Log.e(TAG, "Upload failed: " + t.getMessage());
+                }
+
+                @Override
+                public void onCompleted() {
+                    Log.d(TAG, "Upload completed");
+                }
+            };
+
+            StreamObserver<UpdatedMultimediaRequest> requestObserver = asyncStub.updateAccommodationMultimedia(responseObserver);
+            try {
+                int bufferSize = 1024;
+                byte[] buffer = new byte[bufferSize];
+                int offset = 0;
+
+                while (offset < data.length) {
+                    int length = Math.min(bufferSize, data.length - offset);
+                    System.arraycopy(data, offset, buffer, 0, length);
+
+                    UpdatedMultimediaRequest request = UpdatedMultimediaRequest.newBuilder()
+                            .setModelId(accommodationId)
+                            .setData(ByteString.copyFrom(buffer, 0, length))
+                            .setMultimediaId(indexMultimedia)
+                            .build();
+
+                    requestObserver.onNext(request);
+                    offset += length;
+
+                }
+
+                requestObserver.onCompleted();
+            } catch (NullPointerException e) {
+                Log.e(TAG, "Accommodation data is null: " + e.getMessage());
+                requestObserver.onError(e);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Log.e(TAG, "Array index out of bounds: " + e.getMessage());
+                requestObserver.onError(e);
+            } catch (IllegalArgumentException e) {
+                Log.e(TAG, "Illegal argument: " + e.getMessage());
+                requestObserver.onError(e);
+            } catch (StatusRuntimeException e) {
+                Log.e(TAG, "gRPC error: " + e.getStatus().getDescription());
+                requestObserver.onError(e);
+            } catch (Exception e) {
+                Log.e(TAG, "Upload failed: " + e.getMessage());
+                requestObserver.onError(e);
+            }
+
+        }
+    }
+
 }
 

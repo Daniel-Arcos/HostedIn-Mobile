@@ -279,5 +279,6 @@
     <string name="hint_current">Vigente</string>
     <string name="hint_overdue">Vencida</string>
     <string name="hint_cancelled">Cancelada</string>
+    <string name="wait_for_multimedia">Wait for the multimedia to charge</string>
 
 </resources>

@@ -34,7 +34,7 @@ public class AccommodationInformationFragment extends Fragment {
     private String mParam2;
     private static final int LOCAL_FRAGMENT_NUMBER = 6;
     private FragmentAccommodationInformationBinding binding;
-    private AccommodationFormViewModel accommodationFormViewModel;
+    private static AccommodationFormViewModel accommodationFormViewModel;
     private String title;
     private String description;
     private String rules;
@@ -66,11 +66,12 @@ public class AccommodationInformationFragment extends Fragment {
         return fragment;
     }
 
-    public static AccommodationInformationFragment newInstance(Accommodation param1, boolean param2) {
+    public static AccommodationInformationFragment newInstance(Accommodation param1, boolean param2, AccommodationFormViewModel accoFormVm) {
         AccommodationInformationFragment fragment = new AccommodationInformationFragment();
         Bundle args = new Bundle();
         accommodationToEdit = param1;
         isEdition = param2;
+        accommodationFormViewModel = accoFormVm;
         fragment.setArguments(args);
         return fragment;
     }
@@ -91,12 +92,13 @@ public class AccommodationInformationFragment extends Fragment {
 
         if(!isEdition) {
             customActivityParent();
+            accommodationFormViewModel =
+                    new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
+                            .get(AccommodationFormViewModel.class);
         }else{
             loadAccommodationInfo();
         }
-        accommodationFormViewModel =
-                new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
-                        .get(AccommodationFormViewModel.class);
+
 
         return binding.getRoot();
     }
@@ -140,13 +142,13 @@ public class AccommodationInformationFragment extends Fragment {
 
         accommodationFormViewModel.getRules().observe(getViewLifecycleOwner(), rules -> {
             if (rules != null) {
-                binding.etxTitle.setText(rules);
+                binding.etxRules.setText(rules);
             }
         });
 
         accommodationFormViewModel.getPrice().observe(getViewLifecycleOwner(), price -> {
             if (price != null) {
-                binding.etxDescription.setText(String.valueOf(price));
+                binding.etxNightPrice.setText(String.valueOf(price));
             }
         });
     }
@@ -165,7 +167,7 @@ public class AccommodationInformationFragment extends Fragment {
         }
     }
 
-    private void collectInformation() {
+    public void collectInformation() {
         this.title = String.valueOf(binding.etxTitle.getText());
         this.description = String.valueOf(binding.etxDescription.getText());
         this.rules = String.valueOf(binding.etxRules.getText());
@@ -178,6 +180,9 @@ public class AccommodationInformationFragment extends Fragment {
         accommodationFormViewModel.getTitle().setValue(title);
         accommodationFormViewModel.getDescription().setValue(description);
         accommodationFormViewModel.getRules().setValue(rules);
+        if(isEdition){
+            accommodationFormViewModel.selectAccommodationInformation(title, description, rules, nightPrice);
+        }
     }
 
     private boolean isAccommodationInformationValid() {

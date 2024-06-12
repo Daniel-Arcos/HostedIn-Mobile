@@ -11,6 +11,7 @@ public class EditAccommodationActivity extends AppCompatActivity {
 
     public final static String ACCOMMODATION_KEY = "accomodation_key";
     private ActivityEditAccommodationBinding binding;
+    private int fragmentNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,10 @@ public class EditAccommodationActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(binding.fgcvMainEditAccommFragmentContainer.getId(), editAccommodationFragment)
                 .commit();
+
+
     }
+
 
 
 }

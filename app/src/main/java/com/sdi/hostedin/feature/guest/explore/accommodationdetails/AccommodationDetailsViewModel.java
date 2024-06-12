@@ -12,7 +12,6 @@ import com.sdi.hostedin.data.callbacks.ReviewsCallback;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Review;
-import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.data.repositories.MultimediasRepository;
 import com.sdi.hostedin.domain.GetReviewsUseCase;
 import com.sdi.hostedin.ui.RequestStatus;
@@ -118,7 +117,49 @@ public class AccommodationDetailsViewModel extends AndroidViewModel {
 
             @Override
             public void onError(String message) {
-                System.out.println(message);
+                List<byte[]> currentList = multimediasListMutableLiveData.getValue();
+                if (currentList == null) {
+                    currentList = new ArrayList<>();
+                }
+                byte[] genericMulti = new byte[1];
+                currentList.add(genericMulti);
+                multimediasListMutableLiveData.postValue(currentList);
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Multimedia Not recovered"));
+            }
+        }, mainHandler);
+    }
+
+    public void loadAllAccommodationMultimedia(String _id) {
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        MultimediasRepository multimediasRepository = new MultimediasRepository(executorService);
+        multimediasRepository.loadAllAccommodationMultimedia(_id, new MultimediasRepository.LoadAccommodationMultimediaCallback() {
+            @Override
+            public void onSuccess(List<byte[]> multimedias) {
+                multimediasListMutableLiveData.setValue(multimedias);
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Multimedia recovered"));
+            }
+
+            @Override
+            public void onSuccess(byte[] multimedia) {
+
+            }
+
+            @Override
+            public void onError(String message) {
+                List<byte[]> currentList = multimediasListMutableLiveData.getValue();
+                if (currentList == null) {
+                    currentList = new ArrayList<>();
+                }
+                byte[] genericMulti = new byte[1];
+                byte[] genericMulti2 = new byte[1];
+                byte[] genericMulti3 = new byte[1];
+                byte[] genericMulti4 = new byte[1];
+                currentList.add(genericMulti);
+                currentList.add(genericMulti2);
+                currentList.add(genericMulti3);
+                currentList.add(genericMulti4);
+                multimediasListMutableLiveData.postValue(currentList);
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, "Multimedia Not recovered"));
             }
         }, mainHandler);
     }

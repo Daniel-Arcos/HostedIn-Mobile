@@ -1,6 +1,5 @@
 package com.sdi.hostedin.utils;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,10 +7,14 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.core.content.FileProvider;
+
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.User;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -79,5 +82,28 @@ public class ImageUtils {
                 imvAccommodation.setImageBitmap(bitmapImage);
             }
         }
+    }
+
+    public static File createTempVideoFile(Context context, byte[] videoBytes) throws IOException {
+        File tempVideoFile = new File(context.getCacheDir(), "temp_video.mp4");
+        try (FileOutputStream fos = new FileOutputStream(tempVideoFile)) {
+            fos.write(videoBytes);
+            fos.flush();
+        }
+        return tempVideoFile;
+    }
+
+    public static File createTempFileFromBytes(Context context, byte[] bytes, String fileName) throws IOException {
+        File file = new File(context.getCacheDir(), fileName);
+
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(bytes);
+        }
+
+        return file;
+    }
+
+    public static Uri getUriFromFile(Context context, File file) {
+        return FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
     }
 }

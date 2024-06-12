@@ -59,6 +59,28 @@ public class MultimediasRepository {
         });
     }
 
+    public void loadAllAccommodationMultimedia(String _id, LoadAccommodationMultimediaCallback callback, final Handler handler) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(GrpcServerData.HOST, GrpcServerData.PORT)
+                .usePlaintext()
+                .build();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<byte[]> multimedias = new ArrayList<>();
+                    for (int i = 0; i < 4; i++) {
+                        byte[] bytes = GrpcAccommodationMultimedia.downloadAccommodationMultimedia(channel, _id , i );
+                        multimedias.add(bytes);
+                    }
+                    channel.shutdown();
+                    notifySuccessAllMultimediaResult(multimedias, callback, handler);
+                } catch (Exception e) {
+                    notifyErrorResult(e.getMessage(), callback, handler);
+                }
+            }
+        });
+    }
+
     public void loadMainImageAccommodation(String _id, LoadMainImageAccommodationCallback callback, final Handler handler) {
         ManagedChannel channel = ManagedChannelBuilder.forAddress(GrpcServerData.HOST, GrpcServerData.PORT)
                 .usePlaintext()
@@ -88,6 +110,29 @@ public class MultimediasRepository {
                     GrpcAccommodationMultimedia grpcClient = new GrpcAccommodationMultimedia();
                     for (byte[] multimediaItem : data) {
                         grpcClient.uploadAccommodationMultimedia(accommodationId, multimediaItem);
+                    }
+                    channel.shutdown();
+                    notifySuccessUpload(callback, handler);
+                } catch (Exception e) {
+                    notifyErrorUpload(e.getMessage(), callback, handler);
+                }
+            }
+        });
+    }
+
+    public void updateAccommodationMultimedia(String accommodationId, byte[][] data, UploadAccommodationMultimediaCallback callback, final Handler handler) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(GrpcServerData.HOST, GrpcServerData.PORT)
+                .usePlaintext()
+                .build();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GrpcAccommodationMultimedia grpcClient = new GrpcAccommodationMultimedia();
+                    int indexMultimedia = 0;
+                    for (byte[] multimediaItem : data) {
+                        grpcClient.UpdateAccommodationMultimediaEditionTask(accommodationId, multimediaItem, indexMultimedia);
+                        indexMultimedia++;
                     }
                     channel.shutdown();
                     notifySuccessUpload(callback, handler);
@@ -138,6 +183,15 @@ public class MultimediasRepository {
 
     // LoadAccommodationMultimedia
     private void notifySuccessResult(byte[] image, LoadAccommodationMultimediaCallback callback, Handler handler) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onSuccess(image);
+            }
+        });
+    }
+
+    private void notifySuccessAllMultimediaResult(List<byte[]> image, LoadAccommodationMultimediaCallback callback, Handler handler) {
         handler.post(new Runnable() {
             @Override
             public void run() {

@@ -22,12 +22,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.sdi.hostedin.R;
-import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentAccommodationMultimediaBinding;
 import com.sdi.hostedin.utils.ImageUtils;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -52,15 +52,15 @@ public class AccommodationMultimediaFragment extends Fragment {
     private static final int MILLISECONDS_TIME_VIDEO = 60000;
     private static final int MAX_MB_SIZE_VIDEO = 130;
     private FragmentAccommodationMultimediaBinding binding;
-    private AccommodationFormViewModel accommodationFormViewModel;
+    private static AccommodationFormViewModel accommodationFormViewModel;
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
     private Uri[] selectedImagesUri = new Uri[NUMBER_OF_IMAGES];
     private int currentImageNumber = 0;
     private Uri selectedVideo;
     boolean isNextClicked = false;
 
-    private static Accommodation accommodationToEdit ;
     private static boolean isEdition;
+    private static List<byte[]> recoveredMultimedia;
 
     private boolean isPhotoClickedTEMPORARY;
 
@@ -85,11 +85,12 @@ public class AccommodationMultimediaFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public static AccommodationMultimediaFragment newInstance(Accommodation param1, boolean param2) {
+    public static AccommodationMultimediaFragment newInstance(List<byte[]> multimedia, boolean param2, AccommodationFormViewModel accoFormVm) {
         AccommodationMultimediaFragment fragment = new AccommodationMultimediaFragment();
         Bundle args = new Bundle();
-        accommodationToEdit = param1;
         isEdition = param2;
+        recoveredMultimedia = multimedia;
+        accommodationFormViewModel = accoFormVm;
         fragment.setArguments(args);
         return fragment;
     }
@@ -106,11 +107,20 @@ public class AccommodationMultimediaFragment extends Fragment {
             if (uri != null) {
                 if (currentImageNumber < 3) {
                     selectedImagesUri[currentImageNumber] = uri;
-                    accommodationFormViewModel.getImagesUri().getValue().add(uri);
+
+                    List<Uri> imagesUri = accommodationFormViewModel.getImagesUri().getValue();
+                    if (currentImageNumber < imagesUri.size()) {
+                        imagesUri.set(currentImageNumber, uri);
+                    } else {
+                        imagesUri.add(uri);
+                    }
+                    //accommodationFormViewModel.getImagesUri().getValue().add(uri);
+
                     ImageView imvAccommodationPhoto = getImageViewByNumber(currentImageNumber);
                     if (imvAccommodationPhoto != null) {
                         imvAccommodationPhoto.setImageURI(uri);
                     }
+
                 } else {
                     if (isVideoValid(this.getContext(), uri)) {
                         selectedVideo = uri;
@@ -135,9 +145,15 @@ public class AccommodationMultimediaFragment extends Fragment {
         selectedVideo = null;
         isPhotoClickedTEMPORARY = false;
 
-        accommodationFormViewModel =
-                new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
-                    .get(AccommodationFormViewModel.class);
+        if(!isEdition) {
+            accommodationFormViewModel =
+                    new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
+                            .get(AccommodationFormViewModel.class);
+        }
+        else{
+            selectedImagesUri = accommodationFormViewModel.getImagesUri().getValue().toArray(new Uri[NUMBER_OF_IMAGES]);
+            selectedVideo = accommodationFormViewModel.getVideoUri().getValue();
+        }
 
         configureListeners();
         return binding.getRoot();
@@ -149,14 +165,14 @@ public class AccommodationMultimediaFragment extends Fragment {
         customActivityParent();
 
         accommodationFormViewModel.getFragmentNumberMutableLiveData().observe(getViewLifecycleOwner(), fragmentNumber -> {
-            if (fragmentNumber == LOCAL_FRAGMENT_NUMBER) {
+            if (fragmentNumber == LOCAL_FRAGMENT_NUMBER && !isEdition) {
                 validateAccommodationMultimediaSelected();
             }
         });
 
         List<Uri> imageUri = accommodationFormViewModel.getImagesUri().getValue();
         for (int i = 0; i < imageUri.size() ; i++) {
-            if (imageUri != null) {
+            if (imageUri != null ) {
                 selectedImagesUri[i] = imageUri.get(i);
                 ImageView imvAccommodationPhoto = getImageViewByNumber(i);
                 if (imvAccommodationPhoto != null) {
@@ -173,6 +189,7 @@ public class AccommodationMultimediaFragment extends Fragment {
             binding.vdvFourthVideo.start();
         }
     }
+
 
     private void configureListeners() {
         binding.rtlyMainImage.setOnClickListener( v -> {
@@ -257,14 +274,18 @@ public class AccommodationMultimediaFragment extends Fragment {
     }
 
     private boolean isVideoSizeValid(Context context, Uri videoUri) {
-
-        Cursor cursor = context.getContentResolver().query(videoUri, null, null, null, null);
-        if (cursor != null) {
-            int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
-            cursor.moveToFirst();
-            long size = cursor.getLong(sizeIndex);
-            cursor.close();
-            return size <= MAX_MB_SIZE_VIDEO * 1024 * 1024;
+        if ("file".equalsIgnoreCase(videoUri.getScheme())) {
+            File file = new File(videoUri.getPath());
+            return file.length() <= MAX_MB_SIZE_VIDEO * 1024 * 1024;
+        } else {
+            Cursor cursor = context.getContentResolver().query(videoUri, null, null, null, null);
+            if (cursor != null) {
+                int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+                cursor.moveToFirst();
+                long size = cursor.getLong(sizeIndex);
+                cursor.close();
+                return size <= MAX_MB_SIZE_VIDEO * 1024 * 1024;
+            }
         }
         return false;
     }
@@ -287,11 +308,13 @@ public class AccommodationMultimediaFragment extends Fragment {
         }
     }
 
-    private void validateAccommodationMultimediaSelected() {
+    public void validateAccommodationMultimediaSelected() {
         if (areSelectedPhotosValid() && isSelectedVideoValid()) {
-            if (isNextClicked) {
+            if (isNextClicked || isEdition) {
                 accommodationFormViewModel.selectMultimedia(uriPhotoToBytes(), uriVideoToBytes());
-                accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
+                if(!isEdition){
+                    accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
+                }
             } else {
                 isNextClicked = true;
             }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.fragment.app.Fragment;
@@ -33,10 +34,12 @@ import java.util.List;
 public class EditAccommodationFragment extends Fragment {
 
     private FragmentEditAccommodationBinding binding;
+    private static final int LOCAL_FRAGMENT_NUMBER = 1;
     private static Accommodation accommodation;
     private AccommodationDetailsViewModel accommodationDetailsViewModel;
     private EditAccommodationViewModel editAccommodationViewModel;
     private GrpcAccommodationMultimedia grpcClient;
+
 
     public EditAccommodationFragment() {
 
@@ -53,21 +56,24 @@ public class EditAccommodationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        accommodationDetailsViewModel = new ViewModelProvider(getActivity(), new ViewModelFactory(getActivity().getApplication())).get(AccommodationDetailsViewModel.class);
-        editAccommodationViewModel = new ViewModelProvider(getActivity(), new ViewModelFactory(getActivity().getApplication())).get(EditAccommodationViewModel.class);
-        accommodationDetailsViewModel.getMultimediasListMutableLiveData().observe(this, multimedia -> {
-            loadMultimedia(multimedia);
-        });
+        accommodationDetailsViewModel = new ViewModelProvider(requireActivity(), new ViewModelFactory(requireActivity().getApplication())).get(AccommodationDetailsViewModel.class);
+        editAccommodationViewModel = new ViewModelProvider(requireActivity(), new ViewModelFactory(requireActivity().getApplication())).get(EditAccommodationViewModel.class);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = com.sdi.hostedin.databinding.FragmentEditAccommodationBinding.inflate(inflater, container, false);
+
+
+        accommodationDetailsViewModel.getMultimediasListMutableLiveData().observe(getActivity(), multimedia -> {
+            loadMultimedia(multimedia);
+        });
+
         setAccommodatioInfo();
         configureSections();
         manageProgressBarCircle();
-        accommodationDetailsViewModel.loadAccommodationMultimedia(accommodation.getId());
 
         binding.btnGoAhead.setOnClickListener( v -> binding.vflpAccommodationMultimedia.showNext() );
         binding.btnGoBack.setOnClickListener( v -> binding.vflpAccommodationMultimedia.showPrevious() );
@@ -78,7 +84,8 @@ public class EditAccommodationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        accommodationDetailsViewModel.loadAccommodationMultimedia(accommodation.getId());
+        ToastUtils.showLongInformationMessage(getContext(), "Recovering multimedia, porfavor espere");
+        accommodationDetailsViewModel.loadAllAccommodationMultimedia(accommodation.getId());
     }
 
 
@@ -86,11 +93,11 @@ public class EditAccommodationFragment extends Fragment {
         binding.txvTitle.setText(accommodation.getTitle());
         binding.txvPrice.setText("$ " + String.valueOf(accommodation.getNightPrice()) + " MXN");
         binding.txvDescription.setText(accommodation.getDescription());
-        String services = "";
+        String services = requireActivity().getString(R.string.services)+": ";
         for (String service: accommodation.getAccommodationServices()) {
-            services.concat(service+"\n");
+            services = services.concat(service+", ");
         }
-        binding.txvServices.setText(R.string.services + " : " + services);
+        binding.txvServices.setText(services);
         binding.vflpAccommodationMultimedia.setBackgroundColor(Color.LTGRAY);
     }
 
@@ -147,32 +154,33 @@ public class EditAccommodationFragment extends Fragment {
     }
 
     private void editAccommodationInfo(View view) {
-        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_DESCRIPTIONS);
+        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_DESCRIPTIONS, null);
         loadFragmentEdition(editAccommodationFormFragment);
     }
 
     private void editAccommodationMedia(View view) {
-        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_MULTIMEDIA);
+        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_MULTIMEDIA, accommodationDetailsViewModel.getMultimediasListMutableLiveData().getValue());
         loadFragmentEdition(editAccommodationFormFragment);
     }
 
+
     private void editAccommodationServices(View view) {
-        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_SERVICES);
+        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_SERVICES, null);
         loadFragmentEdition(editAccommodationFormFragment);
     }
 
     private void editAccommodationNumberGuest(View view) {
-        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_NUMBERS_OF);
+        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_NUMBERS_OF, null);
         loadFragmentEdition(editAccommodationFormFragment);
     }
 
     private void editAccommodationUbication(View view) {
-        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_MAP_UBICATION);
+        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_MAP_UBICATION, null);
         loadFragmentEdition(editAccommodationFormFragment);
     }
 
     private void editAccommodationType(View view) {
-        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_TYPE);
+        EditAccommodationFormFragment editAccommodationFormFragment = EditAccommodationFormFragment.newInstance(accommodation, EditAccommodationFormFragment.EDIT_TYPE, null);
         loadFragmentEdition(editAccommodationFormFragment);
     }
 
@@ -185,7 +193,7 @@ public class EditAccommodationFragment extends Fragment {
 
 
     private void loadMultimedia(List<byte[]> multimedia) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < multimedia.size(); i++) {
             insertMultimediaIntoViewFlipper(i, multimedia.get(i));
         }
     }
@@ -219,6 +227,15 @@ public class EditAccommodationFragment extends Fragment {
 
             VideoView videoView = binding.vdvFourthVideo;
             videoView.setVideoURI(Uri.parse(tempFile.getAbsolutePath()));
+
+            MediaController mediaController = new MediaController(requireActivity());
+            mediaController.setAnchorView(videoView);
+            videoView.setMediaController(mediaController);
+
+            videoView.setOnPreparedListener(mediaPlayer -> {
+                mediaPlayer.setLooping(true);
+            });
+
             videoView.start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -229,13 +246,13 @@ public class EditAccommodationFragment extends Fragment {
         accommodationDetailsViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), status -> {
             switch (status.getRequestStatus()) {
                 case LOADING:
-                    binding.pgbEditedAccommodation.setVisibility(View.VISIBLE);
+                    enableButtons(false);
                     break;
                 case DONE:
-                    binding.pgbEditedAccommodation.setVisibility(View.GONE);
+                    enableButtons(true);
                     break;
                 case ERROR:
-                    binding.pgbEditedAccommodation.setVisibility(View.GONE);
+                    enableButtons(true);
                     Log.d("PRUEBA", "error: " + status.getMessage());
                     ToastUtils.showShortInformationMessage(getContext(), status.getMessage());
             }
@@ -258,6 +275,10 @@ public class EditAccommodationFragment extends Fragment {
         });
     }
 
+
+    private void enableButtons(boolean isEnable){
+        binding.inclMedia.bttGenericButton.setEnabled(isEnable);
+    }
 
 
 }

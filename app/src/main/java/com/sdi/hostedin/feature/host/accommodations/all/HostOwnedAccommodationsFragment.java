@@ -35,6 +35,15 @@ public class HostOwnedAccommodationsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if(Boolean.TRUE.equals(hostOwnedAccommodationsViewModel.getIsNew().getValue())){
+            hostOwnedAccommodationsViewModel.getAllHostOwnedAccommodations();
+            hostOwnedAccommodationsViewModel.setIsNew(false);
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TransitionInflater inflater = TransitionInflater.from(requireContext());
@@ -69,6 +78,7 @@ public class HostOwnedAccommodationsFragment extends Fragment {
     }
 
     private void goToEditAccommodation(Accommodation accommodation) {
+        hostOwnedAccommodationsViewModel.setIsNew(true);
         Intent intent = new Intent(this.getActivity(), EditAccommodationActivity.class);
         intent.putExtra(EditAccommodationActivity.ACCOMMODATION_KEY, accommodation);
         startActivity(intent);
@@ -82,7 +92,7 @@ public class HostOwnedAccommodationsFragment extends Fragment {
     }
 
     private void goToAccommodationForm() {
-        getFragmentManager().popBackStack();
+        hostOwnedAccommodationsViewModel.setIsNew(true);
         Intent intent = new Intent(this.getActivity(), AccommodationFormActivity.class);
         startActivity(intent);
     }

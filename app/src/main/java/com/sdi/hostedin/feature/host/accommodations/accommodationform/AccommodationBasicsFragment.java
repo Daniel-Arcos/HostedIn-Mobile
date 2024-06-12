@@ -35,7 +35,7 @@ public class AccommodationBasicsFragment extends Fragment {
     private static final int LOCAL_FRAGMENT_NUMBER = 3;
     private static final int MAX_BASICS_NUMBER = 50;
     private FragmentAccommodationBasicsBinding binding;
-    private AccommodationFormViewModel accommodationFormViewModel;
+    private static AccommodationFormViewModel accommodationFormViewModel;
     private ItemAccommodationBasicBinding[] includeBasics;
     private int guestsNumber;
     private int roomsNumber;
@@ -66,11 +66,12 @@ public class AccommodationBasicsFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public static AccommodationBasicsFragment newInstance(Accommodation accommodation, boolean isEdition) {
+    public static AccommodationBasicsFragment newInstance(Accommodation accommodation, boolean isEdition, AccommodationFormViewModel accFormVm) {
         AccommodationBasicsFragment fragment = new AccommodationBasicsFragment();
         Bundle args = new Bundle();
         accommodationToEdit = accommodation;
         AccommodationBasicsFragment.isEdition = isEdition;
+        accommodationFormViewModel = accFormVm;
         fragment.setArguments(args);
         return fragment;
     }
@@ -99,8 +100,13 @@ public class AccommodationBasicsFragment extends Fragment {
 
         configureBasics();
 
-        accommodationFormViewModel = new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
+        if(!isEdition){
+            accommodationFormViewModel = new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
                 .get(AccommodationFormViewModel.class);
+        }else {
+            loadQuantitiesFromViewModel();
+        }
+
 
         return binding.getRoot();
     }
@@ -121,6 +127,12 @@ public class AccommodationBasicsFragment extends Fragment {
 
         loadQuantitiesFromViewModel();
 
+    }
+
+    public void SetBasicsForEdition(){
+        if(areQuantitiesValid()){
+            accommodationFormViewModel.selectBasics(guestsNumber, roomsNumber, bedsNumber, bathroomsNumber);
+        }
     }
 
     private void resetValues() {

@@ -36,7 +36,7 @@ public class AccommodationTypeFragment extends Fragment {
     private static final int LOCAL_FRAGMENT_NUMBER = 1;
 
     private FragmentAccommodationTypeBinding binding;
-    private AccommodationFormViewModel accommodationFormViewModel;
+    private static AccommodationFormViewModel accommodationFormViewModel;
     private AccommodationTypes selectedAccommodationType;
     private Button[] typesButtons;
 
@@ -67,11 +67,12 @@ public class AccommodationTypeFragment extends Fragment {
         return fragment;
     }
 
-    public static AccommodationTypeFragment newInstance(Accommodation accommodation, boolean isEdition) {
+    public static AccommodationTypeFragment newInstance(Accommodation accommodation, boolean isEdition, AccommodationFormViewModel accommodationFormVm) {
         AccommodationTypeFragment fragment = new AccommodationTypeFragment();
         Bundle args = new Bundle();
         accommodationToEdit = accommodation;
         AccommodationTypeFragment.isEdition = isEdition;
+        accommodationFormViewModel = accommodationFormVm;
         fragment.setArguments(args);
         return fragment;
     }
@@ -101,9 +102,11 @@ public class AccommodationTypeFragment extends Fragment {
         };
         configureTypesButtons();
 
-        accommodationFormViewModel =
-                new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
-                .get(AccommodationFormViewModel.class);
+        if(!isEdition){
+            accommodationFormViewModel =
+                    new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
+                            .get(AccommodationFormViewModel.class);
+        }
 
 
 
@@ -230,7 +233,7 @@ public class AccommodationTypeFragment extends Fragment {
         btnSelected.setBackgroundTintList(ColorStateList.valueOf(color));
     }
 
-    private void ValidateAccommodationTypeSelected() {
+    public void ValidateAccommodationTypeSelected() {
         if (selectedAccommodationType != null) {
             accommodationFormViewModel.selectAccommodationType(selectedAccommodationType.getDescription());
             accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);

@@ -35,7 +35,7 @@ public class AccommodationServicesFragment extends Fragment {
     private static  Accommodation accommodation;
     private static final int LOCAL_FRAGMENT_NUMBER = 4;
     private FragmentAccommodationServicesBinding binding;
-    private AccommodationFormViewModel accommodationFormViewModel;
+    private static AccommodationFormViewModel accommodationFormViewModel;
     private List<AccommodationServices> accommodationServices = new ArrayList<>();
     private Button[] servicesButtons;
 
@@ -51,11 +51,12 @@ public class AccommodationServicesFragment extends Fragment {
      * @return A new instance of fragment AccommodationServicesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AccommodationServicesFragment newInstance(Accommodation parm1,boolean param2) {
+    public static AccommodationServicesFragment newInstance(Accommodation parm1,boolean param2, AccommodationFormViewModel accoFormVm) {
         AccommodationServicesFragment fragment = new AccommodationServicesFragment();
         Bundle args = new Bundle();
         accommodation = parm1;
         isEdition = param2;
+        accommodationFormViewModel = accoFormVm;
         fragment.setArguments(args);
         return fragment;
     }
@@ -87,9 +88,11 @@ public class AccommodationServicesFragment extends Fragment {
         };
         configureServiceButtons();
 
-        accommodationFormViewModel =
-                new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
-                        .get(AccommodationFormViewModel.class);
+        if(!isEdition) {
+            accommodationFormViewModel =
+                    new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
+                            .get(AccommodationFormViewModel.class);
+        }
 
         return binding.getRoot();
     }
@@ -256,7 +259,7 @@ public class AccommodationServicesFragment extends Fragment {
         btnUnselected.setBackgroundTintList(ColorStateList.valueOf(color));
     }
 
-    private void validateAccommodationServicesSelected() {
+    public void validateAccommodationServicesSelected() {
         int numberOfServices = accommodationServices.size();
         if (numberOfServices > 0) {
 
@@ -268,7 +271,9 @@ public class AccommodationServicesFragment extends Fragment {
             }
 
             accommodationFormViewModel.selectAccommodationServices(selectedServices);
-            accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
+            if(!isEdition){
+                accommodationFormViewModel.nextFragment(LOCAL_FRAGMENT_NUMBER + 1);
+            }
         } else {
             ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.choose_at_least_one_service_message) );
         }

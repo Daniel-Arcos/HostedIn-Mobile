@@ -57,7 +57,7 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
     private static final int MIN_LATITUDE_VALUE_ALLOWED = -90;
     private static final int MIN_LONGITUDE_VALUE_ALLOWED = -180;
     private FragmentAccommodationLocationBinding binding;
-    private AccommodationFormViewModel accommodationFormViewModel;
+    private static AccommodationFormViewModel accommodationFormViewModel;
     private Location location;
     private MapView mpvLocation;
     private GoogleMap gMap;
@@ -89,11 +89,12 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
         return fragment;
     }
 
-    public static AccommodationLocationFragment newInstance(Accommodation accommodation, boolean isEdition) {
+    public static AccommodationLocationFragment newInstance(Accommodation accommodation, boolean isEdition, AccommodationFormViewModel accoFormVm) {
         AccommodationLocationFragment fragment = new AccommodationLocationFragment();
         Bundle args = new Bundle();
         accommodationToEdit = accommodation;
         AccommodationLocationFragment.isEdition = isEdition;
+        accommodationFormViewModel = accoFormVm;
         fragment.setArguments(args);
         return fragment;
     }
@@ -113,9 +114,11 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
         // Inflate the layout for this fragment
         binding = FragmentAccommodationLocationBinding.inflate(getLayoutInflater());
 
-        accommodationFormViewModel =
-                new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
-                        .get(AccommodationFormViewModel.class);
+        if(!isEdition){
+            accommodationFormViewModel =
+                    new ViewModelProvider(getActivity(), new ViewModelFactory(requireActivity().getApplication()))
+                            .get(AccommodationFormViewModel.class);
+        }
 
         mpvLocation = binding.mpvAccommodationLocation;
         mpvLocation.onCreate(savedInstanceState);
@@ -244,7 +247,7 @@ public class AccommodationLocationFragment extends Fragment implements OnMapRead
         }
     }
 
-    private void ValidateAccommodationLocationSelected() {
+    public void ValidateAccommodationLocationSelected() {
         if (location != null) {
             if (location.getLatitude() >= MIN_LATITUDE_VALUE_ALLOWED && location.getLongitude() >= MIN_LONGITUDE_VALUE_ALLOWED) {
                 updateLatLng();

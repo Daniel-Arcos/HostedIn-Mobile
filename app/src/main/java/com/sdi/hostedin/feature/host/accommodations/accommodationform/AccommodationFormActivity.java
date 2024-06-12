@@ -1,12 +1,12 @@
 package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.os.Bundle;
-import android.view.View;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Accommodation;
@@ -112,54 +112,60 @@ public class AccommodationFormActivity extends AppCompatActivity {
 
     private void showAccommodationTypeFragment() {
         fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();
+        AccommodationTypeFragment accommodationTypeFragment = AccommodationTypeFragment.newInstance(null,  false, null);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(binding.fragmentContainer.getId(), AccommodationTypeFragment.class, null)
+                .replace(binding.fragmentContainer.getId(), accommodationTypeFragment, null)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showAccommodationLocationFragment() {
         fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();
+        AccommodationLocationFragment accommodationLocationFragment = AccommodationLocationFragment.newInstance(null, false, null);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(binding.fragmentContainer.getId(), AccommodationLocationFragment.class, null)
+                .replace(binding.fragmentContainer.getId(), accommodationLocationFragment, null)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showAccommodationBasicsFragment(){
-        fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();;
+        fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();
+        AccommodationBasicsFragment accommodationBasicsFragment = AccommodationBasicsFragment.newInstance(null, false, null);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(binding.fragmentContainer.getId(), AccommodationBasicsFragment.class, null)
+                .replace(binding.fragmentContainer.getId(), accommodationBasicsFragment, null)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showAccommodationServicesFragment() {
-        fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();;
+        fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();
+        AccommodationServicesFragment accommodationServicesFragment = AccommodationServicesFragment.newInstance(null, false, null);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(binding.fragmentContainer.getId(), AccommodationServicesFragment.class, null)
+                .replace(binding.fragmentContainer.getId(), accommodationServicesFragment, null)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showAccommodationMultimediaFragment() {
-        fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();;
+        fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();
+        AccommodationMultimediaFragment accommodationMultimediaFragment = AccommodationMultimediaFragment.newInstance(null, false, null);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(binding.fragmentContainer.getId(), AccommodationMultimediaFragment.class, null)
+                .replace(binding.fragmentContainer.getId(), accommodationMultimediaFragment, null)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showAccommodationInformationFragment() {
-        fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();;
+        fragmentNumber = accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue();
+        AccommodationInformationFragment accommodationInformationFragment = AccommodationInformationFragment.newInstance(null, false, null);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(binding.fragmentContainer.getId(), AccommodationInformationFragment.class, null)
+                .replace(binding.fragmentContainer.getId(), accommodationInformationFragment, null)
                 .addToBackStack(null)
                 .commit();
     }

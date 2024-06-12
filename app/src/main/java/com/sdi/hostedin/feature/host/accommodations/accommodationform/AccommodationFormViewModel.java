@@ -60,16 +60,11 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         mainHandler = myApplication.getMainThreadHandler();
     }
 
-    public void restartViewModel(){
-        defaultStart();
-    }
-
-    private void  defaultStart(){
+     public void  defaultStart(){
         Accommodation accommodation = new Accommodation();
         Location location = new Location();
         accommodation.setLocation(location);
         accommodation.setMultimediaSelected(false);
-
         accommodationMutableLiveData.setValue(accommodation);
         fragmentNumberMutableLiveData.setValue(1);
         assignUserId();
@@ -77,9 +72,11 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         imagesUri.setValue(new ArrayList<>());
     }
 
+
     public void setAccommodationMutableLiveData(Accommodation accommodation) {
         this.accommodationMutableLiveData.setValue(accommodation);
     }
+
 
     private void assignUserId() {
         DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
@@ -257,6 +254,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         }
     }
 
+
     private byte[][] joinMultimedia() {
         int numberOfVideos = 1;
         byte[][] selectedPhotos = this.selectedPhotos.getValue();
@@ -278,23 +276,52 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
 
         String token = DataStoreAccess.accessToken(getApplication());
-        updateAccommodationUseCase.updateAccommodation(accommodation, token, new AccommodationCallback() {
-            @Override
-            public void onSuccess(Accommodation accommodation, String token) {
-                if(fragmentNumberMutableLiveData.getValue() == AccommodationMultimediaFragment.LOCAL_FRAGMENT_NUMBER){
-                    uploadAccommodationMultimedia();
+        if(fragmentNumberMutableLiveData.getValue() == AccommodationMultimediaFragment.LOCAL_FRAGMENT_NUMBER){
+            updateAccommodationMultimedia();
+        }else{
+            updateAccommodationUseCase.updateAccommodation(accommodation, token, new AccommodationCallback() {
+                @Override
+                public void onSuccess(Accommodation accommodation, String token) {
+                    accommodationMutableLiveData.setValue(accommodation);
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation updated"));
                 }
-                else{
-                   accommodationMutableLiveData.setValue(accommodation);
-                   requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation updated"));
-                }
-            }
 
-            @Override
-            public void onError(String errorMessage) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
-            }
-        });
+                @Override
+                public void onError(String errorMessage) {
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
+                }
+            });
+        }
+
     }
+
+
+    public void updateAccommodationMultimedia() {
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, "Actualizando imagenes"));
+        String accommodationId = accommodationMutableLiveData.getValue().getId();
+
+        byte[][] selectedMultimedia = joinMultimedia();
+        if (selectedMultimedia != null) {
+            MultimediasRepository multimediasRepository = new MultimediasRepository(executorService);
+
+            multimediasRepository.updateAccommodationMultimedia(accommodationId, selectedMultimedia, new MultimediasRepository.UploadAccommodationMultimediaCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Multimedia actualizada"));
+                }
+
+                @Override
+                public void onError(String message) {
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, "Error al actualizar multimedia"));
+                }
+            }, mainHandler);
+        }
+        else
+        {
+            Log.e("PRUEBA", "No multimedia");
+            ToastUtils.showShortInformationMessage(getApplication(), "Error al intentar guardar la multimedia");
+        }
+    }
+
 
 }
