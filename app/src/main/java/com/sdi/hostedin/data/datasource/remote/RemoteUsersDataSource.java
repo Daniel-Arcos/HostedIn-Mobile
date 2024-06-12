@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAuthObject;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseDeleteAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
 import com.sdi.hostedin.data.model.User;
@@ -196,14 +197,14 @@ public class RemoteUsersDataSource {
     }
 
     public void deleteAccount(String userId, String token, DeleteAccountCallback deleteAccountCallback) {
-        Call<ResponseEditAccountObject> call = service.deleteUserById(userId, token);
+        Call<ResponseDeleteAccountObject> call = service.deleteUserById(userId, token);
 
-        call.enqueue(new Callback<ResponseEditAccountObject>() {
+        call.enqueue(new Callback<ResponseDeleteAccountObject>() {
             @Override
-            public void onResponse(Call<ResponseEditAccountObject> call, Response<ResponseEditAccountObject> response) {
+            public void onResponse(Call<ResponseDeleteAccountObject> call, Response<ResponseDeleteAccountObject> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ResponseEditAccountObject responseObject = response.body();
-                    String userId = responseObject.getUser().getId();
+                    ResponseDeleteAccountObject responseObject = response.body();
+                    String userId = responseObject.getUserId();
 
                     deleteAccountCallback.onSuccess(userId);
                 } else {
@@ -226,7 +227,7 @@ public class RemoteUsersDataSource {
             }
 
             @Override
-            public void onFailure(Call<ResponseEditAccountObject> call, Throwable t) {
+            public void onFailure(Call<ResponseDeleteAccountObject> call, Throwable t) {
                 deleteAccountCallback.onError(t.getMessage());
             }
         });
