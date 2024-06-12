@@ -2,6 +2,7 @@ package com.sdi.hostedin.data.datasource.apiclient;
 
 import com.sdi.hostedin.data.datasource.apiclient.moshiconverters.DateJsonAdapter;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.CancellationResponse;
+import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseDeleteAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetReviewsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseReviewObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
@@ -61,7 +62,7 @@ public class ApiClient {
         Call<ResponseEditAccountObject> updateUserById(@Path("userId") String userId, @Body User user, @Header("Authorization") String authToken);
 
         @DELETE("users/{userId}")
-        Call<ResponseEditAccountObject> deleteUserById(@Path("userId") String userId, @Header("Authorization") String authToken);
+        Call<ResponseDeleteAccountObject> deleteUserById(@Path("userId") String userId, @Header("Authorization") String authToken);
 
         // Accommodations
         @POST("accommodations")

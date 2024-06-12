@@ -89,8 +89,6 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void configureBottomSheet() {
-        //BottomSheetBehavior<RelativeLayout> bottomSheetBehavior = BottomSheetBehavior.from(binding.btmshEditUserData);
-        //bottomSheetBehavior.setDraggable(false);
         binding.btnCancelChangeUserData.setOnClickListener( v -> finish() );
     }
 
