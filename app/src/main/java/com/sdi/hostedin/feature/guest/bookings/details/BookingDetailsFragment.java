@@ -21,6 +21,7 @@ import com.sdi.hostedin.enums.BookingSatuses;
 import com.sdi.hostedin.feature.cancelation.reasonselection.CancelationReasonSelectionFragment;
 import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.ToastUtils;
+import com.sdi.hostedin.utils.TranslatorToSpanish;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -75,38 +76,42 @@ public class BookingDetailsFragment extends Fragment {
         binding.rcyvAccommodationMedia.setBackgroundColor(Color.LTGRAY);
         binding.txvStartingDate.setText(DateFormatterUtils.parseMongoDateToNaturalDate(bookingInfo.getBeginningDate()));
         binding.txvEndingDate.setText(DateFormatterUtils.parseMongoDateToNaturalDate(bookingInfo.getEndingDate()));
-        binding.txvTotalGuest.setText(String.valueOf(bookingInfo.getNumberOfGuests())+ "guests");
+        String header = binding.txvBookDetailsHeader.getText().toString();
+        binding.txvBookDetailsHeader.setText(header + " " +bookingInfo.getAccommodation().getTitle());
+        binding.txvTotalGuest.setText(String.valueOf(bookingInfo.getNumberOfGuests())+ getString(R.string.hint_guests));
         binding.txvTotalCost.setText("$ " + String.valueOf(bookingInfo.getTotalCost()) + " MXN");
         binding.txvHostName.setText(thirdUser.getFullName());
-        String contactInfo = "Phone number:  " + thirdUser.getPhoneNumber() + "\n" +
-                "Email: " + thirdUser.getEmail();
+        binding.txvStatus.setText(TranslatorToSpanish.getBookingSpanishStatus(getContext() ,bookingInfo.getBookingStatus()));
+        String contactInfo = getString(R.string.tag_phone_number) + thirdUser.getPhoneNumber() + "\n" +
+                getString(R.string.tag_email) + thirdUser.getEmail();
         binding.txvContactInfo.setText(contactInfo);
+
         if(isHost()){
-            binding.txvHostTag.setText("Who will be your Guest?");
-            binding.txvTotalCostTag.setText("How much will you earn?");
+            binding.txvHostTag.setText(R.string.quest_whose_your_guest);
+            binding.txvTotalCostTag.setText(R.string.quest_how_much_you_earn);
         }
         else {
-            binding.txvHostTag.setText("Who will be your Host?");
-            binding.txvTotalCostTag.setText("How much will you pay?");
+            binding.txvHostTag.setText(R.string.quest_who_be_your_host);
+            binding.txvTotalCostTag.setText(R.string.quest_how_much_pay);
         }
     }
 
     private void loadCustomeButtons(){
         binding.inclWatchMap.imageView.setBackgroundResource(R.drawable.map_icon);
-        binding.inclWatchMap.txvGenericText.setText("Watch in map");
+        binding.inclWatchMap.txvGenericText.setText(R.string.watch_map);
         binding.inclWatchMap.bttGenericButton.setOnClickListener(this:: watchAccommodationMap);
-        if(bookingInfo.getBookingStatus().equals(BookingSatuses.CURRENT)){
+        if(!bookingInfo.getBookingStatus().equals(BookingSatuses.CURRENT.getDescription()) && !isHost()){
             binding.inclRatePublication.imageView.setBackgroundResource(R.drawable.rate_icon);
-            binding.inclRatePublication.txvGenericText.setText("Rate accommodation");
+            binding.inclRatePublication.txvGenericText.setText(R.string.review_acco);
             binding.inclRatePublication.bttGenericButton.setOnClickListener(this:: openRateAccommodationWindow);
             binding.inclRatePublication.getRoot().setVisibility(View.VISIBLE);
         }
         else {
             binding.inclRatePublication.getRoot().setVisibility(View.INVISIBLE);
         }
-        if(canBeCancelled(bookingInfo.getBeginningDate())){
+        if(bookingInfo.getBookingStatus().equals(BookingSatuses.CURRENT.getDescription()) && canBeCancelled(bookingInfo.getBeginningDate())){
             binding.inclCancellBook.imageView.setBackgroundResource(R.drawable.cancell_icon);
-            binding.inclCancellBook.txvGenericText.setText("Cancel booking");
+            binding.inclCancellBook.txvGenericText.setText(R.string.cancell_booking);
             binding.inclCancellBook.bttGenericButton.setOnClickListener(this::goToCancelFragment);
             binding.inclCancellBook.getRoot().setVisibility(View.VISIBLE);
         }

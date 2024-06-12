@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sdi.hostedin.data.model.BookedAccommodation;
 import com.sdi.hostedin.databinding.ItemHostBookedAccommodationBinding;
+import com.sdi.hostedin.utils.ImageUtils;
 
 public class HostBookedAccommodationsAdapter extends ListAdapter<BookedAccommodation, HostBookedAccommodationsAdapter.HostBookedAccViewHolder> {
 
@@ -65,6 +66,10 @@ public class HostBookedAccommodationsAdapter extends ListAdapter<BookedAccommoda
             binding.bttSeeBookingDetails.setOnClickListener(v->{
                 onItemClicListener.onItemClick(accommodation);
             });
+            if(accommodation.getMainImage() != null ){
+                binding.imvAccommodation.setImageBitmap(ImageUtils.bytesToBitmap(accommodation.getMainImage()));
+                binding.imvAccommodation.setBackgroundColor(Color.TRANSPARENT);
+            }
         }
     }
 

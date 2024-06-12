@@ -12,9 +12,12 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.GuestBooking;
 import com.sdi.hostedin.databinding.ItemGuestBookedAccommodationBinding;
 import com.sdi.hostedin.utils.DateFormatterUtils;
+import com.sdi.hostedin.utils.ImageUtils;
+import com.sdi.hostedin.utils.TranslatorToSpanish;
 
 public class GuestBookingsAdapter extends ListAdapter<GuestBooking, GuestBookingsAdapter.GuestBookingsViewHolder> {
 
@@ -76,6 +79,7 @@ public class GuestBookingsAdapter extends ListAdapter<GuestBooking, GuestBooking
             binding.getRoot().setOnClickListener(v->{
                     onItemClicListener.onItemClick(booking);
             });
+            binding.txvStatus.setText(context.getString(R.string.hint_status) + " " +TranslatorToSpanish.getBookingSpanishStatus(context.getApplicationContext(), booking.getBookingStatus()));
             binding.bttReviewAccommodation.setOnClickListener(v->{
                 onRateClick.onRateClick(booking);
             });
@@ -84,6 +88,10 @@ public class GuestBookingsAdapter extends ListAdapter<GuestBooking, GuestBooking
             }
             else{
                 binding.bttReviewAccommodation.setVisibility(View.VISIBLE);
+            }
+            if(booking.getAccommodation().getMainImage() != null){
+                binding.imvAccommodation.setImageBitmap(ImageUtils.bytesToBitmap(booking.getAccommodation().getMainImage()));
+                binding.imvAccommodation.setBackgroundColor(Color.TRANSPARENT);
             }
         }
     }

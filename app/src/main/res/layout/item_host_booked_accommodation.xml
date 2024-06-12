@@ -71,8 +71,8 @@
             android:layout_below="@id/btt_see_booking_details"
             android:layout_alignStart="@id/btt_see_booking_details"
             android:layout_alignEnd="@id/btt_see_booking_details"
-            android:text="Reservations"
             android:gravity="center_horizontal"
+            android:text="@string/bookings"
             android:textSize="8sp" />
 
     </RelativeLayout>

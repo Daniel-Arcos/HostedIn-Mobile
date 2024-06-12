@@ -57,11 +57,7 @@ public class HostBookedAccommodationsFragment extends Fragment {
         TransitionInflater inflater = TransitionInflater.from(requireContext());
         setEnterTransition(inflater.inflateTransition(R.transition.fade));
         setExitTransition(inflater.inflateTransition(R.transition.fade));
-        hostBookedAccommodationsViewModel = new ViewModelProvider(requireActivity(), new ViewModelFactory(getActivity().getApplication())).get(HostBookedAccommodationsViewModel.class);
-        if (Boolean.TRUE.equals(hostBookedAccommodationsViewModel.getIsNew().getValue())){
-            hostBookedAccommodationsViewModel.getHostBookedAccommodations();
-            hostBookedAccommodationsViewModel.setIsNew(false);
-        }
+
     }
 
     @Override
@@ -69,6 +65,12 @@ public class HostBookedAccommodationsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding =  FragmentHostBookedAccommodationsBinding.inflate(inflater, container, false);
         binding.rcyvBookedPublications.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        hostBookedAccommodationsViewModel = new ViewModelProvider(requireActivity(), new ViewModelFactory(getActivity().getApplication())).get(HostBookedAccommodationsViewModel.class);
+        if (Boolean.TRUE.equals(hostBookedAccommodationsViewModel.getIsNew().getValue())){
+            hostBookedAccommodationsViewModel.getHostBookedAccommodations();
+            hostBookedAccommodationsViewModel.setIsNew(false);
+        }
 
         User user = (User) getArguments().getParcelable(USER_KEY);
         hostBookedAccommodationsViewModel.setUserMutableLiveData(user);
@@ -86,7 +88,6 @@ public class HostBookedAccommodationsFragment extends Fragment {
         });
 
         manageLoading();
-        hostBookedAccommodationsViewModel.getHostBookedAccommodations();
         return binding.getRoot();
     }
 
@@ -121,7 +122,7 @@ public class HostBookedAccommodationsFragment extends Fragment {
             startActivity(intent);
             this.getActivity().finish();
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+            ToastUtils.showShortInformationMessage(this.getContext(), String.valueOf(R.string.there_is_a_problem));
         }
     }
 }

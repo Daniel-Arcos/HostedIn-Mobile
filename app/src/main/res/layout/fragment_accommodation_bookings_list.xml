@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="Reservaciones"
+            android:text="@string/bookings_title"
             android:textSize="24sp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="16dp"/>
@@ -30,7 +30,7 @@
             android:layout_alignBaseline="@+id/txv_books_header"
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="16dp"
-            android:text="cerrar"
+            android:text="@string/close"
             android:textSize="16dp"
             />
 

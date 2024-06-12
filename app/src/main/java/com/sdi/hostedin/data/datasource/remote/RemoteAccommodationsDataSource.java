@@ -301,7 +301,7 @@ public class RemoteAccommodationsDataSource {
             public void onResponse(Call<ResponseGetAccommodationsObject> call, Response<ResponseGetAccommodationsObject> response) {
                 if (response.isSuccessful()){
                     ResponseGetAccommodationsObject responseGetAccommodationsObject = response.body();
-                    accommodationsCallback.onSuccess(responseGetAccommodationsObject.getAccommodations(), response.message());
+                    accommodationsCallback.onSuccess(MoshiConverter.convertAPIAccommodationsResponseToJavaObjects(responseGetAccommodationsObject), response.message());
                 }else{
                     String message = "Ocurrio un error al recuperar los alojamientos";
                     if (response.errorBody() != null) {

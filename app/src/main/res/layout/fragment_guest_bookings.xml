@@ -18,7 +18,7 @@
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="10dp"
             android:background="@color/general_background"
-            android:text="¡Hola!, estos son tus planes para tus proximas vaciones"
+            android:text="@string/geust_bookings_list_header"
             android:textAlignment="viewStart"
             android:textSize="20sp"
             android:layout_alignParentStart="true"
@@ -38,14 +38,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Currents" />
+                android:text="Vigentes" />
 
             <Button
                 android:id="@+id/bttOlds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Olds" />
+                android:text="Pasados" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -67,7 +67,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="98dp"
             android:gravity="center"
-            android:text="No tienes alojamientos reservados, publica uno o espera a que alguien reserve uno" />
+            android:text="@string/no_guest_booked_acco" />
 
 
 

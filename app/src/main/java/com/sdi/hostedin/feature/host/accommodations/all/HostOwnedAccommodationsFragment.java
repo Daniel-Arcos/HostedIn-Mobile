@@ -40,7 +40,7 @@ public class HostOwnedAccommodationsFragment extends Fragment {
         TransitionInflater inflater = TransitionInflater.from(requireContext());
         setEnterTransition(inflater.inflateTransition(R.transition.fade));
         setExitTransition(inflater.inflateTransition(R.transition.fade));
-        hostOwnedAccommodationsViewModel = new ViewModelProvider(requireActivity(), new ViewModelFactory(getActivity().getApplication())).get(HostOwnedAccommodationsViewModel.class);
+
     }
 
     @Override
@@ -48,6 +48,13 @@ public class HostOwnedAccommodationsFragment extends Fragment {
         binding = FragmentHostOwnedAccommodationsBinding.inflate(inflater, container, false);
         binding.btnCreateAccommodation.setOnClickListener(v -> goToAccommodationForm());
         binding.recyclerPublicationView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        hostOwnedAccommodationsViewModel = new ViewModelProvider(requireActivity(), new ViewModelFactory(requireActivity().getApplication())).get(HostOwnedAccommodationsViewModel.class);
+        if(Boolean.TRUE.equals(hostOwnedAccommodationsViewModel.getIsNew().getValue())){
+            hostOwnedAccommodationsViewModel.getAllHostOwnedAccommodations();
+            hostOwnedAccommodationsViewModel.setIsNew(false);
+        }
+
         hostOwnedAccommodationsAdapter = new HostOwnedAccommodationsAdapter(getContext());
         hostOwnedAccommodationsAdapter.setOnItemClickListener(this::watchAccommodationsDetails);
         hostOwnedAccommodationsAdapter.setOnEditButtonClick(this::goToEditAccommodation);
@@ -57,7 +64,6 @@ public class HostOwnedAccommodationsFragment extends Fragment {
             if (accommodations.size() < 0) { binding.txvNoAccommodations.setVisibility(View.VISIBLE); }
         });
         manageLoading();
-        hostOwnedAccommodationsViewModel.getAllHostOwnedAccommodations();
 
         return binding.getRoot();
     }
@@ -71,10 +77,12 @@ public class HostOwnedAccommodationsFragment extends Fragment {
     private void watchAccommodationsDetails(Accommodation accommodation) {
         Intent intent = new Intent(this.getActivity(), AccommodationDetailsActivity.class);
         intent.putExtra(AccommodationDetailsActivity.ACCOMMODATION_KEY, accommodation);
+        intent.putExtra(AccommodationDetailsActivity.IS_HOST_KEY, true);
         startActivity(intent);
     }
 
     private void goToAccommodationForm() {
+        getFragmentManager().popBackStack();
         Intent intent = new Intent(this.getActivity(), AccommodationFormActivity.class);
         startActivity(intent);
     }

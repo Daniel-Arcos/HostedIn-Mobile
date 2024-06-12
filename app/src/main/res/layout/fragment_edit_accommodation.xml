@@ -110,7 +110,7 @@
                         android:layout_toStartOf="@id/center_divider"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="8dp"
-                        android:text="Title"
+                        android:text="@string/title_tag"
                         android:layout_alignParentTop="true"/>
 
                     <TextView
@@ -121,21 +121,21 @@
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@id/center_divider"
                         android:layout_marginStart="8dp"
-                        android:text="Price" />
+                        android:text="@string/hint_price" />
 
                     <TextView
                         android:id="@+id/txv_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txv_title"
-                        android:text="Description" />
+                        android:text="@string/description_tag" />
 
                     <TextView
                         android:id="@+id/txv_services"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txv_description"
-                        android:text="Description" />
+                        android:text="@string/services_tag" />
 
                 </RelativeLayout>
 
@@ -210,7 +210,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Delete"
+                android:text="@string/delete_tag"
                 android:textColor="@color/red" />
         </LinearLayout>
 

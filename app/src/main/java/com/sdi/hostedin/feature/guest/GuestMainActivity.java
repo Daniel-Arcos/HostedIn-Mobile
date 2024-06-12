@@ -8,7 +8,6 @@ import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.search.SearchView;
 import com.sdi.hostedin.R;
@@ -60,23 +59,17 @@ public class GuestMainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{
             int itemId = item.getItemId();
             if (itemId == R.id.explore) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.popBackStack();
-                fragmentManager.beginTransaction()
+                getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(binding.fragmentContainer.getId(), ExploreFragment.class, bundleFragment)
                         .commit();
             } else if (itemId == R.id.bookings) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.popBackStack();
-                fragmentManager.beginTransaction()
+                getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(binding.fragmentContainer.getId(), GuestBookingsFragment.class, null)
                         .commit();
             } else {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.popBackStack();
-                fragmentManager.beginTransaction()
+                getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(binding.fragmentContainer.getId(), StatisticsFragment.class, null)
                         .commit();

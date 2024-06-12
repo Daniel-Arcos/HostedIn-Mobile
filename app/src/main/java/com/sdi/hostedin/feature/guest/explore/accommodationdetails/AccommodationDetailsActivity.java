@@ -1,13 +1,5 @@
 package com.sdi.hostedin.feature.guest.explore.accommodationdetails;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,13 +8,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -40,9 +35,6 @@ import com.sdi.hostedin.databinding.ItemHostDetailsBinding;
 import com.sdi.hostedin.enums.AccommodationServices;
 import com.sdi.hostedin.enums.AccommodationTypes;
 import com.sdi.hostedin.feature.guest.bookings.accommodationbooking.AccommodationBookingActivity;
-import com.sdi.hostedin.feature.guest.bookings.accommodationbooking.AccommodationBookingViewModel;
-import com.sdi.hostedin.grpc.GrpcAccommodationMultimedia;
-import com.sdi.hostedin.grpc.GrpcServerData;
 import com.sdi.hostedin.utils.ImageUtils;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
@@ -54,12 +46,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-
 public class AccommodationDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final String ACCOMMODATION_KEY = "accommodation_key";
+    public static final String IS_HOST_KEY = "is_hsot_key";
     private static final int EMPTY_DATA_STRUCTURE = 0;
     public static final String DELIMITER_DETAILS = " · ";
     private ActivityAccommodationDetailsBinding binding;
@@ -69,6 +59,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
     private ItemHostDetailsBinding inclHostData;
     private AccommodationDetailsViewModel accommodationDetailsViewModel;
     private String servicesAccommodation = "";
+    private Boolean isHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +70,13 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
 
         Bundle extras = getIntent().getExtras();
         binding.setAccommodationData(extras.getParcelable(ACCOMMODATION_KEY));
+        isHost = extras.getBoolean(IS_HOST_KEY);
+
+        if(isHost){
+            binding.btnBooking.setVisibility(View.INVISIBLE);
+        }else {
+            binding.btnBooking.setVisibility(View.VISIBLE);
+        }
 
         accommodationDetailsViewModel = new ViewModelProvider(this, new ViewModelFactory(getApplication())).get(AccommodationDetailsViewModel.class);
 

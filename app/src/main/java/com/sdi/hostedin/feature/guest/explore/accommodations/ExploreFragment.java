@@ -3,16 +3,15 @@ package com.sdi.hostedin.feature.guest.explore.accommodations;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -20,7 +19,6 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.api.net.SearchByTextRequest;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Accommodation;
-import com.sdi.hostedin.data.model.Location;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentExploreBinding;
 import com.sdi.hostedin.feature.guest.explore.accommodationdetails.AccommodationDetailsActivity;
@@ -179,6 +177,7 @@ public class ExploreFragment extends Fragment {
     private void goToAccommodationDetails(Accommodation accommodation) {
         Intent intent = new Intent(this.getContext(), AccommodationDetailsActivity.class);
         intent.putExtra(AccommodationDetailsActivity.ACCOMMODATION_KEY, accommodation);
+        intent.putExtra(AccommodationDetailsActivity.IS_HOST_KEY, false);
         startActivity(intent);
     }
 

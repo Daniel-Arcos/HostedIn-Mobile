@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
-import androidx.fragment.app.FragmentManager;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
@@ -49,23 +48,17 @@ public class HostMainActivity extends AppCompatActivity {
         binding.bottomNavigationViewHost.setOnItemSelectedListener(item ->{
             int itemId = item.getItemId();
             if (itemId == R.id.bookings_host) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.popBackStack();
-                fragmentManager.beginTransaction()
+                getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(binding.fragmentHostContainer.getId(), HostBookedAccommodationsFragment.class, bundleFragment)
                         .commit();
             } else if (itemId == R.id.publications) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.popBackStack();
-                fragmentManager.beginTransaction()
+                getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(binding.fragmentHostContainer.getId(), HostOwnedAccommodationsFragment.class, null)
                         .commit();
             } else {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.popBackStack();
-                fragmentManager.beginTransaction()
+                getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .replace(binding.fragmentHostContainer.getId(), StatisticsFragment.class, null)
                         .commit();

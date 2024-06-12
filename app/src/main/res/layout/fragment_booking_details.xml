@@ -16,13 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_margin="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Cuentanos tu experiencia en Casa Komalli"
+            android:text="@string/booking_detail_guest_header"
             android:textSize="24dp" />
 
         <ScrollView
@@ -34,11 +33,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.recyclerview.widget.RecyclerView
+                <View
                     android:id="@+id/rcyv_accommodation_media"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp" />
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginHorizontal="8dp"/>
 
                 <TextView
                     android:id="@+id/txv_starting_date_tag"
@@ -51,7 +51,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="10dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Starting date"
+                    android:text="@string/begining_date"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
@@ -89,7 +89,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="10dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Starting date"
+                    android:text="@string/ending_date"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
@@ -142,7 +142,7 @@
                     android:layout_below="@+id/incl_rate_publication"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
-                    android:text="Reservation stancy details"
+                    android:text="@string/booking_detail_section"
                     android:textSize="20dp"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"/>
@@ -155,7 +155,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Total Guest"
+                    android:text="@string/total_guest"
                     android:textSize="18sp" />
 
                 <TextView
@@ -188,7 +188,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Cost"
+                    android:text="@string/cost"
                     android:textSize="18sp" />
 
                 <TextView
@@ -222,7 +222,6 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="HostName"
                     android:textSize="18sp" />
 
                 <TextView
@@ -256,7 +255,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Contact infromation"
+                    android:text="@string/contact_info"
                     android:textSize="18sp" />
 
                 <TextView
@@ -270,6 +269,17 @@
                     android:text="2282449465"
                     android:textSize="16sp"/>
 
+                <TextView
+                    android:id="@+id/txv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txv_contact_info"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="20dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Vigente"
+                    android:textSize="16sp"/>
+
                 <View
                     android:id="@+id/vw_horizontal_line_4"
                     android:layout_width="0dp"
@@ -277,10 +287,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/black"
-                    android:layout_below="@+id/txv_contact_info"
+                    android:layout_below="@+id/txv_status"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginTop="100dp"/>
+                    android:layout_marginTop="50dp"/>
 
                 <include
                     android:id="@+id/incl_cancell_book"

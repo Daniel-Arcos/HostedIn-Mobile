@@ -44,18 +44,35 @@ public class GuestBookingsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        guestBookingsViewModel.getCurrentBookedAccommodations();
+        if(Boolean.TRUE.equals(guestBookingsViewModel.getIsNew().getValue())){
+            if(Boolean.TRUE.equals(guestBookingsViewModel.getCurrentAccView().getValue())){
+                getCurrentBookings();
+            }
+            else{
+                getOldBookingds();
+            }
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentGuestBookingsBinding.inflate(inflater, container, false);
-        binding.bttOlds.setBackgroundColor(Color.LTGRAY);
+        binding.setLifecycleOwner(this);
+
 
         guestBookingsViewModel = new ViewModelProvider(requireActivity(), new ViewModelFactory(getActivity().getApplication())).get(GuestBookingsViewModel.class);
         if (Boolean.TRUE.equals(guestBookingsViewModel.getIsNew().getValue())){
+            guestBookingsViewModel.getCurrentBookedAccommodations();
             guestBookingsViewModel.setIsNew(false);
+        }
+        if(Boolean.TRUE.equals(guestBookingsViewModel.getCurrentAccView().getValue())){
+            binding.bttOlds.setBackgroundColor(Color.LTGRAY);
+            binding.bttCurrents.setBackgroundColor(Color.BLUE);
+        }
+        else{
+            binding.bttCurrents.setBackgroundColor(Color.LTGRAY);
+            binding.bttOlds.setBackgroundColor(Color.BLUE);
         }
 
         binding.recyclerPublicationView.setLayoutManager(new LinearLayoutManager(this.getContext()));

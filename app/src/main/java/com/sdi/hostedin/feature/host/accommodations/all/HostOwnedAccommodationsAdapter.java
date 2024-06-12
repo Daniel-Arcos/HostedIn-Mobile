@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.ItemHostBookedAccommodationBinding;
+import com.sdi.hostedin.utils.ImageUtils;
 
 public class HostOwnedAccommodationsAdapter extends ListAdapter<Accommodation, HostOwnedAccommodationsAdapter.HostOwnedAccViewHolder> {
 
@@ -63,13 +64,17 @@ public class HostOwnedAccommodationsAdapter extends ListAdapter<Accommodation, H
             binding.imvAccommodation.setBackgroundColor(Color.LTGRAY);
             binding.txvPrice.setText("$ "+String.valueOf(accommodation.getNightPrice() +" MXN"));
             binding.bttSeeBookingDetails.setBackgroundResource(R.drawable.edit_acc_icon);
-            binding.txvBttHint.setText("Edit");
+            binding.txvBttHint.setText(R.string.edit);
             binding.getRoot().setOnClickListener(v->{
                 onItemClickListener.onItemClick(accommodation);
             });
             binding.bttSeeBookingDetails.setOnClickListener(v->{
                 onEditClick.onEditClick(accommodation);
             });
+            if(accommodation.getMainImage() != null){
+                binding.imvAccommodation.setImageBitmap(ImageUtils.bytesToBitmap(accommodation.getMainImage()));
+                binding.imvAccommodation.setBackgroundColor(Color.TRANSPARENT);
+            }
         }
 
     }

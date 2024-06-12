@@ -9,8 +9,8 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="save">Guardar</string>
-    <string name="cancel">Cancelar</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -194,7 +194,7 @@
     <string name="services">Services</string>
     <string name="rating">Rating</string>
     <string name="with_out_rating">No rating.</string>
-    <string name="bookings">Reviews</string>
+    <string name="bookings">Bookings</string>
     <string name="with_out_reviews">No reviews</string>
     <string name="location_of_future_booking">Where are you going to stay</string>
     <string name="host">Host</string>
@@ -231,4 +231,54 @@
     <string name="guest_mode">Guest mode</string>
     <string name="host_booked_accommodations_header">Hello, In Hosted-In we help you manage your publications\' reservations</string>
     <string name="still_no_bookings">You don\'t have any accommodations booked, publish one or wait for someone to book one</string>
+    <string name="recuperar_contrase_a">Recover Password\n</string>
+    <string name="confir_email">Confirm email</string>
+    <string name="bookings_title">Bookings</string>
+    <string name="booking_detail_guest_header">"Tell us about your experience with "</string>
+    <string name="begining_date">Beginning date</string>
+    <string name="ending_date">Ending date</string>
+    <string name="booking_detail_section">Booking details</string>
+    <string name="total_guest">Total Guests</string>
+    <string name="cost">Cost</string>
+    <string name="contact_info">Contact information</string>
+    <string name="title_tag">Title</string>
+    <string name="description_tag">Description</string>
+    <string name="services_tag">Services</string>
+    <string name="delete_tag">Delete</string>
+    <string name="edit_acco_form_header">!Hi, let\'s edit\n your publication</string>
+    <string name="geust_bookings_list_header">!Hi! this are your plans for your next vacations</string>
+    <string name="no_guest_booked_acco">You don\'t have booked accommodations, go and book one</string>
+    <string name="owned_acco_header">So awesome to see you again, these are your accommodations, what you wanna do?</string>
+    <string name="no_owned_acco">You don´t have accommodation yet, publish one.</string>
+    <string name="creat_publication">Create publication</string>
+    <string name="code_entry_header">Enter the verificationcode that was sent to your email</string>
+    <string name="email_entry_header_recovery_pass">"Enter your email that is binded to your account, we'll send a verification code "</string>
+    <string name="newpass_entry_header">Enter your new password</string>
+    <string name="guest">Guest: </string>
+    <string name="stay">Stay: </string>
+    <string name="details">Details</string>
+    <string name="edit">edit</string>
+    <string name="hint_type">Type</string>
+    <string name="hint_ubication">Ubication</string>
+    <string name="hint_rooms_and_guests">Rooms and guests...</string>
+    <string name="hint_pictures_and_video">Pictures and video</string>
+    <string name="hint_title_description_and_price">Title, description and price</string>
+    <string name="watch_out">Watch Out!!</string>
+    <string name="confirm_acco_delete_question">Are you sure you want to delete this accommodation?, this action cannot be undo</string>
+    <string name="yes_delete">Yes, delete</string>
+    <string name="no_cancel">No, cancel</string>
+    <string name="watch_map">Watch map</string>
+    <string name="review_acco">Review accommodation</string>
+    <string name="cancell_booking">Cancel booking</string>
+    <string name="hint_status">Status :</string>
+    <string name="hint_guests">guests</string>
+    <string name="tag_phone_number">Phone number:  </string>
+    <string name="tag_email">Email: </string>
+    <string name="quest_whose_your_guest">Who will be your guest?</string>
+    <string name="quest_how_much_you_earn">How much you will earn?</string>
+    <string name="quest_who_be_your_host">Who will be your host?</string>
+    <string name="quest_how_much_pay">How much will you pay?</string>
+    <string name="hint_current">Current</string>
+    <string name="hint_overdue">Overdue</string>
+    <string name="hint_cancelled">Cancelled</string>
 </resources>

@@ -19,6 +19,7 @@ public class BookedAccommodation implements Parcelable {
     private int bathroomsNumber;
     private String[] accommodationServices;
     private Location location;
+    private byte[] mainImage;
     private String user;
 
     public BookedAccommodation() {
@@ -143,6 +144,14 @@ public class BookedAccommodation implements Parcelable {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public byte[] getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(byte[] mainImage) {
+        this.mainImage = mainImage;
     }
 
     protected BookedAccommodation(Parcel in) {

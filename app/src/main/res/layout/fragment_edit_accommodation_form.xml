@@ -19,7 +19,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_marginStart="40dp"
-            android:text="!Hi, let's prepare\n your publication"
+            android:text="@string/edit_acco_form_header"
             android:layout_marginTop="5dp"
             android:textSize="25sp" />
 
@@ -42,7 +42,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="2dp"
-            android:text="Save" />
+            android:text="@string/save" />
 
         <ProgressBar
             android:id="@+id/pgb_save_edited_accommodation"

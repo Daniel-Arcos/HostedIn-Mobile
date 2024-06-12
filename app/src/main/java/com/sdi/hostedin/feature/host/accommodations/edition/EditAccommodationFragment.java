@@ -86,37 +86,37 @@ public class EditAccommodationFragment extends Fragment {
         binding.txvTitle.setText(accommodation.getTitle());
         binding.txvPrice.setText("$ " + String.valueOf(accommodation.getNightPrice()) + " MXN");
         binding.txvDescription.setText(accommodation.getDescription());
-        String services = "Services: ";
+        String services = "";
         for (String service: accommodation.getAccommodationServices()) {
             services.concat(service+"\n");
         }
-        binding.txvServices.setText(services);
+        binding.txvServices.setText(R.string.services + " : " + services);
         binding.vflpAccommodationMultimedia.setBackgroundColor(Color.LTGRAY);
     }
 
-    private void configureSections(){
+    public void configureSections(){
         binding.inclAccommodationType.imageView.setBackgroundResource(R.drawable.accommodation_icon);
-        binding.inclAccommodationType.txvGenericText.setText("Accommodation type");
+        binding.inclAccommodationType.txvGenericText.setText(R.string.hint_type);
         binding.inclAccommodationType.bttGenericButton.setOnClickListener(this::editAccommodationType);
 
         binding.inclUbication.imageView.setBackgroundResource(R.drawable.map_icon);
-        binding.inclUbication.txvGenericText.setText("Ubication");
+        binding.inclUbication.txvGenericText.setText(R.string.hint_ubication);
         binding.inclUbication.bttGenericButton.setOnClickListener(this::editAccommodationUbication);
 
         binding.inclNumberGuests.imageView.setBackgroundResource(R.drawable.bed_icon);
-        binding.inclNumberGuests.txvGenericText.setText("Rooms and guests...");
+        binding.inclNumberGuests.txvGenericText.setText(R.string.hint_rooms_and_guests);
         binding.inclNumberGuests.bttGenericButton.setOnClickListener(this::editAccommodationNumberGuest);
 
         binding.inclServices.imageView.setBackgroundResource(R.drawable.service_icon);
-        binding.inclServices.txvGenericText.setText("Services");
+        binding.inclServices.txvGenericText.setText(R.string.services);
         binding.inclServices.bttGenericButton.setOnClickListener(this::editAccommodationServices);
 
         binding.inclMedia.imageView.setBackgroundResource(R.drawable.camera_icon);
-        binding.inclMedia.txvGenericText.setText("Pictures and video");
+        binding.inclMedia.txvGenericText.setText(R.string.hint_pictures_and_video);
         binding.inclMedia.bttGenericButton.setOnClickListener(this::editAccommodationMedia);
 
         binding.inclPublicationInfo.imageView.setBackgroundResource(R.drawable.edit_acc_icon);
-        binding.inclPublicationInfo.txvGenericText.setText("Title, description and price");
+        binding.inclPublicationInfo.txvGenericText.setText(R.string.hint_title_description_and_price);
         binding.inclPublicationInfo.bttGenericButton.setOnClickListener(this::editAccommodationInfo);
 
         binding.bttDeleteAccommodation.setOnClickListener(this::confirmationMessage);
@@ -124,16 +124,16 @@ public class EditAccommodationFragment extends Fragment {
 
     private void confirmationMessage(View view){
         AlertDialog.Builder confirmationDialog = new AlertDialog.Builder(getContext());
-        confirmationDialog.setTitle("Watch Out!!");
-        confirmationDialog.setMessage("Are you sure you want to delete this accommodation?, this action cannot be undo");
-        confirmationDialog.setPositiveButton("Yes, delete", new DialogInterface.OnClickListener(){
+        confirmationDialog.setTitle(R.string.watch_out);
+        confirmationDialog.setMessage(R.string.confirm_acco_delete_question);
+        confirmationDialog.setPositiveButton(R.string.yes_delete, new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
                  deleteAccommodation();
                  dialog.dismiss();
             }
         });
-        confirmationDialog.setNegativeButton("No, cancel", new DialogInterface.OnClickListener() {
+        confirmationDialog.setNegativeButton(R.string.no_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
