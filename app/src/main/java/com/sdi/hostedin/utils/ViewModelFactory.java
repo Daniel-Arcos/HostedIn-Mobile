@@ -20,6 +20,7 @@ import com.sdi.hostedin.feature.host.bookings.list.HostAccBookingsListViewModel;
 import com.sdi.hostedin.feature.password.RecoverPasswordViewModel;
 import com.sdi.hostedin.feature.login.SigninViewModel;
 import com.sdi.hostedin.feature.signup.SignupViewModel;
+import com.sdi.hostedin.feature.statistics.StaticticsViewModel;
 import com.sdi.hostedin.feature.user.DeleteAccountViewModel;
 import com.sdi.hostedin.feature.user.EditProfileViewModel;
 import com.sdi.hostedin.feature.user.ProfileViewModel;
@@ -67,6 +68,8 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new CancelationViewModel(application);
         } else if (modelClass.equals(EditAccommodationViewModel.class)) {
             return (T) new EditAccommodationViewModel(application);
+        } else if (modelClass.equals(StaticticsViewModel.class)) {
+            return (T) new StaticticsViewModel(application);
         }
 
         return null;

@@ -75,6 +75,9 @@ public class AccommodationAdapter extends ListAdapter<Accommodation, Accommodati
             }
             binding.txvTitle.setText(String.valueOf(accommodation.getTitle()));
             binding.price.setText("$ " + String.valueOf(accommodation.getNightPrice()) + " MXN");
+            double rate = accommodation.getRate();
+            String formattedRate = String.format("%.2f", rate);
+            binding.txvCalification.setText(formattedRate);
             binding.getRoot().setOnClickListener(v -> {
                 onItemClickListener.onItemClick(accommodation);
             });

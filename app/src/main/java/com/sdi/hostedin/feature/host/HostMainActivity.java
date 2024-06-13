@@ -2,16 +2,21 @@ package com.sdi.hostedin.feature.host;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.search.SearchView;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.ActivityHostMainBinding;
+import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreFragment;
 import com.sdi.hostedin.feature.host.accommodations.all.HostOwnedAccommodationsFragment;
 import com.sdi.hostedin.feature.host.bookings.HostBookedAccommodationsFragment;
 import com.sdi.hostedin.feature.statistics.StatisticsFragment;
@@ -39,6 +44,14 @@ public class HostMainActivity extends AppCompatActivity {
         dataStoreHelper.putBoolValue("START_HOST", true);
 
         Bundle bundleFragment = new Bundle();
+
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                handleOnPressedButton();
+            }
+        });
+
         bundleFragment.putParcelable(HostBookedAccommodationsFragment.USER_KEY, user);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
@@ -67,5 +80,16 @@ public class HostMainActivity extends AppCompatActivity {
         });
     }
 
-
+    private void handleOnPressedButton() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_host_container);
+        if (fragment instanceof HostBookedAccommodationsFragment) {
+            finish();
+        } else {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .replace(binding.fragmentHostContainer.getId(), HostBookedAccommodationsFragment.class, null)
+                    .commit();
+            binding.bottomNavigationViewHost.setSelectedItemId(R.id.bookings_host);
+        }
+    }
 }

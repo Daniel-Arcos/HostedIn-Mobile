@@ -81,6 +81,11 @@ public class LoginFragment extends Fragment {
                         binding.txvPasswordError.setVisibility(View.GONE);
                     }
                 });
+        manageProgressBar();
+        return  binding.getRoot();
+    }
+
+    private void manageProgressBar() {
         signinViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), status -> {
             switch (status.getRequestStatus()) {
                 case LOADING:
@@ -98,7 +103,6 @@ public class LoginFragment extends Fragment {
                     binding.vwLoading.setVisibility(View.GONE);
             }
         });
-        return  binding.getRoot();
     }
 
     private boolean validateFields() {

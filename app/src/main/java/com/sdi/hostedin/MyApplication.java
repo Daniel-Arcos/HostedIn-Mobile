@@ -16,7 +16,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        executorService = Executors.newFixedThreadPool(4);
+        int numberOfCores = Runtime.getRuntime().availableProcessors();
+        executorService = Executors.newFixedThreadPool(numberOfCores);
         this.mainThreadHandler = HandlerCompat.createAsync(Looper.getMainLooper());
     }
 

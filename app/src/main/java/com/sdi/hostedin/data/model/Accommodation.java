@@ -25,6 +25,7 @@ public class Accommodation implements Parcelable {
     private User user;
     private boolean isMultimediaSelected;
     private byte[] mainImage;
+    private double rate;
 
     public Accommodation() {
     }
@@ -146,6 +147,14 @@ public class Accommodation implements Parcelable {
 
     public void setAccommodationServices(String[] accommodationServices) {
         this.accommodationServices = accommodationServices;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     public Location getLocation() {
