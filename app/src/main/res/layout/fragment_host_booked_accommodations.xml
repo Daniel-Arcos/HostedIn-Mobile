@@ -8,79 +8,88 @@
 
     </data>
 
-    <RelativeLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.bookings.HostBookedAccommodationsFragment">
+        android:id="@+id/swiperefresh">
 
-        <Button
-            android:id="@+id/btn_change_to_host"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:layout_toStartOf="@id/profile_btn"
-            android:text="@string/guest_mode"
-            android:drawableLeft="@drawable/ic_change_mode_1"
-            android:textColor="@color/black" />
-
-        <Button
-            style="?attr/materialIconButtonFilledStyle"
-            android:id="@+id/profile_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/profile_icon"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"/>
-
-
-        <TextView
-        android:id="@+id/txv_fragment_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="10dp"
-        android:background="@color/general_background"
-        android:text="@string/host_booked_accommodations_header"
-        android:textAlignment="viewStart"
-        android:textSize="20sp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/profile_btn"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcyv_booked_publications"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txv_fragment_header"
-            android:layout_alignParentBottom="true"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_height="match_parent"
+            tools:context=".feature.host.bookings.HostBookedAccommodationsFragment">
 
-        <TextView
-            android:id="@+id/txv_noAccommodations"
-            android:layout_width="192dp"
-            android:layout_height="105dp"
-            android:layout_above="@id/pgb_loading_wheel"
-            android:layout_alignTop="@+id/rcyv_booked_publications"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="123dp"
-            android:gravity="center"
-            android:text="@string/still_no_bookings" />
+            <Button
+                android:id="@+id/btn_change_to_host"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:layout_toStartOf="@id/profile_btn"
+                android:text="@string/guest_mode"
+                android:drawableLeft="@drawable/ic_change_mode_1"
+                android:textColor="@color/black" />
+
+            <Button
+                style="?attr/materialIconButtonFilledStyle"
+                android:id="@+id/profile_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/profile_icon"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="5dp"/>
+
+
+            <TextView
+                android:id="@+id/txv_fragment_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/general_background"
+                android:text="@string/host_booked_accommodations_header"
+                android:textAlignment="viewStart"
+                android:textSize="20sp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/profile_btn"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcyv_booked_publications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txv_fragment_header"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/txv_noAccommodations"
+                android:layout_width="192dp"
+                android:layout_height="105dp"
+                android:layout_above="@id/pgb_loading_wheel"
+                android:layout_alignTop="@+id/rcyv_booked_publications"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="123dp"
+                android:gravity="center"
+                android:text="@string/still_no_bookings" />
 
 
 
-        <ProgressBar
-            android:id="@+id/pgb_loading_wheel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            <ProgressBar
+                android:id="@+id/pgb_loading_wheel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 </layout>

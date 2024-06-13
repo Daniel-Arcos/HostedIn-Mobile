@@ -131,9 +131,18 @@ public class ExploreFragment extends Fragment {
             }
         });
 
+        binding.swiperefresh.setOnRefreshListener(this:: refreshExploreView);
+
         manageLoading();
 
         return binding.getRoot();
+    }
+
+    private void refreshExploreView() {
+        binding.searchBar.setText("");
+        exploreViewModel.setPlaceToSearch("");
+        exploreViewModel.getAllAccommodationsExceptUserAccommodations();
+        binding.swiperefresh.setRefreshing(false);
     }
 
     private void changeToHostMenu() {

@@ -6,136 +6,147 @@
     <data>
 
     </data>
-            <RelativeLayout
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swiperefresh">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:id="@+id/change_to_host_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/host_mode"
+                android:layout_toStartOf="@id/profile_btn"
+                android:layout_marginEnd="15dp"
+                android:textColor="@color/black"
+                android:drawableLeft="@drawable/ic_change_mode_1"
+                android:layout_marginTop="5dp"/>
+
+            <Button
+                style="?attr/materialIconButtonFilledStyle"
+                android:id="@+id/profile_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/profile_icon"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/txv_explore_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/explore_header"
+                android:textSize="18sp"
+                android:layout_below="@id/change_to_host_btn"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"/>
+
+            <!--                <Button-->
+            <!--                    style="?attr/materialIconButtonOutlinedStyle"-->
+            <!--                    android:id="@+id/filter_btn"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    app:icon="@drawable/settings_icon"-->
+            <!--                    android:layout_below="@id/change_to_host_btn"-->
+            <!--                    android:layout_alignParentEnd="true"-->
+            <!--                    android:layout_marginEnd="20dp"-->
+            <!--                    android:layout_marginTop="10dp"-->
+            <!--                    />-->
+
+
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/search_bar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <Button
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:id="@+id/change_to_host_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/host_mode"
-                    android:layout_toStartOf="@id/profile_btn"
-                    android:layout_marginEnd="15dp"
-                    android:textColor="@color/black"
-                    android:drawableLeft="@drawable/ic_change_mode_1"
-                    android:layout_marginTop="5dp"/>
+                android:layout_height="wrap_content"
+                android:hint="@string/search_places"
+                android:layout_below="@id/txv_explore_title"
+                android:layout_toLeftOf="@id/btn_delete_results"/>
 
-                <Button
-                    style="?attr/materialIconButtonFilledStyle"
-                    android:id="@+id/profile_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/profile_icon"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="5dp"/>
+            <Button
+                style="?attr/materialIconButtonFilledTonalStyle"
+                android:id="@+id/btn_delete_results"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/delete_icon"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/txv_explore_title"/>
 
-                <TextView
-                    android:id="@+id/txv_explore_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/explore_header"
-                    android:textSize="18sp"
-                    android:layout_below="@id/change_to_host_btn"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"/>
-
-<!--                <Button-->
-<!--                    style="?attr/materialIconButtonOutlinedStyle"-->
-<!--                    android:id="@+id/filter_btn"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:icon="@drawable/settings_icon"-->
-<!--                    android:layout_below="@id/change_to_host_btn"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_marginEnd="20dp"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    />-->
-
-
-                <com.google.android.material.search.SearchBar
-                    android:id="@+id/search_bar"
+            <com.google.android.material.search.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/search_places"
+                app:layout_anchor="@id/search_bar">
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/search_places"
-                    android:layout_below="@id/txv_explore_title"
-                    android:layout_toLeftOf="@id/btn_delete_results"/>
+                    android:layout_height="match_parent">
 
-                <Button
-                    style="?attr/materialIconButtonFilledTonalStyle"
-                   android:id="@+id/btn_delete_results"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/delete_icon"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_below="@id/txv_explore_title"/>
-
-                <com.google.android.material.search.SearchView
-                    android:id="@+id/search_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/search_places"
-                    app:layout_anchor="@id/search_bar">
-                    <FrameLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcyv_places_results"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"/>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rcyv_places_results"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                </FrameLayout>
+            </com.google.android.material.search.SearchView>
 
-                    </FrameLayout>
-                </com.google.android.material.search.SearchView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/results_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_bar"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                tools:visibility="invisible"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/results_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/search_bar"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    tools:visibility="invisible"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcyv_accommodations_explore"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/search_bar"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:visibility="gone"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcyv_accommodations_explore"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/search_bar"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/img_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/loading"
+                android:layout_alignTop="@id/search_bar"
+                android:layout_alignParentBottom="true"/>
 
-                <ImageView
-                    android:id="@+id/img_loading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/loading"
-                    android:layout_alignTop="@id/search_bar"
-                    android:layout_alignParentBottom="true"/>
+            <ImageView
+                android:id="@+id/img_no_results"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/no_results_img"
+                android:layout_centerVertical="true"
+                android:visibility="gone"/>
 
-                <ImageView
-                    android:id="@+id/img_no_results"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/no_results_img"
-                    android:layout_centerVertical="true"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/txv_no_results"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/no_places_found"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/img_no_results"
-                    android:visibility="gone"/>
+            <TextView
+                android:id="@+id/txv_no_results"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_places_found"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/img_no_results"
+                android:visibility="gone"/>
 
 
-            </RelativeLayout>
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 </layout>

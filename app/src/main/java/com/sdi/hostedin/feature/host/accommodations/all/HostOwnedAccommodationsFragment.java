@@ -72,13 +72,19 @@ public class HostOwnedAccommodationsFragment extends Fragment {
             hostOwnedAccommodationsAdapter.submitList(accommodations);
             if (accommodations.size() < 0) { binding.txvNoAccommodations.setVisibility(View.VISIBLE); }
         });
+        binding.swiperefresh.setOnRefreshListener(this::refreshOwnedAccommodations);
+
         manageLoading();
 
         return binding.getRoot();
     }
 
+    private void refreshOwnedAccommodations() {
+        hostOwnedAccommodationsViewModel.getAllHostOwnedAccommodations();
+        binding.swiperefresh.setRefreshing(false);
+    }
+
     private void goToEditAccommodation(Accommodation accommodation) {
-        hostOwnedAccommodationsViewModel.setIsNew(true);
         Intent intent = new Intent(this.getActivity(), EditAccommodationActivity.class);
         intent.putExtra(EditAccommodationActivity.ACCOMMODATION_KEY, accommodation);
         startActivity(intent);
@@ -92,7 +98,6 @@ public class HostOwnedAccommodationsFragment extends Fragment {
     }
 
     private void goToAccommodationForm() {
-        hostOwnedAccommodationsViewModel.setIsNew(true);
         Intent intent = new Intent(this.getActivity(), AccommodationFormActivity.class);
         startActivity(intent);
     }

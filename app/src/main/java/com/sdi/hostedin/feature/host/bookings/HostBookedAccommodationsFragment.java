@@ -87,8 +87,15 @@ public class HostBookedAccommodationsFragment extends Fragment {
             if(accommodations.size() < 0) {binding.txvNoAccommodations.setVisibility(View.VISIBLE);}
         });
 
+        binding.swiperefresh.setOnRefreshListener(this:: refreshBookedAccommodations);
+
         manageLoading();
         return binding.getRoot();
+    }
+
+    private void refreshBookedAccommodations() {
+        hostBookedAccommodationsViewModel.getHostBookedAccommodations();
+        binding.swiperefresh.setRefreshing(false);
     }
 
     private void watchBookings(BookedAccommodation accommodation) {

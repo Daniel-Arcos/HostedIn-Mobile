@@ -7,70 +7,80 @@
 
     </data>
 
-    <RelativeLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.host.accommodations.all.HostOwnedAccommodationsFragment">
-
-        <TextView
-            android:id="@+id/txvGretting"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/general_background"
-            android:text="@string/owned_acco_header"
-            android:textAlignment="viewStart"
-            android:textSize="20sp" />
+        android:id="@+id/swiperefresh">
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerPublicationView"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/txvGretting"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:paddingBottom="80dp"
-            android:clipToPadding="false" />
+            tools:context=".feature.host.accommodations.all.HostOwnedAccommodationsFragment">
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_create_accommodation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/creat_publication"
-            app:icon="@drawable/ic_house" />
-        <TextView
-            android:id="@+id/txv_noAccommodations"
-            android:layout_width="192dp"
-            android:layout_height="105dp"
-            android:layout_above="@id/pgb_loading_wheel"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="123dp"
-            android:gravity="center"
-            android:text="@string/no_owned_acco" />
+            <TextView
+                android:id="@+id/txvGretting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/general_background"
+                android:text="@string/owned_acco_header"
+                android:textAlignment="viewStart"
+                android:textSize="20sp" />
 
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPublicationView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/txvGretting"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingBottom="80dp"
+                android:clipToPadding="false" />
 
-        <ProgressBar
-            android:id="@+id/pgb_loading_wheel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/btn_create_accommodation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/creat_publication"
+                app:icon="@drawable/ic_house" />
+            <TextView
+                android:id="@+id/txv_noAccommodations"
+                android:layout_width="192dp"
+                android:layout_height="105dp"
+                android:layout_above="@id/pgb_loading_wheel"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="123dp"
+                android:gravity="center"
+                android:text="@string/no_owned_acco" />
 
 
 
-    </RelativeLayout>
+            <ProgressBar
+                android:id="@+id/pgb_loading_wheel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
+
+
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 </layout>
