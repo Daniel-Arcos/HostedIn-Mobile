@@ -121,7 +121,7 @@ public class MoshiConverter {
         for (GuestBooking ac: responseBody.getAccommodationsBooked()) {
             GuestBooking booking = new GuestBooking();
             Accommodation accommodationRes = new Accommodation();
-            accommodationRes.setId(ac.get_id());
+            accommodationRes.setId(ac.getAccommodation().getId());
             accommodationRes.setTitle(ac.getAccommodation().getTitle());
             accommodationRes.setDescription(ac.getAccommodation().getDescription());
             accommodationRes.setRules(ac.getAccommodation().getRules());

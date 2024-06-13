@@ -91,8 +91,15 @@ public class HostBookedAccommodationsViewModel extends AndroidViewModel {
                 @Override
                 public void onSuccess(byte[] image) {
                     accommodation.setMainImage(image);
-                    List<BookedAccommodation> list = new ArrayList<>(accommodations);
-                    accommodationsList.setValue(new ArrayList<>(list));
+                    List<BookedAccommodation> currentList = accommodationsList.getValue();
+                    if (currentList != null) {
+                        List<BookedAccommodation> updatedList = new ArrayList<>(currentList);
+                        int index = updatedList.indexOf(accommodation);
+                        if (index != -1) {
+                            updatedList.set(index, accommodation);
+                            accommodationsList.postValue(updatedList);
+                        }
+                    }
                 }
 
                 @Override

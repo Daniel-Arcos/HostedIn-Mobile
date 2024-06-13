@@ -45,23 +45,28 @@
                         <ImageView
                             android:id="@+id/imv_first_image"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:background="#00FFFFFF"/>
 
                         <ImageView
                             android:id="@+id/imv_second_image"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:background="#00FFFFFF"/>
 
                         <ImageView
                             android:id="@+id/imv_third_image"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:background="#00FFFFFF"/>
 
 
                         <VideoView
                             android:id="@+id/vdv_fourth_video"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:background="#00FFFFFF"
+                            android:layout_gravity="center"/>
 
                     </ViewFlipper>
 

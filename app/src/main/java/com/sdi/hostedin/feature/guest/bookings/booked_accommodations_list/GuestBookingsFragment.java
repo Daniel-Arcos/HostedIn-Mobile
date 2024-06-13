@@ -23,7 +23,7 @@ import com.sdi.hostedin.feature.guest.bookings.details.BookingDetailsActivity;
 import com.sdi.hostedin.feature.guest.bookings.review.ReviewAccommodationFragment;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
-public class GuestBookingsFragment extends Fragment {
+public class GuestBookingsFragment extends Fragment  {
     public GuestBookingsFragment() {
         // Required empty public constructor
     }
@@ -44,13 +44,11 @@ public class GuestBookingsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(Boolean.TRUE.equals(guestBookingsViewModel.getIsNew().getValue())){
-            if(Boolean.TRUE.equals(guestBookingsViewModel.getCurrentAccView().getValue())){
-                getCurrentBookings();
-            }
-            else{
-                getOldBookingds();
-            }
+        if(Boolean.TRUE.equals(guestBookingsViewModel.getCurrentAccView().getValue())){
+            getCurrentBookings();
+        }
+        else{
+            getOldBookings();
         }
     }
 
@@ -62,21 +60,9 @@ public class GuestBookingsFragment extends Fragment {
 
 
         guestBookingsViewModel = new ViewModelProvider(requireActivity(), new ViewModelFactory(getActivity().getApplication())).get(GuestBookingsViewModel.class);
-        if (Boolean.TRUE.equals(guestBookingsViewModel.getIsNew().getValue())){
-            guestBookingsViewModel.getCurrentBookedAccommodations();
-            guestBookingsViewModel.setIsNew(false);
-        }
-        if(Boolean.TRUE.equals(guestBookingsViewModel.getCurrentAccView().getValue())){
-            binding.bttOlds.setBackgroundColor(Color.LTGRAY);
-            binding.bttCurrents.setBackgroundColor(Color.BLUE);
-        }
-        else{
-            binding.bttCurrents.setBackgroundColor(Color.LTGRAY);
-            binding.bttOlds.setBackgroundColor(Color.BLUE);
-        }
 
         binding.recyclerPublicationView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        binding.bttOlds.setOnClickListener(v -> getOldBookingds());
+        binding.bttOlds.setOnClickListener(v -> getOldBookings());
         binding.bttCurrents.setOnClickListener(v -> getCurrentBookings());
 
         adapter = new GuestBookingsAdapter(this.getContext(), true);
@@ -88,24 +74,38 @@ public class GuestBookingsFragment extends Fragment {
             if(accommodations.size() > 0) binding.txvNoAccommodations.setVisibility(View.INVISIBLE);
         });
 
+        binding.swiperefresh.setOnRefreshListener(this::refreshView);
 
         manageLoading();
 
-        adapter.setShowButton(false);
+
+        if(Boolean.TRUE.equals(guestBookingsViewModel.getCurrentAccView().getValue())){
+            adapter.setShowButton(false);
+            binding.bttOlds.setBackgroundColor(Color.LTGRAY);
+            binding.bttCurrents.setBackgroundColor(Color.BLUE);
+        }
+        else{
+            adapter.setShowButton(true);
+            binding.bttCurrents.setBackgroundColor(Color.LTGRAY);
+            binding.bttOlds.setBackgroundColor(Color.BLUE);
+        }
+
         return binding.getRoot();
     }
 
     private void getCurrentBookings() {
+        guestBookingsViewModel.getCurrentAccView().setValue(true);
+        adapter.setShowButton(false);
         binding.bttOlds.setBackgroundColor(Color.LTGRAY);
         binding.bttCurrents.setBackgroundColor(Color.BLUE);
-        adapter.setShowButton(false);
         guestBookingsViewModel.getCurrentBookedAccommodations();
     }
 
-    private void getOldBookingds() {
+    private void getOldBookings() {
+        guestBookingsViewModel.getCurrentAccView().setValue(false);
+        adapter.setShowButton(true);
         binding.bttCurrents.setBackgroundColor(Color.LTGRAY);
         binding.bttOlds.setBackgroundColor(Color.BLUE);
-        adapter.setShowButton(true);
         guestBookingsViewModel.getOverDueBookedAccommodations();
     }
 
@@ -135,6 +135,18 @@ public class GuestBookingsFragment extends Fragment {
         return booking;
     }
 
+    private void refreshView(){
+        if(Boolean.TRUE.equals(guestBookingsViewModel.getCurrentAccView().getValue())){
+            guestBookingsViewModel.getCurrentAccWereRecovered().setValue(false);
+            getCurrentBookings();
+        }
+        else{
+            guestBookingsViewModel.getOverdueAccWereRecovered().setValue(false);
+            getOldBookings();
+        }
+        binding.swiperefresh.setRefreshing(false);
+    }
+
     private void manageLoading() {
         guestBookingsViewModel.getRequestStatusMutableLiveData().observe(getViewLifecycleOwner(), status -> {
             switch (status.getRequestStatus()) {
@@ -151,7 +163,5 @@ public class GuestBookingsFragment extends Fragment {
         });
     }
 
-    public void ReloadAccommodations(){
-        getCurrentBookings();
-    }
+
 }

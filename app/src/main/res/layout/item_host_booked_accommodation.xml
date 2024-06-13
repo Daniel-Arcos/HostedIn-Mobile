@@ -15,8 +15,8 @@
     <ImageView
         android:id="@+id/imv_accommodation"
         android:layout_width="match_parent"
-        android:layout_height="300sp"
-        app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>
+        android:layout_height="300dp"
+        android:src="#7ED4D7DC"/>
 
         <TextView
             android:id="@+id/txv_address"
@@ -73,7 +73,7 @@
             android:layout_alignEnd="@id/btt_see_booking_details"
             android:gravity="center_horizontal"
             android:text="@string/bookings"
-            android:textSize="8sp" />
+            android:textSize="7sp" />
 
     </RelativeLayout>
 </layout>

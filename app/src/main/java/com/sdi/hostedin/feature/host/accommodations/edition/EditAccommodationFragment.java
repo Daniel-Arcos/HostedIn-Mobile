@@ -2,7 +2,6 @@ package com.sdi.hostedin.feature.host.accommodations.edition;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -98,7 +97,6 @@ public class EditAccommodationFragment extends Fragment {
             services = services.concat(service+", ");
         }
         binding.txvServices.setText(services);
-        binding.vflpAccommodationMultimedia.setBackgroundColor(Color.LTGRAY);
     }
 
     public void configureSections(){

@@ -1,7 +1,6 @@
 package com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,9 @@ import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.ImageUtils;
 import com.sdi.hostedin.utils.TranslatorToSpanish;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class GuestBookingsAdapter extends ListAdapter<GuestBooking, GuestBookingsAdapter.GuestBookingsViewHolder> {
 
     Context context;
@@ -32,12 +34,12 @@ public class GuestBookingsAdapter extends ListAdapter<GuestBooking, GuestBooking
             new DiffUtil.ItemCallback<GuestBooking>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull GuestBooking oldItem, @NonNull GuestBooking newItem) {
-                    return oldItem.get_id().equals(newItem.get_id());
+                    return Objects.equals(oldItem.get_id(), newItem.get_id());
                 }
 
                 @Override
                 public boolean areContentsTheSame(@NonNull GuestBooking oldItem, @NonNull GuestBooking newItem) {
-                    return oldItem.equals(newItem);
+                    return oldItem.equals(newItem) && Arrays.equals(oldItem.getAccommodation().getMainImage(), newItem.getAccommodation().getMainImage());
                 }
             };
 
@@ -69,30 +71,32 @@ public class GuestBookingsAdapter extends ListAdapter<GuestBooking, GuestBooking
         }
 
         public void bindAccommodation(GuestBooking booking){
+            if(booking.getAccommodation().getMainImage() != null){
+                binding.imvAccommodation.setImageBitmap(ImageUtils.bytesToBitmap(booking.getAccommodation().getMainImage()));
+            }
             binding.txvAddress.setText(booking.getAccommodation().getTitle());
             String dates = DateFormatterUtils.parseMongoDateToLocal(booking.getBeginningDate())
                     + " - "
                     + DateFormatterUtils.parseMongoDateToLocal(booking.getEndingDate());
             binding.txvDates.setText(dates);
-            binding.imvAccommodation.setBackgroundColor(Color.LTGRAY);
             binding.txvPrice.setText("$ "+String.valueOf(booking.getTotalCost()));
-            binding.getRoot().setOnClickListener(v->{
-                    onItemClicListener.onItemClick(booking);
-            });
+
             binding.txvStatus.setText(context.getString(R.string.hint_status) + " " +TranslatorToSpanish.getBookingSpanishStatus(context.getApplicationContext(), booking.getBookingStatus()));
+
             binding.bttReviewAccommodation.setOnClickListener(v->{
                 onRateClick.onRateClick(booking);
             });
+            binding.getRoot().setOnClickListener(v->{
+                onItemClicListener.onItemClick(booking);
+            });
+
             if(Boolean.FALSE.equals(showButton.getValue())){
                 binding.bttReviewAccommodation.setVisibility(View.INVISIBLE);
             }
             else{
                 binding.bttReviewAccommodation.setVisibility(View.VISIBLE);
             }
-            if(booking.getAccommodation().getMainImage() != null){
-                binding.imvAccommodation.setImageBitmap(ImageUtils.bytesToBitmap(booking.getAccommodation().getMainImage()));
-                binding.imvAccommodation.setBackgroundColor(Color.TRANSPARENT);
-            }
+
         }
     }
     private GuestBookingsAdapter.OnItemClickListener onItemClicListener;

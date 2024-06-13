@@ -6,80 +6,90 @@
 
     </data>
 
-    <RelativeLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.guest.explore.accommodations.ExploreFragment">
+        android:id="@+id/swiperefresh">
 
-        <TextView
-            android:id="@+id/txvGretting"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:background="@color/general_background"
-            android:text="@string/geust_bookings_list_header"
-            android:textAlignment="viewStart"
-            android:textSize="20sp"
-            android:layout_alignParentStart="true"
-            />
+            android:layout_height="match_parent"
+            tools:context=".feature.guest.explore.accommodations.ExploreFragment">
 
-        <LinearLayout
-            android:id="@+id/lrlyButtons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txvGretting"
-            android:layout_marginHorizontal="30dp"
-            android:orientation="horizontal"
-            android:elevation="15dp">
+            <TextView
+                android:id="@+id/txvGretting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/general_background"
+                android:text="@string/geust_bookings_list_header"
+                android:textAlignment="viewStart"
+                android:textSize="20sp"
+                android:layout_alignParentStart="true"
+                />
 
-            <Button
-                android:id="@+id/bttCurrents"
+            <LinearLayout
+                android:id="@+id/lrlyButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txvGretting"
+                android:layout_marginHorizontal="30dp"
+                android:orientation="horizontal"
+                android:elevation="15dp">
+
+                <Button
+                    android:id="@+id/bttCurrents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Vigentes" />
+
+                <Button
+                    android:id="@+id/bttOlds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pasados" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPublicationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lrlyButtons"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="20dp" />
+
+            <TextView
+                android:id="@+id/txv_noAccommodations"
+                android:layout_width="192dp"
+                android:layout_height="105dp"
+                android:layout_above="@id/pgb_loading_wheel"
+                android:layout_alignTop="@+id/recyclerPublicationView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="98dp"
+                android:gravity="center"
+                android:text="@string/no_guest_booked_acco" />
+
+
+
+            <ProgressBar
+                android:id="@+id/pgb_loading_wheel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Vigentes" />
-
-            <Button
-                android:id="@+id/bttOlds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Pasados" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerPublicationView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lrlyButtons"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="10dp" />
-
-        <TextView
-            android:id="@+id/txv_noAccommodations"
-            android:layout_width="192dp"
-            android:layout_height="105dp"
-            android:layout_above="@id/pgb_loading_wheel"
-            android:layout_alignTop="@+id/recyclerPublicationView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="98dp"
-            android:gravity="center"
-            android:text="@string/no_guest_booked_acco" />
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
 
 
-
-        <ProgressBar
-            android:id="@+id/pgb_loading_wheel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
 
-    </RelativeLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </layout>

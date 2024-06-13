@@ -209,6 +209,28 @@ public class BookedAccommodation implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookedAccommodation that = (BookedAccommodation) o;
-        return Double.compare(that.nightPrice, nightPrice) == 0 && guestsNumber == that.guestsNumber && roomsNumber == that.roomsNumber && bedsNumber == that.bedsNumber && bathroomsNumber == that.bathroomsNumber && Objects.equals(_id, that._id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(rules, that.rules) && Objects.equals(accommodationType, that.accommodationType) && Arrays.equals(accommodationServices, that.accommodationServices) && Objects.equals(location, that.location) && Objects.equals(user, that.user);
+        return Double.compare(that.nightPrice, nightPrice) == 0 &&
+                guestsNumber == that.guestsNumber &&
+                roomsNumber == that.roomsNumber &&
+                bedsNumber == that.bedsNumber &&
+                bathroomsNumber == that.bathroomsNumber &&
+                Objects.equals(_id, that._id) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(rules, that.rules) &&
+                Objects.equals(accommodationType, that.accommodationType) &&
+                Arrays.equals(accommodationServices, that.accommodationServices) &&
+                Objects.equals(location, that.location) &&
+                Arrays.equals(mainImage, that.mainImage) &&
+                Objects.equals(user, that.user);
     }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(_id, title, description, rules, accommodationType, nightPrice, guestsNumber, roomsNumber, bedsNumber, bathroomsNumber, location, user);
+        result = 31 * result + Arrays.hashCode(accommodationServices);
+        result = 31 * result + Arrays.hashCode(mainImage);
+        return result;
+    }
+
 }

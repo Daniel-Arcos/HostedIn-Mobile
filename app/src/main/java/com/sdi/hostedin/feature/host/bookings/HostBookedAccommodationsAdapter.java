@@ -1,7 +1,6 @@
 package com.sdi.hostedin.feature.host.bookings;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,6 +13,9 @@ import com.sdi.hostedin.data.model.BookedAccommodation;
 import com.sdi.hostedin.databinding.ItemHostBookedAccommodationBinding;
 import com.sdi.hostedin.utils.ImageUtils;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class HostBookedAccommodationsAdapter extends ListAdapter<BookedAccommodation, HostBookedAccommodationsAdapter.HostBookedAccViewHolder> {
 
     Context context;
@@ -21,13 +23,13 @@ public class HostBookedAccommodationsAdapter extends ListAdapter<BookedAccommoda
             new DiffUtil.ItemCallback<BookedAccommodation>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull BookedAccommodation oldItem, @NonNull BookedAccommodation newItem) {
-                    return oldItem.get_id().equals(newItem.get_id());
+                    return Objects.equals(oldItem.get_id(), newItem.get_id());
                 }
 
 
                 @Override
                 public boolean areContentsTheSame(@NonNull BookedAccommodation oldItem, @NonNull BookedAccommodation newItem) {
-                    return oldItem.equals(newItem);
+                    return oldItem.equals(newItem) && Arrays.equals(oldItem.getMainImage(), newItem.getMainImage());
                 }
             };
 
@@ -60,16 +62,15 @@ public class HostBookedAccommodationsAdapter extends ListAdapter<BookedAccommoda
 
 
         public void bindBookedAccommodation(BookedAccommodation accommodation){
+            if(accommodation.getMainImage() != null ){
+               binding.imvAccommodation.setImageBitmap(ImageUtils.bytesToBitmap(accommodation.getMainImage()));
+            }
             binding.txvAddress.setText(String.valueOf(accommodation.getTitle()));
             binding.txvPrice.setText("$ " + String.valueOf(accommodation.getNightPrice()));
-            binding.imvAccommodation.setBackgroundColor(Color.LTGRAY);
             binding.bttSeeBookingDetails.setOnClickListener(v->{
                 onItemClicListener.onItemClick(accommodation);
             });
-            if(accommodation.getMainImage() != null ){
-                binding.imvAccommodation.setImageBitmap(ImageUtils.bytesToBitmap(accommodation.getMainImage()));
-                binding.imvAccommodation.setBackgroundColor(Color.TRANSPARENT);
-            }
+
         }
     }
 

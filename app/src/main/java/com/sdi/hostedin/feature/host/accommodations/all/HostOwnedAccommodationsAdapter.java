@@ -15,20 +15,23 @@ import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.ItemHostBookedAccommodationBinding;
 import com.sdi.hostedin.utils.ImageUtils;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class HostOwnedAccommodationsAdapter extends ListAdapter<Accommodation, HostOwnedAccommodationsAdapter.HostOwnedAccViewHolder> {
 
-    private Context context;
+    Context context;
 
     public static final DiffUtil.ItemCallback<Accommodation> DIFF_CALLBACK =
             new DiffUtil.ItemCallback<Accommodation>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull Accommodation oldItem, @NonNull Accommodation newItem) {
-                    return oldItem.getId().equals(newItem.getId());
+                    return Objects.equals(oldItem.getId(), newItem.getId());
                 }
 
                 @Override
                 public boolean areContentsTheSame(@NonNull Accommodation oldItem, @NonNull Accommodation newItem) {
-                    return oldItem.equals(newItem);
+                    return oldItem.equals(newItem) && Arrays.equals(oldItem.getMainImage(), newItem.getMainImage());
                 }
             };
 
@@ -60,8 +63,11 @@ public class HostOwnedAccommodationsAdapter extends ListAdapter<Accommodation, H
         }
 
         public void bindAccommodation(Accommodation accommodation){
+            if(accommodation.getMainImage() != null){
+                binding.imvAccommodation.setImageBitmap(ImageUtils.bytesToBitmap(accommodation.getMainImage()));
+                binding.imvAccommodation.setBackgroundColor(Color.TRANSPARENT);
+            }
             binding.txvAddress.setText(accommodation.getTitle());
-            binding.imvAccommodation.setBackgroundColor(Color.LTGRAY);
             binding.txvPrice.setText("$ "+String.valueOf(accommodation.getNightPrice() +" MXN"));
             binding.bttSeeBookingDetails.setBackgroundResource(R.drawable.edit_acc_icon);
             binding.txvBttHint.setText(R.string.edit);
@@ -71,10 +77,7 @@ public class HostOwnedAccommodationsAdapter extends ListAdapter<Accommodation, H
             binding.bttSeeBookingDetails.setOnClickListener(v->{
                 onEditClick.onEditClick(accommodation);
             });
-            if(accommodation.getMainImage() != null){
-                binding.imvAccommodation.setImageBitmap(ImageUtils.bytesToBitmap(accommodation.getMainImage()));
-                binding.imvAccommodation.setBackgroundColor(Color.TRANSPARENT);
-            }
+
         }
 
     }
