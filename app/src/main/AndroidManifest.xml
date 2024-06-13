@@ -4,8 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.ACCESS_FINE_LOCATION"
         tools:ignore="CoarseFineLocation" />
@@ -22,9 +21,8 @@
         android:theme="@style/Theme.HostedIn"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".feature.host.accommodations.edition.EditAccommodationFormActivity"
-            android:exported="false" />
+
+      
         <activity
             android:name=".feature.host.accommodations.edition.EditAccommodationFragment"
             android:exported="false" />
@@ -89,7 +87,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

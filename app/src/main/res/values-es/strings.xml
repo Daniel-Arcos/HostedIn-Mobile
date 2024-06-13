@@ -280,5 +280,7 @@
     <string name="hint_overdue">Vencida</string>
     <string name="hint_cancelled">Cancelada</string>
     <string name="wait_for_multimedia">Wait for the multimedia to charge</string>
+    <string name="acco_updated" >El alojamiento fue actualizado correctamente.</string>
+    <string name="recover_multimedia">Recuperando los archivos multimedia, porfavor espere un momento</string>
 
 </resources>

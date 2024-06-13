@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import com.sdi.hostedin.data.callbacks.BookingCallback;
 import com.sdi.hostedin.data.callbacks.BookingsCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
+import com.sdi.hostedin.data.datasource.apiclient.moshiconverters.MoshiConverter;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingsListObject;
 import com.sdi.hostedin.data.model.Booking;
@@ -27,7 +28,7 @@ public class RemoteBookingsDataSource {
             public void onResponse(Call<ResponseBookingsListObject> call, Response<ResponseBookingsListObject> response) {
                 if (response.isSuccessful()) {
                     ResponseBookingsListObject responseBookingsListObject = response.body();
-                    bookingsListCallback.onSuccess(responseBookingsListObject.getBookings(), response.message());
+                    bookingsListCallback.onSuccess(MoshiConverter.convertAPIBookingsResponseToJavaObjects(responseBookingsListObject), response.message());
                 } else {
                     String message = "Ocurrio un error al recuperar las reservaciones";
                     if (response.errorBody() != null) {

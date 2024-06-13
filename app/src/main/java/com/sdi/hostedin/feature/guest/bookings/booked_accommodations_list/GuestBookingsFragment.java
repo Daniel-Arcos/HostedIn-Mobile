@@ -111,7 +111,7 @@ public class GuestBookingsFragment extends Fragment {
 
     private void rateAccommodation(GuestBooking booking) {
         String userId = DataStoreAccess.accessUserId(getActivity().getApplication());
-        ReviewAccommodationFragment reviewAccommodationFragment = ReviewAccommodationFragment.newInstance(booking.getAccommodation().getId(), userId, this);
+        ReviewAccommodationFragment reviewAccommodationFragment = ReviewAccommodationFragment.newInstance(booking.getAccommodation().getId(), userId);
         reviewAccommodationFragment.show(getChildFragmentManager(),"ReviewAccommodation");
     }
 

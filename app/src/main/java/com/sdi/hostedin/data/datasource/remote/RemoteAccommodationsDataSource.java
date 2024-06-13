@@ -153,7 +153,7 @@ public class RemoteAccommodationsDataSource {
             public void onResponse(Call<ResponseBookedAccommodation> call, Response<ResponseBookedAccommodation> response) {
                 if (response.isSuccessful()){
                     ResponseBookedAccommodation responseGetAccommodationsObject = response.body();
-                    accommodationsCallback.onSuccess(responseGetAccommodationsObject.getAccommodations(), response.message());
+                    accommodationsCallback.onSuccess(MoshiConverter.convertAPIBookedAccommodationsResponseToJavaObjects(responseGetAccommodationsObject), response.message());
                 }
                 else{
                     String message = "Ocurrio un error al recuperar los alojamiento";
@@ -188,7 +188,7 @@ public class RemoteAccommodationsDataSource {
             public void onResponse(Call<ResponseGuestBookedAccommodations> call, Response<ResponseGuestBookedAccommodations> response) {
                 if (response.isSuccessful()){
                     ResponseGuestBookedAccommodations responseGetAccommodationsObject = response.body();
-                    accommodationsCallback.onSuccess(responseGetAccommodationsObject.getAccommodationsBooked(), response.message());
+                    accommodationsCallback.onSuccess(MoshiConverter.convertAPIGuestBookingsResponseToJavaObjects(responseGetAccommodationsObject), response.message());
                 }
                 else{
                     String message = "Ocurrio un error al recuperar los alojamiento";

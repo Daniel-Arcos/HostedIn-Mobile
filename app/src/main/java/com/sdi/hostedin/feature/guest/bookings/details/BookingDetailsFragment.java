@@ -10,17 +10,19 @@ import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
+import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Booking;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentBookingDetailsBinding;
 import com.sdi.hostedin.enums.BookingSatuses;
 import com.sdi.hostedin.feature.cancelation.reasonselection.CancelationReasonSelectionFragment;
+import com.sdi.hostedin.feature.guest.bookings.review.ReviewAccommodationFragment;
 import com.sdi.hostedin.utils.DateFormatterUtils;
-import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.TranslatorToSpanish;
 
 import java.time.LocalDate;
@@ -133,11 +135,17 @@ public class BookingDetailsFragment extends Fragment {
     }
 
     private void openRateAccommodationWindow(View view) {
-        ToastUtils.showShortInformationMessage(this.getContext(), "Rate");
+        String userId = DataStoreAccess.accessUserId(getActivity().getApplication());
+        ReviewAccommodationFragment reviewAccommodationFragment = ReviewAccommodationFragment.newInstance(bookingInfo.getAccommodation().getId(), userId);
+        reviewAccommodationFragment.show(getChildFragmentManager(),"ReviewAccommodation");
     }
 
     private void watchAccommodationMap(View view) {
-        ToastUtils.showShortInformationMessage(this.getContext(), "watch map");
+        BookingDetailsMapFragment mapFragment = BookingDetailsMapFragment.newInstance(bookingInfo.getAccommodation());
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fgcv_book_details_fragment_container, mapFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 

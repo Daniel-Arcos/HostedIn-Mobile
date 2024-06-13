@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentEditAccommodationFormBinding;
 import com.sdi.hostedin.feature.host.accommodations.accommodationform.AccommodationBasicsFragment;
@@ -203,7 +204,7 @@ public class EditAccommodationFormFragment extends Fragment {
                     break;
                 case DONE:
                     binding.pgbSaveEditedAccommodation.setVisibility(View.GONE);
-                    ToastUtils.showShortInformationMessage(getContext(), "Alojamiento actualizado con éxito");
+                    ToastUtils.showShortInformationMessage(getContext(), getActivity().getString(R.string.acco_updated));
                     if(accommodationFormViewModel.getFragmentNumberMutableLiveData().getValue() != AccommodationMultimediaFragment.LOCAL_FRAGMENT_NUMBER){
                         requireActivity().getSupportFragmentManager().popBackStack();
                     }

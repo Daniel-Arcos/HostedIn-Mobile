@@ -282,4 +282,6 @@
     <string name="hint_overdue">Overdue</string>
     <string name="hint_cancelled">Cancelled</string>
     <string name="wait_for_multimedia">Wait for the multimedia to charge</string>
+    <string name="acco_updated" >The accommodation was successfully updated</string>
+    <string name="recover_multimedia">Recovering the multimedia, please wait a moment</string>
 </resources>

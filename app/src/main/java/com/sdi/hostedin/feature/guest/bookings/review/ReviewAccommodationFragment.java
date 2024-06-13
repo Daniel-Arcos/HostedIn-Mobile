@@ -7,7 +7,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,7 +15,6 @@ import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Review;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentReviewAccommodationBinding;
-import com.sdi.hostedin.feature.guest.bookings.booked_accommodations_list.GuestBookingsFragment;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
@@ -26,17 +24,15 @@ public class ReviewAccommodationFragment extends DialogFragment {
     private  FragmentReviewAccommodationBinding binding;
     private static String accommodationId;
     private static String userId;
-    private static GuestBookingsFragment guestBookingsFragmentReference;
     private ReviewAccommodationViewModel reviewAccommodationViewModel;
 
     public ReviewAccommodationFragment() {
     }
 
-    public static ReviewAccommodationFragment newInstance(String accommodationId, String userId, GuestBookingsFragment guestBookingsFragmentReference) {
+    public static ReviewAccommodationFragment newInstance(String accommodationId, String userId) {
         ReviewAccommodationFragment fragment = new ReviewAccommodationFragment();
         ReviewAccommodationFragment.accommodationId = accommodationId;
         ReviewAccommodationFragment.userId = userId;
-        ReviewAccommodationFragment.guestBookingsFragmentReference = guestBookingsFragmentReference;
         return fragment;
     }
 
@@ -111,11 +107,11 @@ public class ReviewAccommodationFragment extends DialogFragment {
                     break;
                 case DONE:
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
-                    Toast.makeText(this.getContext(),status.getMessage(), Toast.LENGTH_LONG).show();
+                    ToastUtils.showShortInformationMessage(this.getContext(),status.getMessage());
                     break;
                 case ERROR:
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
-                    Toast.makeText(this.getContext(),status.getMessage(), Toast.LENGTH_SHORT).show();
+                    ToastUtils.showShortInformationMessage(this.getContext(),status.getMessage());
             }
         });
     }

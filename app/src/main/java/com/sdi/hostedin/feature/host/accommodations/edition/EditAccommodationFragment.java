@@ -84,7 +84,7 @@ public class EditAccommodationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ToastUtils.showLongInformationMessage(getContext(), "Recovering multimedia, porfavor espere");
+        ToastUtils.showLongInformationMessage(getContext(), getActivity().getString(R.string.recover_multimedia));
         accommodationDetailsViewModel.loadAllAccommodationMultimedia(accommodation.getId());
     }
 
