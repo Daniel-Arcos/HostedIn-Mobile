@@ -41,3 +41,49 @@ service MultimediaService {
 
      rpc updateAccommodationMultimedia (stream UpdatedMultimediaRequest) returns (UpdateMultimediaResponse);
 }
+
+
+//Estadisticas
+message MostBookedAccommodation {
+    string title = 1;
+    int32 bookingsNumber = 2;
+}
+
+message BestRatedAccommodation {
+    string name = 1;
+    double rate = 2;
+}
+
+message Earning {
+    string month = 1;
+    double earning = 2;
+}
+
+message HostRequest {
+    string idHost = 1;
+    string token = 2;
+}
+
+message GuestRequest {
+    string token = 1;
+}
+
+//Responses
+message MostBookedAccommodationsResponse {
+    repeated MostBookedAccommodation accommodations = 1;
+}
+
+message BestRatedAccommodationsResponse {
+    repeated BestRatedAccommodation accommodations = 1;
+}
+
+message EarningsResponse {
+    repeated Earning earnings = 1;
+}
+
+service StaticticsService {
+    rpc GetMostBookedAccommodations(GuestRequest) returns (MostBookedAccommodationsResponse);
+    rpc GetBestRatedAccommodations(GuestRequest) returns (BestRatedAccommodationsResponse);
+    rpc GetEarnings(HostRequest) returns (EarningsResponse);
+    rpc GetMostBookedAccommodationsOfHost(HostRequest) returns (MostBookedAccommodationsResponse);
+}

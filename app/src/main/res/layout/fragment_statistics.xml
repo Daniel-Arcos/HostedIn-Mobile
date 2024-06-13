@@ -23,7 +23,6 @@
             android:layout_marginBottom="10dp"
             android:textSize="20dp"/>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -32,11 +31,17 @@
             android:weightSum="2">
 
             <TextView
+                android:id="@+id/txv_title_bar_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginBottom="10dp"
-                android:text="Titulo 1"/>
+                android:layout_marginBottom="10dp"/>
+
+            <ProgressBar
+                android:id="@+id/pgb_bar_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/statistics_bar_one"
@@ -48,13 +53,18 @@
                 android:layout_marginEnd="15dp"/>
 
             <TextView
+                android:id="@+id/txv_title_bar_two"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="10dp"/>
 
-                android:text="Titulo 2"/>
+            <ProgressBar
+                android:id="@+id/pgb_bar_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/statistics_bar_two"
@@ -65,6 +75,5 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"/>
         </LinearLayout>
-
     </RelativeLayout>
 </layout>

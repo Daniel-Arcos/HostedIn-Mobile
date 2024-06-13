@@ -25,6 +25,7 @@ public class MoshiConverter {
             accommodationRes.setBathroomsNumber(ac.getBathroomsNumber());
             accommodationRes.setAccommodationServices(ac.getAccommodationServices());
             accommodationRes.setUser(ac.getUser());
+            accommodationRes.setRate(ac.getRate());
             Location location = new Location();
             location.set_id(ac.getLocation().get_id());
             location.setLongitude(ac.getLocation().getCoordinates()[0]);
