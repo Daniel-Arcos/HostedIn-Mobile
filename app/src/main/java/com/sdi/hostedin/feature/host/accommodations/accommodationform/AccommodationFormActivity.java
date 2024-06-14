@@ -36,14 +36,17 @@ public class AccommodationFormActivity extends AppCompatActivity {
             switch (status.getRequestStatus()) {
                 case LOADING:
                     binding.pgbCreateAccommodation.setVisibility(View.VISIBLE);
+                    binding.vwLoading.setVisibility(View.VISIBLE);
                     break;
                 case DONE:
                     binding.pgbCreateAccommodation.setVisibility(View.GONE);
+                    binding.vwLoading.setVisibility(View.GONE);
                     ToastUtils.showShortInformationMessage(this, getString(R.string.accommodation_created_successfully));
                     finish();
                     break;
                 case ERROR:
                     binding.pgbCreateAccommodation.setVisibility(View.GONE);
+                    binding.vwLoading.setVisibility(View.GONE);
                     ToastUtils.showShortInformationMessage(this, status.getMessage());
             }
         });
@@ -174,7 +177,7 @@ public class AccommodationFormActivity extends AppCompatActivity {
         Accommodation newAccommodation = accommodationFormViewModel.getAccommodationMutableLiveData().getValue();
 
         if (newAccommodation.getTitle() != null && !newAccommodation.getTitle().isEmpty() && (newAccommodation.getId() == null || newAccommodation.getId().isEmpty()) ) {
-            accommodationFormViewModel.createAccommodation(newAccommodation);
+            accommodationFormViewModel.createAccommodation(newAccommodation, this);
         }
     }
 

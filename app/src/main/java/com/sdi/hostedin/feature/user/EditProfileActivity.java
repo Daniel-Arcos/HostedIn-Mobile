@@ -74,15 +74,21 @@ public class EditProfileActivity extends AppCompatActivity {
             switch (status.getRequestStatus()) {
                 case LOADING:
                     binding.pgbEditProfile.setVisibility(View.VISIBLE);
+                    binding.vwLoading.setVisibility(View.VISIBLE);
+                    binding.vwLoadingData.setVisibility(View.VISIBLE);
                     break;
                 case DONE:
                     binding.pgbEditProfile.setVisibility(View.GONE);
+                    binding.vwLoading.setVisibility(View.GONE);
+                    binding.vwLoadingData.setVisibility(View.GONE);
                     if (status.getMessage().equals(EditProfileViewModel.ON_SUCCESS_EDIT_MESSAGE)) {
                         manageSuccessUpdate();
                     }
                     break;
                 case ERROR:
                     binding.pgbEditProfile.setVisibility(View.GONE);
+                    binding.vwLoading.setVisibility(View.GONE);
+                    binding.vwLoadingData.setVisibility(View.GONE);
                     ToastUtils.showShortInformationMessage(this, status.getMessage());
             }
         });

@@ -304,6 +304,14 @@
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </RelativeLayout>
 
+        <View
+            android:id="@+id/vw_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#9FFFFFFF"
+            android:visibility="gone"
+            android:clickable="true"/>
+
         <ProgressBar
             android:id="@+id/pgb_profile"
             style="@android:style/Widget.Material.ProgressBar"

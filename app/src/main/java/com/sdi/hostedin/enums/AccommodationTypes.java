@@ -1,5 +1,9 @@
 package com.sdi.hostedin.enums;
 
+import android.content.Context;
+
+import com.sdi.hostedin.R;
+
 public enum AccommodationTypes {
     HOUSE("house"),
     APARTMENT("apartment"),
@@ -18,20 +22,20 @@ public enum AccommodationTypes {
         return description;
     }
 
-    public static String getDescriptionForType(String typeName) {
+    public static String getDescriptionForType(Context context, String typeName) {
         String lowercaseTypeName = typeName.toLowerCase();
         if (HOUSE.getDescription().equalsIgnoreCase(lowercaseTypeName)) {
-            return "Casa";
+            return context.getString(R.string.house);
         } else if (APARTMENT.getDescription().equalsIgnoreCase(lowercaseTypeName)) {
-            return "Departamento";
+            return context.getString(R.string.apartment);
         } else if (CABIN.getDescription().equalsIgnoreCase(lowercaseTypeName)) {
-            return "Cabaña";
+            return context.getString(R.string.cabin);
         } else if (CAMP.getDescription().equalsIgnoreCase(lowercaseTypeName)) {
-            return "Campamento";
+            return context.getString(R.string.camp);
         } else if (CAMPER.getDescription().equalsIgnoreCase(lowercaseTypeName)) {
-            return "Casa rodante";
+            return context.getString(R.string.camper);
         } else if (SHIP.getDescription().equalsIgnoreCase(lowercaseTypeName)) {
-            return "Barco";
+            return context.getString(R.string.ship);
         } else {
             return null;
         }

@@ -145,23 +145,23 @@ public class AccommodationTypeFragment extends Fragment {
                 String spanishWord = "";
                 if(types.getDescription().equals(AccommodationTypes.HOUSE.getDescription())){
                     buttonType = 0;
-                    spanishWord = "Casa";
+                    spanishWord = getString(R.string.house);
                 }else if(types.getDescription().equals(AccommodationTypes.APARTMENT.getDescription())){
                     buttonType = 0;
-                    spanishWord = "Departamento";
+                    spanishWord = getString(R.string.apartment);
                 }
                 else if(types.getDescription().equals(AccommodationTypes.CABIN.getDescription())){
                     buttonType = 0;
-                    spanishWord = "Cabaña";
+                    spanishWord = getString(R.string.cabin);
                 }else if(types.getDescription().equals(AccommodationTypes.CAMP.getDescription())){
                     buttonType = 0;
-                    spanishWord = "Campamento";
+                    spanishWord = getString(R.string.camp);
                 }else if(types.getDescription().equals(AccommodationTypes.CAMPER.getDescription())){
                     buttonType = 0;
-                    spanishWord = "Casa rodante";
+                    spanishWord = getString(R.string.camper);
                 }else if(types.getDescription().equals(AccommodationTypes.SHIP.getDescription())){
                     buttonType = 0;
-                    spanishWord = "Barco";
+                    spanishWord = getString(R.string.ship);
                 }
 
                 for (Button button : typesButtons){

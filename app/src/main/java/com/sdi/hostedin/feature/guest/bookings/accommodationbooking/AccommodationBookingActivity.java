@@ -103,7 +103,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
         String type = binding.getAccommodationData().getAccommodationType();
 
         if (type != null) {
-            String accommodationType = AccommodationTypes.getDescriptionForType(type);
+            String accommodationType = AccommodationTypes.getDescriptionForType(this, type);
             if (accommodationType != null) {
                 binding.txvAccommodationType.setText(accommodationType);
             }
@@ -143,9 +143,11 @@ public class AccommodationBookingActivity extends AppCompatActivity {
             switch (status.getRequestStatus()) {
                 case LOADING:
                     binding.pgbCreateBooking.setVisibility(View.VISIBLE);
+                    binding.vwLoading.setVisibility(View.VISIBLE);
                     break;
                 case DONE:
                     binding.pgbCreateBooking.setVisibility(View.GONE);
+                    binding.vwLoading.setVisibility(View.GONE);
                     if (status.getMessage().equals(AccommodationBookingViewModel.SUCCESS_BOOKING_MESSAGE)) {
                         manageSuccessCreation();
                     }
@@ -153,6 +155,7 @@ public class AccommodationBookingActivity extends AppCompatActivity {
                 case ERROR:
                     Log.d("PRUEBA", status.getMessage());
                     binding.pgbCreateBooking.setVisibility(View.GONE);
+                    binding.vwLoading.setVisibility(View.GONE);
                     ToastUtils.showShortInformationMessage(this, status.getMessage());
             }
         });

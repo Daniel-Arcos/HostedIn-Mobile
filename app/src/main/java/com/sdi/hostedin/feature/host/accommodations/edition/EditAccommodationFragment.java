@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.databinding.FragmentEditAccommodationBinding;
+import com.sdi.hostedin.enums.AccommodationServices;
 import com.sdi.hostedin.feature.guest.explore.accommodationdetails.AccommodationDetailsViewModel;
 import com.sdi.hostedin.grpc.GrpcAccommodationMultimedia;
 import com.sdi.hostedin.utils.ImageUtils;
@@ -32,8 +33,9 @@ import java.util.List;
 
 public class EditAccommodationFragment extends Fragment {
 
-    private FragmentEditAccommodationBinding binding;
+    public static final String DELIMITER_DETAILS = " · ";
     private static final int LOCAL_FRAGMENT_NUMBER = 1;
+    private FragmentEditAccommodationBinding binding;
     private static Accommodation accommodation;
     private AccommodationDetailsViewModel accommodationDetailsViewModel;
     private EditAccommodationViewModel editAccommodationViewModel;
@@ -87,15 +89,26 @@ public class EditAccommodationFragment extends Fragment {
         accommodationDetailsViewModel.loadAllAccommodationMultimedia(accommodation.getId());
     }
 
-
     private void setAccommodatioInfo(){
         binding.txvTitle.setText(accommodation.getTitle());
         binding.txvPrice.setText("$ " + String.valueOf(accommodation.getNightPrice()) + " MXN");
         binding.txvDescription.setText(accommodation.getDescription());
         String services = requireActivity().getString(R.string.services)+": ";
-        for (String service: accommodation.getAccommodationServices()) {
-            services = services.concat(service+", ");
+
+        String[] selectedServices = accommodation.getAccommodationServices();
+        int numOfServices = selectedServices.length;
+        String[] accommodationServices = new String[numOfServices];
+
+        for(int i = 0 ; i < selectedServices.length ; i++) {
+            accommodationServices[i] = AccommodationServices.getDescriptionForService(this.getContext(), selectedServices[i]);
         }
+
+        if (accommodationServices != null) {
+            services = String.join(DELIMITER_DETAILS, accommodationServices);
+        } else {
+            services = String.join(DELIMITER_DETAILS, services);
+        }
+
         binding.txvServices.setText(services);
     }
 
@@ -103,26 +116,32 @@ public class EditAccommodationFragment extends Fragment {
         binding.inclAccommodationType.imageView.setBackgroundResource(R.drawable.accommodation_icon);
         binding.inclAccommodationType.txvGenericText.setText(R.string.hint_type);
         binding.inclAccommodationType.bttGenericButton.setOnClickListener(this::editAccommodationType);
+        binding.inclAccommodationType.rtlyHorizontalButtonItem.setOnClickListener(this::editAccommodationType);
 
         binding.inclUbication.imageView.setBackgroundResource(R.drawable.map_icon);
         binding.inclUbication.txvGenericText.setText(R.string.hint_ubication);
         binding.inclUbication.bttGenericButton.setOnClickListener(this::editAccommodationUbication);
+        binding.inclUbication.rtlyHorizontalButtonItem.setOnClickListener(this::editAccommodationUbication);
 
         binding.inclNumberGuests.imageView.setBackgroundResource(R.drawable.bed_icon);
         binding.inclNumberGuests.txvGenericText.setText(R.string.hint_rooms_and_guests);
         binding.inclNumberGuests.bttGenericButton.setOnClickListener(this::editAccommodationNumberGuest);
+        binding.inclNumberGuests.rtlyHorizontalButtonItem.setOnClickListener(this::editAccommodationNumberGuest);
 
         binding.inclServices.imageView.setBackgroundResource(R.drawable.service_icon);
         binding.inclServices.txvGenericText.setText(R.string.services);
         binding.inclServices.bttGenericButton.setOnClickListener(this::editAccommodationServices);
+        binding.inclServices.rtlyHorizontalButtonItem.setOnClickListener(this::editAccommodationServices);
 
         binding.inclMedia.imageView.setBackgroundResource(R.drawable.camera_icon);
         binding.inclMedia.txvGenericText.setText(R.string.hint_pictures_and_video);
         binding.inclMedia.bttGenericButton.setOnClickListener(this::editAccommodationMedia);
+        binding.inclMedia.rtlyHorizontalButtonItem.setOnClickListener(this::editAccommodationMedia);
 
         binding.inclPublicationInfo.imageView.setBackgroundResource(R.drawable.edit_acc_icon);
         binding.inclPublicationInfo.txvGenericText.setText(R.string.hint_title_description_and_price);
         binding.inclPublicationInfo.bttGenericButton.setOnClickListener(this::editAccommodationInfo);
+        binding.inclPublicationInfo.rtlyHorizontalButtonItem.setOnClickListener(this::editAccommodationInfo);
 
         binding.bttDeleteAccommodation.setOnClickListener(this::confirmationMessage);
     }
@@ -273,9 +292,9 @@ public class EditAccommodationFragment extends Fragment {
         });
     }
 
-
     private void enableButtons(boolean isEnable){
         binding.inclMedia.bttGenericButton.setEnabled(isEnable);
+        binding.inclMedia.rtlyHorizontalButtonItem.setEnabled(isEnable);
     }
 
 

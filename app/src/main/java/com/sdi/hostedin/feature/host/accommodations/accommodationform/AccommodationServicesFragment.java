@@ -129,34 +129,34 @@ public class AccommodationServicesFragment extends Fragment {
                     String spanishWord = "";
                     if (service.getDescription().equals(AccommodationServices.INTERNET.getDescription())) {
                         accommodationService =  AccommodationServices.INTERNET;
-                        spanishWord = "Internet";
+                        spanishWord = getString(R.string.internet);
                     } else if (service.getDescription().equals(AccommodationServices.TV.getDescription())) {
                         accommodationService =  AccommodationServices.TV;
-                        spanishWord = "TV";
+                        spanishWord = getString(R.string.tv);
                     } else if (service.getDescription().equals(AccommodationServices.KITCHEN.getDescription())) {
                         accommodationService =  AccommodationServices.KITCHEN;
-                        spanishWord = "Cocina";
+                        spanishWord = getString(R.string.kitchen);
                     } else if (service.getDescription().equals(AccommodationServices.WASHING_MACHINE.getDescription())) {
                         accommodationService =  AccommodationServices.WASHING_MACHINE;
-                        spanishWord = "Lavadora";
+                        spanishWord = getString(R.string.washing_machine);
                     } else if (service.getDescription().equals(AccommodationServices.PARKING.getDescription())) {
                         accommodationService =  AccommodationServices.PARKING;
-                        spanishWord = "Estacionamiento";
+                        spanishWord = getString(R.string.parking);
                     } else if (service.getDescription().equals(AccommodationServices.AIR_CONDITIONING.getDescription())) {
                         accommodationService =  AccommodationServices.AIR_CONDITIONING;
-                        spanishWord = "Aire acondicionado";
+                        spanishWord = getString(R.string.air_conditioning);
                     } else if (service.getDescription().equals(AccommodationServices.POOL.getDescription())) {
                         accommodationService =  AccommodationServices.POOL;
-                        spanishWord = "Alberca";
+                        spanishWord = getString(R.string.pool);
                     } else if (service.getDescription().equals(AccommodationServices.GARDEN.getDescription())) {
                         accommodationService =  AccommodationServices.GARDEN;
-                        spanishWord = "Patio";
+                        spanishWord = getString(R.string.garden);
                     } else if (service.getDescription().equals(AccommodationServices.LIGHT.getDescription())) {
                         accommodationService =  AccommodationServices.LIGHT;
-                        spanishWord = "Luz";
+                        spanishWord = getString(R.string.light);
                     } else if (service.getDescription().equals(AccommodationServices.WATER.getDescription())) {
                         accommodationService =  AccommodationServices.WATER;
-                        spanishWord = "Agua";
+                        spanishWord = getString(R.string.water);
                     }
 
                     for (Button button : servicesButtons) {

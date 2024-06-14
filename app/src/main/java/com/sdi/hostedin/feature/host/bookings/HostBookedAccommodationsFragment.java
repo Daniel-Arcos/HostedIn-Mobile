@@ -18,6 +18,7 @@ import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentHostBookedAccommodationsBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.host.bookings.list.HostAccommodationBookingsListFragment;
+import com.sdi.hostedin.feature.user.ProfileActivity;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
@@ -78,6 +79,7 @@ public class HostBookedAccommodationsFragment extends Fragment {
             binding.btnChangeToHost.setVisibility(View.GONE);
         }
         binding.btnChangeToHost.setOnClickListener(v -> {goToGuestActivity();});
+        binding.profileBtn.setOnClickListener(v -> changeToUserProfile());
 
         hostBookedAccommodationsAdapter = new HostBookedAccommodationsAdapter(this.getContext());
         hostBookedAccommodationsAdapter.setOnItemClickListener(this:: watchBookings);
@@ -131,5 +133,10 @@ public class HostBookedAccommodationsFragment extends Fragment {
         } else {
             ToastUtils.showShortInformationMessage(this.getContext(), String.valueOf(R.string.there_is_a_problem));
         }
+    }
+
+    private void changeToUserProfile() {
+        Intent intent = new Intent(getContext(), ProfileActivity.class);
+        startActivity(intent);
     }
 }

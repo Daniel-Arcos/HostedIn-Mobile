@@ -268,10 +268,10 @@
     <string name="watch_map">Ver mapa</string>
     <string name="review_acco">Calificar alojamiento</string>
     <string name="cancell_booking">Cancelar reservación</string>
-    <string name="hint_status">Estado :</string>
+    <string name="hint_status">Estado: </string>
     <string name="hint_guests">huespedes</string>
-    <string name="tag_phone_number">Numero de telefono :  </string>
-    <string name="tag_email">Correo : </string>
+    <string name="tag_phone_number">Numero de telefono:  </string>
+    <string name="tag_email">Correo: </string>
     <string name="quest_whose_your_guest">¿Quién será tu huesped?</string>
     <string name="quest_how_much_you_earn">¿Cuánto vas a ganar?</string>
     <string name="quest_who_be_your_host">¿Quién será tu anfitrión?</string>
@@ -279,8 +279,12 @@
     <string name="hint_current">Vigente</string>
     <string name="hint_overdue">Vencida</string>
     <string name="hint_cancelled">Cancelada</string>
-    <string name="wait_for_multimedia">Wait for the multimedia to charge</string>
+    <string name="wait_for_multimedia">Espera a que la multimedia cargue</string>
     <string name="acco_updated" >El alojamiento fue actualizado correctamente.</string>
     <string name="recover_multimedia">Recuperando los archivos multimedia, porfavor espere un momento</string>
+    <string name="multimedia_saved">Multimedia guardada</string>
+    <string name="error_uploading_multimedia">Error al subir la multimedia. Puedes editarlo más tarde</string>
+    <string name="error_trying_upload_multimedia">Error al intentar guardar la multimedia</string>
+    <string name="updated_password">Contraseña actualizada con éxito.</string>
 
 </resources>

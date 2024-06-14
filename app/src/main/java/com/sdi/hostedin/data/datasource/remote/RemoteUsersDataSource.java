@@ -125,8 +125,8 @@ public class RemoteUsersDataSource {
                     User editedUser = responseEditAccountObject.getUser();
                     String token = "";
                     String refreshToken = response.headers().get("Authorization");
-                    if (refreshToken != null) {
-                        token = refreshToken;
+                    if (refreshToken != null && refreshToken.startsWith("Bearer ")) {
+                        token = refreshToken.substring(7);;
                     }
                     editAccountCallback.onSuccess(editedUser, token);
                 } else {

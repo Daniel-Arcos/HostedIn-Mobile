@@ -202,7 +202,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
 
     private void loadAccommodationData() {
         binding.vflpAccommodationMultimedia.setFlipInterval(60000);
-        binding.vflpAccommodationMultimedia.setAutoStart(true);
+        binding.vflpAccommodationMultimedia.setAutoStart(false);
 
         loadNightPrice();
         loadAccommodationBasics();
@@ -304,7 +304,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
             String[] accommodationServices = new String[numOfServices];
 
             for(int i = 0 ; i < services.length ; i++) {
-                accommodationServices[i] = AccommodationServices.getDescriptionForService(services[i]);
+                accommodationServices[i] = AccommodationServices.getDescriptionForService(this, services[i]);
             }
 
             if (accommodationServices != null) {
@@ -361,7 +361,7 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
         String type = binding.getAccommodationData().getAccommodationType();
 
         if (type != null) {
-            String accommodationType = AccommodationTypes.getDescriptionForType(type);
+            String accommodationType = AccommodationTypes.getDescriptionForType(this, type);
             if (accommodationType != null) {
                 binding.txvAccommodationType.setText(accommodationType);
             }

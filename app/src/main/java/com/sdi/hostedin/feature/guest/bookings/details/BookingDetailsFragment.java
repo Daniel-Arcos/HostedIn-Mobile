@@ -102,10 +102,12 @@ public class BookingDetailsFragment extends Fragment {
         binding.inclWatchMap.imageView.setBackgroundResource(R.drawable.map_icon);
         binding.inclWatchMap.txvGenericText.setText(R.string.watch_map);
         binding.inclWatchMap.bttGenericButton.setOnClickListener(this:: watchAccommodationMap);
+        binding.inclWatchMap.rtlyHorizontalButtonItem.setOnClickListener(this::watchAccommodationMap);
         if(!bookingInfo.getBookingStatus().equals(BookingSatuses.CURRENT.getDescription()) && !isHost()){
             binding.inclRatePublication.imageView.setBackgroundResource(R.drawable.rate_icon);
             binding.inclRatePublication.txvGenericText.setText(R.string.review_acco);
             binding.inclRatePublication.bttGenericButton.setOnClickListener(this:: openRateAccommodationWindow);
+            binding.inclRatePublication.rtlyHorizontalButtonItem.setOnClickListener(this::openRateAccommodationWindow);
             binding.inclRatePublication.getRoot().setVisibility(View.VISIBLE);
         }
         else {
@@ -115,6 +117,7 @@ public class BookingDetailsFragment extends Fragment {
             binding.inclCancellBook.imageView.setBackgroundResource(R.drawable.cancell_icon);
             binding.inclCancellBook.txvGenericText.setText(R.string.cancell_booking);
             binding.inclCancellBook.bttGenericButton.setOnClickListener(this::goToCancelFragment);
+            binding.inclCancellBook.rtlyHorizontalButtonItem.setOnClickListener(this::goToCancelFragment);
             binding.inclCancellBook.getRoot().setVisibility(View.VISIBLE);
         }
         else {

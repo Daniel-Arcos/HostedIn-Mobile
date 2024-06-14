@@ -1,11 +1,13 @@
 package com.sdi.hostedin.feature.user;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.domain.EditProfileUseCase;
@@ -54,7 +56,7 @@ public class ProfileViewModel extends AndroidViewModel {
         });
     }
 
-    public void changeUserPassword(User user) {
+    public void changeUserPassword(User user, Context context) {
         EditProfileUseCase editProfileUseCase = new EditProfileUseCase();
         requestChangePasswordStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
 
@@ -63,7 +65,7 @@ public class ProfileViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(User user, String token) {
                 userMutableLiveData.setValue(user);
-                requestChangePasswordStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Contraseña actualizada con éxito."));
+                requestChangePasswordStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, context.getString(R.string.updated_password)));
             }
 
             @Override

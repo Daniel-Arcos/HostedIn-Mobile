@@ -1,6 +1,7 @@
 package com.sdi.hostedin.feature.host.accommodations.accommodationform;
 
 import android.app.Application;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
@@ -13,6 +14,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.MyApplication;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.callbacks.AccommodationCallback;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
 import com.sdi.hostedin.data.datasource.DataStoreManager;
@@ -208,7 +210,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         accommodationMutableLiveData.postValue(accommodation);
     }
 
-    public void createAccommodation(Accommodation accommodation) {
+    public void createAccommodation(Accommodation accommodation, Context context) {
         CreateAccommodationUseCase createAccommodationUseCase = new CreateAccommodationUseCase();
         requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
 
@@ -217,7 +219,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(Accommodation accommodation, String token) {
                 accommodationMutableLiveData.setValue(accommodation);
-                uploadAccommodationMultimedia();
+                uploadAccommodationMultimedia(context);
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation created"));
             }
 
@@ -228,7 +230,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         });
     }
 
-    public void uploadAccommodationMultimedia() {
+    public void uploadAccommodationMultimedia(Context context) {
         String accommodationId = accommodationMutableLiveData.getValue().getId();
 
         byte[][] selectedMultimedia = joinMultimedia();
@@ -238,19 +240,19 @@ public class AccommodationFormViewModel extends AndroidViewModel {
             multimediasRepository.uploadAccommodationMultimedia(accommodationId, selectedMultimedia, new MultimediasRepository.UploadAccommodationMultimediaCallback() {
                 @Override
                 public void onSuccess(String message) {
-                    ToastUtils.showShortInformationMessage(getApplication(), "Multimedia guardada");
+                    ToastUtils.showShortInformationMessage(getApplication(), context.getString(R.string.multimedia_saved));
                 }
 
                 @Override
                 public void onError(String message) {
-                    ToastUtils.showShortInformationMessage(getApplication(), "Error al subir la multimedia. Puedes editarlo más tarde");
+                    ToastUtils.showShortInformationMessage(getApplication(), context.getString(R.string.error_uploading_multimedia));
                 }
             }, mainHandler);
         }
         else
         {
             Log.e("PRUEBA", "No multimedia");
-            ToastUtils.showShortInformationMessage(getApplication(), "Error al intentar guardar la multimedia");
+            ToastUtils.showShortInformationMessage(getApplication(), context.getString(R.string.error_trying_upload_multimedia));
         }
     }
 

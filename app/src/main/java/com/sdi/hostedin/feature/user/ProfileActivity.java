@@ -105,7 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (validateCurrentPassword() && validateNewPassword() && validateNewPasswordConfirmation()) {
             User user = profileViewModel.getUserMutableLiveData().getValue();
             user.setPassword(binding.etxNewPasswordConfirmation.getEditText().getText().toString());
-            profileViewModel.changeUserPassword(user);
+            profileViewModel.changeUserPassword(user, this);
         }
     }
 
@@ -192,6 +192,7 @@ public class ProfileActivity extends AppCompatActivity {
         ProgressBarUtils.observeRequestStatus(profileViewModel.getRequestStatusMutableLiveData(),
                 this,
                 binding.pgbProfile,
+                binding.vwLoading,
                 this);
     }
 

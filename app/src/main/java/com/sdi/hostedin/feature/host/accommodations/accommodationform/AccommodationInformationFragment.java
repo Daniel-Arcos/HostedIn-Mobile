@@ -168,10 +168,10 @@ public class AccommodationInformationFragment extends Fragment {
     }
 
     public void collectInformation() {
-        this.title = String.valueOf(binding.etxTitle.getText());
-        this.description = String.valueOf(binding.etxDescription.getText());
-        this.rules = String.valueOf(binding.etxRules.getText());
-        String price = String.valueOf(binding.etxNightPrice.getText());
+        this.title = String.valueOf(binding.etxTitle.getText()).trim();
+        this.description = String.valueOf(binding.etxDescription.getText()).trim();
+        this.rules = String.valueOf(binding.etxRules.getText()).trim();
+        String price = String.valueOf(binding.etxNightPrice.getText()).trim();
         if (!price.isEmpty()) {
             this.nightPrice = Double.parseDouble(price);
             accommodationFormViewModel.getPrice().setValue(nightPrice);

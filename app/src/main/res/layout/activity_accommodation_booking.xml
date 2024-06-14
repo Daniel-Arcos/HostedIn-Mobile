@@ -421,6 +421,14 @@
             android:layout_marginEnd="20dp"
             android:text="@string/confirm_booking" />
 
+        <View
+            android:id="@+id/vw_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#9FFFFFFF"
+            android:visibility="gone"
+            android:clickable="true"/>
+
         <ProgressBar
             android:id="@+id/pgb_create_booking"
             style="@android:style/Widget.Material.ProgressBar"

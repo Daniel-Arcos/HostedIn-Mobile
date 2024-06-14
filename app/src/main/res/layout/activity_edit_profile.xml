@@ -279,18 +279,33 @@
 
                         </ScrollView>
 
+                        <View
+                            android:id="@+id/vw_loading_data"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#9FFFFFFF"
+                            android:visibility="gone"
+                            android:clickable="true"/>
+
+                        <ProgressBar
+                            android:id="@+id/pgb_edit_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"/>
                     </RelativeLayout>
 
 <!--                </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
-
-        <ProgressBar
-            android:id="@+id/pgb_edit_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <View
+            android:id="@+id/vw_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#9FFFFFFF"
             android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            android:clickable="true"/>
+
 
     </RelativeLayout>
 </layout>

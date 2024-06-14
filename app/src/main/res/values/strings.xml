@@ -113,7 +113,7 @@
     <string name="location_content_description">Address of your accommodation</string>
     <string name="choose_location_instruction">You can adjust your location by holding the red marker and dragging it to where your accommodation is located</string>
     <string name="choose_accommodation_location_message">Select the location of your accommodation</string>
-    <string name="accommodations_basics_header">Let\'s add some basic information about your \naccommodation</string>
+    <string name="accommodations_basics_header">Let\'s add some basic information about\n your accommodation</string>
     <string name="guests">Guests</string>
     <string name="rooms">Rooms</string>
     <string name="beds">Beds</string>
@@ -284,4 +284,8 @@
     <string name="wait_for_multimedia">Wait for the multimedia to charge</string>
     <string name="acco_updated" >The accommodation was successfully updated</string>
     <string name="recover_multimedia">Recovering the multimedia, please wait a moment</string>
+    <string name="multimedia_saved">Multimedia saved</string>
+    <string name="error_uploading_multimedia">Error uploading media. You can edit it later</string>
+    <string name="error_trying_upload_multimedia">Error trying to save media</string>
+    <string name="updated_password">Password updated successfully</string>
 </resources>
