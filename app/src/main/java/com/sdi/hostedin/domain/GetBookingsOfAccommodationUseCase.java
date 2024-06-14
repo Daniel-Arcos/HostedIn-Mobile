@@ -12,13 +12,13 @@ public class GetBookingsOfAccommodationUseCase {
     public void getBookingsOfSpecificAccommodation(String accommodationId, String token, BookingsCallback bookingsListCallback){
         bookingsRepository.getBookingsOfSpecificAccommodation(accommodationId, token, new BookingsCallback() {
             @Override
-            public void onSuccess(List<Booking> bookingList, String message) {
-                bookingsListCallback.onSuccess(bookingList, message);
+            public void onSuccess(List<Booking> bookingList, String newToken) {
+                bookingsListCallback.onSuccess(bookingList, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                bookingsListCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                bookingsListCallback.onError(errorMessage,newToken);
             }
         });
     }

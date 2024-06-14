@@ -65,16 +65,19 @@ public class AccommodationDetailsViewModel extends AndroidViewModel {
         String token = DataStoreAccess.accessToken(getApplication());
         getReviewsUseCase.getReviewsOfAccommodation(accommodationId, token, new ReviewsCallback() {
             @Override
-            public void onSuccess(List<Review> reviews, String token) {
+            public void onSuccess(List<Review> reviews, String newToken) {
                 reviewsMutableLiveData.setValue(reviews);
-                if (token != null && !token.equals("")) {
-                    DataStoreAccess.saveToken(getApplication(), token);
+                if (newToken != null && !newToken.equals("")) {
+                    DataStoreAccess.saveToken(getApplication(), newToken);
                 }
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Reviews recovered"));
             }
 
             @Override
-            public void onError(String errorMessage) {
+            public void onError(String errorMessage, String newToken) {
+                if (newToken != null && !newToken.equals("")) {
+                    DataStoreAccess.saveToken(getApplication(), token);
+                }
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });

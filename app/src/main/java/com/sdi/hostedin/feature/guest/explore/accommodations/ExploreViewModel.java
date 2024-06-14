@@ -2,25 +2,18 @@ package com.sdi.hostedin.feature.guest.explore.accommodations;
 
 import android.app.Application;
 import android.os.Handler;
-import android.os.Looper;
 
 import androidx.annotation.NonNull;
-import androidx.datastore.preferences.core.Preferences;
-import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
-import androidx.datastore.rxjava2.RxDataStore;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.MyApplication;
 import com.sdi.hostedin.data.callbacks.AccommodationsCallback;
-import com.sdi.hostedin.data.datasource.DataStoreHelper;
-import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.data.repositories.MultimediasRepository;
 import com.sdi.hostedin.domain.GetAccommodationsUseCase;
-import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
 
@@ -97,7 +90,10 @@ public class ExploreViewModel extends AndroidViewModel {
                 }
 
                 @Override
-                public void onError(String errorMessage) {
+                public void onError(String errorMessage, String newToken) {
+                    if (newToken != null && !newToken.equals("")) {
+                        DataStoreAccess.saveToken(getApplication(), newToken);
+                    }
                     requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
                 }
             });
@@ -122,7 +118,10 @@ public class ExploreViewModel extends AndroidViewModel {
                 }
 
                 @Override
-                public void onError(String errorMessage) {
+                public void onError(String errorMessage, String newToken) {
+                    if (newToken != null && !newToken.equals("")) {
+                        DataStoreAccess.saveToken(getApplication(), newToken);
+                    }
                     requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
                 }
             });

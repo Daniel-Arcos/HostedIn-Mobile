@@ -30,12 +30,18 @@ public class ReviewAccommodationViewModel extends AndroidViewModel {
         String token = DataStoreAccess.accessToken(getApplication());
         createReviewUseCase.saveNewReview(review, token, new ReviewCallback() {
             @Override
-            public void onSuccess(Review review, String message) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, message));
+            public void onSuccess(Review review, String newToken) {
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, newToken));
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
             }
 
             @Override
-            public void onError(String errorMessage) {
+            public void onError(String errorMessage, String newToken) {
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });

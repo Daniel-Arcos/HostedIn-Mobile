@@ -46,6 +46,9 @@ public class ProfileViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(User user, String token) {
                 userMutableLiveData.setValue(user);
+                if(token != null && !token.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), token);
+                }
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Account recovered"));
             }
 
@@ -65,6 +68,9 @@ public class ProfileViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(User user, String token) {
                 userMutableLiveData.setValue(user);
+                if(token != null && !token.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), token);
+                }
                 requestChangePasswordStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, context.getString(R.string.updated_password)));
             }
 

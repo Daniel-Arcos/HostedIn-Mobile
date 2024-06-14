@@ -19,13 +19,13 @@ public class AccommodationsRepository {
     public void createAccommodation(Accommodation accommodation, String token, AccommodationCallback accommodationCallback) {
         remoteAccommodationsDataSource.createAccommodation(accommodation, token, new AccommodationCallback() {
             @Override
-            public void onSuccess(Accommodation accommodation, String token) {
-                accommodationCallback.onSuccess(accommodation, token);
+            public void onSuccess(Accommodation accommodation,String message, String newToken) {
+                accommodationCallback.onSuccess(accommodation, message, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -33,13 +33,13 @@ public class AccommodationsRepository {
     public void updateAccommodation(Accommodation accommodation, String token, AccommodationCallback accommodationCallback) {
         remoteAccommodationsDataSource.updateAccommodation(accommodation, token, new AccommodationCallback() {
             @Override
-            public void onSuccess(Accommodation accommodation, String token) {
-                accommodationCallback.onSuccess(accommodation, token);
+            public void onSuccess(Accommodation accommodation, String message, String newToken) {
+                accommodationCallback.onSuccess(accommodation, message, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -52,8 +52,8 @@ public class AccommodationsRepository {
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -66,8 +66,8 @@ public class AccommodationsRepository {
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -81,8 +81,8 @@ public class AccommodationsRepository {
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -95,8 +95,8 @@ public class AccommodationsRepository {
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -104,13 +104,13 @@ public class AccommodationsRepository {
     public void getHostBookedAccommodations(String userId, String token, BookedAccommodationsCallBack accommodationsCallback){
         remoteAccommodationsDataSource.getALLHostAccommodationsWithAtLeastOneBooking(userId, token, new BookedAccommodationsCallBack() {
             @Override
-            public void onSuccess(List<BookedAccommodation> accommodations, String token) {
-                accommodationsCallback.onSuccess(accommodations, token);
+            public void onSuccess(List<BookedAccommodation> accommodations, String newToken) {
+                accommodationsCallback.onSuccess(accommodations, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -118,13 +118,13 @@ public class AccommodationsRepository {
     public void getGuestBookedAccommodations(String userId,String bookingStatus,String token, GuestBookedAccommodationCallBack accommodationsCallback){
         remoteAccommodationsDataSource.getGuestBookedAccommodations(userId, bookingStatus, token, new GuestBookedAccommodationCallBack() {
             @Override
-            public void onSuccess(List<GuestBooking> accommodations, String message) {
-                accommodationsCallback.onSuccess(accommodations, message);
+            public void onSuccess(List<GuestBooking> accommodations, String newToken) {
+                accommodationsCallback.onSuccess(accommodations, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -132,8 +132,8 @@ public class AccommodationsRepository {
     public void deleteAcommodation(String accommodationId, String token, PasswordCodeCallback passwordCodeCallback){
         remoteAccommodationsDataSource.deleteAccommodationById(accommodationId, token, new PasswordCodeCallback() {
             @Override
-            public void onSucces(String message) {
-                passwordCodeCallback.onSucces(message);
+            public void onSucces(String token) {
+                passwordCodeCallback.onSucces(token);
             }
 
             @Override

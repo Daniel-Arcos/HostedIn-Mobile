@@ -217,14 +217,20 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         String token = DataStoreAccess.accessToken(getApplication());
         createAccommodationUseCase.createAccommodation(accommodation, token, new AccommodationCallback() {
             @Override
-            public void onSuccess(Accommodation accommodation, String token) {
+            public void onSuccess(Accommodation accommodation, String message, String newToken) {
                 accommodationMutableLiveData.setValue(accommodation);
                 uploadAccommodationMultimedia(context);
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation created"));
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
             }
 
             @Override
-            public void onError(String errorMessage) {
+            public void onError(String errorMessage, String newToken) {
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });
@@ -283,13 +289,19 @@ public class AccommodationFormViewModel extends AndroidViewModel {
         }else{
             updateAccommodationUseCase.updateAccommodation(accommodation, token, new AccommodationCallback() {
                 @Override
-                public void onSuccess(Accommodation accommodation, String token) {
+                public void onSuccess(Accommodation accommodation, String message, String newToken) {
                     accommodationMutableLiveData.setValue(accommodation);
                     requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation updated"));
+                    if(newToken != null && !newToken.equals("")){
+                        DataStoreAccess.saveToken(getApplication(), newToken);
+                    }
                 }
 
                 @Override
-                public void onError(String errorMessage) {
+                public void onError(String errorMessage, String newToken) {
+                    if(newToken != null && !newToken.isEmpty()){
+                        DataStoreAccess.saveToken(getApplication(), newToken);
+                    }
                     requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
                 }
             });

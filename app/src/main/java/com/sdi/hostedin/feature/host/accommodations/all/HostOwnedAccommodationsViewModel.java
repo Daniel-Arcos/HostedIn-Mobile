@@ -60,14 +60,20 @@ public class HostOwnedAccommodationsViewModel extends AndroidViewModel {
         String userId = DataStoreAccess.accessUserId(this.getApplication());
         getAccommodationsUseCase.getAlHostOwnedAccommodations(userId, token, new AccommodationsCallback() {
             @Override
-            public void onSuccess(List<Accommodation> accommodations, String token) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, token));
+            public void onSuccess(List<Accommodation> accommodations, String newToken) {
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Succes message"));
                 accommodationsList.setValue(accommodations);
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
                 fetchMainImageAccommodation(accommodations);
             }
 
             @Override
-            public void onError(String errorMessage) {
+            public void onError(String errorMessage, String newToken) {
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });

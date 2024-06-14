@@ -10,14 +10,14 @@ public class CreateBookingUseCase {
     public void createBooking(Booking booking, String token, BookingCallback bookingCallback) {
         bookingsRepository.createBooking(booking, token, new BookingCallback() {
             @Override
-            public void onSuccess(Booking booking, String token) {
-                bookingCallback.onSuccess(booking, token);
+            public void onSuccess(Booking booking, String newToken) {
+                bookingCallback.onSuccess(booking, newToken);
 
             }
 
             @Override
-            public void onError(String errorMessage) {
-                bookingCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                bookingCallback.onError(errorMessage, newToken);
             }
         });
     }

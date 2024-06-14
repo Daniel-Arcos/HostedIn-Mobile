@@ -13,13 +13,13 @@ public class CreateReviewUseCase {
     public void saveNewReview(Review review, String token, ReviewCallback reviewCallback){
         reviewsRepository.saveNewReview(review, token, new ReviewCallback() {
             @Override
-            public void onSuccess(Review review, String message) {
-                reviewCallback.onSuccess(review, message);
+            public void onSuccess(Review review, String newToken) {
+                reviewCallback.onSuccess(review, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                reviewCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                reviewCallback.onError(errorMessage, newToken);
             }
         });
     }

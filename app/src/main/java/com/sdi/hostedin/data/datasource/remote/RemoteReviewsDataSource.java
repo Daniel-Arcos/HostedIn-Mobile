@@ -6,12 +6,8 @@ import com.google.gson.JsonParser;
 import com.sdi.hostedin.data.callbacks.ReviewCallback;
 import com.sdi.hostedin.data.callbacks.ReviewsCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
-import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseAccommodationObject;
-import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookedAccommodation;
-import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetAccommodationsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetReviewsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseReviewObject;
-import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.Review;
 
 import retrofit2.Call;
@@ -30,9 +26,21 @@ public class RemoteReviewsDataSource {
             @Override
             public void onResponse(Call<ResponseReviewObject> call, Response<ResponseReviewObject> response) {
                 if (response.isSuccessful()){
-                    reviewCallback.onSuccess(response.body().getReview(), response.body().getMessage());
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+                    reviewCallback.onSuccess(response.body().getReview(), token);
                 } else {
                     String message = "Ocurrio un error al guardar la review";
+
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
@@ -44,13 +52,13 @@ public class RemoteReviewsDataSource {
                             e.printStackTrace();
                         }
                     }
-                    reviewCallback.onError(message);
+                    reviewCallback.onError(message, token);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseReviewObject> call, Throwable t) {
-                reviewCallback.onError(t.getMessage());
+                reviewCallback.onError(t.getMessage(), "");
             }
 
         });
@@ -74,24 +82,29 @@ public class RemoteReviewsDataSource {
                 } else {
                     String message = "Ocurrio un error al recuperar las reseñas";
 
+                    String token = response.headers().get("Authorization");
+                    if (token != null && token.startsWith("Bearer ")) {
+                        token = token.substring(7);
+                    }
+
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
                             JsonParser jsonParser = new JsonParser();
                             JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
                             message = jsonObject.get("message").getAsString();
-                            reviewsCallback.onError(message);
+                            reviewsCallback.onError(message, token);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                    reviewsCallback.onError(message);
+                    reviewsCallback.onError(message, token);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseGetReviewsObject> call, Throwable t) {
-                reviewsCallback.onError(t.getMessage());
+                reviewsCallback.onError(t.getMessage(), "");
             }
         });
     }

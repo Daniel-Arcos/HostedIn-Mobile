@@ -13,13 +13,13 @@ public class BookingsRepository {
     public void getBookingsOfSpecificAccommodation(String accommodationId, String token, BookingsCallback bookingsListCallback){
         remoteBookingsDataSource.getBookingsListOfSpecificAccommodation(accommodationId, token, new BookingsCallback() {
             @Override
-            public void onSuccess(List<Booking> bookingList, String message) {
-                bookingsListCallback.onSuccess(bookingList, message);
+            public void onSuccess(List<Booking> bookingList, String newToken) {
+                bookingsListCallback.onSuccess(bookingList, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                bookingsListCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                bookingsListCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -27,13 +27,13 @@ public class BookingsRepository {
     public void createBooking(Booking booking, String token, BookingCallback bookingCallback) {
         remoteBookingsDataSource.createBooking(booking, token, new BookingCallback() {
             @Override
-            public void onSuccess(Booking booking, String token) {
-                bookingCallback.onSuccess(booking, token);
+            public void onSuccess(Booking booking, String newToken) {
+                bookingCallback.onSuccess(booking, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                bookingCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                bookingCallback.onError(errorMessage, newToken);
             }
         });
     }

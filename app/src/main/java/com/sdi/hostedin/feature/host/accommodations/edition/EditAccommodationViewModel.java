@@ -30,8 +30,11 @@ public class EditAccommodationViewModel extends AndroidViewModel {
         String token = DataStoreAccess.accessToken(getApplication());
         deleteAccommodationUseCase.deleteAccommodation(accommodationId, token, new PasswordCodeCallback() {
             @Override
-            public void onSucces(String message) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, message));
+            public void onSucces(String newToken) {
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Delete succes"));
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
             }
 
             @Override

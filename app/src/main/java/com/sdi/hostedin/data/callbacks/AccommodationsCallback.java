@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface AccommodationsCallback {
     void onSuccess(List<Accommodation> accommodations, String token);
-    void onError(String errorMessage);
+    void onError(String errorMessage, String newToken);
 }

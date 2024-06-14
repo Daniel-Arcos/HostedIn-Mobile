@@ -12,13 +12,13 @@ public class GetReviewsUseCase {
     public void getReviewsOfAccommodation(String accommodationId, String token, ReviewsCallback reviewsCallback) {
         reviewsRepository.getReviewsOfAccommodation(accommodationId, token, new ReviewsCallback() {
             @Override
-            public void onSuccess(List<Review> reviews, String token) {
-                reviewsCallback.onSuccess(reviews, token);
+            public void onSuccess(List<Review> reviews, String newToken) {
+                reviewsCallback.onSuccess(reviews, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                reviewsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                reviewsCallback.onError(errorMessage, newToken);
             }
         });
     }

@@ -1,7 +1,6 @@
 package com.sdi.hostedin.feature.guest.bookings.accommodationbooking;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,17 +10,14 @@ import com.sdi.hostedin.data.callbacks.BookingCallback;
 import com.sdi.hostedin.data.callbacks.BookingsCallback;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Booking;
-import com.sdi.hostedin.domain.CreateAccommodationUseCase;
 import com.sdi.hostedin.domain.CreateBookingUseCase;
 import com.sdi.hostedin.domain.GetBookingsOfAccommodationUseCase;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
 import com.sdi.hostedin.utils.DateFormatterUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class AccommodationBookingViewModel extends AndroidViewModel {
     public static final String SUCCESS_BOOKING_MESSAGE  = "booking created";
@@ -119,14 +115,19 @@ public class AccommodationBookingViewModel extends AndroidViewModel {
         String token = DataStoreAccess.accessToken(getApplication());
         createBookingUseCase.createBooking(booking, token, new BookingCallback() {
             @Override
-            public void onSuccess(Booking booking, String token) {
+            public void onSuccess(Booking booking, String newToken) {
                 bookingMutableLiveData.setValue(booking);
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, SUCCESS_BOOKING_MESSAGE));
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
             }
 
             @Override
-            public void onError(String errorMessage) {
-                Log.i("PRUEBA", "onError: " + errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });
@@ -139,13 +140,19 @@ public class AccommodationBookingViewModel extends AndroidViewModel {
         String token = DataStoreAccess.accessToken(getApplication());
         getBookingsOfAccommodation.getBookingsOfSpecificAccommodation(accommodationId, token, new BookingsCallback() {
             @Override
-            public void onSuccess(List<Booking> bookingList, String message) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, message));
+            public void onSuccess(List<Booking> bookingList, String newToken) {
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "newToken"));
                 bookingsList.setValue(bookingList);
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
             }
 
             @Override
-            public void onError(String errorMessage) {
+            public void onError(String errorMessage, String newToken) {
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });

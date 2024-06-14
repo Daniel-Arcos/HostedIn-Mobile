@@ -9,8 +9,8 @@ public class DeleteAccommodationUseCase {
     public void deleteAccommodation(String accommodationId, String token, PasswordCodeCallback passwordCodeCallback){
         accommodationsRepository.deleteAcommodation(accommodationId, token, new PasswordCodeCallback() {
             @Override
-            public void onSucces(String message) {
-                passwordCodeCallback.onSucces(message);
+            public void onSucces(String token) {
+                passwordCodeCallback.onSucces(token);
             }
 
             @Override

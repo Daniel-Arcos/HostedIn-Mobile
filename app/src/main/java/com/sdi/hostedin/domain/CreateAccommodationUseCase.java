@@ -11,13 +11,13 @@ public class CreateAccommodationUseCase {
     public void createAccommodation(Accommodation accommodation, String token, AccommodationCallback accommodationCallback) {
         accommodationsRepository.createAccommodation(accommodation, token, new AccommodationCallback() {
             @Override
-            public void onSuccess(Accommodation accommodation, String token) {
-                accommodationCallback.onSuccess(accommodation, token);
+            public void onSuccess(Accommodation accommodation, String message, String newToken) {
+                accommodationCallback.onSuccess(accommodation, message, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationCallback.onError(errorMessage);
+            public void onError(String errorMessage,String newToken) {
+                accommodationCallback.onError(errorMessage, newToken );
             }
         });
 

@@ -15,6 +15,8 @@ import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBooked
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetAccommodationsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGuestBookedAccommodations;
 import com.sdi.hostedin.data.model.Accommodation;
+import com.sdi.hostedin.data.model.BookedAccommodation;
+import com.sdi.hostedin.data.model.GuestBooking;
 
 import java.util.ArrayList;
 
@@ -44,6 +46,11 @@ public class RemoteAccommodationsDataSource {
                     }
                     accommodationsCallback.onSuccess(accommodations, token);
                 } else {
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
                     String message = "Ocurrio un error al actualizar";
                     if (response.errorBody() != null) {
                         try {
@@ -56,13 +63,13 @@ public class RemoteAccommodationsDataSource {
                             e.printStackTrace();
                         }
                     }
-                    accommodationsCallback.onError(message);
+                    accommodationsCallback.onError(message, token);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage());
+                accommodationsCallback.onError(t.getMessage(), "");
             }
         });
     }
@@ -84,6 +91,13 @@ public class RemoteAccommodationsDataSource {
                     accommodationsCallback.onSuccess(accommodations, token);
                 } else {
                     String message = "Ocurrio un error al actualizar";
+
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
@@ -95,13 +109,13 @@ public class RemoteAccommodationsDataSource {
                             e.printStackTrace();
                         }
                     }
-                    accommodationsCallback.onError(message);
+                    accommodationsCallback.onError(message, token);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage());
+                accommodationsCallback.onError(t.getMessage(), "");
             }
         });
     }
@@ -124,6 +138,13 @@ public class RemoteAccommodationsDataSource {
                     accommodationsCallback.onSuccess(accommodations, token);
                 } else {
                     String message = "Ocurrio un error al actualizar";
+
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
@@ -135,13 +156,13 @@ public class RemoteAccommodationsDataSource {
                             e.printStackTrace();
                         }
                     }
-                    accommodationsCallback.onError(message);
+                    accommodationsCallback.onError(message, token);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage());
+                accommodationsCallback.onError(t.getMessage(), token);
             }
         });
     }
@@ -152,11 +173,22 @@ public class RemoteAccommodationsDataSource {
             @Override
             public void onResponse(Call<ResponseBookedAccommodation> call, Response<ResponseBookedAccommodation> response) {
                 if (response.isSuccessful()){
-                    ResponseBookedAccommodation responseGetAccommodationsObject = response.body();
-                    accommodationsCallback.onSuccess(MoshiConverter.convertAPIBookedAccommodationsResponseToJavaObjects(responseGetAccommodationsObject), response.message());
+                    ArrayList<BookedAccommodation> accommodations =  MoshiConverter.convertAPIBookedAccommodationsResponseToJavaObjects(response.body());
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+                    accommodationsCallback.onSuccess(accommodations, token);
                 }
                 else{
                     String message = "Ocurrio un error al recuperar los alojamiento";
+
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
 
                     if (response.errorBody() != null) {
                         try {
@@ -164,19 +196,18 @@ public class RemoteAccommodationsDataSource {
                             JsonParser jsonParser = new JsonParser();
                             JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
                             message = jsonObject.get("message").getAsString();
-                            accommodationsCallback.onError(message);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
 
-                    accommodationsCallback.onError(message);
+                    accommodationsCallback.onError(message, token);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBookedAccommodation> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage());
+                accommodationsCallback.onError(t.getMessage(), "");
             }
         });
     }
@@ -187,30 +218,42 @@ public class RemoteAccommodationsDataSource {
             @Override
             public void onResponse(Call<ResponseGuestBookedAccommodations> call, Response<ResponseGuestBookedAccommodations> response) {
                 if (response.isSuccessful()){
-                    ResponseGuestBookedAccommodations responseGetAccommodationsObject = response.body();
-                    accommodationsCallback.onSuccess(MoshiConverter.convertAPIGuestBookingsResponseToJavaObjects(responseGetAccommodationsObject), response.message());
+                    ArrayList<GuestBooking> responseGetAccommodationsObject = MoshiConverter.convertAPIGuestBookingsResponseToJavaObjects(response.body());
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+                    accommodationsCallback.onSuccess(responseGetAccommodationsObject, token);
                 }
                 else{
                     String message = "Ocurrio un error al recuperar los alojamiento";
+
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
                             JsonParser jsonParser = new JsonParser();
                             JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
                             message = jsonObject.get("message").getAsString();
-                            accommodationsCallback.onError(message);
+                            accommodationsCallback.onError(message, token);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
 
-                    accommodationsCallback.onError(message);
+                    accommodationsCallback.onError(message, token);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseGuestBookedAccommodations> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage());
+                accommodationsCallback.onError(t.getMessage(), "");
             }
         });
     }
@@ -230,9 +273,15 @@ public class RemoteAccommodationsDataSource {
                         token = token.substring(7);
                     }
 
-                    accommodationCallback.onSuccess(accommodationSaved, token);
+                    accommodationCallback.onSuccess(accommodationSaved, response.message(), token);
                 } else {
                     String message = "Ocurrio un error al actualizar";
+
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
 
                     if (response.errorBody() != null) {
                         try {
@@ -240,18 +289,18 @@ public class RemoteAccommodationsDataSource {
                             JsonParser jsonParser = new JsonParser();
                             JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
                             message = jsonObject.get("message").getAsString();
-                            accommodationCallback.onError(message);
+                            accommodationCallback.onError(message, token);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                    accommodationCallback.onError(message);
+                    accommodationCallback.onError(message, token);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseAccommodationObject> call, Throwable t) {
-                accommodationCallback.onError(t.getMessage());
+               accommodationCallback.onError(t.getMessage(), "");
             }
         });
     }
@@ -269,27 +318,32 @@ public class RemoteAccommodationsDataSource {
                     if (token != null && token.startsWith("Bearer ")) {
                         token = token.substring(7);
                     }
-                    accommodationCallback.onSuccess(accommodationSaved, token);
+                    accommodationCallback.onSuccess(accommodationSaved, response.message(),token);
                 } else {
                     String message = "Ocurrio un error al actualizar";
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
                             JsonParser jsonParser = new JsonParser();
                             JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
                             message = jsonObject.get("message").getAsString();
-                            accommodationCallback.onError(message);
+                            accommodationCallback.onError(message, token);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                    accommodationCallback.onError(message);
+                    accommodationCallback.onError(message, token);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseAccommodationObject> call, Throwable t) {
-                accommodationCallback.onError(t.getMessage());
+                accommodationCallback.onError(t.getMessage(), "");
             }
         });
     }
@@ -300,9 +354,20 @@ public class RemoteAccommodationsDataSource {
             @Override
             public void onResponse(Call<ResponseGetAccommodationsObject> call, Response<ResponseGetAccommodationsObject> response) {
                 if (response.isSuccessful()){
-                    ResponseGetAccommodationsObject responseGetAccommodationsObject = response.body();
-                    accommodationsCallback.onSuccess(MoshiConverter.convertAPIAccommodationsResponseToJavaObjects(responseGetAccommodationsObject), response.message());
+                    ArrayList<Accommodation> accommodations = MoshiConverter.convertAPIAccommodationsResponseToJavaObjects(response.body());
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+                    accommodationsCallback.onSuccess(accommodations, token);
                 }else{
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+
                     String message = "Ocurrio un error al recuperar los alojamientos";
                     if (response.errorBody() != null) {
                         try {
@@ -310,18 +375,18 @@ public class RemoteAccommodationsDataSource {
                             JsonParser jsonParser = new JsonParser();
                             JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
                             message = jsonObject.get("message").getAsString();
-                            accommodationsCallback.onError(message);
+                            accommodationsCallback.onError(message, token);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                    accommodationsCallback.onError(message);
+                    accommodationsCallback.onError(message,token);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage());
+                accommodationsCallback.onError(t.getMessage(), token);
             }
         });
     }
@@ -332,7 +397,12 @@ public class RemoteAccommodationsDataSource {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
-                    passwordCodeCallback.onSucces(response.message());
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
+                    }
+                    passwordCodeCallback.onSucces(token);
                 }
                 else{
                     String message = "Ocurrio un error al recuperar los alojamientos";

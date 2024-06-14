@@ -13,6 +13,7 @@ import java.util.List;
 public class GetAccommodationsUseCase {
 
     AccommodationsRepository accommodationsRepository = new AccommodationsRepository();
+
     public void getAllAccommodations(String token, AccommodationsCallback accommodationsCallback) {
         accommodationsRepository.getAllAccommodations(token, new AccommodationsCallback() {
             @Override
@@ -21,8 +22,8 @@ public class GetAccommodationsUseCase {
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -35,8 +36,8 @@ public class GetAccommodationsUseCase {
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -50,8 +51,8 @@ public class GetAccommodationsUseCase {
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -64,8 +65,8 @@ public class GetAccommodationsUseCase {
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -73,13 +74,13 @@ public class GetAccommodationsUseCase {
     public void getHostBookedAccommodations(String userId, String token, BookedAccommodationsCallBack accommodationsCallback){
         accommodationsRepository.getHostBookedAccommodations(userId, token, new BookedAccommodationsCallBack() {
             @Override
-            public void onSuccess(List<BookedAccommodation> accommodations, String token) {
-                accommodationsCallback.onSuccess(accommodations, token);
+            public void onSuccess(List<BookedAccommodation> accommodations, String newToken) {
+                accommodationsCallback.onSuccess(accommodations, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }
@@ -87,13 +88,13 @@ public class GetAccommodationsUseCase {
     public void getGuestBookedAccommodations(String userId, String bookingStatus, String token, GuestBookedAccommodationCallBack accommodationsCallback){
         accommodationsRepository.getGuestBookedAccommodations(userId, bookingStatus,token, new GuestBookedAccommodationCallBack() {
             @Override
-            public void onSuccess(List<GuestBooking> accommodations, String message) {
-                accommodationsCallback.onSuccess(accommodations, message);
+            public void onSuccess(List<GuestBooking> accommodations, String newToken) {
+                accommodationsCallback.onSuccess(accommodations, newToken);
             }
 
             @Override
-            public void onError(String errorMessage) {
-                accommodationsCallback.onError(errorMessage);
+            public void onError(String errorMessage, String newToken) {
+                accommodationsCallback.onError(errorMessage, newToken);
             }
         });
     }

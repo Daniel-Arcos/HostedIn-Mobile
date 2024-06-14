@@ -70,14 +70,20 @@ public class HostBookedAccommodationsViewModel extends AndroidViewModel {
             getAccommodationsUseCase.getHostBookedAccommodations(userId, token, new BookedAccommodationsCallBack() {
 
                 @Override
-                public void onSuccess(List<BookedAccommodation> accommodations, String message) {
-                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, message));
+                public void onSuccess(List<BookedAccommodation> accommodations, String newToken) {
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "newToken"));
                     accommodationsList.setValue(accommodations);
+                    if (newToken != null && !newToken.equals("")) {
+                        DataStoreAccess.saveToken(getApplication(), newToken);
+                    }
                     fetchMainImageAccommodation(accommodations);
                 }
 
                 @Override
-                public void onError(String errorMessage) {
+                public void onError(String errorMessage, String newToken) {
+                    if (newToken != null && !newToken.equals("")) {
+                        DataStoreAccess.saveToken(getApplication(), newToken);
+                    }
                     requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
                 }
             });

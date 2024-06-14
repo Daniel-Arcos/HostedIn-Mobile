@@ -39,13 +39,19 @@ public class HostAccBookingsListViewModel extends AndroidViewModel {
         getBookingsOfAccommodation.getBookingsOfSpecificAccommodation(accommodationId, token, new BookingsCallback() {
 
             @Override
-            public void onSuccess(List<Booking> bookingList, String message) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, message));
+            public void onSuccess(List<Booking> bookingList, String newToken) {
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "newToken"));
                 bookingsList.setValue(bookingList);
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
             }
 
             @Override
-            public void onError(String errorMessage) {
+            public void onError(String errorMessage, String newToken) {
+                if(newToken != null && !newToken.isEmpty()){
+                    DataStoreAccess.saveToken(getApplication(), newToken);
+                }
                 requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, errorMessage));
             }
         });
