@@ -317,4 +317,6 @@
     <string name="header_monthly_earns">Monthly income</string>
     <string name="tag_earnings">Earnings</string>
     <string name="messg_generic_error_connection">There was a conection problem, please check your network and try again or later on.</string>
+    <string name="this_field_can_not_be_empty">This field cannot be empty</string>
+    <string name="password_updated_successfully">Password updated successfully</string>
 </resources>

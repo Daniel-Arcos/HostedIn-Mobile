@@ -56,7 +56,6 @@ public class ProfileActivity extends AppCompatActivity {
         profileViewModel = new ViewModelProvider(this, new ViewModelFactory(getApplication())).get(ProfileViewModel.class);
         manageProgressBarCircle();
         manageRequestChangePasswordStatus();
-        configurePasswordFields();
     }
 
     @Override
@@ -79,11 +78,11 @@ public class ProfileActivity extends AppCompatActivity {
             binding.etxCurrentPassword.getEditText().requestFocus();
         });
         binding.cancelChangePasswordBtn.setOnClickListener(v -> {
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(
                     getCurrentFocus().getWindowToken(), 0
             );
+            closeChangePasswordSheet();
         });
         binding.btnMyAccount.setOnClickListener( v -> openEditProfileActivity());
         binding.btnDeleteAccount.setOnClickListener( v -> openDeleteAccountActivity());
@@ -109,36 +108,18 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void configurePasswordFields() {
-        binding.etxCurrentPassword.getEditText().addTextChangedListener(new TextChangedListener<EditText>(binding.etxCurrentPassword.getEditText()) {
-            @Override
-            public void onTextChanged(EditText target, Editable s) {
-                validateCurrentPassword();
-            }
-        });
-        binding.etxNewPassword.getEditText().addTextChangedListener(new TextChangedListener<EditText>(binding.etxNewPassword.getEditText()) {
-            @Override
-            public void onTextChanged(EditText target, Editable s) {
-                validateNewPassword();
-            }
-        });
-        binding.etxNewPasswordConfirmation.getEditText().addTextChangedListener(new TextChangedListener<EditText>(binding.etxNewPasswordConfirmation.getEditText()) {
-            @Override
-            public void onTextChanged(EditText target, Editable s) {
-                validateNewPasswordConfirmation();
-            }
-        });
-    }
-
     private boolean validateCurrentPassword() {
         boolean correct = true;
         String userPassword = profileViewModel.getUserMutableLiveData().getValue().getPassword();
         String currentPassword = binding.etxCurrentPassword.getEditText().getText().toString();
-        if (currentPassword.equals("") || currentPassword.isEmpty()) {
+        if (currentPassword.trim().isEmpty()) {
+            binding.txvCurrentPassword.setText(R.string.this_field_can_not_be_empty);
+            binding.txvCurrentPassword.setVisibility(View.VISIBLE);
             return false;
         }
         boolean equal = BCrypt.checkpw(currentPassword, userPassword);
         if (!equal) {
+            binding.txvCurrentPassword.setText(R.string.passwords_dont_match);
             binding.txvCurrentPassword.setVisibility(View.VISIBLE);
             correct = false;
         } else {
@@ -150,12 +131,8 @@ public class ProfileActivity extends AppCompatActivity {
     private boolean validateNewPassword() {
         boolean validPassword = true;
         String password = binding.etxNewPassword.getEditText().getText().toString();
-        if (password.equals("") || password.isEmpty()) {
-            return false;
-        }
         Pattern pattern = Pattern.compile(REGEX);
         Matcher matcher = pattern.matcher(password);
-
         if (!matcher.matches()) {
             binding.txvNewPassword.setText(R.string.password_rules);
             binding.txvNewPassword.setVisibility(View.VISIBLE);
@@ -173,9 +150,6 @@ public class ProfileActivity extends AppCompatActivity {
     private boolean validateNewPasswordConfirmation() {
         String newPassword = binding.etxNewPassword.getEditText().getText().toString();
         String newPasswordConfirmation = binding.etxNewPasswordConfirmation.getEditText().getText().toString();
-        if (newPasswordConfirmation.equals("")||newPasswordConfirmation.isEmpty()) {
-            return false;
-        }
         boolean equal = true;
         if (!newPasswordConfirmation.equals(newPassword)) {
             equal = false;

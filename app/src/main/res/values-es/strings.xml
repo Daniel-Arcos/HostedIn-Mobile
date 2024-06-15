@@ -315,5 +315,7 @@
     <string name="header_monthly_earns">Ingresos mensuales</string>
     <string name="tag_earnings">Ganacias</string>
     <string name="messg_generic_error_connection">Hubo un problema de conexión, porfavor revisa tu conexión a red e intentalo de nuevo o mas tarde.</string>
+    <string name="this_field_can_not_be_empty">Este campo no puede estar vacio</string>
+    <string name="password_updated_successfully">Contraseña actualizada exitosamente</string>
 
 </resources>

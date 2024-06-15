@@ -107,12 +107,7 @@ public class ExploreFragment extends Fragment {
 
         binding.changeToHostBtn.setOnClickListener(v -> changeToHostMenu());
         binding.profileBtn.setOnClickListener(v -> changeToUserProfile());
-        binding.btnDeleteResults.setOnClickListener(v -> {
-            binding.searchBar.setText("");
-            exploreViewModel.setPlaceToSearch("");
-            exploreViewModel.getAllAccommodationsExceptUserAccommodations();
-        });
-
+        configureDeleteResultsButton();
         binding.rcyvAccommodationsExplore.setLayoutManager(new LinearLayoutManager(this.getContext()));
         AccommodationAdapter adapter = new AccommodationAdapter(this.getContext());
         adapter.setOnItemClickListener(this::goToAccommodationDetails);
@@ -145,6 +140,13 @@ public class ExploreFragment extends Fragment {
         binding.swiperefresh.setRefreshing(false);
     }
 
+    private void configureDeleteResultsButton() {
+        binding.btnDeleteResults.setOnClickListener(v -> {
+            binding.searchBar.setText("");
+            exploreViewModel.setPlaceToSearch("");
+            exploreViewModel.getAllAccommodationsExceptUserAccommodations();
+        });
+    }
     private void changeToHostMenu() {
         Intent intent = new Intent(this.getActivity(), HostMainActivity.class);
         if (exploreViewModel.getRequestStatusMutableLiveData().getValue() != null) {
@@ -153,7 +155,6 @@ public class ExploreFragment extends Fragment {
             this.getActivity().finish();
         } else {
             ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.messg_generic_error));
-            //GoToLogin
         }
     }
 
@@ -177,9 +178,6 @@ public class ExploreFragment extends Fragment {
                         placeResults.add(placeResult);
                     }
                     placeAdapter.submitList(placeResults);
-                })
-                .addOnFailureListener(command -> {
-
                 });
     }
 

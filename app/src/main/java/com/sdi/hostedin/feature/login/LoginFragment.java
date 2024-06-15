@@ -28,6 +28,8 @@ import com.sdi.hostedin.utils.TextChangedListener;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link LoginFragment#newInstance} factory method to
@@ -65,13 +67,23 @@ public class LoginFragment extends Fragment {
         });
         binding.btnSignup.setOnClickListener(v -> {GoToSignUp();});
         binding.btnForgotPassword.setOnClickListener(v -> recoverPassword());
+        configureEmailField();
+        configurePasswordField();
+        manageProgressBar();
+        return  binding.getRoot();
+    }
+
+    private void configureEmailField() {
         binding.etxEmail.getEditText().addTextChangedListener(
                 new TextChangedListener<EditText>(binding.etxEmail.getEditText()) {
                     @Override
                     public void onTextChanged(EditText target, Editable s) {
                         binding.txvEmailError.setVisibility(View.GONE);
                     }
-        });
+                });
+    }
+
+    private void configurePasswordField() {
         binding.etxPassword.getEditText().addTextChangedListener(
                 new TextChangedListener<EditText>(binding.etxPassword.getEditText()) {
                     @Override
@@ -79,8 +91,6 @@ public class LoginFragment extends Fragment {
                         binding.txvPasswordError.setVisibility(View.GONE);
                     }
                 });
-        manageProgressBar();
-        return  binding.getRoot();
     }
 
     private void manageProgressBar() {
@@ -109,10 +119,16 @@ public class LoginFragment extends Fragment {
         String password = binding.etxPassword.getEditText().getText().toString();
         if (email.equals("")) {
             valid = false;
+            binding.txvEmailError.setText(R.string.required_field);
+            binding.txvEmailError.setVisibility(View.VISIBLE);
+        } else if (!validateIsEmail()) {
+            valid = false;
+            binding.txvEmailError.setText(R.string.invalid_email_format);
             binding.txvEmailError.setVisibility(View.VISIBLE);
         }
         if (password.equals("")) {
             valid = false;
+            binding.txvPasswordError.setText(R.string.required_field);
             binding.txvPasswordError.setVisibility(View.VISIBLE);
         }
         return valid;
@@ -185,6 +201,16 @@ public class LoginFragment extends Fragment {
     private void recoverPassword(){
         Intent intent = new Intent(this.getActivity(), RecoverPasswordActivity.class);
         startActivity(intent);
+    }
+
+    private boolean validateIsEmail() {
+        boolean isEmail = true;
+        String email = binding.etxEmail.getEditText().getText().toString();
+        EmailValidator emailValidator = EmailValidator.getInstance();
+        if (!emailValidator.isValid(email)) {
+            isEmail = false;
+        }
+        return isEmail;
     }
 
 }

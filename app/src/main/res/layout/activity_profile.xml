@@ -209,15 +209,6 @@
                         android:layout_marginTop="5dp"
                         android:textColor="@color/design_default_color_error"/>
 
-                    <Button
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:id="@+id/btn_forgot_password"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:text="@string/did_forget_your_password"
-                        android:layout_below="@+id/txv_current_password"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"/>
 
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -225,9 +216,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/new_password"
-                        android:layout_below="@id/btn_forgot_password"
+                        android:layout_below="@id/txv_current_password"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
+                        android:layout_marginTop="5dp"
                         app:boxCornerRadiusBottomEnd="10dp"
                         app:boxCornerRadiusBottomStart="10dp"
                         app:boxCornerRadiusTopEnd="10dp"
