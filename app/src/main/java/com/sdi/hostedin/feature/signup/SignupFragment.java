@@ -2,18 +2,17 @@ package com.sdi.hostedin.feature.signup;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.datastore.preferences.core.Preferences;
-import androidx.datastore.rxjava2.RxDataStore;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.rxjava2.RxDataStore;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.model.User;
@@ -57,6 +56,7 @@ public class SignupFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ToastUtils.setContext(getContext());
     }
 
     @Override

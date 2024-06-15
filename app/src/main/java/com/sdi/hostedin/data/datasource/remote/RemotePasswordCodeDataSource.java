@@ -6,6 +6,7 @@ import com.sdi.hostedin.data.callbacks.PasswordCodeCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
+import com.sdi.hostedin.utils.ToastUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +45,7 @@ public class RemotePasswordCodeDataSource {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                sendPasswordCodeCallback.onError(t.getMessage());
+                sendPasswordCodeCallback.onError(ToastUtils.getGenericErrorMessageConection());
             }
         });
     }
@@ -78,7 +79,7 @@ public class RemotePasswordCodeDataSource {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                verifyPasswordCode.onError(t.getMessage());
+                verifyPasswordCode.onError(ToastUtils.getGenericErrorMessageConection());
             }
         });
     }
@@ -107,7 +108,7 @@ public class RemotePasswordCodeDataSource {
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                newPassWordCallBack.onError(t.getMessage());
+                newPassWordCallBack.onError(ToastUtils.getGenericErrorMessageConection());
             }
         });
     }

@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.datastore.preferences.core.Preferences;
@@ -24,8 +22,6 @@ import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentCancelationReasonSelectionBinding;
 import com.sdi.hostedin.feature.cancelation.CancelationViewModel;
 import com.sdi.hostedin.feature.cancelation.cancelationdetails.CancelationDetailsFragment;
-import com.sdi.hostedin.feature.guest.explore.accommodations.ExploreViewModel;
-import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
@@ -104,7 +100,7 @@ public class CancelationReasonSelectionFragment extends Fragment {
         if (!cancelationViewModel.getReasonsCancellation().getValue().isEmpty()) {
             cancelationViewModel.cancelBooking(createCancellation());
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Debes seleccionar un motivo");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.isntruction_select_a_reason));
         }
     }
 

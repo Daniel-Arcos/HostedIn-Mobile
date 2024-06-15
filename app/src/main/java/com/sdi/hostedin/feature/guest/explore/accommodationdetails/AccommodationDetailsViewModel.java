@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.MyApplication;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.callbacks.ReviewsCallback;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Accommodation;
@@ -60,7 +61,7 @@ public class AccommodationDetailsViewModel extends AndroidViewModel {
 
     public void getAccommodationReviews(String accommodationId) {
         GetReviewsUseCase getReviewsUseCase = new GetReviewsUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
 
         String token = DataStoreAccess.accessToken(getApplication());
         getReviewsUseCase.getReviewsOfAccommodation(accommodationId, token, new ReviewsCallback() {
@@ -70,7 +71,7 @@ public class AccommodationDetailsViewModel extends AndroidViewModel {
                 if (newToken != null && !newToken.equals("")) {
                     DataStoreAccess.saveToken(getApplication(), newToken);
                 }
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Reviews recovered"));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.mssg_reviews_recovered)));
             }
 
             @Override
@@ -98,7 +99,7 @@ public class AccommodationDetailsViewModel extends AndroidViewModel {
     }
 
     public void loadAccommodationMultimedia(String _id) {
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
         MultimediasRepository multimediasRepository = new MultimediasRepository(executorService);
         multimediasRepository.loadAccommodationMultimedia(_id, new MultimediasRepository.LoadAccommodationMultimediaCallback() {
             @Override
@@ -115,7 +116,7 @@ public class AccommodationDetailsViewModel extends AndroidViewModel {
                 }
                 currentList.add(multimedia);
                 multimediasListMutableLiveData.postValue(currentList);
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Multimedia recovered"));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_multimedia_recovered)));
             }
 
             @Override
@@ -127,7 +128,7 @@ public class AccommodationDetailsViewModel extends AndroidViewModel {
                 byte[] genericMulti = new byte[1];
                 currentList.add(genericMulti);
                 multimediasListMutableLiveData.postValue(currentList);
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Multimedia Not recovered"));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_multimedia_not_recovered)));
             }
         }, mainHandler);
     }
@@ -139,7 +140,7 @@ public class AccommodationDetailsViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(List<byte[]> multimedias) {
                 multimediasListMutableLiveData.setValue(multimedias);
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Multimedia recovered"));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_multimedia_recovered)));
             }
 
             @Override
@@ -162,7 +163,7 @@ public class AccommodationDetailsViewModel extends AndroidViewModel {
                 currentList.add(genericMulti3);
                 currentList.add(genericMulti4);
                 multimediasListMutableLiveData.postValue(currentList);
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, "Multimedia Not recovered"));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, getApplication().getString(R.string.messg_multimedia_not_recovered)));
             }
         }, mainHandler);
     }

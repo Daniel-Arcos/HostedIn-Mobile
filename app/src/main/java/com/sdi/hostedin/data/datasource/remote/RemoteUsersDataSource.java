@@ -8,6 +8,7 @@ import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseDelete
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
 import com.sdi.hostedin.data.model.User;
+import com.sdi.hostedin.utils.ToastUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,7 +73,7 @@ public class RemoteUsersDataSource {
 
             @Override
             public void onFailure(Call<ResponseAuthObject> call, Throwable t) {
-                authCallback.onError(t.getMessage());
+                authCallback.onError(ToastUtils.getGenericErrorMessageConection());
             }
         });
     }
@@ -109,7 +110,7 @@ public class RemoteUsersDataSource {
 
             @Override
             public void onFailure(Call<ResponseAuthObject> call, Throwable t) {
-                authCallback.onError(t.getMessage());
+                authCallback.onError(ToastUtils.getGenericErrorMessageConection());
             }
         });
     }
@@ -150,7 +151,7 @@ public class RemoteUsersDataSource {
 
             @Override
             public void onFailure(Call<ResponseEditAccountObject> call, Throwable t) {
-                editAccountCallback.onError(t.getMessage());
+                editAccountCallback.onError(ToastUtils.getGenericErrorMessageConection());
             }
         });
     }
@@ -191,7 +192,7 @@ public class RemoteUsersDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetUserObject> call, Throwable t) {
-                getAccountCallback.onError(t.getMessage());
+                getAccountCallback.onError(ToastUtils.getGenericErrorMessageConection());
             }
         });
     }
@@ -228,7 +229,7 @@ public class RemoteUsersDataSource {
 
             @Override
             public void onFailure(Call<ResponseDeleteAccountObject> call, Throwable t) {
-                deleteAccountCallback.onError(t.getMessage());
+                deleteAccountCallback.onError(ToastUtils.getGenericErrorMessageConection());
             }
         });
     }

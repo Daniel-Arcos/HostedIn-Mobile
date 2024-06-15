@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.domain.EditProfileUseCase;
@@ -25,7 +26,7 @@ public class EditProfileViewModel extends AndroidViewModel {
 
     public void editProfile(User user) {
         EditProfileUseCase editProfileUseCase = new EditProfileUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
 
         String token = DataStoreAccess.accessToken(getApplication());
         editProfileUseCase.editProfile(user, token, new EditProfileUseCase.EditProfileCallback() {

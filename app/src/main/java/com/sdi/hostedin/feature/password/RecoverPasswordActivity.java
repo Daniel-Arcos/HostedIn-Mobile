@@ -2,7 +2,6 @@ package com.sdi.hostedin.feature.password;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,7 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.sdi.hostedin.MainActivity;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.ActivityRecoverPasswordBinding;
+import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
 public class RecoverPasswordActivity extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class RecoverPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRecoverPasswordBinding.inflate(getLayoutInflater());
+        ToastUtils.setContext(getApplicationContext());
         fragmentNumber = 1;
         setContentView(binding.getRoot());
         binding.bttConfirmAction.setOnClickListener(v -> clicButtonConfirm());
@@ -48,7 +50,6 @@ public class RecoverPasswordActivity extends AppCompatActivity {
                     Toast.makeText(this,status.getMessage(), Toast.LENGTH_SHORT).show();
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
                     binding.bttConfirmAction.setEnabled(true);
-                    Log.e("testTris", status.getMessage());
             }
         });
         recoverPasswordViewModel.getToken().observe(this, tokenGenerated ->{
@@ -67,10 +68,10 @@ public class RecoverPasswordActivity extends AppCompatActivity {
                     this.email = fragment.getEmail();
                     fragment.trySendEmailCode();
                 }else if (isValidEmail == 2){
-                    Toast.makeText(this, "Formato incorrecto", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showShortInformationMessage(this, getString(R.string.messg_incorrect_format));
                 }
                 else{
-                    Toast.makeText(this, "Campos email obligatorio", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showShortInformationMessage(this, getString(R.string.messg_requiered_field));
                 }
                 break;
             case 2:
@@ -79,7 +80,7 @@ public class RecoverPasswordActivity extends AppCompatActivity {
                     fragment1.verifyCode();
                 }
                 else{
-                    Toast.makeText(this, "Codigo incorrecto", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showShortInformationMessage(this, getString(R.string.messg_wrong_code));
                 }
                 break;
             case 3:
@@ -88,7 +89,7 @@ public class RecoverPasswordActivity extends AppCompatActivity {
                     fragment2.changePassword(email, token);
                 }
                 else{
-                    Toast.makeText(this, "Ingrese una contraseña", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showShortInformationMessage(this, getString(R.string.messg_enter_newPassword));
                 }
                 break;
             default:
@@ -99,14 +100,14 @@ public class RecoverPasswordActivity extends AppCompatActivity {
         switch (fragmentNumber){
             case 1:
                 ChangeFragment(binding.fgcvRecoverPasswordFragmentContainer.getId(), new RecoverPasswordCodeEntryFragment(recoverPasswordViewModel), 2);
-                binding.bttConfirmAction.setText("Confirm code");
+                binding.bttConfirmAction.setText(R.string.btt_confirm_code);
                 break;
             case 2:
                 ChangeFragment(binding.fgcvRecoverPasswordFragmentContainer.getId(), new RecoverPasswordNewPassEntryFragment(recoverPasswordViewModel), 3);
-                binding.bttConfirmAction.setText("Confirm password");
+                binding.bttConfirmAction.setText(R.string.btt_confirm_password);
                 break;
             case 3:
-                Toast.makeText(this, "Contraseña actualizada correctamente", Toast.LENGTH_LONG).show();
+                ToastUtils.showLongInformationMessage(this, getString(R.string.updated_password));
                 goToLogin();
                 break;
             default:
@@ -127,11 +128,11 @@ public class RecoverPasswordActivity extends AppCompatActivity {
             switch (fragmentNumber) {
                 case 3:
                     fragmentNumber = 2;
-                    binding.bttConfirmAction.setText("Confirm code");
+                    binding.bttConfirmAction.setText(R.string.btt_confirm_code);
                     break;
                 case 2:
                     fragmentNumber = 1;
-                    binding.bttConfirmAction.setText("Confirm email");
+                    binding.bttConfirmAction.setText(R.string.btt_confirm_password);
                     break;
             }
         } else {

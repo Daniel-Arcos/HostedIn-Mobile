@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.domain.CreateAccountUseCase;
@@ -31,7 +32,7 @@ public class SignupViewModel extends AndroidViewModel {
 
     public void signUp(User user) {
         CreateAccountUseCase createAccountUseCase = new CreateAccountUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
 
         createAccountUseCase.createAccount(user, new CreateAccountUseCase.CreateAccountCallback() {
             @Override
@@ -39,7 +40,7 @@ public class SignupViewModel extends AndroidViewModel {
                 DataStoreAccess.saveToken(getApplication(), token);
                 DataStoreAccess.saveUserId(getApplication(), user.getId());
                 userMutableLiveData.setValue(user);
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Account created"));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_account_created)));
             }
 
             @Override

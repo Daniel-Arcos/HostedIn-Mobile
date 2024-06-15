@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.MyApplication;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.callbacks.AccommodationsCallback;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Accommodation;
@@ -74,7 +75,7 @@ public class ExploreViewModel extends AndroidViewModel {
 
     public void getAllAccommodationsExceptUserAccommodations() {
         GetAccommodationsUseCase getAccommodationsUseCase = new GetAccommodationsUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
         String idUser = DataStoreAccess.accessUserId(this.getApplication());
         if (idUser != null) {
             String token = DataStoreAccess.accessToken(getApplication());
@@ -85,7 +86,7 @@ public class ExploreViewModel extends AndroidViewModel {
                     if (token != null && !token.equals("")) {
                         DataStoreAccess.saveToken(getApplication(), token);
                     }
-                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodations"));
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_acommodations)));
                     fetchMainImageAccommodation(accommodations);
                 }
 
@@ -102,14 +103,14 @@ public class ExploreViewModel extends AndroidViewModel {
 
     public void searchAccommodations(double lat, double lng) {
         GetAccommodationsUseCase getAccommodationsUseCase = new GetAccommodationsUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
         String idUser = DataStoreAccess.accessUserId(this.getApplication());
         if (idUser != null) {
             String token = DataStoreAccess.accessToken(getApplication());
             getAccommodationsUseCase.getAllAccommodationsByLocationExceptUserAccommodations(idUser, lat, lng, token, new AccommodationsCallback() {
                 @Override
                 public void onSuccess(List<Accommodation> accommodations, String token) {
-                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodations"));
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_acommodations)));
                     accommodationsLiveData.setValue(accommodations);
                     if (token != null && !token.equals("")) {
                         DataStoreAccess.saveToken(getApplication(), token);

@@ -17,6 +17,7 @@ import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGuestB
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.BookedAccommodation;
 import com.sdi.hostedin.data.model.GuestBooking;
+import com.sdi.hostedin.utils.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -69,7 +70,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage(), "");
+                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
         });
     }
@@ -115,7 +116,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage(), "");
+                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
         });
     }
@@ -162,7 +163,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage(), token);
+                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), token);
             }
         });
     }
@@ -207,7 +208,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseBookedAccommodation> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage(), "");
+                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
         });
     }
@@ -253,7 +254,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGuestBookedAccommodations> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage(), "");
+                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
         });
     }
@@ -300,7 +301,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseAccommodationObject> call, Throwable t) {
-               accommodationCallback.onError(t.getMessage(), "");
+               accommodationCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
         });
     }
@@ -343,7 +344,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseAccommodationObject> call, Throwable t) {
-                accommodationCallback.onError(t.getMessage(), "");
+                accommodationCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
         });
     }
@@ -386,7 +387,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(t.getMessage(), token);
+                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), token);
             }
         });
     }
@@ -423,7 +424,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                passwordCodeCallback.onError(t.getMessage());
+                passwordCodeCallback.onError(ToastUtils.getGenericErrorMessageConection());
             }
         });
     }

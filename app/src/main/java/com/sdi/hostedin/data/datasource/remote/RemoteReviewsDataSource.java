@@ -9,6 +9,7 @@ import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetReviewsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseReviewObject;
 import com.sdi.hostedin.data.model.Review;
+import com.sdi.hostedin.utils.ToastUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,7 +59,7 @@ public class RemoteReviewsDataSource {
 
             @Override
             public void onFailure(Call<ResponseReviewObject> call, Throwable t) {
-                reviewCallback.onError(t.getMessage(), "");
+                reviewCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
 
         });
@@ -104,7 +105,7 @@ public class RemoteReviewsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetReviewsObject> call, Throwable t) {
-                reviewsCallback.onError(t.getMessage(), "");
+                reviewsCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
         });
     }

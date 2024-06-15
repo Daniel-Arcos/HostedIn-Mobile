@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.MyApplication;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.AccommodationGrpc;
 import com.sdi.hostedin.data.model.EarningGrpc;
@@ -64,18 +65,18 @@ public class StaticticsViewModel extends AndroidViewModel {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+                requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
                 StaticticsRepository staticticsRepository = new StaticticsRepository();
                 staticticsRepository.getMostBookedAccommodations(token, new StaticticsRepository.GetAccommodations() {
                     @Override
                     public void onSuccess(List<AccommodationGrpc> accommodations) {
                         mostBookedAccommodationsLiveData.postValue(accommodations);
-                        requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.DONE, "Estadisticas recuperadas"));
+                        requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_recovered_statistics)));
                     }
 
                     @Override
                     public void onError(String message) {
-                        requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.ERROR, "Ocurrio un problema al recuperar alguna de las estadisticas."));
+                        requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.ERROR, getApplication().getString(R.string.messg_statistics_not_recovered)));
                     }
                 });
             }
@@ -88,18 +89,18 @@ public class StaticticsViewModel extends AndroidViewModel {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+                requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
                 StaticticsRepository staticticsRepository = new StaticticsRepository();
                 staticticsRepository.getBestRatedAccommodations(token, new StaticticsRepository.GetAccommodations() {
                     @Override
                     public void onSuccess(List<AccommodationGrpc> accommodations) {
                         bestRatedAccommodationsLiveData.postValue(accommodations);
-                        requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.DONE, "Estadisticas recuperadas"));
+                        requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_recovered_statistics)));
                     }
 
                     @Override
                     public void onError(String message) {
-                        requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.ERROR, "Ocurrio un problema al recuperar alguna de las estadisticas."));
+                        requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.ERROR, getApplication().getString(R.string.messg_statistics_not_recovered)));
                     }
                 });
             }
@@ -113,18 +114,18 @@ public class StaticticsViewModel extends AndroidViewModel {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+                requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
                 StaticticsRepository staticticsRepository = new StaticticsRepository();
                 staticticsRepository.getMostBookedAccommodationsHost(token, idHost, new StaticticsRepository.GetAccommodations() {
                     @Override
                     public void onSuccess(List<AccommodationGrpc> accommodations) {
                         mostBookedAccommodationsHostLiveData.postValue(accommodations);
-                        requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.DONE, "Estadisticas recuperadas"));
+                        requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_recovered_statistics)));
                     }
 
                     @Override
                     public void onError(String message) {
-                        requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.ERROR, "Ocurrio un problema al recuperar alguna de las estadisticas."));
+                        requestBarOneStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.ERROR, getApplication().getString(R.string.messg_statistics_not_recovered)));
                     }
                 });
             }
@@ -138,18 +139,18 @@ public class StaticticsViewModel extends AndroidViewModel {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+                requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
                 StaticticsRepository staticticsRepository = new StaticticsRepository();
                 staticticsRepository.getEarnings(token, idHost, new StaticticsRepository.GetEarnings() {
                     @Override
                     public void onSuccess(List<EarningGrpc> earnings) {
                         earningsHostLiveData.postValue(earnings);
-                        requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.DONE, "Estadisticas recuperadas"));
+                        requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_recovered_statistics)));
                     }
 
                     @Override
                     public void onError(String message) {
-                        requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.ERROR, "Ocurrio un problema al recuperar alguna de las estadisticas."));
+                        requestBarTwoStatusMutableLiveData.postValue(new RequestStatus(RequestStatusValues.ERROR, getApplication().getString(R.string.messg_statistics_not_recovered)));
                     }
                 });
             }

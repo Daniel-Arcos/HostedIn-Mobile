@@ -9,6 +9,7 @@ import com.sdi.hostedin.data.datasource.apiclient.moshiconverters.MoshiConverter
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingsListObject;
 import com.sdi.hostedin.data.model.Booking;
+import com.sdi.hostedin.utils.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,7 @@ public class RemoteBookingsDataSource {
 
             @Override
             public void onFailure(Call<ResponseBookingsListObject> call, Throwable t) {
-                bookingsListCallback.onError(t.getMessage(), "");
+                bookingsListCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
         });
     }
@@ -109,7 +110,7 @@ public class RemoteBookingsDataSource {
 
             @Override
             public void onFailure(Call<ResponseBookingObject> call, Throwable t) {
-                bookingCallback.onError(t.getMessage(), "");
+                bookingCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
         });
     }

@@ -212,7 +212,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
 
     public void createAccommodation(Accommodation accommodation, Context context) {
         CreateAccommodationUseCase createAccommodationUseCase = new CreateAccommodationUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
 
         String token = DataStoreAccess.accessToken(getApplication());
         createAccommodationUseCase.createAccommodation(accommodation, token, new AccommodationCallback() {
@@ -220,7 +220,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
             public void onSuccess(Accommodation accommodation, String message, String newToken) {
                 accommodationMutableLiveData.setValue(accommodation);
                 uploadAccommodationMultimedia(context);
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation created"));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_accommodation_created)));
                 if(newToken != null && !newToken.isEmpty()){
                     DataStoreAccess.saveToken(getApplication(), newToken);
                 }
@@ -281,7 +281,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
 
     public void updateAccommodation(Accommodation accommodation) {
         UpdateAccommodationUseCase updateAccommodationUseCase = new UpdateAccommodationUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
 
         String token = DataStoreAccess.accessToken(getApplication());
         if(fragmentNumberMutableLiveData.getValue() == AccommodationMultimediaFragment.LOCAL_FRAGMENT_NUMBER){
@@ -291,7 +291,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
                 @Override
                 public void onSuccess(Accommodation accommodation, String message, String newToken) {
                     accommodationMutableLiveData.setValue(accommodation);
-                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Accommodation updated"));
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_accommodation_updated)));
                     if(newToken != null && !newToken.equals("")){
                         DataStoreAccess.saveToken(getApplication(), newToken);
                     }
@@ -311,7 +311,7 @@ public class AccommodationFormViewModel extends AndroidViewModel {
 
 
     public void updateAccommodationMultimedia() {
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, "Actualizando imagenes"));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_actualizando_imagenes)));
         String accommodationId = accommodationMutableLiveData.getValue().getId();
 
         byte[][] selectedMultimedia = joinMultimedia();
@@ -321,19 +321,18 @@ public class AccommodationFormViewModel extends AndroidViewModel {
             multimediasRepository.updateAccommodationMultimedia(accommodationId, selectedMultimedia, new MultimediasRepository.UploadAccommodationMultimediaCallback() {
                 @Override
                 public void onSuccess(String message) {
-                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Multimedia actualizada"));
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_updated_multimedia)));
                 }
 
                 @Override
                 public void onError(String message) {
-                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, "Error al actualizar multimedia"));
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.ERROR, getApplication().getString(R.string.messg_updated_multimedia_error)));
                 }
             }, mainHandler);
         }
         else
         {
-            Log.e("PRUEBA", "No multimedia");
-            ToastUtils.showShortInformationMessage(getApplication(), "Error al intentar guardar la multimedia");
+            ToastUtils.showShortInformationMessage(getApplication(), getApplication().getString(R.string.messg_updated_multimedia_error));
         }
     }
 

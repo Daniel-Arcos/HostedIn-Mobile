@@ -286,7 +286,6 @@ public class EditAccommodationFragment extends Fragment {
                     break;
                 case ERROR:
                     binding.pgbEditedAccommodation.setVisibility(View.GONE);
-                    Log.d("PRUEBA", "error: " + status.getMessage());
                     ToastUtils.showShortInformationMessage(getContext(), status.getMessage());
             }
         });

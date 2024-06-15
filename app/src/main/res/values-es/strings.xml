@@ -286,5 +286,34 @@
     <string name="error_uploading_multimedia">Error al subir la multimedia. Puedes editarlo más tarde</string>
     <string name="error_trying_upload_multimedia">Error al intentar guardar la multimedia</string>
     <string name="updated_password">Contraseña actualizada con éxito.</string>
+    <string name="messg_create_cancellation_succ">Reservacion cancelada con éxito</string>
+    <string name="messg_generic_loading">Cargando</string>
+    <string name="mssg_reviews_recovered">Reseñas recuperadas</string>
+    <string name="messg_multimedia_recovered">Multimedia recuperada</string>
+    <string name="messg_multimedia_not_recovered">Multimedia no recuperada</string>
+    <string name="messg_acommodations">Alojamientos</string>
+    <string name="messg_accommodation_created">Alojamiento creado</string>
+    <string name="messg_accommodation_updated">Alojamiento actualizado</string>
+    <string name="messg_actualizando_imagenes">Actualizando multimedia</string>
+    <string name="messg_updated_multimedia">Multimedia actualizada</string>
+    <string name="messg_updated_multimedia_error">Multimedia no actualizada</string>
+    <string name="messg_delete_acc">ALojamiento borrado</string>
+    <string name="messg_bookings_list">Reservaciones recuperadas</string>
+    <string name="messg_account_created">Cuenta creada</string>
+    <string name="messg_recovered_statistics">Estadisticas recuperadas</string>
+    <string name="messg_statistics_not_recovered">Ocurrio un problema al recuperar algunas estadisiticas</string>
+    <string name="isntruction_select_a_reason">Debes seleccionar un motivo</string>
+    <string name="messg_generic_error">Ocurrio un error, intentelo mas tarde.</string>
+    <string name="messg_incorrect_format">Formato invalido</string>
+    <string name="messg_requiered_field">Campo obligatorio</string>
+    <string name="messg_wrong_code">Código incorrecto</string>
+    <string name="messg_enter_newPassword">Ingresa tu nueva contraseña</string>
+    <string name="btt_confirm_code">Confirmar código</string>
+    <string name="btt_confirm_password">Confirmar contraseña</string>
+    <string name="header_most_booked_acco">ALojamientos mas reservados</string>
+    <string name="header_best_acco">ALojamiento mejor calificados</string>
+    <string name="header_monthly_earns">Ingresos mensuales</string>
+    <string name="tag_earnings">Ganacias</string>
+    <string name="messg_generic_error_connection">Hubo un problema de conexión, porfavor revisa tu conexión a red e intentalo de nuevo o mas tarde.</string>
 
 </resources>

@@ -2,18 +2,17 @@ package com.sdi.hostedin.feature.statistics;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.transition.TransitionInflater;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.transition.TransitionInflater;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -94,7 +93,7 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void configureMostBookedAccommodationsBar(List<AccommodationGrpc> mostBookedAccommodations) {
-        binding.txvTitleBarOne.setText("Alojamientos mas reservados");
+        binding.txvTitleBarOne.setText(R.string.header_most_booked_acco);
         BarChart barChart = binding.statisticsBarOne;
         BarDataSet barDataSet = new BarDataSet(transformMostBookedAccommodationsIntoBarEntries(mostBookedAccommodations), "Accomodations");
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
@@ -106,7 +105,7 @@ public class StatisticsFragment extends Fragment {
         barData.setBarWidth(1f);
 
         barChart.setData(barData);
-        barChart.getDescription().setText("Most booked accommodations");
+        barChart.getDescription().setText(getString(R.string.header_most_booked_acco));
         barChart.animateY(2000);
 
         final String[] labels = getAxisLabels(mostBookedAccommodations).toArray(new String[0]);
@@ -124,7 +123,7 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void configureBestRatedAccommodationsBar(List<AccommodationGrpc> bestRatedAccommodations) {
-        binding.txvTitleBarTwo.setText("Alojamientos mejores calificados");
+        binding.txvTitleBarTwo.setText(R.string.header_best_acco);
         BarChart barChart = binding.statisticsBarTwo;
         BarDataSet barDataSet = new BarDataSet(transformBestRatedAccommodationsIntoBarEntries(bestRatedAccommodations), "Accomodations");
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
@@ -136,7 +135,7 @@ public class StatisticsFragment extends Fragment {
         barData.setBarWidth(1f);
 
         barChart.setData(barData);
-        barChart.getDescription().setText("Best rated accommodations");
+        barChart.getDescription().setText(getString(R.string.header_best_acco));
         barChart.animateY(2000);
 
         final String[] labels = getAxisLabels(bestRatedAccommodations).toArray(new String[0]);
@@ -155,11 +154,11 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void configureEarningsBar(List<EarningGrpc> earnings) {
-        binding.txvTitleBarTwo.setText("Ganancias por mes");
+        binding.txvTitleBarTwo.setText(R.string.header_monthly_earns);
         BarChart barChart = binding.statisticsBarTwo;
 
         List<BarEntry> barEntries = transformEarningsIntoBarEntries(earnings);
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Earnings");
+        BarDataSet barDataSet = new BarDataSet(barEntries, getString(R.string.tag_earnings));
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
@@ -168,7 +167,7 @@ public class StatisticsFragment extends Fragment {
         barData.setBarWidth(0.9f);
 
         barChart.setData(barData);
-        barChart.getDescription().setText("Ganancias");
+        barChart.getDescription().setText(getString(R.string.tag_earnings));
         barChart.animateY(2000);
 
         XAxis xAxis = barChart.getXAxis();

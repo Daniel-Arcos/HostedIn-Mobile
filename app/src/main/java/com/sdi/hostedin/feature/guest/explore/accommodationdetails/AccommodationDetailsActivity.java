@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -188,7 +187,6 @@ public class AccommodationDetailsActivity extends AppCompatActivity implements O
                     break;
                 case ERROR:
                     binding.pgbAccommodationDetails.setVisibility(View.GONE);
-                    Log.d("PRUEBA", "error: " + status.getMessage());
                     ToastUtils.showShortInformationMessage(this, status.getMessage());
             }
         });

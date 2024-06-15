@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.MyApplication;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.callbacks.BookedAccommodationsCallBack;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.BookedAccommodation;
@@ -63,7 +64,7 @@ public class HostBookedAccommodationsViewModel extends AndroidViewModel {
     
     public void getHostBookedAccommodations(){
         GetAccommodationsUseCase getAccommodationsUseCase = new GetAccommodationsUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, "Recuperando alojamientos"));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
         String userId = DataStoreAccess.accessUserId(this.getApplication());
         String token = DataStoreAccess.accessToken(getApplication());
         if(userId != null) {
@@ -71,7 +72,7 @@ public class HostBookedAccommodationsViewModel extends AndroidViewModel {
 
                 @Override
                 public void onSuccess(List<BookedAccommodation> accommodations, String newToken) {
-                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "newToken"));
+                    requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_acommodations)));
                     accommodationsList.setValue(accommodations);
                     if (newToken != null && !newToken.equals("")) {
                         DataStoreAccess.saveToken(getApplication(), newToken);

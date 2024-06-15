@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.domain.RecoverPasswordUseCase;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
@@ -28,7 +29,7 @@ public class RecoverPasswordViewModel extends AndroidViewModel {
 
     public void confirmEmail(String email){
         RecoverPasswordUseCase recoverPasswordUseCase = new RecoverPasswordUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
 
         recoverPasswordUseCase.confirmEmail(email, new RecoverPasswordUseCase.RecoverPasswordCallback() {
             @Override
@@ -45,7 +46,7 @@ public class RecoverPasswordViewModel extends AndroidViewModel {
 
     public void verifyCode(String code){
         RecoverPasswordUseCase recoverPasswordUseCase = new RecoverPasswordUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
         recoverPasswordUseCase.verifyPasswordCode(code, new RecoverPasswordUseCase.RecoverPasswordCallback() {
             @Override
             public void onSucces(String message) {
@@ -62,7 +63,7 @@ public class RecoverPasswordViewModel extends AndroidViewModel {
 
     public void changePasswordWitCodeRecovery(String token, String newPassword, String email){
         RecoverPasswordUseCase recoverPasswordUseCase = new RecoverPasswordUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
         recoverPasswordUseCase.updatePassword(token, newPassword, email, new RecoverPasswordUseCase.RecoverPasswordCallback() {
             @Override
             public void onSucces(String message) {

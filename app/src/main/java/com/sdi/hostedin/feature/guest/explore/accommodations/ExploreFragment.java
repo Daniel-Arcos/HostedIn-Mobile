@@ -152,7 +152,7 @@ public class ExploreFragment extends Fragment {
             startActivity(intent);
             this.getActivity().finish();
         } else {
-            ToastUtils.showShortInformationMessage(this.getContext(), "Ocurrio un problema");
+            ToastUtils.showShortInformationMessage(this.getContext(), getString(R.string.messg_generic_error));
             //GoToLogin
         }
     }

@@ -1,12 +1,12 @@
 package com.sdi.hostedin.feature.cancelation;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.callbacks.CancellationCallback;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Cancellation;
@@ -40,12 +40,12 @@ public class CancelationViewModel extends AndroidViewModel {
     public void cancelBooking(Cancellation cancellation) {
         CancellationsRepository cancellationsRepository = new CancellationsRepository();
         String token = DataStoreAccess.accessToken(getApplication());
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
         cancellationsRepository.cancelBooking(cancellation, token, new CancellationCallback() {
             @Override
             public void onSuccess(Cancellation cancellation, String token) {
                 cancellationResponse.setValue(cancellation);
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Reservacion cancelada con exito"));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_create_cancellation_succ)));
                 if (token != null && !token.equals("")) {
                     DataStoreAccess.saveToken(getApplication(), token);
                 }

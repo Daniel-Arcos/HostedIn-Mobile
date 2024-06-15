@@ -4,11 +4,10 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
-import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.domain.DeleteAccountUseCase;
 import com.sdi.hostedin.ui.RequestStatus;
 import com.sdi.hostedin.ui.RequestStatusValues;
@@ -28,7 +27,7 @@ public class DeleteAccountViewModel extends AndroidViewModel {
 
     public void deleteAccount(String userId) {
         DeleteAccountUseCase deleteAccountUseCase = new DeleteAccountUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
         String token = DataStoreAccess.accessToken(getApplication());
         deleteAccountUseCase.deleteAccount(userId, token, new DeleteAccountUseCase.DeleteAccountCallback() {
             @Override

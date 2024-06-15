@@ -2,20 +2,18 @@ package com.sdi.hostedin.feature.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava2.RxDataStore;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.text.Editable;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
@@ -24,9 +22,8 @@ import com.sdi.hostedin.data.model.User;
 import com.sdi.hostedin.databinding.FragmentLoginBinding;
 import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.host.HostMainActivity;
-import com.sdi.hostedin.feature.signup.SignupFragment;
 import com.sdi.hostedin.feature.password.RecoverPasswordActivity;
-import com.sdi.hostedin.feature.signup.SignupViewModel;
+import com.sdi.hostedin.feature.signup.SignupFragment;
 import com.sdi.hostedin.utils.TextChangedListener;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
@@ -53,6 +50,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ToastUtils.setContext(getContext());
 
     }
 

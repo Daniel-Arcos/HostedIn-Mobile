@@ -6,6 +6,7 @@ import com.sdi.hostedin.data.callbacks.CancellationCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.CancellationResponse;
 import com.sdi.hostedin.data.model.Cancellation;
+import com.sdi.hostedin.utils.ToastUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,7 +48,7 @@ public class RemoteCancellationsDataSource {
 
             @Override
             public void onFailure(Call<CancellationResponse> call, Throwable t) {
-                cancellationCallback.onError(t.getMessage(), "");
+                cancellationCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
             }
         });
     }

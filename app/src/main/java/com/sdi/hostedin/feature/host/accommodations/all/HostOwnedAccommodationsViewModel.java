@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sdi.hostedin.MyApplication;
+import com.sdi.hostedin.R;
 import com.sdi.hostedin.data.callbacks.AccommodationsCallback;
 import com.sdi.hostedin.data.datasource.local.DataStoreAccess;
 import com.sdi.hostedin.data.model.Accommodation;
@@ -55,13 +56,13 @@ public class HostOwnedAccommodationsViewModel extends AndroidViewModel {
 
     public void getAllHostOwnedAccommodations(){
         GetAccommodationsUseCase getAccommodationsUseCase = new GetAccommodationsUseCase();
-        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, ""));
+        requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.LOADING, getApplication().getString(R.string.messg_generic_loading)));
         String token = DataStoreAccess.accessToken(this.getApplication());
         String userId = DataStoreAccess.accessUserId(this.getApplication());
         getAccommodationsUseCase.getAlHostOwnedAccommodations(userId, token, new AccommodationsCallback() {
             @Override
             public void onSuccess(List<Accommodation> accommodations, String newToken) {
-                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, "Succes message"));
+                requestStatusMutableLiveData.setValue(new RequestStatus(RequestStatusValues.DONE, getApplication().getString(R.string.messg_acommodations)));
                 accommodationsList.setValue(accommodations);
                 if(newToken != null && !newToken.isEmpty()){
                     DataStoreAccess.saveToken(getApplication(), newToken);
