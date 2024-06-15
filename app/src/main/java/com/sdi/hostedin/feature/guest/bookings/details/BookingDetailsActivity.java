@@ -60,12 +60,12 @@ public class BookingDetailsActivity extends AppCompatActivity {
     private void handleOnPressedButton() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fgcv_book_details_fragment_container);
         if (currentFragment instanceof CancelationDetailsFragment) {
-            finish(); // Finaliza la actividad directamente
+            finish();
         } else {
             if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                getSupportFragmentManager().popBackStack(); // Regresa al fragmento anterior
+                getSupportFragmentManager().popBackStack();
             } else {
-                finish(); // No hay más fragmentos en el stack, finaliza la actividad
+                finish();
             }
         }
     }

@@ -1,6 +1,9 @@
 package com.sdi.hostedin.feature.user;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava2.RxDataStore;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -9,6 +12,8 @@ import android.view.View;
 
 import com.sdi.hostedin.MainActivity;
 import com.sdi.hostedin.R;
+import com.sdi.hostedin.data.datasource.DataStoreHelper;
+import com.sdi.hostedin.data.datasource.DataStoreManager;
 import com.sdi.hostedin.databinding.ActivityDeleteAccountBinding;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
@@ -19,6 +24,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
     public static final String USER_KEY = "user_key";
     private ActivityDeleteAccountBinding binding;
     private DeleteAccountViewModel deleteAccountViewModel;
+    private RxDataStore<Preferences> dataStoreRX;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +98,24 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
 
     private void manageSuccessDelete() {
+        savePreferences();
         ToastUtils.showShortInformationMessage(this, getString(R.string.account_deleted_successfully));
         finish();
         goToLogin();
+    }
+
+    private void savePreferences() {
+        DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
+        if (dataStoreSingleton.getDataStore() == null) {
+            dataStoreRX = new RxPreferenceDataStoreBuilder(this,"USER_DATASTORE" ).build();
+        } else {
+            dataStoreRX = dataStoreSingleton.getDataStore();
+        }
+        dataStoreSingleton.setDataStore(dataStoreRX);
+        DataStoreHelper dataStoreHelper = new DataStoreHelper(this, dataStoreRX);
+        dataStoreHelper.putBoolValue("REMEMBER", false);
+        dataStoreHelper.putStringValue("EMAIL", "");
+        dataStoreHelper.putStringValue("PASSWORD","");
     }
 
     private void goToLogin() {

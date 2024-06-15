@@ -110,7 +110,11 @@ public class RemoteUsersDataSource {
 
             @Override
             public void onFailure(Call<ResponseAuthObject> call, Throwable t) {
-                authCallback.onError(ToastUtils.getGenericErrorMessageConection());
+                try {
+                    authCallback.onError(ToastUtils.getGenericErrorMessageConection());
+                } catch (Exception e) {
+                    authCallback.onError("Hubo un problema de conexión, porfavor revisa tu conexión a red e intentalo de nuevo o mas tarde.");
+                }
             }
         });
     }
@@ -125,9 +129,9 @@ public class RemoteUsersDataSource {
                     ResponseEditAccountObject responseEditAccountObject = response.body();
                     User editedUser = responseEditAccountObject.getUser();
                     String token = "";
-                    String refreshToken = response.headers().get("Authorization");
-                    if (refreshToken != null && refreshToken.startsWith("Bearer ")) {
-                        token = refreshToken.substring(7);;
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
                     }
                     editAccountCallback.onSuccess(editedUser, token);
                 } else {
@@ -165,9 +169,10 @@ public class RemoteUsersDataSource {
                 if (response.isSuccessful()) {
                     ResponseGetUserObject responseGetUserObject = response.body();
                     User userFound = responseGetUserObject.getUser();
-                    String token = response.headers().get("Authorization");
-                    if (token != null && token.startsWith("Bearer ")) {
-                        token = token.substring(7);
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
                     }
 
                     getAccountCallback.onSuccess(userFound, token);

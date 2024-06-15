@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 
 public class CancelationDetailsFragment extends Fragment {
 
-    public static final String CANCELATION = "cancelation";
+    public static final String CANCELATION = "cancellation";
     FragmentCancelationDetailsBinding binding;
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd"); // Formato para la fecha
     private SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss"); // Formato para la hora

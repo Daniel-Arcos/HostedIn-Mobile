@@ -153,7 +153,6 @@ public class AccommodationBookingActivity extends AppCompatActivity {
                     }
                     break;
                 case ERROR:
-                    Log.d("PRUEBA", status.getMessage());
                     binding.pgbCreateBooking.setVisibility(View.GONE);
                     binding.vwLoading.setVisibility(View.GONE);
                     ToastUtils.showShortInformationMessage(this, status.getMessage());

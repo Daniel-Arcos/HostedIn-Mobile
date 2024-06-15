@@ -231,9 +231,25 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void goToLogin() {
+        savePreferences();
         finish();
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+    private void savePreferences() {
+        DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
+        if (dataStoreSingleton.getDataStore() == null) {
+            dataStoreRX = new RxPreferenceDataStoreBuilder(this,"USER_DATASTORE" ).build();
+        } else {
+            dataStoreRX = dataStoreSingleton.getDataStore();
+        }
+        dataStoreSingleton.setDataStore(dataStoreRX);
+        DataStoreHelper dataStoreHelper = new DataStoreHelper(this, dataStoreRX);
+        dataStoreHelper.putBoolValue("REMEMBER", false);
+        dataStoreHelper.putStringValue("EMAIL", "");
+        dataStoreHelper.putStringValue("PASSWORD","");
+    }
+
 }

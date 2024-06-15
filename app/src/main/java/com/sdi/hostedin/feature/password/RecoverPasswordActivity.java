@@ -32,7 +32,7 @@ public class RecoverPasswordActivity extends AppCompatActivity {
         ToastUtils.setContext(getApplicationContext());
         fragmentNumber = 1;
         setContentView(binding.getRoot());
-        binding.bttConfirmAction.setOnClickListener(v -> clicButtonConfirm());
+        binding.bttConfirmAction.setOnClickListener(v -> clickButtonConfirm());
 
         recoverPasswordViewModel = new ViewModelProvider(this, new ViewModelFactory(this.getApplication())).get(RecoverPasswordViewModel.class);
         recoverPasswordViewModel.getRequestStatusMutableLiveData().observe(this, status -> {
@@ -59,7 +59,7 @@ public class RecoverPasswordActivity extends AppCompatActivity {
         fragment.setRecoverPasswordViewModel(recoverPasswordViewModel);
     }
 
-    private void clicButtonConfirm(){
+    private void clickButtonConfirm(){
         switch (fragmentNumber){
             case 1:
                 RecoverPasswordEmailEntryFragment fragment = (RecoverPasswordEmailEntryFragment) getSupportFragmentManager().findFragmentById(binding.fgcvRecoverPasswordFragmentContainer.getId());

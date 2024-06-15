@@ -7,11 +7,23 @@
 
     </data>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_main_container"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/general_background"/>
+        android:layout_height="match_parent">
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_main_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/general_background"/>
+
+        <ProgressBar
+            android:id="@+id/pgb_login"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 
 
 </layout>

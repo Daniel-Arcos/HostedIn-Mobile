@@ -103,6 +103,7 @@ public class LoginFragment extends Fragment {
                 case DONE:
                     binding.pgbSignin.setVisibility(View.GONE);
                     binding.vwLoading.setVisibility(View.GONE);
+                    savePreferences();
                     enterToApp();
                     break;
                 case ERROR:
@@ -111,6 +112,24 @@ public class LoginFragment extends Fragment {
                     binding.vwLoading.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void savePreferences() {
+        DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
+        if (dataStoreSingleton.getDataStore() == null) {
+            dataStoreRX = new RxPreferenceDataStoreBuilder(this.getContext(),"USER_DATASTORE" ).build();
+        } else {
+            dataStoreRX = dataStoreSingleton.getDataStore();
+        }
+        dataStoreSingleton.setDataStore(dataStoreRX);
+        DataStoreHelper dataStoreHelper = new DataStoreHelper(this.getActivity(), dataStoreRX);
+        if (binding.btnRememberMe.isChecked()) {
+            dataStoreHelper.putBoolValue("REMEMBER", true);
+            dataStoreHelper.putStringValue("EMAIL", binding.etxEmail.getEditText().getText().toString());
+            dataStoreHelper.putStringValue("PASSWORD", binding.etxPassword.getEditText().getText().toString());
+        } else {
+            dataStoreHelper.putBoolValue("REMEMBER", false);
+        }
     }
 
     private boolean validateFields() {

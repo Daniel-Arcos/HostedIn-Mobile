@@ -92,7 +92,6 @@ public class RemoteAccommodationsDataSource {
                     accommodationsCallback.onSuccess(accommodations, token);
                 } else {
                     String message = "Ocurrio un error al actualizar";
-
                     String token = "";
                     String refreshToken = response.headers().get("Set-Authorization");
                     if (refreshToken != null) {
@@ -269,9 +268,10 @@ public class RemoteAccommodationsDataSource {
                     ResponseAccommodationObject responseAccommodationObject = response.body();
                     Accommodation accommodationSaved = new Accommodation();
                     accommodationSaved = responseAccommodationObject.getAccommodation();
-                    String token = response.headers().get("Authorization");
-                    if (token != null && token.startsWith("Bearer ")) {
-                        token = token.substring(7);
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
                     }
 
                     accommodationCallback.onSuccess(accommodationSaved, response.message(), token);
@@ -315,9 +315,10 @@ public class RemoteAccommodationsDataSource {
                 if (response.isSuccessful()) {
                     ResponseAccommodationObject responseAccommodationObject = response.body();
                     Accommodation accommodationSaved = responseAccommodationObject.getAccommodation();
-                    String token = response.headers().get("Authorization");
-                    if (token != null && token.startsWith("Bearer ")) {
-                        token = token.substring(7);
+                    String token = "";
+                    String refreshToken = response.headers().get("Set-Authorization");
+                    if (refreshToken != null) {
+                        token = refreshToken;
                     }
                     accommodationCallback.onSuccess(accommodationSaved, response.message(),token);
                 } else {
