@@ -8,7 +8,7 @@ import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseDelete
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseEditAccountObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetUserObject;
 import com.sdi.hostedin.data.model.User;
-import com.sdi.hostedin.utils.ToastUtils;
+import com.sdi.hostedin.utils.ErrorMessagesHandler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,7 +73,7 @@ public class RemoteUsersDataSource {
 
             @Override
             public void onFailure(Call<ResponseAuthObject> call, Throwable t) {
-                authCallback.onError(ToastUtils.getGenericErrorMessageConection());
+                authCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection());
             }
         });
     }
@@ -111,7 +111,7 @@ public class RemoteUsersDataSource {
             @Override
             public void onFailure(Call<ResponseAuthObject> call, Throwable t) {
                 try {
-                    authCallback.onError(ToastUtils.getGenericErrorMessageConection());
+                    authCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection());
                 } catch (Exception e) {
                     authCallback.onError("Hubo un problema de conexión, porfavor revisa tu conexión a red e intentalo de nuevo o mas tarde.");
                 }
@@ -135,7 +135,7 @@ public class RemoteUsersDataSource {
                     }
                     editAccountCallback.onSuccess(editedUser, token);
                 } else {
-                    String message = "Ocurrio un error al actualizar";
+                    String message = ErrorMessagesHandler.getErrorUpdatingUserProfile();
 
                     if (response.errorBody() != null) {
                         try {
@@ -155,7 +155,7 @@ public class RemoteUsersDataSource {
 
             @Override
             public void onFailure(Call<ResponseEditAccountObject> call, Throwable t) {
-                editAccountCallback.onError(ToastUtils.getGenericErrorMessageConection());
+                editAccountCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection());
             }
         });
     }
@@ -177,7 +177,7 @@ public class RemoteUsersDataSource {
 
                     getAccountCallback.onSuccess(userFound, token);
                 } else {
-                    String message = "Ocurrio un error";
+                    String message = ErrorMessagesHandler.getGenericErrorMessageConnection();
 
                     if (response.errorBody() != null) {
                         try {
@@ -197,7 +197,7 @@ public class RemoteUsersDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetUserObject> call, Throwable t) {
-                getAccountCallback.onError(ToastUtils.getGenericErrorMessageConection());
+                getAccountCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection());
             }
         });
     }
@@ -214,7 +214,7 @@ public class RemoteUsersDataSource {
 
                     deleteAccountCallback.onSuccess(userId);
                 } else {
-                    String message = "Ocurrio un error";
+                    String message = ErrorMessagesHandler.getErrorDeletingUserProfile();
 
                     if (response.errorBody() != null) {
                         try {
@@ -234,7 +234,7 @@ public class RemoteUsersDataSource {
 
             @Override
             public void onFailure(Call<ResponseDeleteAccountObject> call, Throwable t) {
-                deleteAccountCallback.onError(ToastUtils.getGenericErrorMessageConection());
+                deleteAccountCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection());
             }
         });
     }

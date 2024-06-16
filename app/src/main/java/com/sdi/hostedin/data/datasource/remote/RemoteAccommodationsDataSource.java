@@ -17,7 +17,7 @@ import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGuestB
 import com.sdi.hostedin.data.model.Accommodation;
 import com.sdi.hostedin.data.model.BookedAccommodation;
 import com.sdi.hostedin.data.model.GuestBooking;
-import com.sdi.hostedin.utils.ToastUtils;
+import com.sdi.hostedin.utils.ErrorMessagesHandler;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,9 @@ public class RemoteAccommodationsDataSource {
                     if (refreshToken != null) {
                         token = refreshToken;
                     }
-                    String message = "Ocurrio un error al actualizar";
+
+                    String message = ErrorMessagesHandler.getErrorLoadingAccommodations();
+
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
@@ -70,7 +72,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+                accommodationsCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
         });
     }
@@ -91,7 +93,7 @@ public class RemoteAccommodationsDataSource {
                     }
                     accommodationsCallback.onSuccess(accommodations, token);
                 } else {
-                    String message = "Ocurrio un error al actualizar";
+                    String message = ErrorMessagesHandler.getErrorLoadingAccommodations();
                     String token = "";
                     String refreshToken = response.headers().get("Set-Authorization");
                     if (refreshToken != null) {
@@ -115,7 +117,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+                accommodationsCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
         });
     }
@@ -137,7 +139,7 @@ public class RemoteAccommodationsDataSource {
                     }
                     accommodationsCallback.onSuccess(accommodations, token);
                 } else {
-                    String message = "Ocurrio un error al actualizar";
+                    String message = ErrorMessagesHandler.getErrorLoadingAccommodations();
 
                     String token = "";
                     String refreshToken = response.headers().get("Set-Authorization");
@@ -162,7 +164,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), token);
+                accommodationsCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), token);
             }
         });
     }
@@ -182,7 +184,7 @@ public class RemoteAccommodationsDataSource {
                     accommodationsCallback.onSuccess(accommodations, token);
                 }
                 else{
-                    String message = "Ocurrio un error al recuperar los alojamiento";
+                    String message = ErrorMessagesHandler.getErrorLoadingAccommodations();
 
                     String token = "";
                     String refreshToken = response.headers().get("Set-Authorization");
@@ -207,7 +209,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseBookedAccommodation> call, Throwable t) {
-                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+                accommodationsCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
         });
     }
@@ -227,7 +229,7 @@ public class RemoteAccommodationsDataSource {
                     accommodationsCallback.onSuccess(responseGetAccommodationsObject, token);
                 }
                 else{
-                    String message = "Ocurrio un error al recuperar los alojamiento";
+                    String message = ErrorMessagesHandler.getErrorLoadingAccommodations();
 
                     String token = "";
                     String refreshToken = response.headers().get("Set-Authorization");
@@ -253,7 +255,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGuestBookedAccommodations> call, Throwable t) {
-                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+                accommodationsCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
         });
     }
@@ -276,7 +278,7 @@ public class RemoteAccommodationsDataSource {
 
                     accommodationCallback.onSuccess(accommodationSaved, response.message(), token);
                 } else {
-                    String message = "Ocurrio un error al actualizar";
+                    String message = ErrorMessagesHandler.getErrorCreatingAccommodation();
 
                     String token = "";
                     String refreshToken = response.headers().get("Set-Authorization");
@@ -301,7 +303,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseAccommodationObject> call, Throwable t) {
-               accommodationCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+               accommodationCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
         });
     }
@@ -322,7 +324,7 @@ public class RemoteAccommodationsDataSource {
                     }
                     accommodationCallback.onSuccess(accommodationSaved, response.message(),token);
                 } else {
-                    String message = "Ocurrio un error al actualizar";
+                    String message = ErrorMessagesHandler.getErrorCreatingAccommodation();
                     String token = "";
                     String refreshToken = response.headers().get("Set-Authorization");
                     if (refreshToken != null) {
@@ -345,7 +347,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseAccommodationObject> call, Throwable t) {
-                accommodationCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+                accommodationCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
         });
     }
@@ -370,7 +372,7 @@ public class RemoteAccommodationsDataSource {
                         token = refreshToken;
                     }
 
-                    String message = "Ocurrio un error al recuperar los alojamientos";
+                    String message = ErrorMessagesHandler.getErrorLoadingAccommodations();
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
@@ -388,7 +390,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetAccommodationsObject> call, Throwable t) {
-                accommodationsCallback.onError(ToastUtils.getGenericErrorMessageConection(), token);
+                accommodationsCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), token);
             }
         });
     }
@@ -407,7 +409,8 @@ public class RemoteAccommodationsDataSource {
                     passwordCodeCallback.onSucces(token);
                 }
                 else{
-                    String message = "Ocurrio un error al recuperar los alojamientos";
+                    String message = ErrorMessagesHandler.getGenericErrorMessageConnection();
+
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
@@ -425,7 +428,7 @@ public class RemoteAccommodationsDataSource {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                passwordCodeCallback.onError(ToastUtils.getGenericErrorMessageConection());
+                passwordCodeCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection());
             }
         });
     }

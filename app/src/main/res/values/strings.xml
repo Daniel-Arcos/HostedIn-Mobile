@@ -316,8 +316,20 @@
     <string name="header_best_acco">Best qualified accommodations</string>
     <string name="header_monthly_earns">Monthly income</string>
     <string name="tag_earnings">Earnings</string>
-    <string name="messg_generic_error_connection">There was a conection problem, please check your network and try again or later on.</string>
+    <string name="messg_generic_error_connection">There was a connection problem, please check your network and try again or later on.</string>
     <string name="this_field_can_not_be_empty">This field cannot be empty</string>
     <string name="password_updated_successfully">Password updated successfully</string>
     <string name="remember_me">Remember me</string>
+    <string name="messg_error_loading_acc">There was an error loading the accommodations, please try again or later.</string>
+    <string name="messg_error_create_acco">There was a problem saving the accommodation, please try again or later.</string>
+    <string name="messg_error_get_bookings">There was an error loading the bookings, please try again or later.</string>
+    <string name="messg_error_creating_booking">There was problem while saving the booking, please try again or later.</string>
+    <string name="messg_error_creating_cancelation">There was a problem while cancelling the booking, please try again or later.</string>
+    <string name="messg_error_send_code">There was a problem sending the code, please try again or later.</string>
+    <string name="messg_error_verify_code">There was a problem while verifying the code, please try again or later.</string>
+    <string name="messg_error_update_passw">There was a problem updating the password, please try again or later.</string>
+    <string name="messg_error_create_review">There was a problem while saving the review, please try again or later.</string>
+    <string name="messg_error_loading_review">There was a problem loading the reviews, please try again or later..</string>
+    <string name="messg_error_update_profile">There was a problem updating your user profile, please try again or later.</string>
+    <string name="messg_error_delete_profile">There was a problem deleting your user profile, please try again or later.</string>
 </resources>

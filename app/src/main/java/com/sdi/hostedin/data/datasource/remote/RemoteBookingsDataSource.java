@@ -9,7 +9,7 @@ import com.sdi.hostedin.data.datasource.apiclient.moshiconverters.MoshiConverter
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseBookingsListObject;
 import com.sdi.hostedin.data.model.Booking;
-import com.sdi.hostedin.utils.ToastUtils;
+import com.sdi.hostedin.utils.ErrorMessagesHandler;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class RemoteBookingsDataSource {
                     }
                     bookingsListCallback.onSuccess(bookings, token);
                 } else {
-                    String message = "Ocurrio un error al recuperar las reservaciones";
+                    String message = ErrorMessagesHandler.getErrorLoadingBookings();
 
                     String token = "";
                     String refreshToken = response.headers().get("Set-Authorization");
@@ -62,7 +62,7 @@ public class RemoteBookingsDataSource {
 
             @Override
             public void onFailure(Call<ResponseBookingsListObject> call, Throwable t) {
-                bookingsListCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+                bookingsListCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
         });
     }
@@ -85,7 +85,7 @@ public class RemoteBookingsDataSource {
 
                     bookingCallback.onSuccess(bookingSaved, token);
                 } else {
-                    String message = "Ocurrio un error al registrar la reservacion";
+                    String message = ErrorMessagesHandler.getErrorMessageCreatingBooking();
 
                     String token = response.headers().get("Authorization");
                     if (token != null && token.startsWith("Bearer ")) {
@@ -110,7 +110,7 @@ public class RemoteBookingsDataSource {
 
             @Override
             public void onFailure(Call<ResponseBookingObject> call, Throwable t) {
-                bookingCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+                bookingCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
         });
     }
