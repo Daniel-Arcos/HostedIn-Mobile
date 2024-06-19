@@ -22,7 +22,6 @@ import com.sdi.hostedin.feature.host.HostMainActivity;
 import com.sdi.hostedin.feature.login.LoginFragment;
 import com.sdi.hostedin.utils.DateFormatterUtils;
 import com.sdi.hostedin.utils.DatePickerConfigurator;
-import com.sdi.hostedin.utils.ErrorMessagesHandler;
 import com.sdi.hostedin.utils.TextChangedListener;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
@@ -57,7 +56,6 @@ public class SignupFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ErrorMessagesHandler.setContext(getContext());
     }
 
     @Override

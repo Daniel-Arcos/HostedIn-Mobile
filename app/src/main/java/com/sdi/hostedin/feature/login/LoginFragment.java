@@ -24,7 +24,6 @@ import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.host.HostMainActivity;
 import com.sdi.hostedin.feature.password.RecoverPasswordActivity;
 import com.sdi.hostedin.feature.signup.SignupFragment;
-import com.sdi.hostedin.utils.ErrorMessagesHandler;
 import com.sdi.hostedin.utils.TextChangedListener;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
@@ -53,8 +52,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ErrorMessagesHandler.setContext(getContext());
-
     }
 
     @Override

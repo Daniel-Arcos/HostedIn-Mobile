@@ -330,5 +330,6 @@
     <string name="messg_error_loading_review">Hubo un problema al cargar las reseñas, porfavor intentalo de nuevo o mas tarde.</string>
     <string name="messg_error_update_profile">Hubo un problema al actulizar su perfil de usuario, porfavor intentalo de nuevo o mas tarde.</string>
     <string name="messg_error_delete_profile">Hubo un problema al eliminar su perfil de usuario, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_create_review">Reseña creada exitosamente.</string>
 
 </resources>

@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.sdi.hostedin.MainActivity;
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.ActivityRecoverPasswordBinding;
-import com.sdi.hostedin.utils.ErrorMessagesHandler;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
@@ -30,7 +29,6 @@ public class RecoverPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRecoverPasswordBinding.inflate(getLayoutInflater());
-        ErrorMessagesHandler.setContext(getApplicationContext());
         fragmentNumber = 1;
         setContentView(binding.getRoot());
         binding.bttConfirmAction.setOnClickListener(v -> clickButtonConfirm());

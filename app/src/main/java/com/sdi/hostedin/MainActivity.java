@@ -1,16 +1,14 @@
 package com.sdi.hostedin;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.datastore.preferences.core.Preferences;
-import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
-import androidx.datastore.rxjava2.RxDataStore;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava2.RxDataStore;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.sdi.hostedin.data.datasource.DataStoreHelper;
@@ -21,6 +19,7 @@ import com.sdi.hostedin.feature.guest.GuestMainActivity;
 import com.sdi.hostedin.feature.host.HostMainActivity;
 import com.sdi.hostedin.feature.login.LoginFragment;
 import com.sdi.hostedin.feature.login.SigninViewModel;
+import com.sdi.hostedin.utils.ErrorMessagesHandler;
 import com.sdi.hostedin.utils.ToastUtils;
 import com.sdi.hostedin.utils.ViewModelFactory;
 
@@ -36,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         super.onCreate(savedInstanceState);
+
+        ErrorMessagesHandler.setContext(getApplicationContext());
         signinViewModel =
                 new ViewModelProvider(this, new ViewModelFactory(this.getApplication())).get(SigninViewModel.class);
         DataStoreManager dataStoreSingleton = DataStoreManager.getInstance();
