@@ -94,19 +94,23 @@ public class GuestBookingsFragment extends Fragment  {
     }
 
     private void getCurrentBookings() {
-        guestBookingsViewModel.getCurrentAccView().setValue(true);
-        adapter.setShowButton(false);
-        binding.bttOlds.setBackgroundColor(Color.LTGRAY);
-        binding.bttCurrents.setBackgroundColor(Color.BLUE);
-        guestBookingsViewModel.getCurrentBookedAccommodations();
+        if(!binding.swiperefresh.isRefreshing()){
+            guestBookingsViewModel.getCurrentAccView().setValue(true);
+            adapter.setShowButton(false);
+            binding.bttOlds.setBackgroundColor(Color.LTGRAY);
+            binding.bttCurrents.setBackgroundColor(Color.BLUE);
+            guestBookingsViewModel.getCurrentBookedAccommodations();
+        }
     }
 
     private void getOldBookings() {
-        guestBookingsViewModel.getCurrentAccView().setValue(false);
-        adapter.setShowButton(true);
-        binding.bttCurrents.setBackgroundColor(Color.LTGRAY);
-        binding.bttOlds.setBackgroundColor(Color.BLUE);
-        guestBookingsViewModel.getOverDueBookedAccommodations();
+        if(!binding.swiperefresh.isRefreshing()){
+            guestBookingsViewModel.getCurrentAccView().setValue(false);
+            adapter.setShowButton(true);
+            binding.bttCurrents.setBackgroundColor(Color.LTGRAY);
+            binding.bttOlds.setBackgroundColor(Color.BLUE);
+            guestBookingsViewModel.getOverDueBookedAccommodations();
+        }
     }
 
     private void rateAccommodation(GuestBooking booking) {
