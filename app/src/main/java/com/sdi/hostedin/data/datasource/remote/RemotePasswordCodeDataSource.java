@@ -6,7 +6,7 @@ import com.sdi.hostedin.data.callbacks.PasswordCodeCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.model.GenericSingleString;
 import com.sdi.hostedin.data.model.NewPasswordRecovery;
-import com.sdi.hostedin.utils.ToastUtils;
+import com.sdi.hostedin.utils.ErrorMessagesHandler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,23 +29,24 @@ public class RemotePasswordCodeDataSource {
                     sendPasswordCodeCallback.onSucces("Email sent successfully");
                 }
                 else{
+                    String message = ErrorMessagesHandler.getErrorMessageSendingCode();
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
                             JsonParser jsonParser = new JsonParser();
                             JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
-                            String message = jsonObject.get("message").getAsString();
-                            sendPasswordCodeCallback.onError(message);
+                            message = jsonObject.get("message").getAsString();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
+                    sendPasswordCodeCallback.onError(message);
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                sendPasswordCodeCallback.onError(ToastUtils.getGenericErrorMessageConection());
+                sendPasswordCodeCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection());
             }
         });
     }
@@ -63,23 +64,25 @@ public class RemotePasswordCodeDataSource {
                     verifyPasswordCode.onSucces(token);
                 }
                 else{
+                    String message = ErrorMessagesHandler.getErrorVerifyingCode();
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
                             JsonParser jsonParser = new JsonParser();
                             JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
-                            String message = jsonObject.get("message").getAsString();
-                            verifyPasswordCode.onError(message);
+                            message = jsonObject.get("message").getAsString();
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
+                    verifyPasswordCode.onError(message);
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                verifyPasswordCode.onError(ToastUtils.getGenericErrorMessageConection());
+                verifyPasswordCode.onError(ErrorMessagesHandler.getGenericErrorMessageConnection());
             }
         });
     }
@@ -93,22 +96,23 @@ public class RemotePasswordCodeDataSource {
                     newPassWordCallBack.onSucces(response.message());
                 }
                 else{
+                    String message = ErrorMessagesHandler.getErrorUpdatingPassword();
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
                             JsonParser jsonParser = new JsonParser();
                             JsonObject jsonObject = jsonParser.parse(errorString).getAsJsonObject();
-                            String message = jsonObject.get("message").getAsString();
-                            newPassWordCallBack.onError(message);
+                            message = jsonObject.get("message").getAsString();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
+                    newPassWordCallBack.onError(message);
                 }
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                newPassWordCallBack.onError(ToastUtils.getGenericErrorMessageConection());
+                newPassWordCallBack.onError(ErrorMessagesHandler.getGenericErrorMessageConnection());
             }
         });
     }

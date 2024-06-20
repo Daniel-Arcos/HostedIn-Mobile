@@ -6,7 +6,7 @@ import com.sdi.hostedin.data.callbacks.CancellationCallback;
 import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.CancellationResponse;
 import com.sdi.hostedin.data.model.Cancellation;
-import com.sdi.hostedin.utils.ToastUtils;
+import com.sdi.hostedin.utils.ErrorMessagesHandler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +30,7 @@ public class RemoteCancellationsDataSource {
                 if (response.isSuccessful()) {
                     cancellationCallback.onSuccess(response.body().getCancellation(), token);
                 } else {
-                    String message = "Ocurrio un error al cancelar la reservacion";
+                    String message = ErrorMessagesHandler.getErrorMessageCreatingCancellation();
                     if (response.errorBody() != null) {
                         try {
                             String errorString = response.errorBody().string();
@@ -48,7 +48,7 @@ public class RemoteCancellationsDataSource {
 
             @Override
             public void onFailure(Call<CancellationResponse> call, Throwable t) {
-                cancellationCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+                cancellationCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
         });
     }

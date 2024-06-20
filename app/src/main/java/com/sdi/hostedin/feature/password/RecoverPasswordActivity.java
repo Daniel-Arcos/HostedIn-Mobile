@@ -29,7 +29,6 @@ public class RecoverPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRecoverPasswordBinding.inflate(getLayoutInflater());
-        ToastUtils.setContext(getApplicationContext());
         fragmentNumber = 1;
         setContentView(binding.getRoot());
         binding.bttConfirmAction.setOnClickListener(v -> clickButtonConfirm());

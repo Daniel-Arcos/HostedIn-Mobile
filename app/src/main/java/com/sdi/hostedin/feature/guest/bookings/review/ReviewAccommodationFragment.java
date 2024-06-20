@@ -60,6 +60,7 @@ public class ReviewAccommodationFragment extends DialogFragment {
     }
 
     private void CloseDialogFragment(View view) {
+        reviewAccommodationViewModel.getShowFirstTime().setValue(false);
         this.dismiss();
     }
 
@@ -89,6 +90,7 @@ public class ReviewAccommodationFragment extends DialogFragment {
     }
 
     private void savedNewReview(){
+        reviewAccommodationViewModel.getShowFirstTime().setValue(true);
         Review review = new Review();
         User user = new User();
         review.setAccommodation(accommodationId);
@@ -107,13 +109,20 @@ public class ReviewAccommodationFragment extends DialogFragment {
                     break;
                 case DONE:
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
-                    ToastUtils.showShortInformationMessage(this.getContext(),status.getMessage());
+                    if(Boolean.TRUE.equals(reviewAccommodationViewModel.getShowFirstTime().getValue())) {
+                        ToastUtils.showShortInformationMessage(this.getContext(),status.getMessage());
+                        CloseDialogFragment(getView());
+                    }
                     break;
                 case ERROR:
                     binding.pgbLoadingWheel.setVisibility(View.GONE);
-                    ToastUtils.showShortInformationMessage(this.getContext(),status.getMessage());
+                    if(Boolean.TRUE.equals(reviewAccommodationViewModel.getShowFirstTime().getValue())) {
+                        ToastUtils.showShortInformationMessage(this.getContext(), status.getMessage());
+                    }
             }
         });
+
+
     }
 
 }

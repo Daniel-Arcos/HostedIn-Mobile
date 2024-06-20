@@ -231,7 +231,7 @@
     <string name="still_no_bookings">No tienes alojamientos reservados, publica uno o espera a que alguien reserve uno</string>
     <string name="recuperar_contrase_a">Recuperar contraseña</string>
     <string name="confir_email">Confirmar email</string>
-    <string name="bookings_title">Reservacione</string>
+    <string name="bookings_title">Reservaciones</string>
     <string name="booking_detail_guest_header">Hablanos de tu experencia en </string>
     <string name="begining_date">Fecha de inicio</string>
     <string name="ending_date">Fecha de fin</string>
@@ -318,5 +318,18 @@
     <string name="this_field_can_not_be_empty">Este campo no puede estar vacio</string>
     <string name="password_updated_successfully">Contraseña actualizada exitosamente</string>
     <string name="remember_me">Recordarme</string>
+    <string name="messg_error_loading_acc">Hubo un error al cargar los alojamientos, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_create_acco">Hubo un problema al guardar el alojamiento, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_get_bookings">Hubo un probelma al cargar las reservaciones, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_creating_booking">Hubo un problmea al guardar la reservación, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_creating_cancelation">Hubo un problema al cancelar la reservación, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_send_code">Hubo un problema al enviar el código, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_verify_code">Hubo un priblema al verificar el código, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_update_passw">Hubo un probelma al actulizar la contraseña, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_create_review">Hubo un problema al guardar la reseña, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_loading_review">Hubo un problema al cargar las reseñas, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_update_profile">Hubo un problema al actulizar su perfil de usuario, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_error_delete_profile">Hubo un problema al eliminar su perfil de usuario, porfavor intentalo de nuevo o mas tarde.</string>
+    <string name="messg_create_review">Reseña creada exitosamente.</string>
 
 </resources>

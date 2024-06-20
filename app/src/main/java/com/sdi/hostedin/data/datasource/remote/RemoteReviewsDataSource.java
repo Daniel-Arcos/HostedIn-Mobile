@@ -9,7 +9,7 @@ import com.sdi.hostedin.data.datasource.apiclient.ApiClient;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseGetReviewsObject;
 import com.sdi.hostedin.data.datasource.apiclient.responseobjects.ResponseReviewObject;
 import com.sdi.hostedin.data.model.Review;
-import com.sdi.hostedin.utils.ToastUtils;
+import com.sdi.hostedin.utils.ErrorMessagesHandler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +34,7 @@ public class RemoteReviewsDataSource {
                     }
                     reviewCallback.onSuccess(response.body().getReview(), token);
                 } else {
-                    String message = "Ocurrio un error al guardar la review";
+                    String message = ErrorMessagesHandler.getErrorMessageCreateReview();
 
                     String token = "";
                     String refreshToken = response.headers().get("Set-Authorization");
@@ -59,7 +59,7 @@ public class RemoteReviewsDataSource {
 
             @Override
             public void onFailure(Call<ResponseReviewObject> call, Throwable t) {
-                reviewCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+                reviewCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
 
         });
@@ -81,7 +81,7 @@ public class RemoteReviewsDataSource {
 
                     reviewsCallback.onSuccess(responseGetReviewsObject.getReviews(), token);
                 } else {
-                    String message = "Ocurrio un error al recuperar las reseñas";
+                    String message = ErrorMessagesHandler.getErrorMessageLoadingReviews();
 
                     String token = response.headers().get("Authorization");
                     if (token != null && token.startsWith("Bearer ")) {
@@ -105,7 +105,7 @@ public class RemoteReviewsDataSource {
 
             @Override
             public void onFailure(Call<ResponseGetReviewsObject> call, Throwable t) {
-                reviewsCallback.onError(ToastUtils.getGenericErrorMessageConection(), "");
+                reviewsCallback.onError(ErrorMessagesHandler.getGenericErrorMessageConnection(), "");
             }
         });
     }

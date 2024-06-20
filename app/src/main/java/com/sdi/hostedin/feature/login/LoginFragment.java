@@ -52,8 +52,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ToastUtils.setContext(getContext());
-
     }
 
     @Override
