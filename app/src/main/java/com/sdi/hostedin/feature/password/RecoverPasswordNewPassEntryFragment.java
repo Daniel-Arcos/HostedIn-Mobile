@@ -10,12 +10,17 @@ import androidx.fragment.app.Fragment;
 
 import com.sdi.hostedin.R;
 import com.sdi.hostedin.databinding.FragmentRecoverPasswordNewPassEntryBinding;
+import com.sdi.hostedin.utils.ToastUtils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class RecoverPasswordNewPassEntryFragment extends Fragment {
 
 
     private RecoverPasswordViewModel recoverPasswordViewModel;
+    private String REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()]).{8,}$";
 
     private FragmentRecoverPasswordNewPassEntryBinding binding;
     public RecoverPasswordNewPassEntryFragment() {
@@ -44,7 +49,16 @@ public class RecoverPasswordNewPassEntryFragment extends Fragment {
 
     public boolean validatePassword(){
         String password = binding.etxNewPassword.getEditText().getText().toString();
-        return !password.isEmpty();
+
+        boolean validPassword = true;
+        Pattern pattern = Pattern.compile(REGEX);
+        Matcher matcher = pattern.matcher(password);
+
+        if (!matcher.matches()) {
+            validPassword = false;
+            ToastUtils.showShortInformationMessage(getContext(), getContext().getString(R.string.password_rules));
+        }
+        return validPassword;
     }
 
     public void changePassword(String email, String token){
