@@ -73,7 +73,7 @@
     <string name="confirm_new_password">Confirmar contraseña nueva</string>
     <string name="new_passwords_dont_match">Las contraseñas no coinciden</string>
     <string name="save_new_password">Guardar contraseña nueva</string>
-    <string name="password_rules">Mínimo 8 caracteres, una letra minúscula, mayúscula y un número.</string>
+    <string name="password_rules">Mínimo 8 caracteres, una letra minúscula, mayúscula, un carácter especial y un número.</string>
     <string name="password_cannot_be_the_same">La contraseña nueva no puede ser igual a la anterior.</string>
     <string name="user_is_null">El usuario viene nulo</string>
     <string name="edit_profile_photo_description">Editar foto</string>
@@ -244,9 +244,9 @@
     <string name="services_tag">Servicios</string>
     <string name="delete_tag">Eliminar</string>
     <string name="edit_acco_form_header">!Hola, vamos a editar\n tu publicación</string>
-    <string name="geust_bookings_list_header">!Hola! estos son tus planes para tus vacaiones</string>
-    <string name="no_guest_booked_acco">No tienes alojamientos reservado, ve y reserva uno</string>
-    <string name="owned_acco_header">Que genial verte de nuevo, estos son tus alojamientos, ¿Qué quieres hacer?</string>
+    <string name="geust_bookings_list_header">¡Hola, estos son tus planes para tus vacaciones!</string>
+    <string name="no_guest_booked_acco">No tienes alojamientos reservados, ve y reserva uno</string>
+    <string name="owned_acco_header">Que genial verte de nuevo, estos son tus alojamientos, ¿qué quieres hacer?</string>
     <string name="no_owned_acco">No tienes alojamientos tadavia, publica uno para empezar.</string>
     <string name="creat_publication">Crear publicación</string>
     <string name="code_entry_header">Ingresa el codigo de verificación que se te envio por correo.</string>
@@ -262,7 +262,7 @@
     <string name="hint_pictures_and_video">Fotos y video</string>
     <string name="hint_title_description_and_price">Titulo, descripción y precio.</string>
     <string name="watch_out">Cuidado!!</string>
-    <string name="confirm_acco_delete_question">¿Estas seguro que deseas borrar tu alojamiento?, esta acción no se puede revertir</string>
+    <string name="confirm_acco_delete_question">¿Estas seguro que deseas borrar tu alojamiento? Esta acción no se puede revertir</string>
     <string name="yes_delete">Si, borrar</string>
     <string name="no_cancel">No, cancelar</string>
     <string name="watch_map">Ver mapa</string>
@@ -281,7 +281,7 @@
     <string name="hint_cancelled">Cancelada</string>
     <string name="wait_for_multimedia">Espera a que la multimedia cargue</string>
     <string name="acco_updated" >El alojamiento fue actualizado correctamente.</string>
-    <string name="recover_multimedia">Recuperando los archivos multimedia, porfavor espere un momento</string>
+    <string name="recover_multimedia">Recuperando los archivos multimedia, por favor espere un momento</string>
     <string name="multimedia_saved">Multimedia guardada</string>
     <string name="error_uploading_multimedia">Error al subir la multimedia. Puedes editarlo más tarde</string>
     <string name="error_trying_upload_multimedia">Error al intentar guardar la multimedia</string>
@@ -310,8 +310,8 @@
     <string name="messg_enter_newPassword">Ingresa tu nueva contraseña</string>
     <string name="btt_confirm_code">Confirmar código</string>
     <string name="btt_confirm_password">Confirmar contraseña</string>
-    <string name="header_most_booked_acco">ALojamientos mas reservados</string>
-    <string name="header_best_acco">ALojamiento mejor calificados</string>
+    <string name="header_most_booked_acco">Alojamientos mas reservados</string>
+    <string name="header_best_acco">Alojamiento mejor calificados</string>
     <string name="header_monthly_earns">Ingresos mensuales</string>
     <string name="tag_earnings">Ganacias</string>
     <string name="messg_generic_error_connection">Hubo un problema de conexión, porfavor revisa tu conexión a red e intentalo de nuevo o mas tarde.</string>

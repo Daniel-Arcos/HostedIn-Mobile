@@ -74,7 +74,7 @@
     <string name="confirm_new_password">Confirm new password</string>
     <string name="new_passwords_dont_match">Passwords do not match</string>
     <string name="save_new_password">Save new password</string>
-    <string name="password_rules">Minimum 8 characters, one lowercase letter, one uppercase letter and one number</string>
+    <string name="password_rules">Minimum 8 characters, one lowercase letter, one uppercase letter, a special character and one number</string>
     <string name="password_cannot_be_the_same">The new password cannot be the same as the old one</string>
     <string name="user_is_null">User comes null</string>
     <string name="edit_profile_photo_description">Edit photo</string>

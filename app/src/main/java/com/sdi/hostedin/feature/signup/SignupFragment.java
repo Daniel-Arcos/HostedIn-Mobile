@@ -42,7 +42,8 @@ public class SignupFragment extends Fragment {
     private FragmentSignupBinding binding;
     private SignupViewModel signupViewModel;
     private RxDataStore<Preferences> dataStoreRX;
-    private String REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$";
+    private String REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()]).{8,}$";
+
 
     public SignupFragment() {
         // Required empty public constructor

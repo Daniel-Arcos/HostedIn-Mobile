@@ -113,7 +113,7 @@ public class RemoteUsersDataSource {
                 try {
                     authCallback.onError(ToastUtils.getGenericErrorMessageConection());
                 } catch (Exception e) {
-                    authCallback.onError("Hubo un problema de conexión, porfavor revisa tu conexión a red e intentalo de nuevo o mas tarde.");
+                    authCallback.onError("Hubo un problema de conexión, por favor revisa tu conexión a red e intentalo de nuevo o mas tarde.");
                 }
             }
         });
